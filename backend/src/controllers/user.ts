@@ -19,7 +19,7 @@ import {
 import { UserUpdate, UserUpdateSchema } from "../schema/UserUpdate";
 import { ResultSetHeader, RowDataPacket } from "mysql2";
 import { saveToActionLog } from "../service/admin.service";
-import { login } from "../helpers/login";
+import { LoginError, login } from "../helpers/login";
 import { getUser } from "../helpers/user";
 import { Account, Role, User } from "../types/account_info.types";
 import { PaginationParams } from "../types/params";
@@ -37,6 +37,7 @@ import {
   ChangePassword,
   ChangePasswordSchema,
 } from "../schema/ChangePassword";
+import { setAuthCookies } from "../helpers/cookie";
 
 const PASSWORD_RESET_PROOF_TTL_MINUTES = 10;
 
@@ -86,7 +87,9 @@ export async function createUser(
     );
 
     // auto login the user after creating the account
-    await login(connection, user.email, user.password, req, res);
+    const loginResult = await login(connection, user.email, user.password);
+    req.user = loginResult.user;
+    setAuthCookies(res, loginResult.authToken, loginResult.refreshToken);
 
     // commit the data if all queries are success
     await connection.commit();
@@ -96,8 +99,6 @@ export async function createUser(
   } catch (error: unknown) {
     // if there was an error, the query will rollback and won't save the previous query before error
     await connection.rollback();
-
-    console.log(error);
 
     // check if zod error
     if (error instanceof z.ZodError) {
@@ -110,6 +111,13 @@ export async function createUser(
       res.status(422).json({ errors: [{ message: "Email is already taken" }] });
       return;
     }
+
+    if (error instanceof LoginError) {
+      res.status(error.statusCode).json(error.responseBody);
+      return;
+    }
+
+    console.log(error);
 
     // throw server error if it's not zod error
     throwServerError(res);
@@ -562,7 +570,7 @@ export async function requestVerificationCode(
     const now = dayjs();
 
     // check if a recent verification code exists (less than 2 minute ago)
-    const [existingRecords] = await pool.query<RowDataPacket[]>(
+    const [existingRecords] = await connection.query<RowDataPacket[]>(
       "SELECT * FROM email_verification_code WHERE email = ? AND type = ?",
       [email, type]
     );
@@ -592,12 +600,13 @@ export async function requestVerificationCode(
 
     if (type === "forgot-password") {
       // check if the email exists in the account table
-      const [account] = await pool.query<RowDataPacket[]>(
+      const [account] = await connection.query<RowDataPacket[]>(
         "SELECT * FROM account WHERE email = ?",
         [email]
       );
 
       if (account.length <= 0) {
+        await connection.rollback();
         res.status(404).json({
           errors: [{ message: "Email doesn't exist" }],
         });
@@ -614,13 +623,13 @@ export async function requestVerificationCode(
 
     if (existingRecords.length > 0) {
       // update if already exists
-      await pool.query<ResultSetHeader>(
+      await connection.query<ResultSetHeader>(
         "UPDATE email_verification_code SET code = ?, expires_at = ?, created_at = NOW() WHERE email = ? AND type = ?",
         [hashedCode, expires_at, email, type]
       );
     } else {
       // insert if not existing
-      await pool.query<ResultSetHeader>(
+      await connection.query<ResultSetHeader>(
         "INSERT INTO email_verification_code (email, type, code, expires_at) VALUES (?, ?, ?, ?)",
         [email, type, hashedCode, expires_at]
       );
@@ -663,7 +672,19 @@ export async function verifyVerificationCode(
       [email, type]
     );
 
-    if (result.length <= 0 || !comparePassword(code, result[0].code)) {
+    if (result.length <= 0) {
+      throw new ZodError([
+        {
+          code: "custom",
+          message: "Verification code is invalid.",
+          path: [],
+        },
+      ]);
+    }
+
+    const verificationRecord = result[0];
+
+    if (!comparePassword(code, verificationRecord.code)) {
       throw new ZodError([
         {
           code: "custom",
@@ -674,10 +695,15 @@ export async function verifyVerificationCode(
     }
 
     // check if the code is expired
-    const expires_at = result[0].expires_at;
+    const expires_at = verificationRecord.expires_at;
     const now = dayjs().format("YYYY-MM-DD HH:mm:ss");
 
     if (dayjs(now).isAfter(dayjs(expires_at))) {
+      await connection.query<ResultSetHeader>(
+        "DELETE FROM email_verification_code WHERE email = ? AND type = ?",
+        [email, type]
+      );
+      await connection.commit();
       res
         .status(400)
         .json({ error: [{ message: "Verification code expired." }] });
@@ -719,12 +745,13 @@ export async function verifyVerificationCode(
     return;
   } catch (error) {
     await connection.rollback();
-    console.log(error);
 
     if (error instanceof ZodError) {
       handleZodErrors(error, res);
       return;
     }
+
+    console.log(error);
 
     throwServerError(res);
     return;

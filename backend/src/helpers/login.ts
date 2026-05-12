@@ -1,19 +1,27 @@
-import { Request, Response } from "express";
 import { Account, ReqUser } from "../types/account_info.types";
 import { RowDataPacket } from "mysql2";
 import { PoolConnection } from "mysql2/promise";
 import { comparePassword } from "./hash";
 import { Role } from "../types/role";
 import { generateAuthToken, generateRefreshToken } from "./jwt";
-import { setCookie } from "./cookie";
 import { replaceUserRefreshToken } from "./token";
+
+export class LoginError extends Error {
+  statusCode: 401 | 404;
+  responseBody: { error: string };
+
+  constructor(statusCode: 401 | 404, message: string) {
+    super(message);
+    this.name = "LoginError";
+    this.statusCode = statusCode;
+    this.responseBody = { error: message };
+  }
+}
 
 export async function login(
   connection: PoolConnection,
   email: string,
-  password: string,
-  req: Request,
-  res: Response
+  password: string
 ) {
   // check if user with that email exist
   const [result] = await connection.query<(Account & RowDataPacket)[]>(
@@ -23,8 +31,7 @@ export async function login(
 
   // if no user found with the email, throw error
   if (result.length <= 0) {
-    res.status(404).json({ error: "Incorrect email or password" });
-    return;
+    throw new LoginError(404, "Incorrect email or password");
   }
 
   // get the user data
@@ -34,8 +41,7 @@ export async function login(
 
   // compare the password and throw error if incorrect
   if (!comparePassword(password, userFound.password!)) {
-    res.status(401).json({ error: "Incorrect email or password" });
-    return;
+    throw new LoginError(401, "Incorrect email or password");
   }
 
   // check for role
@@ -62,13 +68,9 @@ export async function login(
 
   await replaceUserRefreshToken(connection, user_id, refreshToken);
 
-  // set the cookie with the refresh token
-  res.clearCookie("refreshToken");
-  setCookie(res, "refreshToken", refreshToken, 1000 * 60 * 60 * 24 * 7);
-
-  // set the cookie with the token
-  setCookie(res, "authToken", token, 1000 * 60 * 15);
-
-  // assign the user to req.user
-  req.user = user;
+  return {
+    user,
+    authToken: token,
+    refreshToken,
+  };
 }

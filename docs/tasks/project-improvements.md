@@ -14,7 +14,7 @@ Status legend:
 1. [x] Fix account security and password reset flow
 2. [x] Fix auth/session correctness for expired access tokens
 3. [x] Clean up refresh-token lifecycle and logout behavior
-4. [ ] Repair unsafe transaction and controller patterns
+4. [x] Repair unsafe transaction and controller patterns
 5. [ ] Fix React Query cache-key collisions and stale UI state
 6. [ ] Improve performance, repo hygiene, and test coverage
 
@@ -103,9 +103,9 @@ Relevant files:
 ## P2: Backend Reliability And Code Structure
 
 ### 7. Stop helpers from sending HTTP responses directly
-- [ ] Refactor helpers like `login()` to return values or throw typed errors
-- [ ] Keep `res.status(...).json(...)` in controllers only
-- [ ] Make controller transaction flow explicit: validate -> mutate -> commit -> respond
+- [x] Refactor helpers like `login()` to return values or throw typed errors
+- [x] Keep `res.status(...).json(...)` in controllers only
+- [x] Make controller transaction flow explicit: validate -> mutate -> commit -> respond
 
 Why:
 - Current helper/controller mixing can lead to double responses and confusing transaction flow.
@@ -116,19 +116,19 @@ Relevant files:
 - [backend/src/controllers/user.ts](/C:/Users/busti/Desktop/Node/Rise%20to%20Rice/backend/src/controllers/user.ts:35)
 
 ### 8. Fix transaction boundaries in verification-code flow
-- [ ] Use the same DB connection for all queries inside each transaction
-- [ ] Avoid `pool.query(...)` inside transaction-scoped logic unless intentional
-- [ ] Fix the `result[0]` access before existence checks
-- [ ] Add tests for missing verification-code records
+- [x] Use the same DB connection for all queries inside each transaction
+- [x] Avoid `pool.query(...)` inside transaction-scoped logic unless intentional
+- [x] Fix the `result[0]` access before existence checks
+- [x] Add tests for missing verification-code records
 
 Relevant files:
 - [backend/src/controllers/user.ts](/C:/Users/busti/Desktop/Node/Rise%20to%20Rice/backend/src/controllers/user.ts:531)
 - [backend/src/controllers/user.ts](/C:/Users/busti/Desktop/Node/Rise%20to%20Rice/backend/src/controllers/user.ts:630)
 
 ### 9. Add request validation to weak endpoints
-- [ ] Validate reset-password body
-- [ ] Validate change-password body
-- [ ] Review controllers for any route still trusting raw `req.body` or `req.params`
+- [x] Validate reset-password body
+- [x] Validate change-password body
+- [x] Review controllers for any route still trusting raw `req.body` or `req.params`
 
 Relevant files:
 - [backend/src/controllers/user.ts](/C:/Users/busti/Desktop/Node/Rise%20to%20Rice/backend/src/controllers/user.ts:695)

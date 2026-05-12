@@ -91,18 +91,12 @@ async function main() {
         throw new Error(`Unexpected query: ${sql}`);
       });
 
-      const req = {};
-      const res = createResponseRecorder();
-
-      await loginHelper.login(
+      const loginResult = await loginHelper.login(
         connection,
         "user@example.com",
-        "password123",
-        req,
-        res
+        "password123"
       );
-
-      assert.deepEqual(req.user, {
+      assert.deepEqual(loginResult.user, {
         email: "user@example.com",
         user_id: 7,
         account_id: 12,
@@ -124,8 +118,8 @@ async function main() {
       assert.ok(deleteUserIndex >= 0, "existing user refresh tokens should be removed");
       assert.ok(insertIndex > deleteUserIndex, "new refresh token should be inserted after revocation");
       assert.equal(executedQueries[deleteUserIndex].params[0], 7);
-      assert.ok(getCookieValue(res, "refreshToken"));
-      assert.ok(getCookieValue(res, "authToken"));
+      assert.ok(loginResult.refreshToken);
+      assert.ok(loginResult.authToken);
     }
   );
 

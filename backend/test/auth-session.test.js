@@ -3,10 +3,13 @@ const jwt = require("jsonwebtoken");
 
 process.env.ACCESS_TOKEN_SECRET = "test-access-secret";
 process.env.REFRESH_TOKEN_SECRET = "test-refresh-secret";
+process.env.SALT_ROUND = "4";
 
+const pool = require("../dist/connection/database").default;
 const authController = require("../dist/controllers/auth");
 const authMiddleware = require("../dist/middleware/authentication");
 const tokenHelper = require("../dist/helpers/token");
+const { hashPassword } = require("../dist/helpers/hash");
 
 function createResponseRecorder() {
   return {
@@ -36,6 +39,16 @@ function createUser() {
     account_id: 10,
     isAdmin: false,
     role: "user",
+  };
+}
+
+function createConnection(queryHandler) {
+  return {
+    beginTransaction: async () => {},
+    commit: async () => {},
+    rollback: async () => {},
+    release: () => {},
+    query: queryHandler,
   };
 }
 
@@ -197,6 +210,42 @@ async function main() {
 
         assert.equal(controllerRes.statusCode, 401);
         assert.deepEqual(controllerRes.body, { error: "No tokens provided" });
+      }
+    );
+
+    await runTest(
+      "loginUser keeps HTTP error handling in the controller for invalid credentials",
+      async () => {
+        const storedHash = hashPassword("correct-password");
+
+        pool.getConnection = async () =>
+          createConnection(async (sql) => {
+            if (sql.includes("SELECT * FROM account WHERE email = ?")) {
+              return [[{
+                user_id: 1,
+                account_id: 10,
+                password: storedHash,
+              }]];
+            }
+
+            throw new Error(`Unexpected query: ${sql}`);
+          });
+
+        const req = {
+          body: {
+            email: "user@example.com",
+            password: "wrong-password",
+          },
+        };
+        const res = createResponseRecorder();
+
+        await authController.loginUser(req, res);
+
+        assert.equal(res.statusCode, 401);
+        assert.deepEqual(res.body, {
+          error: "Incorrect email or password",
+        });
+        assert.equal(req.user, undefined);
       }
     );
   } finally {

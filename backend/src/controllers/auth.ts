@@ -4,9 +4,10 @@ import pool from "../connection/database";
 import { RowDataPacket } from "mysql2";
 import { z } from "zod";
 import { LoginSchema } from "../schema/Login";
-import { login } from "../helpers/login";
+import { LoginError, login } from "../helpers/login";
 import { authenticateRequest } from "../helpers/authentication";
 import { deleteExpiredRefreshTokens } from "../helpers/token";
+import { setAuthCookies } from "../helpers/cookie";
 
 export async function loginUser(req: Request, res: Response) {
   const connection = await pool.getConnection();
@@ -16,7 +17,10 @@ export async function loginUser(req: Request, res: Response) {
     const { email, password } = LoginSchema.parse(req.body);
 
     // login the user using a login helper function
-    await login(connection, email, password, req, res);
+    const loginResult = await login(connection, email, password);
+
+    req.user = loginResult.user;
+    setAuthCookies(res, loginResult.authToken, loginResult.refreshToken);
 
     // commit the transaction
     await connection.commit();
@@ -24,14 +28,19 @@ export async function loginUser(req: Request, res: Response) {
     res.json(req.user);
     return;
   } catch (error) {
-    console.log(error);
-
     await connection.rollback();
 
     if (error instanceof z.ZodError) {
       handleZodErrors(error, res);
       return;
     }
+
+    if (error instanceof LoginError) {
+      res.status(error.statusCode).json(error.responseBody);
+      return;
+    }
+
+    console.log(error);
 
     throwServerError(res);
   } finally {

@@ -6,6 +6,7 @@ import { comparePassword } from "./hash";
 import { Role } from "../types/role";
 import { generateAuthToken, generateRefreshToken } from "./jwt";
 import { setCookie } from "./cookie";
+import { replaceUserRefreshToken } from "./token";
 
 export async function login(
   connection: PoolConnection,
@@ -59,10 +60,7 @@ export async function login(
   const token = generateAuthToken(user);
   const refreshToken = generateRefreshToken(user);
 
-  await connection.query(
-    "INSERT INTO refresh_token (token, user_id, expired_at) VALUES (?, ?, DATE_ADD(NOW(), INTERVAL 7 DAY))",
-    [refreshToken, user_id]
-  );
+  await replaceUserRefreshToken(connection, user_id, refreshToken);
 
   // set the cookie with the refresh token
   res.clearCookie("refreshToken");

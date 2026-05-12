@@ -77,11 +77,12 @@ Relevant files:
 ## P1: Refresh Token Lifecycle
 
 ### 5. Rework refresh-token storage and rotation
-- [ ] Decide on single-session-per-device vs multi-session support
-- [ ] Rotate refresh tokens instead of endlessly inserting new rows
-- [ ] Delete or revoke the old refresh token during successful refresh
-- [ ] Delete stored refresh tokens during logout
-- [ ] Add a cleanup strategy for expired refresh tokens
+- [x] Decide on single-session-per-device vs multi-session support
+  Implemented as single active refresh-token session per user.
+- [x] Rotate refresh tokens instead of endlessly inserting new rows
+- [x] Delete or revoke the old refresh token during successful refresh
+- [x] Delete stored refresh tokens during logout
+- [x] Add a cleanup strategy for expired refresh tokens
 
 Why:
 - Login and refresh both insert new refresh-token rows, but logout only clears cookies.
@@ -92,7 +93,7 @@ Relevant files:
 - [backend/src/controllers/auth.ts](/C:/Users/busti/Desktop/Node/Rise%20to%20Rice/backend/src/controllers/auth.ts:42)
 
 ### 6. Remove sensitive token logging
-- [ ] Remove refresh-token logs from the backend
+- [x] Remove refresh-token logs from the backend
 - [ ] Audit for any remaining secret/password/token logging
 
 Relevant files:
@@ -182,9 +183,9 @@ Relevant files:
 - [frontend/src/main.tsx](/C:/Users/busti/Desktop/Node/Rise%20to%20Rice/frontend/src/main.tsx:1)
 
 ### 13. Add automated tests
-- [ ] Add backend test runner and initial auth/controller tests
+- [x] Add backend test runner and initial auth/controller tests
 - [ ] Add frontend test runner for critical flows
-- [ ] Replace placeholder backend `npm test`
+- [x] Replace placeholder backend `npm test`
 
 Relevant files:
 - [backend/package.json](/C:/Users/busti/Desktop/Node/Rise%20to%20Rice/backend/package.json:1)
@@ -201,7 +202,7 @@ Relevant files:
 ## Suggested Milestones
 
 ### Milestone 1
-- [ ] Tasks 1 to 4
+- [x] Tasks 1 to 4
 
 ### Milestone 2
 - [ ] Tasks 5 to 9

@@ -1,10 +1,12 @@
 import { Request, Response } from "express";
 import { handleZodErrors, throwServerError } from "../helpers/errorHandlers";
 import pool from "../connection/database";
+import { RowDataPacket } from "mysql2";
 import { z } from "zod";
 import { LoginSchema } from "../schema/Login";
 import { login } from "../helpers/login";
 import { authenticateRequest } from "../helpers/authentication";
+import { deleteExpiredRefreshTokens } from "../helpers/token";
 
 export async function loginUser(req: Request, res: Response) {
   const connection = await pool.getConnection();
@@ -38,6 +40,36 @@ export async function loginUser(req: Request, res: Response) {
 }
 
 export async function logoutUser(req: Request, res: Response) {
+  const connection = await pool.getConnection();
+
+  try {
+    await connection.beginTransaction();
+    await deleteExpiredRefreshTokens(connection);
+
+    const { refreshToken } = req.cookies;
+
+    if (refreshToken) {
+      const [tokenResult] = await connection.query<
+        ({ user_id: number } & RowDataPacket)[]
+      >("SELECT user_id FROM refresh_token WHERE token = ?", [refreshToken]);
+
+      if (tokenResult.length > 0) {
+        await connection.query("DELETE FROM refresh_token WHERE user_id = ?", [
+          tokenResult[0].user_id,
+        ]);
+      }
+    }
+
+    await connection.commit();
+  } catch (error) {
+    await connection.rollback();
+    console.log(error);
+    throwServerError(res);
+    return;
+  } finally {
+    if (connection) connection.release();
+  }
+
   // clear the cookies
   res.clearCookie("authToken");
   res.clearCookie("refreshToken");

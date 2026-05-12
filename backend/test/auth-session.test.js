@@ -53,32 +53,68 @@ async function main() {
   const originalGetUserWithRefreshToken = tokenHelper.getUserWithRefreshToken;
 
   try {
-    await runTest("checkUser returns user data when auth token is valid", async () => {
-      const user = createUser();
-      const authToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
-        expiresIn: "15m",
-      });
+    await runTest(
+      "requireAuth accepts a valid auth token without calling refresh-token lookup",
+      async () => {
+        const user = createUser();
+        const authToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
+          expiresIn: "15m",
+        });
 
-      let refreshCalls = 0;
-      tokenHelper.getUserWithRefreshToken = async () => {
-        refreshCalls += 1;
-        return null;
-      };
+        let refreshCalls = 0;
+        tokenHelper.getUserWithRefreshToken = async () => {
+          refreshCalls += 1;
+          return null;
+        };
 
-      const req = {
-        cookies: {
-          authToken,
-        },
-      };
-      const res = createResponseRecorder();
+        const req = {
+          cookies: {
+            authToken,
+          },
+        };
+        const res = createResponseRecorder();
+        let nextCalled = false;
 
-      await authController.checkUser(req, res);
+        await authMiddleware.requireAuth(req, res, () => {
+          nextCalled = true;
+        });
 
-      assert.equal(res.statusCode, 200);
-      assert.deepEqual(res.body, user);
-      assert.deepEqual(req.user, user);
-      assert.equal(refreshCalls, 0);
-    });
+        assert.equal(res.statusCode, 200);
+        assert.equal(nextCalled, true);
+        assert.deepEqual(req.user, user);
+        assert.equal(refreshCalls, 0);
+      }
+    );
+
+    await runTest(
+      "checkUser returns user data when auth token is valid",
+      async () => {
+        const user = createUser();
+        const authToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
+          expiresIn: "15m",
+        });
+
+        let refreshCalls = 0;
+        tokenHelper.getUserWithRefreshToken = async () => {
+          refreshCalls += 1;
+          return null;
+        };
+
+        const req = {
+          cookies: {
+            authToken,
+          },
+        };
+        const res = createResponseRecorder();
+
+        await authController.checkUser(req, res);
+
+        assert.equal(res.statusCode, 200);
+        assert.deepEqual(res.body, user);
+        assert.deepEqual(req.user, user);
+        assert.equal(refreshCalls, 0);
+      }
+    );
 
     await runTest(
       "expired auth token falls back to refresh token in requireAuth and checkUser",

@@ -1,47 +1,18 @@
 import { NextFunction, Request, Response } from "express";
-import jwt from "jsonwebtoken";
-import { ReqUser } from "../types/account_info.types";
-import { getUserWithRefreshToken } from "../helpers/token";
+import { authenticateRequest } from "../helpers/authentication";
 export async function requireAuth(
   req: Request,
   res: Response,
   next: NextFunction
 ) {
-  const { authToken, refreshToken } = req.cookies;
+  const result = await authenticateRequest(req, res);
 
-  if (!authToken && !refreshToken) {
+  if ("error" in result) {
     res.status(401).json({ error: "Unauthorized request" });
     return;
   }
 
-  if (authToken) {
-    try {
-      const decoded = jwt.verify(
-        authToken,
-        process.env.ACCESS_TOKEN_SECRET!
-      ) as ReqUser;
-
-      // destructure the iat and exp from the decoded token so that they won't be included in the response
-      const { iat, exp, ...userData } = decoded;
-      req.user = userData;
-      next();
-      return;
-    } catch (err) {
-      if (!refreshToken) {
-        res.status(401).json({ error: "Unauthorized request" });
-        return;
-      }
-    }
-  }
-
-  const user = await getUserWithRefreshToken(req, res);
-
-  if (!user) {
-    res.status(401).json({ error: "Unauthorized request" });
-    return;
-  }
-
-  req.user = user;
+  req.user = result.user;
   next();
 }
 

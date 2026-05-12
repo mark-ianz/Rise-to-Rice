@@ -4,9 +4,7 @@ import pool from "../connection/database";
 import { z } from "zod";
 import { LoginSchema } from "../schema/Login";
 import { login } from "../helpers/login";
-import jwt from "jsonwebtoken";
-import { ReqUser } from "../types/account_info.types";
-import { getUserWithRefreshToken } from "../helpers/token";
+import { authenticateRequest } from "../helpers/authentication";
 
 export async function loginUser(req: Request, res: Response) {
   const connection = await pool.getConnection();
@@ -52,42 +50,19 @@ export async function checkUser(
   req: Request,
   res: Response
 ) {
-  // get the auth token from the cookies
-  const { authToken, refreshToken } = req.cookies;
+  const result = await authenticateRequest(req, res);
 
-  // if there is no token, return an error
-  if (!authToken && !refreshToken) {
-    res.status(401).json({ error: "No tokens provided" });
-    return;
-  }
-
-  if (authToken) {
-    try {
-      const decoded = jwt.verify(
-        authToken,
-        process.env.ACCESS_TOKEN_SECRET!
-      ) as ReqUser;
-
-      // destructure the iat and exp from the decoded token so that they won't be included in the response
-      const { iat, exp, ...userData } = decoded;
-      req.user = userData;
-      res.json(userData);
+  if ("error" in result) {
+    if (result.error === "missing_tokens") {
+      res.status(401).json({ error: "No tokens provided" });
       return;
-    } catch (error) {
-      if (!refreshToken) {
-        res.status(401).json({ error: "Unauthorized request" });
-        return;
-      }
     }
-  }
 
-  const user = await getUserWithRefreshToken(req, res);
-
-  if (!user) {
     res.status(401).json({ error: "Unauthorized request" });
     return;
   }
 
-  req.user = user;
-  res.json(user);
+  req.user = result.user;
+  res.json(result.user);
+  return;
 }

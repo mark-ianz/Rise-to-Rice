@@ -29,6 +29,7 @@ The current product flow is:
 - `api.md`: backend endpoint inventory and access rules
 - `data-model.md`: core entities, relationships, and business rules inferred from code
 - `environment.md`: environment variables currently present in `.env` files and whether the code still uses them
+- `tasks/project-improvements.md`: prioritized engineering tasks from the 2026-05-12 project review
 
 ## Current Workspace Shape
 

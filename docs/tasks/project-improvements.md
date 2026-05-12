@@ -11,12 +11,12 @@ Status legend:
 
 ## Priority Order
 
-1. Fix account security and password reset flow
-2. Fix auth/session correctness for expired access tokens
-3. Clean up refresh-token lifecycle and logout behavior
-4. Repair unsafe transaction and controller patterns
-5. Fix React Query cache-key collisions and stale UI state
-6. Improve performance, repo hygiene, and test coverage
+1. [x] Fix account security and password reset flow
+2. [x] Fix auth/session correctness for expired access tokens
+3. [x] Clean up refresh-token lifecycle and logout behavior
+4. [ ] Repair unsafe transaction and controller patterns
+5. [ ] Fix React Query cache-key collisions and stale UI state
+6. [ ] Improve performance, repo hygiene, and test coverage
 
 ## P0: Security And Access Control
 

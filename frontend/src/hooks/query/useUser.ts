@@ -152,13 +152,16 @@ export function useResetPassword() {
     mutationFn: async ({
       password,
       email,
+      reset_token,
     }: {
       password: string;
       email: string;
+      reset_token: string;
     }) => {
       const result = await axios.put<UserProfile>(`/api/user/reset-password`, {
         email,
         password,
+        reset_token,
       });
       return result.data;
     },

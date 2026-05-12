@@ -36,6 +36,7 @@ type ForgotPasswordSectionAndSetSection = {
 export default function ForgotPassword() {
   const [section, setSection] = useState<Sections>("first");
   const [email, setEmail] = useState<string>("");
+  const [resetToken, setResetToken] = useState<string>("");
 
   if (section === "first") {
     return (
@@ -85,6 +86,7 @@ export default function ForgotPassword() {
         </Helmet>
         <SecondSection
           email={email}
+          setResetToken={setResetToken}
           setSection={setSection}
           section={section}
         />
@@ -103,7 +105,7 @@ export default function ForgotPassword() {
           />
           <link rel="canonical" href="https://risetorice.com/forgot-password" />
         </Helmet>
-        <ResetPassword email={email} />
+        <ResetPassword email={email} resetToken={resetToken} />
       </>
     );
   }
@@ -193,8 +195,10 @@ function FirstSection({
 function SecondSection({
   setSection,
   email,
+  setResetToken,
 }: ForgotPasswordSectionAndSetSection & {
   email: string;
+  setResetToken: (value: string) => void;
 }) {
   const { mutate: verify_code_mutate, isPending: request_code_isPending } =
     useVerifyVerificationCode();
@@ -274,8 +278,9 @@ function SecondSection({
           type: "forgot-password",
         },
         {
-          onSuccess: () => {
+          onSuccess: (data) => {
             // handle success, e.g., navigate to the next step
+            setResetToken(data.reset_token);
             setSection("reset-password");
           },
           onError: () => {
@@ -344,7 +349,13 @@ function SecondSection({
   );
 }
 
-function ResetPassword({ email }: { email: string }) {
+function ResetPassword({
+  email,
+  resetToken,
+}: {
+  email: string;
+  resetToken: string;
+}) {
   const [error, setError] = useState<string[] | null>(null);
   const { dispatch } = useUserContext();
   const navigate = useNavigate();
@@ -373,7 +384,7 @@ function ResetPassword({ email }: { email: string }) {
       });
 
       reset_password_mutate(
-        { email, password: parsed.password },
+        { email, password: parsed.password, reset_token: resetToken },
         {
           onSuccess: () => {
             // handle success, e.g., navigate to the next step

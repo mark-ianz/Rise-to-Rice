@@ -1,5 +1,6 @@
 /// <reference path="../types/express/index.d.ts" />
 
+import { randomBytes } from "crypto";
 import { Request, Response } from "express";
 import { UserCreate, UserCreateSchema } from "../schema/UserCreate";
 import {
@@ -31,6 +32,21 @@ import {
   VerifyVerificationCodeSchema,
 } from "../schema/VerificationCode";
 import { sendEmail } from "../helpers/mailer";
+import { ResetPassword, ResetPasswordSchema } from "../schema/PasswordReset";
+
+const PASSWORD_RESET_PROOF_TTL_MINUTES = 10;
+
+function sendResetProofError(
+  res: Response,
+  message:
+    | "Password reset verification is required."
+    | "Password reset proof has expired."
+    | "Password reset proof is invalid."
+) {
+  res.status(403).json({
+    errors: [{ message }],
+  });
+}
 
 export async function createUser(
   req: Request<{}, {}, UserCreate>,
@@ -638,12 +654,12 @@ export async function verifyVerificationCode(
     const { email, code, type } = VerifyVerificationCodeSchema.parse(req.body);
 
     // check if the code exists in the database
-    const [result] = await pool.query<RowDataPacket[]>(
+    const [result] = await connection.query<RowDataPacket[]>(
       "SELECT * FROM email_verification_code WHERE email = ? AND type = ?",
       [email, type]
     );
 
-    if (!comparePassword(code, result[0].code) || result.length <= 0) {
+    if (result.length <= 0 || !comparePassword(code, result[0].code)) {
       throw new ZodError([
         {
           code: "custom",
@@ -664,8 +680,29 @@ export async function verifyVerificationCode(
       return;
     }
 
+    if (type === "forgot-password") {
+      const resetToken = randomBytes(32).toString("hex");
+      const hashedResetToken = hashPassword(resetToken);
+      const resetExpiresAt = dayjs()
+        .add(PASSWORD_RESET_PROOF_TTL_MINUTES, "minutes")
+        .format("YYYY-MM-DD HH:mm:ss");
+
+      await connection.query<ResultSetHeader>(
+        "UPDATE email_verification_code SET code = ?, expires_at = ?, created_at = NOW() WHERE email = ? AND type = ?",
+        [hashedResetToken, resetExpiresAt, email, type]
+      );
+
+      await connection.commit();
+
+      res.status(200).json({
+        message: "Verification code verified successfully.",
+        reset_token: resetToken,
+      });
+      return;
+    }
+
     // delete the verification code from the database
-    await pool.query<ResultSetHeader>(
+    await connection.query<ResultSetHeader>(
       "DELETE FROM email_verification_code WHERE email = ? AND type = ?",
       [email, type]
     );
@@ -693,24 +730,64 @@ export async function verifyVerificationCode(
 }
 
 export async function resetPassword(
-  req: Request<{}, {}, { email: string; password: string }>,
+  req: Request<{}, {}, ResetPassword>,
   res: Response
 ) {
-  console.log("hello");
   const connection = await pool.getConnection();
 
   try {
     await connection.beginTransaction();
 
-    const { email, password } = req.body;
+    const { email, password, reset_token } = ResetPasswordSchema.parse(req.body);
+
+    const [resetProofResult] = await connection.query<RowDataPacket[]>(
+      "SELECT * FROM email_verification_code WHERE email = ? AND type = ?",
+      [email, "forgot-password"]
+    );
+
+    if (resetProofResult.length <= 0) {
+      await connection.rollback();
+      sendResetProofError(res, "Password reset verification is required.");
+      return;
+    }
+
+    const resetProof = resetProofResult[0];
+    const now = dayjs();
+
+    if (now.isAfter(dayjs(resetProof.expires_at))) {
+      await connection.query<ResultSetHeader>(
+        "DELETE FROM email_verification_code WHERE email = ? AND type = ?",
+        [email, "forgot-password"]
+      );
+      await connection.commit();
+      sendResetProofError(res, "Password reset proof has expired.");
+      return;
+    }
+
+    if (!comparePassword(reset_token, resetProof.code)) {
+      await connection.rollback();
+      sendResetProofError(res, "Password reset proof is invalid.");
+      return;
+    }
 
     // hash the password
     const hashedPassword = hashPassword(password);
 
     // update the password in the account table
-    await connection.query<ResultSetHeader>(
+    const [result] = await connection.query<ResultSetHeader>(
       "UPDATE account SET password = ? WHERE email = ?",
       [hashedPassword, email]
+    );
+
+    if (result.affectedRows <= 0) {
+      await connection.rollback();
+      res.status(404).json({ errors: [{ message: "Account not found." }] });
+      return;
+    }
+
+    await connection.query<ResultSetHeader>(
+      "DELETE FROM email_verification_code WHERE email = ? AND type = ?",
+      [email, "forgot-password"]
     );
 
     await connection.commit();
@@ -722,6 +799,12 @@ export async function resetPassword(
   } catch (error) {
     console.log(error);
     await connection.rollback();
+
+    if (error instanceof ZodError) {
+      handleZodErrors(error, res);
+      return;
+    }
+
     throwServerError(res);
   } finally {
     if (connection) connection.release();

@@ -80,3 +80,12 @@ export function requireSelfOrAdmin(
 
   next();
 }
+
+export function requireSelf(req: Request, res: Response, next: NextFunction) {
+  if (req.user?.user_id.toString() !== req.params.id) {
+    res.status(403).json({ error: "Forbidden request" });
+    return;
+  }
+
+  next();
+}

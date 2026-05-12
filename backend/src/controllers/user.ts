@@ -33,6 +33,10 @@ import {
 } from "../schema/VerificationCode";
 import { sendEmail } from "../helpers/mailer";
 import { ResetPassword, ResetPasswordSchema } from "../schema/PasswordReset";
+import {
+  ChangePassword,
+  ChangePasswordSchema,
+} from "../schema/ChangePassword";
 
 const PASSWORD_RESET_PROOF_TTL_MINUTES = 10;
 
@@ -812,15 +816,14 @@ export async function resetPassword(
 }
 
 export async function changePassword(
-  req: Request<{ id: string }, {}, { password: string; new_password: string }>,
+  req: Request<{ id: string }, {}, ChangePassword>,
   res: Response
 ) {
   const connection = await pool.getConnection();
   const user_id = req.params.id;
-
-  const { password, new_password } = req.body;
   try {
     await connection.beginTransaction();
+    const { password, new_password } = ChangePasswordSchema.parse(req.body);
 
     // check if the user exists in the account table
     const [account] = await connection.query<RowDataPacket[]>(
@@ -829,13 +832,14 @@ export async function changePassword(
     );
 
     if (account.length <= 0) {
+      await connection.rollback();
       res.status(404).json({ error: ["User not found."] });
       return;
     }
 
-    console.log(password)
     // check if the password is correct
     if (!comparePassword(password, account[0].password)) {
+      await connection.rollback();
       res.status(401).json({ error: ["Incorrect password."] });
       return;
     }
@@ -855,8 +859,14 @@ export async function changePassword(
       message: "Password changed successfully.",
     });
   } catch (error) {
-    console.log(error);
     await connection.rollback();
+
+    if (error instanceof ZodError) {
+      handleZodErrors(error, res);
+      return;
+    }
+
+    console.log(error);
     throwServerError(res);
   } finally {
     if (connection) connection.release();

@@ -16,6 +16,7 @@ import {
 import {
   requireAdmin,
   requireAuth,
+  requireSelf,
   requireSelfOrAdmin,
   requireSuperAdmin,
 } from "../middleware/authentication";
@@ -24,7 +25,7 @@ const router = Router();
 
 router.get("/", requireAuth, requireAdmin, getAllUser);
 router.put("/reset-password", resetPassword);
-router.put("/change-password/:id", changePassword);
+router.put("/change-password/:id", requireAuth, requireSelf, changePassword);
 router.post("/verification-code/request", requestVerificationCode);
 router.post("/verification-code/verify", verifyVerificationCode);
 router.post("/email-exists", checkEmailExists);

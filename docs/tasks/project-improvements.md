@@ -38,10 +38,10 @@ Relevant files:
 - [frontend/src/pages/ForgotPassword.tsx](/C:/Users/busti/Desktop/Node/Rise%20to%20Rice/frontend/src/pages/ForgotPassword.tsx:193)
 
 ### 2. Protect password change endpoint properly
-- [ ] Add `requireAuth`
-- [ ] Add `requireSelfOrAdmin` or a stricter self-only middleware depending on intended behavior
-- [ ] Validate request body with Zod before changing password
-- [ ] Remove any debug logging of password values
+- [x] Add `requireAuth`
+- [x] Add `requireSelfOrAdmin` or a stricter self-only middleware depending on intended behavior
+- [x] Validate request body with Zod before changing password
+- [x] Remove any debug logging of password values
 
 Relevant files:
 - [backend/src/routes/user.ts](/C:/Users/busti/Desktop/Node/Rise%20to%20Rice/backend/src/routes/user.ts:27)

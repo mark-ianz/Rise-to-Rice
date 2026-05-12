@@ -73,8 +73,16 @@ export default function ChangePasswordButton({ user_id }: Props) {
           },
           onError: (error) => {
             if (isAxiosError(error)) {
-              if (error.response?.data?.error) {
-                setError([error.response?.data?.error]);
+              if (Array.isArray(error.response?.data?.errors)) {
+                setError(
+                  error.response.data.errors.map(
+                    (item: { message: string }) => item.message
+                  )
+                );
+              } else if (Array.isArray(error.response?.data?.error)) {
+                setError(error.response.data.error);
+              } else if (error.response?.data?.error) {
+                setError([error.response.data.error]);
               } else {
                 setError([
                   "An unknown error occurred. Please try again later.",

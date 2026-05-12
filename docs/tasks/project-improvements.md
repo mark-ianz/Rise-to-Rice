@@ -15,7 +15,7 @@ Status legend:
 2. [x] Fix auth/session correctness for expired access tokens
 3. [x] Clean up refresh-token lifecycle and logout behavior
 4. [x] Repair unsafe transaction and controller patterns
-5. [ ] Fix React Query cache-key collisions and stale UI state
+5. [x] Fix React Query cache-key collisions and stale UI state
 6. [ ] Improve performance, repo hygiene, and test coverage
 
 ## P0: Security And Access Control
@@ -137,9 +137,9 @@ Relevant files:
 ## P2: Frontend Data Correctness
 
 ### 10. Fix React Query cache keys
-- [ ] Include filter, page, sort, role, status, and time parameters in query keys
-- [ ] Review mutation cache updates to ensure they target the right query variants
-- [ ] Prefer shared query-key factories for consistency
+- [x] Include filter, page, sort, role, status, and time parameters in query keys
+- [x] Review mutation cache updates to ensure they target the right query variants
+- [x] Prefer shared query-key factories for consistency
 
 Examples to fix:
 - `["users"]` should include pagination and filters

@@ -1,4 +1,5 @@
 import { Login, LoginSchema } from "@/schema/LoginSchema";
+import { queryKeys } from "@/lib/queryKeys";
 import { UpdatePersonalInfoType } from "@/schema/UpdatePersonalInfoSchema";
 import { searchUser } from "@/services/user.service";
 import { SearchParamType, UserSearchResult } from "@/types/search";
@@ -13,7 +14,12 @@ export function useSearchUser({
   roles,
 }: SearchParamType) {
   return useQuery({
-    queryKey: ["users"],
+    queryKey: queryKeys.users({
+      page,
+      search,
+      searchFor,
+      roles,
+    }),
     queryFn: () =>
       searchUser({
         page,
@@ -36,24 +42,27 @@ export function useDeleteUser() {
       return user_id;
     },
     onSuccess: (user_id: number) => {
-      queryClient.setQueryData(["users"], (oldData: UserSearchResult) => {
-        if (oldData) {
-          return {
-            ...oldData,
-            result: oldData.result.filter(
-              (user: UserProfile) => user.user_id !== user_id
-            ),
-          };
+      queryClient.setQueriesData(
+        { queryKey: ["users"] },
+        (oldData: UserSearchResult | undefined) => {
+          if (oldData) {
+            return {
+              ...oldData,
+              result: oldData.result.filter(
+                (user: UserProfile) => user.user_id !== user_id
+              ),
+            };
+          }
+          return oldData;
         }
-        return oldData;
-      });
+      );
     },
   });
 }
 
 export function useGetUser(user_id: number) {
   return useQuery({
-    queryKey: ["user", user_id],
+    queryKey: queryKeys.user(user_id),
     queryFn: async () => {
       const result = await axios.get<UserProfile[]>(`/api/user/${user_id}`);
       if (!result.data[0]) {
@@ -87,11 +96,26 @@ export function useUpdateUser() {
       // this will set the cache data to the updated user data
       // used for optimistic update
       queryClient.setQueryData(
-        ["user", updatedUser.user_id],
+        queryKeys.user(updatedUser.user_id),
         (oldUser: UpdatePersonalInfoType) => ({
           ...oldUser,
           ...updatedUser,
         })
+      );
+      queryClient.setQueriesData(
+        { queryKey: ["users"] },
+        (oldData: UserSearchResult | undefined) => {
+          if (!oldData) return oldData;
+
+          return {
+            ...oldData,
+            result: oldData.result.map((user: UserProfile) =>
+              user.user_id === updatedUser.user_id
+                ? { ...user, ...updatedUser }
+                : user
+            ),
+          };
+        }
       );
     },
     // this will trigger once the mutation was successful
@@ -116,21 +140,25 @@ export function useUpdateUserRole() {
       return result.data;
     },
     onSuccess: async (updatedUser) => {
-      queryClient.setQueryData(["users"], (oldUser: UserSearchResult) => {
-        if (!oldUser) return oldUser;
+      queryClient.setQueryData(queryKeys.user(updatedUser.user_id), updatedUser);
+      queryClient.setQueriesData(
+        { queryKey: ["users"] },
+        (oldUser: UserSearchResult | undefined) => {
+          if (!oldUser) return oldUser;
 
-        const updatedUsers = oldUser.result.map((user: UserProfile) => {
-          if (user.user_id === updatedUser.user_id) {
-            return { ...user, role: updatedUser.role };
-          }
-          return user;
-        });
+          const updatedUsers = oldUser.result.map((user: UserProfile) => {
+            if (user.user_id === updatedUser.user_id) {
+              return { ...user, role: updatedUser.role };
+            }
+            return user;
+          });
 
-        return {
-          ...oldUser,
-          result: updatedUsers,
-        };
-      });
+          return {
+            ...oldUser,
+            result: updatedUsers,
+          };
+        }
+      );
     },
   });
 }

@@ -1,4 +1,5 @@
 import { UpdateAnnouncement } from "@/schema/PostAnnouncementSchema";
+import { queryKeys } from "@/lib/queryKeys";
 import { Announcement, AnnouncementPagination, AnnouncementQueryResponse } from "@/types/announcements";
 import { UserProfile } from "@/types/user.type";
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -17,20 +18,26 @@ export function usePostAnnouncement() {
       return response.data;
     },
     onSuccess: (newAnnouncement) => {
-      queryClient.setQueryData(["announcements"], (oldData: AnnouncementPagination) => {
-        if (!oldData) return oldData;
-    
-        const firstPage = oldData.pages[0];
-    
-        const updatedFirstPage = {
-          ...firstPage,
-          result: [newAnnouncement, ...firstPage.result],
-        };
-    
-        return {
-          ...oldData,
-          pages: [updatedFirstPage, ...oldData.pages.slice(1)],
-        };
+      queryClient.setQueriesData(
+        { queryKey: ["announcements"] },
+        (oldData: AnnouncementPagination | undefined) => {
+          if (!oldData) return oldData;
+
+          const firstPage = oldData.pages[0];
+
+          const updatedFirstPage = {
+            ...firstPage,
+            result: [newAnnouncement, ...firstPage.result],
+          };
+
+          return {
+            ...oldData,
+            pages: [updatedFirstPage, ...oldData.pages.slice(1)],
+          };
+        }
+      );
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.recentAnnouncements(),
       });
     }
   });
@@ -38,7 +45,7 @@ export function usePostAnnouncement() {
   
 export function useGetAnnouncements(sort: string) {
   return useInfiniteQuery({
-    queryKey: ["announcements"],
+    queryKey: queryKeys.announcements(sort),
     queryFn: async ({pageParam}) => {
       const response = await axios.get<AnnouncementQueryResponse>(
         `/api/announcements?limit=5&page=${pageParam}&sort=${sort}`
@@ -67,7 +74,7 @@ export function useGetAnnouncements(sort: string) {
 
 export function useGetRecentAnnouncements() {
   return useQuery<AnnouncementQueryResponse>({
-    queryKey: ["recent_announcements"],
+    queryKey: queryKeys.recentAnnouncements(),
     queryFn: async () => {
       const response = await axios.get("/api/announcements/", {
         params: {
@@ -82,7 +89,7 @@ export function useGetRecentAnnouncements() {
 
 export function useGetAuthor(announcement_id: number) {
   return useQuery({
-    queryKey: ["author", announcement_id],
+    queryKey: queryKeys.author(announcement_id),
     queryFn: async () => {
       const response = await axios.get<UserProfile[]>(
         `/api/announcements/get-author/${announcement_id}`
@@ -112,13 +119,16 @@ export function useDeleteAnnouncement() {
       queryClient.invalidateQueries({
         queryKey: ["announcements"],
       });
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.recentAnnouncements(),
+      });
     },
   });
 }
 
 export function useGetSingleAnnouncement(id: number) {
   return useQuery<Announcement>({
-    queryKey: ["announcement", id],
+    queryKey: queryKeys.announcement(id),
     queryFn: async () => {
       const response = await axios.get(`/api/announcements/${id}`);
       return response.data;
@@ -143,7 +153,10 @@ export function useUpdateAnnouncement() {
         queryKey: ["announcements"],
       });
       queryClient.invalidateQueries({
-        queryKey: ["announcement", data.announcement_id],
+        queryKey: queryKeys.recentAnnouncements(),
+      });
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.announcement(data.announcement_id),
       });
     },
   });

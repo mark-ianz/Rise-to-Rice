@@ -7,6 +7,7 @@ import {
 import { TimeDisplay } from "@/types/time";
 import MaterialPieChart from "@/components/page-components/view_profile/analytics/ProfileMaterialPieChart";
 import HeaderText from "@/components/general/HeaderText";
+import { queryKeys } from "@/lib/queryKeys";
 import { useQuery } from "@tanstack/react-query";
 import { get_total_weight } from "@/services/analytics.service";
 import SelectDropDown from "../SelectDropDown";
@@ -29,7 +30,10 @@ export function TopMaterialsChart({ user_id, time }: TopMaterialChartProps) {
   });
 
   const { data: top_material } = useQuery({
-    queryKey: ["top_material", user_id, time],
+    queryKey: queryKeys.topMaterial({
+      userId: user_id,
+      time: time.value,
+    }),
     queryFn: () => get_total_weight(time.value, user_id),
     refetchOnWindowFocus: false,
     refetchInterval: 1000 * 60 * 5,

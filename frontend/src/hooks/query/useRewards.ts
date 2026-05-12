@@ -1,4 +1,5 @@
 import { Info } from "@/components/page-components/dashboard/rewards/SaveVariationItem";
+import { queryKeys } from "@/lib/queryKeys";
 import { CreateRedeemRequest } from "@/schema/RedeemRequest";
 import { getRewards } from "@/services/rewards.service";
 import { Points } from "@/types/points";
@@ -22,7 +23,12 @@ export function useGetRewards({
   isAdmin,
 }: SearchParamType) {
   return useQuery({
-    queryKey: ["rewards"],
+    queryKey: queryKeys.rewards({
+      page,
+      search,
+      searchFor,
+      isAdmin,
+    }),
     queryFn: () =>
       getRewards({
         page,
@@ -44,9 +50,9 @@ export function useAddReward() {
       return response.data;
     },
     onSuccess: (data) => {
-      queryClient.setQueryData(
-        ["rewards"],
-        (oldData: RewardAndVariationResponse) => {
+      queryClient.setQueriesData(
+        { queryKey: ["rewards"] },
+        (oldData: RewardAndVariationResponse | undefined) => {
           if (!oldData) return data;
           return {
             ...oldData,
@@ -72,9 +78,9 @@ export function useEditReward() {
       return reward;
     },
     onSuccess: (reward) => {
-      queryClient.setQueryData(
-        ["rewards"],
-        (oldData: RewardAndVariationResponse) => {
+      queryClient.setQueriesData(
+        { queryKey: ["rewards"] },
+        (oldData: RewardAndVariationResponse | undefined) => {
           if (!oldData) return oldData;
           const newResult = oldData.result.map((r) => {
             if (r.reward_id === reward.reward_id) {
@@ -104,9 +110,9 @@ export function useDeleteReward() {
       return reward_id;
     },
     onSuccess: (reward_id) => {
-      queryClient.setQueryData(
-        ["rewards"],
-        (oldData: RewardAndVariationResponse) => {
+      queryClient.setQueriesData(
+        { queryKey: ["rewards"] },
+        (oldData: RewardAndVariationResponse | undefined) => {
           if (!oldData) return oldData;
           const newResult = oldData.result.filter(
             (reward) => reward.reward_id !== reward_id
@@ -142,7 +148,6 @@ export function useAddRewardVariation() {
       // and it's better to just refetch the data
       queryClient.invalidateQueries({
         queryKey: ["rewards"],
-        exact: true,
       });
     },
   });
@@ -162,7 +167,6 @@ export function useEditRewardVariation() {
       // and it's better to just refetch the data
       queryClient.invalidateQueries({
         queryKey: ["rewards"],
-        exact: true,
       });
     },
   });
@@ -182,7 +186,6 @@ export function useDeleteVariation() {
       // and it's better to just refetch the data
       queryClient.invalidateQueries({
         queryKey: ["rewards"],
-        exact: true,
       });
     },
   });
@@ -205,7 +208,7 @@ export function useRedeemRewards() {
       queryClient.invalidateQueries({
         queryKey: ["redeem-history"],
       });
-      queryClient.setQueryData(["user-points"], (oldData: Points) => {
+      queryClient.setQueryData(queryKeys.userPoints(), (oldData: Points) => {
         if (!oldData) return oldData;
         return {
           ...oldData,

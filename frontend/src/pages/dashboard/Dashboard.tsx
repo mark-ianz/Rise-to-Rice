@@ -2,6 +2,7 @@ import HeaderText from "@/components/general/HeaderText";
 import SelectDropDown from "@/components/page-components/view_profile/SelectDropDown";
 import SectionWrapper from "@/components/general/SectionWrapper";
 import { timeFilterItems } from "@/lib/const/filter_items";
+import { queryKeys } from "@/lib/queryKeys";
 import { Time, TimeDisplay } from "@/types/time";
 import { getDisplayTime } from "@/utils/analytics";
 
@@ -20,7 +21,9 @@ export default function Dashboard() {
   });
 
   const { data: top_material } = useQuery({
-    queryKey: ["top_material", time],
+    queryKey: queryKeys.topMaterial({
+      time: time.value,
+    }),
     queryFn: () => get_total_weight(time.value),
     refetchOnWindowFocus: false,
     refetchInterval: 1000 * 60 * 5,

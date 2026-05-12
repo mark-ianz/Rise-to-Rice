@@ -1,4 +1,5 @@
 import { LogExchange } from "@/schema/LogExchange";
+import { queryKeys } from "@/lib/queryKeys";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
@@ -21,12 +22,15 @@ export function useLogExchange() {
         points_added: data.points,
       });
     },
-    onSuccess: (_, variables) => {
+    onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["user_analytics", variables.user_id],
+        queryKey: ["user_analytics"],
       });
       queryClient.invalidateQueries({
-        queryKey: ["top_material", variables.user_id],
+        queryKey: ["top_material"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.dashboardAnalytics("all_time"),
       });
     },
   });

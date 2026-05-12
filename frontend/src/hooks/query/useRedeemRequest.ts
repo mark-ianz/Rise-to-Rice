@@ -1,4 +1,5 @@
 import { getRedeemRequest } from "@/services/redeem-request.service";
+import { queryKeys } from "@/lib/queryKeys";
 import { Points } from "@/types/points";
 import {
   RedeemRequest,
@@ -16,7 +17,12 @@ export function useGetRedeemRequest({
   status,
 }: SearchParamType) {
   return useQuery({
-    queryKey: ["redeem-request"],
+    queryKey: queryKeys.redeemRequests({
+      page,
+      search,
+      searchFor,
+      status,
+    }),
     queryFn: () =>
       getRedeemRequest({
         page,
@@ -59,9 +65,9 @@ export function useUpdateRedeemRequestStatus() {
       return id;
     },
     onSuccess: (_, variables) => {
-      queryClient.setQueryData(
-        ["redeem-request"],
-        (oldData: RedeemRequestResponse) => {
+      queryClient.setQueriesData(
+        { queryKey: ["redeem-request"] },
+        (oldData: RedeemRequestResponse | undefined) => {
           if (!oldData) return;
           const updatedData = oldData.result.map((rr: RedeemRequest) => {
             if (rr.redeem_request_id === variables.id) {
@@ -85,9 +91,9 @@ export function useDeleteRedeemRequest() {
       await axios.delete("/api/redeem-request/" + id);
     },
     onSuccess: (_, variables) => {
-      queryClient.setQueryData(
-        ["redeem-request"],
-        (oldData: RedeemRequestResponse) => {
+      queryClient.setQueriesData(
+        { queryKey: ["redeem-request"] },
+        (oldData: RedeemRequestResponse | undefined) => {
           if (!oldData) return;
           const updatedData = oldData.result.filter(
             (rr: RedeemRequest) => rr.redeem_request_id !== variables
@@ -105,7 +111,11 @@ export function useGetRedeemHistory({
   endpoint,
 }: SearchParamType & { endpoint: string }) {
   return useQuery({
-    queryKey: ["redeem-history"],
+    queryKey: queryKeys.redeemHistory({
+      endpoint,
+      page,
+      status,
+    }),
     queryFn: async () => {
       const response = await axios.get<RedeemRequestHistoryResponse>(endpoint, {
         params: {
@@ -137,9 +147,9 @@ export function useCancelRedeemRequest() {
       return { request_id, points_cost };
     },
     onSuccess: ({ request_id, points_cost }) => {
-      queryClient.setQueryData(
-        ["redeem-history"],
-        (oldData: RedeemRequestHistoryResponse) => {
+      queryClient.setQueriesData(
+        { queryKey: ["redeem-history"] },
+        (oldData: RedeemRequestHistoryResponse | undefined) => {
           if (!oldData) return;
           const updatedData = oldData.result.map((rr) => {
             if (rr.redeem_request_id === request_id) {
@@ -150,7 +160,7 @@ export function useCancelRedeemRequest() {
           return { ...oldData, result: updatedData };
         }
       );
-      queryClient.setQueryData(["user-points"], (oldData: Points) => {
+      queryClient.setQueryData(queryKeys.userPoints(), (oldData: Points) => {
         if (!oldData) return;
         return {
           ...oldData,

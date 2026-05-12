@@ -35,15 +35,15 @@ The current product flow is:
 
 - `frontend/` is a standalone Vite + React + TypeScript app.
 - `backend/` is a standalone Express + TypeScript + MySQL app.
-- The workspace root is not a Git repository.
-- `frontend/` and `backend/` each contain their own `.git` directory.
+- The workspace root is the active Git repository for this codebase.
+- `frontend/` and `backend/` are managed together as one workspace repo.
 
 ## Operational Notes
 
 - Frontend API calls use relative `/api/...` paths and rely on the Vite dev proxy in local development.
 - Backend serves uploaded announcement images from `/uploads`.
-- The application currently has no automated test suite configured in either package.
-- No `.env.example` files exist at the time of this audit.
+- Backend automated tests live in `backend/test/` and run through `backend/package.json`.
+- Environment examples now live at `frontend/.env.example` and `backend/.env.example`.
 
 ## Maintenance Rule
 

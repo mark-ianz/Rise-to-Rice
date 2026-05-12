@@ -16,7 +16,7 @@ Status legend:
 3. [x] Clean up refresh-token lifecycle and logout behavior
 4. [x] Repair unsafe transaction and controller patterns
 5. [x] Fix React Query cache-key collisions and stale UI state
-6. [ ] Improve performance, repo hygiene, and test coverage
+6. [x] Improve performance, repo hygiene, and test coverage
 
 ## P0: Security And Access Control
 
@@ -172,8 +172,8 @@ Relevant files:
 ## P3: Performance, Tooling, And Maintainability
 
 ### 12. Reduce the frontend bundle size
-- [ ] Lazy-load route pages where appropriate
-- [ ] Split dashboard-heavy code paths
+- [x] Lazy-load route pages where appropriate
+- [x] Split dashboard-heavy code paths
 - [ ] Review large static assets and compress/resize where possible
 
 Why:
@@ -186,15 +186,17 @@ Relevant files:
 - [x] Add backend test runner and initial auth/controller tests
 - [ ] Add frontend test runner for critical flows
 - [x] Replace placeholder backend `npm test`
+  Expanded backend auth/session coverage while completing task 6.
 
 Relevant files:
 - [backend/package.json](/C:/Users/busti/Desktop/Node/Rise%20to%20Rice/backend/package.json:1)
 - [frontend/package.json](/C:/Users/busti/Desktop/Node/Rise%20to%20Rice/frontend/package.json:1)
 
 ### 14. Clean repo hygiene
-- [ ] Remove stray or accidental files from `frontend/`
-- [ ] Add `.env.example` files for frontend and backend
-- [ ] Decide whether this should stay as two separate repos or become one clean workspace repo
+- [x] Remove stray or accidental files from `frontend/`
+- [x] Add `.env.example` files for frontend and backend
+- [x] Decide whether this should stay as two separate repos or become one clean workspace repo
+  Kept as one clean workspace repo and updated docs to match reality.
 
 Relevant files:
 - [docs/README.md](/C:/Users/busti/Desktop/Node/Rise%20to%20Rice/docs/README.md:1)

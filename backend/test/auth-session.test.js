@@ -181,6 +181,57 @@ async function main() {
     );
 
     await runTest(
+      "expired auth token is rejected when refresh token lookup fails",
+      async () => {
+        const user = createUser();
+        const expiredAuthToken = jwt.sign(
+          user,
+          process.env.ACCESS_TOKEN_SECRET,
+          { expiresIn: -1 }
+        );
+
+        let refreshCalls = 0;
+        tokenHelper.getUserWithRefreshToken = async () => {
+          refreshCalls += 1;
+          return null;
+        };
+
+        const middlewareReq = {
+          cookies: {
+            authToken: expiredAuthToken,
+            refreshToken: "refresh-token-value",
+          },
+        };
+        const middlewareRes = createResponseRecorder();
+        let nextCalled = false;
+
+        await authMiddleware.requireAuth(middlewareReq, middlewareRes, () => {
+          nextCalled = true;
+        });
+
+        assert.equal(middlewareRes.statusCode, 401);
+        assert.deepEqual(middlewareRes.body, { error: "Unauthorized request" });
+        assert.equal(nextCalled, false);
+        assert.equal(middlewareReq.user, undefined);
+
+        const controllerReq = {
+          cookies: {
+            authToken: expiredAuthToken,
+            refreshToken: "refresh-token-value",
+          },
+        };
+        const controllerRes = createResponseRecorder();
+
+        await authController.checkUser(controllerReq, controllerRes);
+
+        assert.equal(controllerRes.statusCode, 401);
+        assert.deepEqual(controllerRes.body, { error: "Unauthorized request" });
+        assert.equal(controllerReq.user, undefined);
+        assert.equal(refreshCalls, 2);
+      }
+    );
+
+    await runTest(
       "missing auth and refresh tokens is rejected consistently",
       async () => {
         tokenHelper.getUserWithRefreshToken = async () => {

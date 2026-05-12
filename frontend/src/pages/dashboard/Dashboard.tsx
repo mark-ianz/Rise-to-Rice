@@ -6,13 +6,22 @@ import { queryKeys } from "@/lib/queryKeys";
 import { Time, TimeDisplay } from "@/types/time";
 import { getDisplayTime } from "@/utils/analytics";
 
-import { useState } from "react";
-import MaterialsChart from "../../components/page-components/dashboard/base/MaterialsChart";
+import { lazy, Suspense, useState } from "react";
 import DashboardCards from "../../components/page-components/dashboard/base/DashboardCards";
 import { get_total_weight } from "@/services/analytics.service";
 import { useQuery } from "@tanstack/react-query";
-import DetailedMaterialAnalytics from "../../components/page-components/dashboard/base/DetailedMaterialAnalytics";
 import { Helmet } from "react-helmet";
+import LoadingComponent from "@/components/general/LoadingComponent";
+
+const MaterialsChart = lazy(
+  () => import("../../components/page-components/dashboard/base/MaterialsChart")
+);
+const DetailedMaterialAnalytics = lazy(
+  () =>
+    import(
+      "../../components/page-components/dashboard/base/DetailedMaterialAnalytics"
+    )
+);
 
 export default function Dashboard() {
   const [time, setTime] = useState<TimeDisplay>({
@@ -60,8 +69,16 @@ export default function Dashboard() {
         </div>
         <DashboardCards time={time} />
         <hr />
-        <MaterialsChart time={time} />
-        <DetailedMaterialAnalytics className="p-4" time={time} />
+        <Suspense
+          fallback={
+            <div className="flex justify-center py-10">
+              <LoadingComponent className="size-8" />
+            </div>
+          }
+        >
+          <MaterialsChart time={time} />
+          <DetailedMaterialAnalytics className="p-4" time={time} />
+        </Suspense>
       </div>
     </SectionWrapper>
   );

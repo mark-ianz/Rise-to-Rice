@@ -2,35 +2,47 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Layout from "./Layout.tsx";
-import LandingPage from "./pages/LandingPage.tsx";
-import Register from "./pages/Register.tsx";
-import Login from "./pages/Login";
+import { lazy, Suspense } from "react";
+import type { ReactNode } from "react";
 import { CreateAccountProvider } from "./context/CreateAccountContext.tsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { UserProvider } from "./context/UserContext.tsx";
-import Profile from "./pages/Profile.tsx";
 import { EditProfileProvider } from "./context/EditProfileContext.tsx";
-import Announcements from "./pages/Announcements.tsx";
-import AboutUs from "./pages/AboutUs.tsx";
-import ContactUs from "./pages/ContactUs.tsx";
 import { FullUserProvider } from "./context/FullUserContext.tsx";
-import RedeemRewards from "./pages/RedeemRewards.tsx";
 import ProtectedRoute from "./components/protected/ProtectedRoute.tsx";
-import Dashboard from "./pages/dashboard/Dashboard.tsx";
-import DashboardLayout from "./components/page-components/dashboard/base/DashboardLayout.tsx";
-import Users from "./pages/dashboard/Users.tsx";
 import { SearchUserResultProvider } from "./context/SearchUserResultContext.tsx";
-import ViewUser from "./pages/dashboard/ViewUser.tsx";
 import { LogExchangeProvider } from "./context/LogExchangeContext.tsx";
-import RedeemRequest from "./pages/dashboard/RedeemRequest.tsx";
-import Rewards from "./pages/dashboard/Rewards.tsx";
-import Material from "./pages/dashboard/Material.tsx";
-import RedeemHistory from "./pages/RedeemHistory.tsx";
-import ViewAnnouncement from "./pages/ViewAnnouncement.tsx";
 import "./utils/i18n.ts";
-import ContactMessages from "./pages/dashboard/ContactMessages.tsx";
 import NotFoundPage from "./components/page-components/NotFoundPage.tsx";
-import ForgotPassword from "./pages/ForgotPassword.tsx";
+import WholePageLoader from "./components/general/WholePageLoader.tsx";
+
+const LandingPage = lazy(() => import("./pages/LandingPage.tsx"));
+const Register = lazy(() => import("./pages/Register.tsx"));
+const Login = lazy(() => import("./pages/Login.tsx"));
+const Profile = lazy(() => import("./pages/Profile.tsx"));
+const Announcements = lazy(() => import("./pages/Announcements.tsx"));
+const AboutUs = lazy(() => import("./pages/AboutUs.tsx"));
+const ContactUs = lazy(() => import("./pages/ContactUs.tsx"));
+const RedeemRewards = lazy(() => import("./pages/RedeemRewards.tsx"));
+const RedeemHistory = lazy(() => import("./pages/RedeemHistory.tsx"));
+const ForgotPassword = lazy(() => import("./pages/ForgotPassword.tsx"));
+const ViewAnnouncement = lazy(() => import("./pages/ViewAnnouncement.tsx"));
+const DashboardLayout = lazy(
+  () => import("./components/page-components/dashboard/base/DashboardLayout.tsx")
+);
+const Dashboard = lazy(() => import("./pages/dashboard/Dashboard.tsx"));
+const Users = lazy(() => import("./pages/dashboard/Users.tsx"));
+const ViewUser = lazy(() => import("./pages/dashboard/ViewUser.tsx"));
+const RedeemRequest = lazy(() => import("./pages/dashboard/RedeemRequest.tsx"));
+const Rewards = lazy(() => import("./pages/dashboard/Rewards.tsx"));
+const Material = lazy(() => import("./pages/dashboard/Material.tsx"));
+const ContactMessages = lazy(
+  () => import("./pages/dashboard/ContactMessages.tsx")
+);
+
+function withSuspense(element: ReactNode) {
+  return <Suspense fallback={<WholePageLoader />}>{element}</Suspense>;
+}
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -51,13 +63,13 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <LandingPage />,
+        element: withSuspense(<LandingPage />),
       },
       {
         path: "register",
         element: (
           <ProtectedRoute role={"not authenticated"}>
-            <Register />
+            {withSuspense(<Register />)}
           </ProtectedRoute>
         ),
       },
@@ -65,7 +77,7 @@ const router = createBrowserRouter([
         path: "login",
         element: (
           <ProtectedRoute role={"not authenticated"}>
-            <Login />
+            {withSuspense(<Login />)}
           </ProtectedRoute>
         ),
       },
@@ -73,31 +85,31 @@ const router = createBrowserRouter([
         path: "profile",
         element: (
           <ProtectedRoute role={"user"}>
-            <Profile />
+            {withSuspense(<Profile />)}
           </ProtectedRoute>
         ),
       },
       {
         path: "announcements",
-        element: <Announcements />,
+        element: withSuspense(<Announcements />),
       },
       {
         path: "announcements/:id",
-        element: <ViewAnnouncement />,
+        element: withSuspense(<ViewAnnouncement />),
       },
       {
         path: "about-us",
-        element: <AboutUs />,
+        element: withSuspense(<AboutUs />),
       },
       {
         path: "contact-us",
-        element: <ContactUs />,
+        element: withSuspense(<ContactUs />),
       },
       {
         path: "redeem-rewards",
         element: (
           <ProtectedRoute role={"user"}>
-            <RedeemRewards />
+            {withSuspense(<RedeemRewards />)}
           </ProtectedRoute>
         ),
       },
@@ -105,7 +117,7 @@ const router = createBrowserRouter([
         path: "redeem-history",
         element: (
           <ProtectedRoute role={"user"}>
-            <RedeemHistory />
+            {withSuspense(<RedeemHistory />)}
           </ProtectedRoute>
         ),
       },
@@ -113,41 +125,41 @@ const router = createBrowserRouter([
         path: "forgot-password",
         element: (
           <ProtectedRoute role={"not authenticated"}>
-            <ForgotPassword />
+            {withSuspense(<ForgotPassword />)}
           </ProtectedRoute>
         ),
       },
       {
         path: "dashboard",
-        element: <DashboardLayout />,
+        element: withSuspense(<DashboardLayout />),
         children: [
           {
             index: true,
-            element: <Dashboard />,
+            element: withSuspense(<Dashboard />),
           },
           {
             path: "/dashboard/users",
-            element: <Users />,
+            element: withSuspense(<Users />),
           },
           {
             path: "/dashboard/users/:id",
-            element: <ViewUser />,
+            element: withSuspense(<ViewUser />),
           },
           {
             path: "/dashboard/redeem-request",
-            element: <RedeemRequest />,
+            element: withSuspense(<RedeemRequest />),
           },
           {
             path: "/dashboard/rewards",
-            element: <Rewards />,
+            element: withSuspense(<Rewards />),
           },
           {
             path: "/dashboard/materials",
-            element: <Material />,
+            element: withSuspense(<Material />),
           },
           {
             path: "/dashboard/contact-messages",
-            element: <ContactMessages />,
+            element: withSuspense(<ContactMessages />),
           },
         ],
       },

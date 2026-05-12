@@ -27,8 +27,10 @@ export async function requireAuth(
       next();
       return;
     } catch (err) {
-      res.status(401).json({ error: "Unauthorized request" });
-      return;
+      if (!refreshToken) {
+        res.status(401).json({ error: "Unauthorized request" });
+        return;
+      }
     }
   }
 

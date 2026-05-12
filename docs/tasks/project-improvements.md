@@ -50,9 +50,9 @@ Relevant files:
 ## P1: Authentication And Session Correctness
 
 ### 3. Allow refresh-token fallback when access token is expired
-- [ ] Change `requireAuth` so an invalid/expired `authToken` does not immediately return `401`
-- [ ] Fall through to refresh-token validation when `refreshToken` exists
-- [ ] Add tests for:
+- [x] Change `requireAuth` so an invalid/expired `authToken` does not immediately return `401`
+- [x] Fall through to refresh-token validation when `refreshToken` exists
+- [x] Add tests for:
   - valid auth token
   - expired auth token with valid refresh token
   - missing both tokens
@@ -65,9 +65,9 @@ Relevant files:
 - [backend/src/controllers/auth.ts](/C:/Users/busti/Desktop/Node/Rise%20to%20Rice/backend/src/controllers/auth.ts:51)
 
 ### 4. Simplify `/api/auth/check`
-- [ ] Remove the double-handler pattern or make it explicit and safe
-- [ ] Ensure exactly one response is sent per request
-- [ ] Decide whether `checkUser` alone should handle both access-token and refresh-token paths
+- [x] Remove the double-handler pattern or make it explicit and safe
+- [x] Ensure exactly one response is sent per request
+- [x] Decide whether `checkUser` alone should handle both access-token and refresh-token paths
 
 Relevant files:
 - [backend/src/routes/auth.ts](/C:/Users/busti/Desktop/Node/Rise%20to%20Rice/backend/src/routes/auth.ts:7)

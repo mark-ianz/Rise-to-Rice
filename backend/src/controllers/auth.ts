@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from "express";
+import { Request, Response } from "express";
 import { handleZodErrors, throwServerError } from "../helpers/errorHandlers";
 import pool from "../connection/database";
 import { z } from "zod";
@@ -50,7 +50,7 @@ export async function logoutUser(req: Request, res: Response) {
 
 export async function checkUser(
   req: Request,
-  res: Response,
+  res: Response
 ) {
   // get the auth token from the cookies
   const { authToken, refreshToken } = req.cookies;
@@ -61,37 +61,33 @@ export async function checkUser(
     return;
   }
 
-  // if authToken is present verify it and return the user data
-  try {
-    const decoded = jwt.verify(
-      authToken,
-      process.env.ACCESS_TOKEN_SECRET!
-    ) as ReqUser;
+  if (authToken) {
+    try {
+      const decoded = jwt.verify(
+        authToken,
+        process.env.ACCESS_TOKEN_SECRET!
+      ) as ReqUser;
 
-    // destructure the iat and exp from the decoded token so that they won't be included in the response
-    const { iat, exp, ...userData } = decoded;
-    req.user = userData;
-    res.json(userData);
-    console.log("Auth Token is still valid!");
-    return;
-  } catch (error) {
-    console.log("Auth token is expired");
-    // if the token is invalid, check if the refresh token is present
-    if (!refreshToken) {
-      console.log("No Refresh Token provided");
-      res.status(401).json({ error: "Invalid token" });
+      // destructure the iat and exp from the decoded token so that they won't be included in the response
+      const { iat, exp, ...userData } = decoded;
+      req.user = userData;
+      res.json(userData);
       return;
+    } catch (error) {
+      if (!refreshToken) {
+        res.status(401).json({ error: "Unauthorized request" });
+        return;
+      }
     }
+  }
 
-    // if there is no authToken but there is a refreshToken, call the getUserWithRefreshToken which will return the user data if the refresh token is valid
-    const user = await getUserWithRefreshToken(req, res);
+  const user = await getUserWithRefreshToken(req, res);
 
-    if (!user) {
-      res.status(401).json({ error: "Unauthorized request" });
-      return;
-    }
-
-    res.json(user);
+  if (!user) {
+    res.status(401).json({ error: "Unauthorized request" });
     return;
   }
+
+  req.user = user;
+  res.json(user);
 }

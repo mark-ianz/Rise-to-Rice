@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "npm run build && node test/password-reset.test.js",
+    "test": "npm run build && node test/password-reset.test.js && node test/auth-session.test.js",
     "build": "tsc --build",
     "start": "node ./dist/index.js",
     "dev": "nodemon ./src/index.ts"

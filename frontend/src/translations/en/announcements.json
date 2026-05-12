@@ -1,0 +1,28 @@
+{
+  "title": "Announcements",
+  "view_title": "View Announcement",
+  "announcement_not_found": "Announcement not found",
+  "subtext": "Stay up to date with our latest news and announcements",
+  "sort": {
+    "latest": "latest",
+    "oldest": "oldest",
+    "reactions": "reactions"
+  },
+  "button": {
+    "react": "React",
+    "reacted": "You reacted",
+    "view_post": "View",
+    "share": "Share"
+  },
+  "reactions_list": {
+    "title": "Reactions",
+    "subtext": "All reactions to this post",
+    "no_reactions": "No reactions to this post. Be the first to react to this announcement.",
+    "all": "All"
+  },
+  "toast": {
+    "success": "Link copied successfully!",
+    "subtext": "You can now share this to others."
+  },
+  "no_announcements": "No announcements available."
+}

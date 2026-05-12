@@ -1,0 +1,59 @@
+{
+  "title": "Redeem Rewards",
+  "description": "Exchange your points with corresponding rewards. You can choose from a variety of options available in our rewards list.",
+  "points": "Points",
+  "view_redeem_history": "View Redeem History",
+  "terms": {
+    "reward": "Reward",
+    "quantity": "Quantity",
+    "points_cost": "Points Cost",
+    "points": "{{count}} points",
+    "points_others": "{{count}} point",
+    "status": "Status"
+  },
+  "search_placeholder": "Search for rewards...",
+  "redeem_button": {
+    "text": "Redeem",
+    "dialog": {
+      "title": "Redeem Reward",
+      "description": "Are you sure you want to redeem {{quantity}} of {{reward}} for {{points_cost}} points?",
+      "confirm": "Redeem",
+      "cancel": "Cancel"
+    },
+    "toast": {
+      "success": "Redeem request successfully submitted!",
+      "error": "You don't have enough points to redeem this reward.",
+      "unknown_error": "An unknown error occurred. Please try again later."
+    }
+  },
+  "no_rewards": {
+    "title": "No Rewards Available",
+    "description": "Currently, there are no rewards available for redemption. Please check back later."
+  },
+  "caption": "A list of redeemable rewards",
+  "redeem_history": {
+    "title": "Redeem History",
+    "status": {
+      "pending": "Pending",
+      "for pick up": "For Pick Up",
+      "rejected": "Rejected",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    },
+    "cancel_dialog": {
+      "title": "Cancel Redeem Request",
+      "description": "Are you sure you want to cancel this redeem request #{{request_id}}?",
+      "description_2": "This action cannot be undone.",
+      "confirm": "Yes, Cancel",
+      "cancel": "No, Keep"
+    },
+    "cancel": "Cancel",
+    "toast": {
+      "cancel_success": "Redeem request successfully cancelled!"
+    },
+    "empty": {
+      "title": "You have no redeem requests. Redeem a reward to see requests.",
+      "link": "Redeem Here"
+    }
+  }
+}

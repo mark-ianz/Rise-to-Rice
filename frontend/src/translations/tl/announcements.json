@@ -1,0 +1,28 @@
+{
+  "title": "Mga Anunsyo",
+  "view_title": "Tingnan ang Anunsyo",
+  "announcement_not_found": "Hindi matagpuan ang anunsyo",
+  "subtext": "Manatiling napapanahon sa aming mga pinakabagong balita at anunsyo",
+  "sort": {
+    "latest": "pinakabago",
+    "oldest": "pinakaluma",
+    "reactions": "reaksyon"
+  },
+  "button": {
+    "react": "Mag-react",
+    "reacted": "Nag-react ka ng",
+    "view_post": "Tingnan",
+    "share": "Ibahagi"
+  },
+  "reactions_list": {
+    "title": "Mga Reaksyon",
+    "subtext": "Lahat ng reaksyon sa post na ito",
+    "no_reactions": "Walang reaksyon sa post na ito. Maging pinakauna na mag-react sa anunsyo na ito",
+    "all": "Lahat"
+  },
+  "toast": {
+    "success": "Maayos na nakopya ang link!",
+    "subtext": "Maaari mo na itong ibahagi sa iba."
+  },
+  "no_announcements": "Walang mga anunsyo."
+}

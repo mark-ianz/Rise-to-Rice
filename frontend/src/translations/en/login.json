@@ -1,0 +1,9 @@
+{
+  "title": "Welcome Back!",
+  "subtitle": "Please enter your credentials to continue.",
+  "button": {
+    "login": "Login",
+    "forgot_password": "Forgot Password?",
+    "register": "Doesn't have an account?"
+  }
+}

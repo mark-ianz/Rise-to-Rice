@@ -1,0 +1,20 @@
+{
+  "hero": {
+    "title": "About Us",
+    "description": "Learn more about our mission, values, and commitment to excellence.",
+    "content": {
+      "header": "Committed to a Cleaner, Greener Community",
+      "description": "The Solid Waste Management Team of Barangay Bagong Silangan, Quezon City leads the Rise to Rice Solid Waste Management Program, promoting responsible waste disposal and sustainable practices. Through education and community initiatives, we strive to transform waste into valuable resources, creating a cleaner and more sustainable future for all."
+    }
+  },
+  "mission_vision": [
+    {
+      "title": "Our Mission",
+      "description": "Establish a community with proper knowledge, the proper absorption of our waste and the proper care of our nature and environment."
+    },
+    {
+      "title": "Our Vision",
+      "description": "A community that cares and values the environment and nature to become a peaceful and comfortable community."
+    }
+  ]
+}

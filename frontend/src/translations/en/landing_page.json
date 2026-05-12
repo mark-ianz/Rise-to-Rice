@@ -1,0 +1,38 @@
+{
+  "hero": {
+    "title": "Recyclables to rice and support a greener community",
+    "subtext": "Welcome to Rise to Rice, a community-driven initiative that transforms recyclable waste into a valuable resource to support sustainability and local communities. By repurposing waste, we reduce environmental impact and create opportunities for a greener future.",
+    "button": {
+      "profile": "Profile",
+      "get_started": "Get Started",
+      "how_does_it_work": "How Does It Work?"
+    }
+  },
+  "how_does_it_work": {
+    "title": "How does it work?",
+    "steps": [
+      {
+        "title": "Segregate",
+        "description": "Sort your recyclable waste properly by separating plastics, paper, metals, and other reusable materials."
+      },
+      {
+        "title": "Exchange",
+        "description": "Bring your sorted recyclables to designated collection points. Each item you exchange is weighed and recorded."
+      },
+      {
+        "title": "Redeem Rewards",
+        "description": "Earn points based on the weight and type of recyclables you submit. Accumulated points can be redeemed and exchanged for rice."
+      },
+      {
+        "title": "Recycle",
+        "description": "Collected recyclables are processed and repurposed, reducing environmental impact."
+      }
+    ]
+  },
+  "latest_announcements": {
+    "title": "Latest Announcements",
+    "view_more": "View More",
+    "no_recent_announcements": "No recent announcements",
+    "read_more": "Read More"
+  }
+}

@@ -1,0 +1,18 @@
+- Updating user info such as name, address, password and etc...
+- Redeeming points
+- Update user role (only for super admin)
+- Charts 
+  - Most Material turned over on
+    - Today
+    - Week
+    - Month
+    - 3 months
+    - 6 months
+    - 9 months
+    - This year (This year from start of January to December)
+    - 1 year (1 year from current date)
+    - 1 and half year
+    - 2 years
+
+- Refactor the error catching because it's very repetitive
+- When requiring admin middleware, include the require auth in there

@@ -1,0 +1,14 @@
+validate the edit profile // done
+dropdown to choose from bar graph or pie chart // done
+make navlinks a drop down if the page contains multiple section for easier access.
+im tired boss
+
+// announcement
+filter: date, likes etc
+
+Reward Actions
+Material Tab in Admin
+Query Invalidation
+Contact Messages Tab
+Skeleton Component
+Responsiveness

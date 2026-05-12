@@ -1,0 +1,23 @@
+{
+  "profile": {
+    "title": "Sariling Impormasyon",
+    "basic_information": "Pangunahing Impormasyon",
+    "account_created": "Nagawa ang Account",
+    "contact_information": "Impormasyon sa Pakikipag-ugnayan",
+    "edit_profile": {
+      "button": "I-edit ang Impormasyon",
+      "save": "I-save",
+      "cancel": "Kanselahin",
+      "dialog": {
+        "title": "I-save ang pagbabago",
+        "description": "Sigurado ka bang nais mong i-save ang mga pagbabagong ito?",
+        "confirm": "Oo, I-save",
+        "cancel": "Hindi, Kanselahin"
+      },
+      "toast": {
+        "success": "Matagumpay na na-nabago ang impormasyon!",
+        "error": "May problema sa pag-babago ng impormasyon. Pakisubukang muli."
+      }
+    }
+  }
+}

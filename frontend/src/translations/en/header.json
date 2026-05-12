@@ -1,0 +1,38 @@
+{
+  "nav_links": [
+    { "name": "Home", "url": "/" },
+    { "name": "Dashboard", "url": "/dashboard", "role": "admin" },
+    { "name": "Announcements", "url": "/announcements" },
+    { "name": "Rewards", "url": "/redeem-rewards", "role": "user" },
+    { "name": "About Us", "url": "/about-us" },
+    { "name": "Contact Us", "url": "/contact-us" }
+  ],
+  "profile_popover": {
+    "greetings": "Hello",
+    "content": [
+      {
+        "display_name": "Profile",
+        "name": "Profile",
+        "link": "/profile"
+      },
+      {
+        "display_name": "Language",
+        "name": "Language"
+      },
+      {
+        "display_name": "Login",
+        "name": "Login",
+        "link": "/login"
+      },
+      {
+        "display_name": "Register",
+        "name": "Register",
+        "link": "/register"
+      },
+      {
+        "display_name": "Logout",
+        "name": "Logout"
+      }
+    ]
+  }
+}

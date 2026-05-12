@@ -1,0 +1,58 @@
+{
+  "nav_links": [
+    {
+      "name": "I-home",
+      "url": "/"
+    },
+    {
+      "name": "Dashboard",
+      "url": "/dashboard",
+      "role": "admin"
+    },
+    {
+      "name": "Anunsyo",
+      "url": "/announcements"
+    },
+    {
+      "name": "Gantimpala",
+      "url": "/redeem-rewards",
+      "role": "user"
+    },
+    {
+      "name": "Tungkol sa Amin",
+      "url": "/about-us"
+    },
+    {
+      "name": "Makipag-ugnayan",
+      "url": "/contact-us"
+    }
+  ],
+  "profile_popover": {
+    "greetings": "Kamusta",
+    "content": [
+      {
+        "display_name": "Sariling Impormasyon",
+        "name": "Profile",
+        "link": "/profile"
+      },
+      {
+        "display_name": "Wika",
+        "name": "Language"
+      },
+      {
+        "display_name": "Mag-login",
+        "name": "Login",
+        "link": "/login"
+      },
+      {
+        "display_name": "Mag-rehistro",
+        "name": "Register",
+        "link": "/register"
+      },
+      {
+        "display_name": "Mag-logout",
+        "name": "Logout"
+      }
+    ]
+  }
+}

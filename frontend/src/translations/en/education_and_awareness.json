@@ -1,0 +1,86 @@
+{
+  "accepted_wastes": {
+    "title": "Accepted Wastes",
+    "date": "as of {{date}}"
+  },
+  "left": {
+    "content_1": "At Rise to Rice, we focus on making a real difference in both the environment and our community. To ensure that our recycling efforts are effective, we only accept materials that can be properly processed and converted into resources.",
+    "content_2": "By recycling the accepted materials, you’re not just cleaning up your environment—you’re also contributing to a more sustainable future while supporting local communities in need."
+  },
+  "right": {
+    "items_we_accept": "Accepted Wastes",
+    "no_items": "No available items yet",
+    "items_we_do_not_accept": {
+      "title": "Items we do not accept",
+      "materials": [
+        {
+          "material": "Food Waste",
+          "description": "Food waste is not accepted due to the high risk of contamination and the difficulty of processing it into a usable resource.",
+          "examples": ["Fruits", "Vegetables", "Meat", "Dairy Products"]
+        },
+        {
+          "material": "Electronics",
+          "description": "Electronics are not accepted due to the complex nature of their components and the potential hazards they pose.",
+          "examples": ["Mobile Phones", "Laptops", "Tablets", "Televisions"]
+        },
+        {
+          "material": "Contaminated Materials",
+          "description": "Contaminated materials are not accepted because they can cause issues during the recycling process.",
+          "examples": ["Greasy Pizza Boxes", "Used Tissues", "Dirty Diapers"]
+        },
+        {
+          "material": "Hazardous Waste",
+          "description": "Hazardous waste is not accepted due to the potential risks it poses to the environment and human health.",
+          "examples": ["Batteries", "Paints", "Chemicals", "Pesticides"]
+        }
+      ]
+    }
+  },
+  "matters": {
+    "title": "Why Waste Segragation Matters?",
+    "description": " Improper waste disposal can have serious consequences for the environment. When recyclables like plastics, metals, and paper end up in landfills, they contribute to pollution, waste accumulation, and increased greenhouse gas emissions. Non-recyclable materials can also leach harmful chemicals into the soil and water, affecting ecosystems.",
+    "list": {
+      "header": "By segregating waste properly, you help:",
+      "items": [
+        {
+          "title": "Reduce Landfill Waste",
+          "description": "Recyclables that are properly sorted are sent to recycling plants instead of landfills, reducing the strain on waste management systems."
+        },
+        {
+          "title": "Prevent Pollution",
+          "description": "Properly recycling materials like plastic and glass minimizes their environmental impact, preventing contamination of water sources and wildlife habitats."
+        },
+        {
+          "title": "Conserve Resources",
+          "description": "Recycling conserves raw materials, reduces the need for new natural resources, and lowers energy consumption."
+        }
+      ]
+    }
+  },
+  "benefits": {
+    "title": "Benefits of Recycling",
+    "description": "Recycling isn't just good for the environment—it's good for the entire community! When we recycle, we create a positive ripple effect that benefits everyone.",
+    "list": [
+      {
+        "title": "Cleaner Streets and Neighborhoods",
+        "description": "By diverting recyclables from landfills and improperly disposed waste, communities experience cleaner public spaces and a reduction in littering."
+      },
+      {
+        "title": "Job Creation",
+        "description": "Recycling programs help generate green jobs in sorting, processing, and recycling industries, boosting the local economy. Local businesses also benefit from reduced waste management costs."
+      },
+      {
+        "title": "Healthier Environment",
+        "description": "Recycling reduces the burden on landfills, cutting down harmful emissions from waste incineration. This improves the air quality and reduces health risks such as respiratory issues caused by pollutants."
+      },
+      {
+        "title": "Support for Local Initiatives",
+        "description": "Through the Rise to Rice program, collected recyclables are transformed into rice, which benefits low-income families in our community. Your efforts help provide essential food for those in need."
+      },
+      {
+        "title": "Educational Opportunities",
+        "description": "Recycling initiatives, like Rise to Rice, promote awareness and education, helping people understand the importance of waste management and how their actions can lead to lasting environmental changes."
+      }
+    ]
+  }
+}

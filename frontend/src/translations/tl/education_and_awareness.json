@@ -1,0 +1,90 @@
+{
+  "accepted_wastes": {
+    "title": "Tinatanggap Na Mga Basura",
+    "date": "sa petsang {{date}}"
+  },
+  "left": {
+    "content_1": "Sa Rise to Rice, pokus kami sa paggawa ng pagkakaiba sa parehong kapaligiran at ating pamayanan. Upang matiyak na ang aming mga pagsisikap sa pag-recycle ay epektibo, tumatanggap lamang kami ng mga materyales na maaaring maproseso nang maayos at ma-ipalit sa mga mapagkukunan.",
+    "content_2": "Sa pamamagitan ng pag-recycle ng mga tinatanggap na materyales, hindi mo lang nililinis ang iyong kapaligiran—nag-aambag ka rin sa mas napapanatiling hinaharap habang sinusuportahan ang mga lokal na komunidad na nangangailangan."
+  },
+  "right": {
+    "items_we_accept": "Listahan ng mga tinatanggap na basura",
+    "no_items": "Wala pang mga listahan sa ngayon",
+    "items_we_do_not_accept": {
+      "title": "Mga bagay na hindi namin tinatanggap",
+      "materials": [
+        {
+          "material": "Pagkain na Basura",
+          "description": "Hindi tinatanggap ang pagkain na basura dahil sa mataas na panganib ng kontaminasyon at kahirapan sa pagproseso nito bilang kapaki-pakinabang na materyal.",
+          "examples": ["Prutas", "Gulay", "Karne", "Mga Produktong Gatas"]
+        },
+        {
+          "material": "Elektronika",
+          "description": "Ang mga elektroniko ay hindi tinatanggap dahil sa kumplikadong katangian ng kanilang mga bahagi at ang mga potensyal na panganib na dulot nito.",
+          "examples": ["Mga Mobile Phone", "Laptop", "Tablet", "Telebisyon"]
+        },
+        {
+          "material": "Kontaminadong Materyales",
+          "description": "Hindi tinatanggap ang kontaminadong materyales dahil maaari itong magdulot ng problema sa proseso ng pagrerecycle.",
+          "examples": [
+            "Kahon ng Pizza",
+            "Ginamit na Tisyu",
+            "Maruruming Diaper"
+          ]
+        },
+        {
+          "material": "Mapanganib na Basura",
+          "description": "Hindi tinatanggap ang mapanganib na basura dahil sa mga posibleng panganib nito sa kalikasan at kalusugan ng tao.",
+          "examples": ["Baterya", "Pintura", "Kemikal", "Pestisidyo"]
+        }
+      ]
+    }
+  },
+  "matters": {
+    "title": "Bakit Mahalaga ang Paghihiwalay ng Basura?",
+    "description": "Ang hindi tamang pagtatapon ng basura ay maaaring magkaroon ng malubhang kahihinatnan para sa kapaligiran. Kapag nauubos ang mga recyclable tulad ng mga plastik, metal, at papel sa mga landfill, nag-aambag sila sa polusyon, akumulasyon ng basura, at tumaas na greenhouse gas emissions. Ang mga hindi nare-recycle na materyales ay maaaring malagyan ng mapanganib na kemikal sa lupa at tubig, na nakakaapekto sa mga ecosystem.",
+    "list": {
+      "header": "Sa pamamagitan ng wastong paghihiwalay ng basura, nakakatulong ka sa:",
+      "items": [
+        {
+          "title": "Bawasan ang Basura sa Landfill",
+          "description": "Ang mga recyclable na maayos na pinagsunod-sunod ay ipinapadala sa mga planta ng pagrerecycle sa halip na sa landfill, na nagpapagaan sa sistema ng pamamahala ng basura."
+        },
+        {
+          "title": "Pigilan ang Polusyon",
+          "description": "Ang tamang pagrerecycle ng mga materyales tulad ng plastik at salamin ay nagpapababa ng kanilang epekto sa kapaligiran at pumipigil sa kontaminasyon ng mga pinagkukunan ng tubig at tirahan ng mga hayop."
+        },
+        {
+          "title": "Makatipid sa mga Likas na Yaman",
+          "description": "Ang pagrerecycle ay nakakatipid ng mga hilaw na materyales, nagpapababa ng pangangailangan sa mga bagong likas na yaman, at nagbabawas ng konsumo ng enerhiya."
+        }
+      ]
+    }
+  },
+  "benefits": {
+    "title": "Mga Benepisyo ng Pag-recycle",
+    "description": "Ang pag-recycle ay hindi lamang mabuti para sa kapaligiran—ito ay mabuti para sa buong komunidad! Kapag nagre-recycle tayo, gumagawa tayo ng positibong epekto na nakikinabang ang lahat.",
+    "list": [
+      {
+        "title": "Mas Malilinis na mga Kalsada at Komunidad",
+        "description": "Sa pamamagitan ng pag-iwas sa pagtatapon ng mga recyclable sa landfill at maling pagtatapon ng basura, nagiging mas malinis ang mga pampublikong lugar at nababawasan ang pagkakalat sa mga komunidad."
+      },
+      {
+        "title": "Paglikha ng Trabaho",
+        "description": "Ang mga programa sa pagrerecycle ay tumutulong sa paglikha ng mga green jobs sa larangan ng pagsasala, pagproseso, at industriya ng pagrerecycle, na nagpapalakas sa lokal na ekonomiya. Nakikinabang din ang mga lokal na negosyo dahil sa mas mababang gastos sa pamamahala ng basura."
+      },
+      {
+        "title": "Mas Malusog na Kapaligiran",
+        "description": "Ang pagrerecycle ay nagpapababa sa paggamit ng landfill, na nagreresulta sa mas kaunting mapanganib na usok mula sa pagsusunog ng basura. Nagpapabuti ito ng kalidad ng hangin at nagpapababa ng mga panganib sa kalusugan gaya ng mga sakit sa paghinga."
+      },
+      {
+        "title": "Pagsuporta sa mga Lokal na Inisyatibo",
+        "description": "Sa pamamagitan ng Rise to Rice program, ang mga nakolektang recyclable ay ginagawang bigas na nakakatulong sa mga pamilyang may mababang kita sa ating komunidad. Ang iyong pagsisikap ay nakakatulong magbigay ng pagkain sa mga nangangailangan."
+      },
+      {
+        "title": "Mga Oportunidad sa Edukasyon",
+        "description": "Ang mga inisyatibo sa pagrerecycle tulad ng Rise to Rice ay nagtataguyod ng kamalayan at edukasyon, tinutulungan ang mga tao na maunawaan ang kahalagahan ng tamang pamamahala ng basura at kung paano maaaring magdulot ng pangmatagalang pagbabago sa kapaligiran ang kanilang mga aksyon."
+      }
+    ]
+  }
+}

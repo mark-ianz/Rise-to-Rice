@@ -1,0 +1,9 @@
+{
+  "title": "Maligayang Pagbabalik!",
+  "subtitle": "Pakilagay ang iyong mga kredensyal upang magpatuloy.",
+  "button": {
+    "login": "Mag-login",
+    "forgot_password": "Nakalimutan ang password?",
+    "register": "Walang account?"
+  }
+}

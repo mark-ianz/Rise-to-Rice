@@ -1,0 +1,17 @@
+{
+  "error": {
+    "generic": "May nangyaring problema. Pakisubukang muli mamaya",
+    "network": "Problema sa koneksyon. Pakisuri ang iyong koneksyon",
+    "not_found": "Hindi nahanap ang hiniling na impormasyon",
+    "unauthorized": "Wala kang pahintulot na i-access ang impormasyon na ito",
+    "page_not_found": "Hindi nahanap ang detalye",
+    "server_error": "May problema sa server. Pakisubukang muli mamaya",
+    "invalid_otp": "Di-wastong OTP. Pakisuri ang code at subukang muli."
+
+  },
+  "pagination": {
+    "previous": "Bumalik",
+    "next": "Sunod",
+    "found": "Nahanap: {{total_items}}"
+  }
+}

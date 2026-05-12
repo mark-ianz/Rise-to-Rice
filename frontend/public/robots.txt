@@ -1,0 +1,10 @@
+# Allow all bots to crawl all public pages
+User-agent: *
+Disallow: /dashboard
+Disallow: /profile
+Disallow: /login
+Disallow: /register
+Disallow: /contact-us
+
+# Sitemap URL for bots to easily discover
+Sitemap: https://risetorice.com/sitemap.xml

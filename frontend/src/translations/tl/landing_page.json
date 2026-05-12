@@ -1,0 +1,38 @@
+{
+  "hero": {
+    "title": "Basura para sa bigas at suportahan ang mas maunlad na komunidad",
+    "subtext": "Maligayang pagdating sa Rise to Rice, isang inisyatiba na hinimok ng komunidad na ginagawang isang mahalagang mapagkukunan upang suportahan ang pagpapanatili at mga lokal na komunidad. Sa pamamagitan ng muling paggamit ng basura, binabawasan natin ang epekto sa kapaligiran at lumilikha tayo ng mga pagkakataon para sa mas luntiang kinabukasan.",
+    "button": {
+      "profile": "Sariling Impormasyon",
+      "get_started": "Mag Simula",
+      "how_does_it_work": "Paano Ito Gumagana?"
+    }
+  },
+  "how_does_it_work": {
+    "title": "Paano ito gumagana?",
+    "steps": [
+      {
+        "title": "Paghiwalayin",
+        "description": "Ayusin nang maayos ang iyong mga recyclable na basura sa pamamagitan ng paghihiwalay ng plastik, papel, metal, at iba pang mga magagamit na materyales."
+      },
+      {
+        "title": "Ipapalit",
+        "description": "Dalhin ang mga inayos na nakalakal sa mga itinalagang collection points. Ang bawat item ay tinitimbang at itinatala."
+      },
+      {
+        "title": "I-redeem ang Gantimpala",
+        "description": "Kumita ng mga puntos batay sa timbang at uri ng recyclables na iyong isinumite. Maaaring i-redeem ang mga naipong puntos para sa bigas."
+      },
+      {
+        "title": "I-recycle",
+        "description": "Ang mga nakolektang recyclables ay pinoproseso at muling ginagamit upang mabawasan ang epekto sa kapaligiran."
+      }
+    ]
+  },
+  "latest_announcements": {
+    "title": "Mga Pinakabagong Anunsyo",
+    "view_more": "Tingnan Pa",
+    "no_recent_announcements": "Walang panibagong anunsyo",
+    "read_more": "Magbasa Pa"
+  }
+}

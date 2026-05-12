@@ -1,0 +1,18 @@
+{
+  "header": "Makipag-ugnayan sa amin",
+  "description": "Para sa mga katanungan o tulong, huwag mag-atubiling makipag-ugnayan sa amin.",
+  "form": {
+    "first_name": "Pangalan",
+    "last_name": "Apelyido",
+    "email": "Email",
+    "message": {
+      "label": "Paano ka namin matutulungan?",
+      "placeholder": "Ilagay ang iyong mensahe dito."
+    },
+    "submit": "Ipadala ang Mensahe"
+  },
+  "toast": {
+    "success_message": "Matagumpay na naipadala ang mensahe!",
+    "description": "Kami ay magbabalik tugon sa lalong madaling panahon."
+  }
+}

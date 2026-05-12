@@ -1,0 +1,20 @@
+{
+  "hero": {
+    "title": "Tungkol sa Amin",
+    "description": "Alamin pa ang tungkol sa aming misyon, mga pinahahalagahan, at ang aming dedikasyon sa kahusayan.",
+    "content": {
+      "header": "Nangunguna Para sa Malinis at Luntiang Komunidad",
+      "description": "Ang Solid Waste Management Team ng Barangay Bagong Silangan, Lungsod Quezon ang nangunguna sa Rise to Rice Solid Waste Management Program, na isinusulong ang responsableng pagtatapon ng basura at mga napapanatiling gawain. Sa pamamagitan ng edukasyon at mga inisyatibo ng komunidad, aming layunin na gawing mahalagang yaman ang basura upang makalikha ng mas malinis at mas napapanatiling kinabukasan para sa lahat."
+    }
+  },
+  "mission_vision": [
+    {
+      "title": "Aming Misyon",
+      "description": "Magtatag ng komunidad na may wastong kaalaman sa tamang pagsisinop ng basura at tamang pangangalaga sa ating kalikasan at kapaligiran."
+    },
+    {
+      "title": "Aming Bisyon",
+      "description": "Isang komunidad na may malasakit at pagpapahalaga sa kapaligiran at kalikasan upang maging kaaya-aya at maaliwalas na pamayanan."
+    }
+  ]
+}

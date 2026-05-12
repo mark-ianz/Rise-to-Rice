@@ -1,0 +1,150 @@
+import { UpdateAnnouncement } from "@/schema/PostAnnouncementSchema";
+import { Announcement, AnnouncementPagination, AnnouncementQueryResponse } from "@/types/announcements";
+import { UserProfile } from "@/types/user.type";
+import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import axios from "axios";
+
+export function usePostAnnouncement() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationKey: ["postAnnouncement"],
+    mutationFn: async (data: FormData) => {
+      const response = await axios.post<Announcement>(
+        "/api/announcements",
+        data
+      );
+      return response.data;
+    },
+    onSuccess: (newAnnouncement) => {
+      queryClient.setQueryData(["announcements"], (oldData: AnnouncementPagination) => {
+        if (!oldData) return oldData;
+    
+        const firstPage = oldData.pages[0];
+    
+        const updatedFirstPage = {
+          ...firstPage,
+          result: [newAnnouncement, ...firstPage.result],
+        };
+    
+        return {
+          ...oldData,
+          pages: [updatedFirstPage, ...oldData.pages.slice(1)],
+        };
+      });
+    }
+  });
+}
+  
+export function useGetAnnouncements(sort: string) {
+  return useInfiniteQuery({
+    queryKey: ["announcements"],
+    queryFn: async ({pageParam}) => {
+      const response = await axios.get<AnnouncementQueryResponse>(
+        `/api/announcements?limit=5&page=${pageParam}&sort=${sort}`
+      );
+      return response.data;
+    },
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, pages) => {
+      if (lastPage.result.length === 0) return undefined;
+      return pages.length + 1;
+    },
+  });
+}
+
+/* export function useGetAnnouncements() {
+  return useQuery({
+    queryKey: ["announcements"],
+    queryFn: async () => {
+      const response = await axios.get<AnnouncementQueryResponse>(
+        "/api/announcements?limit=10"
+      );
+      return response.data;
+    },
+  });
+} */
+
+export function useGetRecentAnnouncements() {
+  return useQuery<AnnouncementQueryResponse>({
+    queryKey: ["recent_announcements"],
+    queryFn: async () => {
+      const response = await axios.get("/api/announcements/", {
+        params: {
+          limit: 5,
+          order: "desc",
+        },
+      });
+      return response.data;
+    },
+  });
+}
+
+export function useGetAuthor(announcement_id: number) {
+  return useQuery({
+    queryKey: ["author", announcement_id],
+    queryFn: async () => {
+      const response = await axios.get<UserProfile[]>(
+        `/api/announcements/get-author/${announcement_id}`
+      );
+
+      if (!response.data[0]) {
+        return null;
+      }
+
+      return response.data[0];
+    },
+  });
+}
+
+export function useDeleteAnnouncement() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationKey: ["deleteAnnouncement"],
+    mutationFn: async (announcement_id: number) => {
+      const response = await axios.delete(
+        `/api/announcements/${announcement_id}`
+      );
+      return response.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["announcements"],
+      });
+    },
+  });
+}
+
+export function useGetSingleAnnouncement(id: number) {
+  return useQuery<Announcement>({
+    queryKey: ["announcement", id],
+    queryFn: async () => {
+      const response = await axios.get(`/api/announcements/${id}`);
+      return response.data;
+    },
+  });
+}
+
+export function useUpdateAnnouncement() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationKey: ["updateAnnouncement"],
+    mutationFn: async (data: UpdateAnnouncement) => {
+      await axios.put<Announcement>(
+        `/api/announcements/${data.announcement_id}`,
+        data
+      );
+      return data;
+    },
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({
+        queryKey: ["announcements"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["announcement", data.announcement_id],
+      });
+    },
+  });
+}

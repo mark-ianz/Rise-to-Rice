@@ -1,0 +1,20 @@
+{
+  "user_analytics": {
+    "title": "User Analytics",
+    "wastes_exchanged": "Wastes Exchanged",
+    "top_material": "Top Material",
+    "top_material_weight": "Top Material Weight",
+    "times_exchanged": "Times You Exchanged",
+    "times_exchanged_amount": "{{count}} times",
+    "times_exchanged_amount_others": "{{count}} time",
+    "points_accumulated": "Points Accumulated",
+    "points": "{{count}} points",
+    "points_others": "{{count}} point"
+  },
+  "chart": {
+    "title": "Top Materials Chart",
+    "description": "Total Weight by Material ({{time_period}}) ",
+    "legends": "Chart Legends"
+  },
+  "detailed_material_analytics": "Detailed Material Analytics"
+}

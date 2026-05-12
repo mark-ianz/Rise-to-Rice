@@ -1,0 +1,59 @@
+{
+  "title": "I-redeem ang mga gantimpala",
+  "description": "Ipagpalit ang iyong mga puntos sa kaukulang mga gantimpala. Maaari kang pumili mula sa iba't ibang opsyon na meron sa aming listahan ng mga gantimpala.",
+  "points": "Puntos",
+  "view_redeem_history": "Mga napinalit mo na gantimpala",
+  "terms": {
+    "reward": "Gantimpala",
+    "quantity": "Dami",
+    "points_cost": "Gastos sa Puntos",
+    "points": "{{count}} puntos",
+    "points_others": "{{count}} punto",
+    "status": "Katayuan"
+  },
+  "search_placeholder": "Maghanap ng mga gantimpala...",
+  "redeem_button": {
+    "text": "I-redeem",
+    "dialog": {
+      "title": "I-redeem ang gantimpala",
+      "description": "Sigurado ka bang nais mong i-pagpalit ang {{points_cost}} na puntos mo para sa {{quantity}} ng {{reward}}?",
+      "confirm": "Oo, I-redeem",
+      "cancel": "Hindi, Kanselahin"
+    },
+    "toast": {
+      "success": "Matagumpay na na-redeem ang gantimpala!",
+      "error": "Wala kang sapat na puntos para ipagpalit ang gantimpalang ito.",
+      "unknown_error": "May nangyaring hindi inaasahang problema. Pakisubukang muli mamaya."
+    }
+  },
+  "no_rewards": {
+    "title": "Walang mga gantimpala",
+    "description": "Sa ngayon, wala kaming mga gantimpala na puwedeng ipagpalit. Pakisubukang muli mamaya."
+  },
+  "caption": "Listahan ng mga puwedeng ipalit na gantimpala",
+  "redeem_history": {
+    "title": "Kasaysayan ng mga gantimpalang na-redeem",
+    "status": {
+      "pending": "Naghihintay",
+      "for pick up": "Puwede na makuha",
+      "rejected": "Tinanggihan",
+      "completed": "Natapos",
+      "cancelled": "Kinansela"
+    },
+    "cancel_dialog": {
+      "title": "Kanselahin ang kahilingan sa pag-redeem",
+      "description": "Sigurado ka bang nais mong kanselahin sa pag-redeem ang kahilingang #{{request_id}}?",
+      "description_2": "Ang hakbang na ito ay hindi na maibabalik.",
+      "confirm": "Oo, Kanselahin",
+      "cancel": "Hindi, Huwag Kanselahin"
+    },
+    "cancel": "Kanselahin",
+    "toast": {
+      "cancel_success": "Matagumpay na nakansela ang kahilingan sa pag-redeem!"
+    },
+    "empty": {
+      "title": "Wala kang mga kahilingan sa pag-redeem. Mag-redeem ng gantimpala upang makakita ng mga kahilingan.",
+      "link": "Mag-redeem dito"
+    }
+  }
+}

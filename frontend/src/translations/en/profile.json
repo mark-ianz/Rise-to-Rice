@@ -1,0 +1,23 @@
+{
+  "profile": {
+    "title": "Profile",
+    "basic_information": "Basic Information",
+    "account_created": "Account Created",
+    "contact_information": "Contact Information",
+    "edit_profile": {
+      "button": "Edit Profile",
+      "save": "Save",
+      "cancel": "Cancel",
+      "dialog": {
+        "title": "Save Changes",
+        "description": "Are you sure you want to save these changes?",
+        "confirm": "Yes",
+        "cancel": "No"
+      },
+      "toast": {
+        "success": "Profile updated successfully!",
+        "error": "Error updating profile. Please try again."
+      }
+    }
+  }
+}

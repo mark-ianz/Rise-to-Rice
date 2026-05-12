@@ -1,0 +1,18 @@
+{
+  "header": "Contact Us",
+  "description": "For any inquiries or assistance, please don't hesitate to contact us.",
+  "form": {
+    "first_name": "First Name",
+    "last_name": "Last Name",
+    "email": "Email",
+    "message": {
+      "label": "How can we help you?",
+      "placeholder": "Input your message here."
+    },
+    "submit": "Send Message"
+  },
+  "toast": {
+    "success_message": "Message sent successfully!",
+    "description": "We will get back to you as soon as possible."
+  }
+}

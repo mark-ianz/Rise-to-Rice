@@ -26,6 +26,10 @@ export default function LeftSide() {
     const savedSection = localStorage.getItem("registerSection");
     return (savedSection as RegisterSections) || "personal-information";
   });
+  const [maxReachedSection, setMaxReachedSection] = useState<RegisterSections>(() => {
+    const savedMax = localStorage.getItem("registerMaxReachedSection");
+    return (savedMax as RegisterSections) || section;
+  });
   const navigate = useNavigate();
   const { t } = useTranslation("register");
 
@@ -43,6 +47,7 @@ export default function LeftSide() {
     onSuccess: (data) => {
       localStorage.removeItem("registerState");
       localStorage.removeItem("registerSection");
+      localStorage.removeItem("registerMaxReachedSection");
       dispatch({ type: "LOGIN", payload: data });
       refetchAuth();
       navigate("/");
@@ -69,7 +74,15 @@ export default function LeftSide() {
       mutate(state as UserCreate_First_Part & UserCreate_Second_Part);
     }
     localStorage.setItem("registerSection", section);
-  }, [section, mutate, state]);
+
+    const currentIndex = steps.findIndex(s => s.key === section);
+    const maxIndex = steps.findIndex(s => s.key === maxReachedSection);
+
+    if (currentIndex > maxIndex) {
+      setMaxReachedSection(section);
+      localStorage.setItem("registerMaxReachedSection", section);
+    }
+  }, [section, mutate, state, steps, maxReachedSection]);
 
   useEffect(() => {
     dispatch({ type: "SET_ERROR", payload: null });
@@ -98,6 +111,8 @@ export default function LeftSide() {
         <AuthStepIndicator
           currentStep={section === "success" ? "email-verification" : section}
           steps={steps}
+          onStepClick={(key) => setSection(key as RegisterSections)}
+          maxReachedStep={maxReachedSection}
         />
 
         <div className="relative mt-2 flex-1 flex flex-col">

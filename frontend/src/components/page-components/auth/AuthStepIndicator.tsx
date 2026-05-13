@@ -9,29 +9,43 @@ type Step = {
 type Props = {
   currentStep: string;
   steps: Step[];
+  onStepClick?: (stepKey: string) => void;
+  maxReachedStep?: string;
 };
 
-export default function AuthStepIndicator({ currentStep, steps }: Props) {
+export default function AuthStepIndicator({
+  currentStep,
+  steps,
+  onStepClick,
+  maxReachedStep,
+}: Props) {
   const { t } = useTranslation("register");
   const currentIndex = steps.findIndex((step) => step.key === currentStep);
+  const maxReachedIndex = maxReachedStep 
+    ? steps.findIndex((step) => step.key === maxReachedStep)
+    : currentIndex;
 
   return (
     <div className="flex flex-col sm:flex-row gap-4">
       {steps.map((step, index) => {
         const isCompleted = currentIndex > index;
         const isCurrent = currentIndex === index;
+        const isAccessible = index <= maxReachedIndex;
 
         return (
           <div
             key={step.key}
+            onClick={() => isAccessible && !isCurrent && onStepClick?.(step.key)}
             className={cn(
               "flex flex-1 items-center gap-4 rounded-xl border px-4 py-3 transition-colors duration-200",
+              isAccessible && !isCurrent && "cursor-pointer hover:border-primary-main/50",
               isCurrent &&
                 "border-primary-main ring-1 ring-primary-main bg-white",
-              isCompleted &&
+              (isCompleted || (isAccessible && !isCurrent)) &&
                 "border-gray-200 bg-gray-50",
               !isCurrent &&
                 !isCompleted &&
+                !isAccessible &&
                 "border-gray-200 bg-white"
             )}
           >

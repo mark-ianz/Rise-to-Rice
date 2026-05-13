@@ -182,7 +182,7 @@ export default function EmailVerification({
           className="mt-4 rounded-lg bg-red-50 p-3 text-sm text-red-600 border border-red-100"
         />
 
-        <div className="space-y-2 flex items-center flex-col">
+        <div className="space-y-2 flex items-center justify-center flex-col">
           <p className="text-sm text-gray-500 font-medium">
             {form("code_validity", {
               time: "10",
@@ -190,7 +190,7 @@ export default function EmailVerification({
           </p>
 
           {!canResend ? (
-            <div className="flex flex-col gap-1 text-sm text-gray-500 font-medium">
+            <div className="flex flex-col gap-1 text-sm text-gray-500 font-medium w-full justify-center items-center">
               <span>{form("didnt_receive_code")}</span>
               <span className="font-bold text-gray-900 text-center w-full">
                 {request_code_isPending
@@ -201,13 +201,17 @@ export default function EmailVerification({
               </span>
             </div>
           ) : (
-            <button
-              type="button"
-              onClick={handleResend}
-              className="text-sm font-bold text-gray-900 underline underline-offset-4 transition-colors hover:text-black self-start text-left"
-            >
-              {form("resend_code")}
-            </button>
+            <div className="w-full flex items-center justify-center">
+
+              <button
+                type="button"
+                onClick={handleResend}
+                className="text-sm font-bold text-gray-900 underline underline-offset-4 transition-colors hover:text-black self-start text-left"
+              >
+                {form("resend_code")}
+              </button>
+            </div>
+
           )}
           <div className="pt-6 flex flex-col gap-4 w-full">
             <Button

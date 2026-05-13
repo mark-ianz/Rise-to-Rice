@@ -56,6 +56,7 @@ export default function Login() {
         onSuccess: (data) => {
           localStorage.removeItem("registerState");
           localStorage.removeItem("registerSection");
+          localStorage.removeItem("registerMaxReachedSection");
           dispatch({ type: "LOGIN", payload: data });
           navigate("/");
         },

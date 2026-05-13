@@ -32,10 +32,10 @@ function RenderLink({ link }: { link: LinkType }) {
   return (
     <li
       key={link.name}
-      className="text-secondary-dark text-md max-md:text-sm hover:scale-105 transition-all"
+      className="text-secondary-dark/80 text-sm font-medium tracking-wide uppercase"
     >
       <NavLink
-        className="hover:text-tertiary hover:border-b border-b-tertiary"
+        className="hover:text-primary-main transition-colors duration-200 py-2"
         to={link.url}
       >
         {link.name}

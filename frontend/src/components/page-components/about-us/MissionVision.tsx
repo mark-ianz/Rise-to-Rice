@@ -2,7 +2,6 @@ import SectionWrapper from "@/components/general/SectionWrapper";
 import participating from "@/assets/participating.webp";
 import reward from "@/assets/reward.webp";
 import ViewImage from "@/components/general/ViewImage";
-import HeaderText from "@/components/general/HeaderText";
 import { useTranslation } from "react-i18next";
 
 type ContentType = {
@@ -19,32 +18,43 @@ export default function MissionVision() {
   return (
     <SectionWrapper
       id="mission-vision"
-      className="px-20 py-10 flex-col gap-10 bg-secondary-light/50 max-lg:px-10 max-sm:px-6 items-center justify-center"
+      className="py-24 max-lg:py-20 max-md:py-16 bg-white"
     >
-      <ul className="grid grid-cols-2 items-start min-h-full gap-8 max-sm:grid-cols-1 max-sm:gap-12">
-        {content.map((item, index) => (
-          <li
-            key={index + item.title}
-            className="flex gap-4 items-center flex-col max-w-[500px] justify-center max-sm:flex-col-reverse"
-          >
-            <ViewImage src={images[index]} alt={item.title}>
-              <div className="h-96 w-full rounded-md max-sm:h-auto">
-                <img
-                  loading="lazy"
-                  src={images[index]}
-                  alt={item.title}
-                  className="w-full h-full object-cover rounded-md object-top"
-                />
-              </div>
-            </ViewImage>
+      <div className="max-w-screen-xl mx-auto px-20 max-lg:px-10 max-sm:px-6 w-full">
+        <div className="text-center mb-16 max-md:mb-12">
+          <span className="text-primary-main text-sm font-semibold uppercase tracking-wider">
+            Our Purpose
+          </span>
+          <h2 className="mt-3 text-4xl max-lg:text-3xl max-md:text-2xl font-bold text-secondary-dark">
+            Mission & Vision
+          </h2>
+        </div>
+        
+        <ul className="grid grid-cols-2 gap-8 max-lg:gap-6 max-sm:grid-cols-1">
+          {content.map((item, index) => (
+            <li
+              key={index + item.title}
+              className="flex flex-col bg-warm-beige rounded-2xl overflow-hidden group"
+            >
+              <ViewImage src={images[index]} alt={item.title}>
+                <div className="aspect-video w-full overflow-hidden">
+                  <img
+                    loading="lazy"
+                    src={images[index]}
+                    alt={item.title}
+                    className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                  />
+                </div>
+              </ViewImage>
 
-            <div className="flex flex-col gap-2 max-lg:text-sm">
-              <HeaderText className="font-semibold">{item.title}</HeaderText>
-              <p>{item.description}</p>
-            </div>
-          </li>
-        ))}
-      </ul>
+              <div className="flex flex-col gap-3 p-8 max-md:p-6">
+                <h3 className="font-bold text-2xl max-lg:text-xl text-secondary-dark">{item.title}</h3>
+                <p className="leading-relaxed text-secondary-dark/70">{item.description}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
     </SectionWrapper>
   );
 }

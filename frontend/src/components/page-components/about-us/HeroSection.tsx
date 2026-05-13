@@ -1,4 +1,3 @@
-import HeaderText from "@/components/general/HeaderText";
 import SectionWrapper from "@/components/general/SectionWrapper";
 import about_us_1 from "@/assets/educating.webp";
 import about_us_2 from "@/assets/educating_2.webp";
@@ -14,24 +13,30 @@ export default function HeroSection() {
   return (
     <SectionWrapper
       id="about-us"
-      className="flex-col px-20 py-10 max-lg:px-10 max-sm:px-6"
+      className="flex-col py-24 max-lg:py-20 max-md:py-16 bg-warm-cream"
     >
-      <div className="flex flex-col gap-8 items-start justify-center h-full grow">
-        <div className="flex flex-col items-start w-full">
-          <HeaderText>{t("hero.title")}</HeaderText>
-          <p className="text-tertiary italic max-md:text-sm">
-            "{t("hero.description")}"
+      <div className="max-w-screen-xl mx-auto px-20 max-lg:px-10 max-sm:px-6 w-full">
+        <div className="text-center mb-16 max-md:mb-12">
+          <span className="text-primary-main text-sm font-semibold uppercase tracking-wider">
+            About Us
+          </span>
+          <h1 className="mt-3 text-5xl max-lg:text-4xl max-md:text-3xl font-bold text-secondary-dark">
+            {t("hero.title")}
+          </h1>
+          <p className="mt-4 text-secondary-dark/60 italic text-lg max-md:text-base max-w-2xl mx-auto">
+            &ldquo;{t("hero.description")}&rdquo;
           </p>
         </div>
-        <ul className="w-full grid grid-cols-3 gap-4 max-lg:grid-cols-2 max-sm:grid-cols-1">
+        
+        <ul className="w-full grid grid-cols-3 gap-6 max-lg:grid-cols-2 max-sm:grid-cols-1 mb-16 max-md:mb-12">
           {about_us_images.map((image, index) => (
             <li
               key={index}
-              className="flex flex-col items-center gap-4 rounded-md max-lg:last:hidden max-sm:h-[250px]"
+              className="aspect-[4/3] rounded-2xl overflow-hidden max-lg:last:hidden group"
             >
               <ViewImage
                 src={image}
-                className="w-full h-full rounded-md object-cover"
+                className="w-full h-full object-cover"
               >
                 <img
                   loading="lazy"
@@ -39,18 +44,21 @@ export default function HeroSection() {
                   alt={`Image #${
                     index + 1
                   } of barangay workers doing their duty on rise to rice program`}
-                  className="w-full h-full rounded-md object-cover object-top"
+                  className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
                 />
               </ViewImage>
             </li>
           ))}
         </ul>
-        <div className="flex items-center gap-14 max-lg:gap-10">
-          <span className="flex flex-col gap-2">
-            <HeaderText>"{t("hero.content.header")}"</HeaderText>
-            <p className="max-md:text-sm">{t("hero.content.description")}</p>
-          </span>
-          <CompanyLogo containerClass="w-auto max-w-[150px] max-md:hidden" />
+        
+        <div className="flex items-center gap-12 max-lg:gap-8 bg-white p-10 max-md:p-8 rounded-2xl border border-warm-tan/30">
+          <div className="flex flex-col gap-4">
+            <h2 className="text-2xl max-lg:text-xl font-bold text-secondary-dark">
+              &ldquo;{t("hero.content.header")}&rdquo;
+            </h2>
+            <p className="text-secondary-dark/70 leading-relaxed">{t("hero.content.description")}</p>
+          </div>
+          <CompanyLogo containerClass="w-auto max-w-[120px] max-md:hidden flex-shrink-0" />
         </div>
       </div>
     </SectionWrapper>

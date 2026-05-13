@@ -8,13 +8,13 @@ type Props = {
 
 export default function HeaderText({ children, className }: Props) {
   return (
-    <p
+    <h2
       className={cn(
-        "text-3xl font-roboto text-primary-main max-lg:text-2xl max-md:text-xl",
+        "text-3xl font-roboto text-primary-main max-lg:text-2xl max-md:text-xl font-bold tracking-tight text-balance",
         className
       )}
     >
       {children}
-    </p>
+    </h2>
   );
 }

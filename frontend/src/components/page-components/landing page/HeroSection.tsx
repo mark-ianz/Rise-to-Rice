@@ -3,7 +3,10 @@ import SectionWrapper from "@/components/general/SectionWrapper";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 import GetStartedButton from "./GetStartedButton";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Leaf, Users, Recycle } from "lucide-react";
+import heroImage1 from "@/assets/participating.webp";
+import heroImage2 from "@/assets/weighing.webp";
+import heroImage3 from "@/assets/reward.webp";
 
 export default function HeroSection() {
   const { t } = useTranslation("landing_page");
@@ -12,35 +15,94 @@ export default function HeroSection() {
   return (
     <SectionWrapper
       id="hero-section"
-      className="px-20 w-full bg-warm-cream relative max-lg:px-10 max-sm:px-6 py-24 max-lg:py-20 max-md:py-16 min-h-[85vh] flex items-center"
+      className="w-full bg-warm-cream relative overflow-hidden"
     >
-      <div className="flex flex-col items-center text-center max-w-4xl mx-auto z-40">
-        <span className="inline-flex items-center gap-2 px-4 py-2 bg-primary-main/10 text-primary-main text-sm font-medium rounded-full mb-8 max-md:mb-6">
-          <span className="w-2 h-2 bg-primary-main rounded-full animate-pulse" />
-          Solid Waste Management Program
-        </span>
-        <h1 className="text-6xl max-lg:text-5xl max-md:text-4xl max-sm:text-3xl font-bold text-secondary-dark leading-[1.1] tracking-tight text-balance">
-          {t("hero.title")}
-        </h1>
-        <p className="mt-8 mb-10 text-secondary-dark/70 text-xl max-lg:text-lg max-md:text-base leading-relaxed max-w-2xl">
-          {t("hero.subtext")}
-        </p>
-        <div className="flex gap-4 max-sm:flex-col max-sm:gap-3 max-sm:w-full">
-          <GetStartedButton className="px-8 py-6 text-base font-medium max-sm:w-full" />
-          <Button
-            onClick={() => navigate("/#how-does-it-work")}
-            className="px-8 py-6 text-base font-medium max-sm:w-full group bg-transparent border-2 border-secondary-dark/20 text-secondary-dark hover:bg-secondary-dark hover:text-white"
-            variant="outline"
-          >
-            {t("hero.button.how_does_it_work")}
-            <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
-          </Button>
+      <div className="max-w-screen-xl mx-auto px-20 max-lg:px-10 max-sm:px-6 py-20 max-lg:py-16 max-md:py-12">
+        <div className="grid grid-cols-2 gap-16 max-lg:gap-10 max-md:grid-cols-1 items-center">
+          {/* Left: Content */}
+          <div className="flex flex-col">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-primary-main/10 text-primary-main text-xs font-semibold uppercase tracking-wider rounded-full w-fit mb-6">
+              <Leaf className="w-3.5 h-3.5" />
+              Barangay Bagong Silangan
+            </div>
+            
+            <h1 className="text-5xl max-lg:text-4xl max-md:text-3xl max-sm:text-2xl font-bold text-secondary-dark leading-[1.15] tracking-tight">
+              {t("hero.title")}
+            </h1>
+            
+            <p className="mt-6 text-secondary-dark/60 text-lg max-lg:text-base leading-relaxed">
+              {t("hero.subtext")}
+            </p>
+            
+            <div className="flex gap-3 mt-8 max-sm:flex-col">
+              <GetStartedButton className="px-6 py-5 text-sm font-semibold" />
+              <Button
+                onClick={() => navigate("/#how-does-it-work")}
+                className="px-6 py-5 text-sm font-semibold group bg-transparent border border-secondary-dark/20 text-secondary-dark hover:bg-secondary-dark hover:text-white hover:border-secondary-dark"
+                variant="outline"
+              >
+                {t("hero.button.how_does_it_work")}
+                <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+              </Button>
+            </div>
+
+            {/* Stats row */}
+            <div className="flex gap-8 mt-12 pt-8 border-t border-warm-tan/50 max-sm:gap-4 max-sm:flex-wrap">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-primary-main/10 flex items-center justify-center">
+                  <Users className="w-5 h-5 text-primary-main" />
+                </div>
+                <div>
+                  <p className="text-2xl max-sm:text-xl font-bold text-secondary-dark">500+</p>
+                  <p className="text-xs text-secondary-dark/50 uppercase tracking-wide">Households</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-primary-main/10 flex items-center justify-center">
+                  <Recycle className="w-5 h-5 text-primary-main" />
+                </div>
+                <div>
+                  <p className="text-2xl max-sm:text-xl font-bold text-secondary-dark">2,000kg</p>
+                  <p className="text-xs text-secondary-dark/50 uppercase tracking-wide">Collected</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Right: Bento Image Grid */}
+          <div className="grid grid-cols-2 gap-4 max-md:hidden">
+            <div className="space-y-4">
+              <div className="aspect-[4/5] rounded-3xl overflow-hidden bg-warm-beige">
+                <img 
+                  src={heroImage1} 
+                  alt="Community participating in recycling" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="bg-primary-main text-white p-6 rounded-3xl">
+                <p className="text-3xl font-bold">10kg</p>
+                <p className="text-sm text-white/80 mt-1">= 1kg Rice</p>
+              </div>
+            </div>
+            <div className="space-y-4 pt-8">
+              <div className="aspect-square rounded-3xl overflow-hidden bg-warm-beige">
+                <img 
+                  src={heroImage2} 
+                  alt="Weighing recyclables" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="aspect-[4/3] rounded-3xl overflow-hidden bg-warm-beige">
+                <img 
+                  src={heroImage3} 
+                  alt="Receiving rewards" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      
-      {/* Subtle decorative elements */}
-      <div className="absolute top-20 right-20 w-72 h-72 bg-primary-main/5 rounded-full blur-3xl max-lg:hidden" />
-      <div className="absolute bottom-20 left-20 w-96 h-96 bg-primary-main/5 rounded-full blur-3xl max-lg:hidden" />
     </SectionWrapper>
   );
 }

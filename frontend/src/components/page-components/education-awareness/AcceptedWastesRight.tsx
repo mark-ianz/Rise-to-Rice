@@ -7,10 +7,13 @@ export default function AcceptedWastesRight() {
   const { t } = useTranslation("education_and_awareness");
 
   return (
-    <div className="flex flex-col gap-6">
-      <h3 className="text-2xl max-lg:text-xl font-bold text-secondary-dark">
-        {t("right.items_we_accept")}
-      </h3>
+    <div className="flex flex-col gap-4">
+      <div className="flex items-center justify-between">
+        <h3 className="text-lg font-semibold text-secondary-dark">
+          {t("right.items_we_accept")}
+        </h3>
+        <span className="text-xs text-secondary-dark/50">Points per kilogram</span>
+      </div>
       <List />
     </div>
   );
@@ -25,13 +28,11 @@ function List() {
     const dummyArray = Array.from({ length: 6 });
 
     return (
-      <ul className="grid grid-cols-2 gap-6">
+      <ul className="grid grid-cols-3 gap-3 max-md:grid-cols-2 max-sm:grid-cols-1">
         {dummyArray.map((_, index) => (
-          <li key={`${index}-skeleton-accepted-wastes`} className="flex flex-col gap-2">
+          <li key={`${index}-skeleton-accepted-wastes`} className="flex flex-col gap-2 p-4 bg-white rounded-xl">
             <Skeleton className="w-full max-w-24 h-5" />
             <div className="flex flex-col gap-1">
-              <Skeleton className="w-full h-3 max-w-52" />
-              <Skeleton className="w-full h-3 max-w-52" />
               <Skeleton className="w-full h-3 max-w-52" />
               <Skeleton className="w-full h-3 max-w-52" />
               <Skeleton className="w-full h-3 max-w-52" />
@@ -49,16 +50,16 @@ function List() {
   }
 
   return (
-    <ul className="grid grid-cols-2 gap-4 max-sm:grid-cols-1">
+    <ul className="grid grid-cols-3 gap-3 max-md:grid-cols-2 max-sm:grid-cols-1">
       {categories.map((category, index) => (
-        <li key={`accepted-wastes-${index}`} className="bg-warm-beige p-5 rounded-xl">
-          <p className="font-semibold text-secondary-dark mb-3">{category.category}</p>
-          <ul className="space-y-2">
+        <li key={`accepted-wastes-${index}`} className="bg-white p-4 rounded-xl border border-warm-tan/20 hover:border-primary-main/30 hover:shadow-sm transition-all">
+          <p className="font-semibold text-secondary-dark text-sm mb-3 pb-2 border-b border-warm-tan/20">{category.category}</p>
+          <ul className="space-y-1.5">
             {category.types.map((material, materialIndex) => (
-              <li key={materialIndex} className="flex items-center justify-between text-sm">
-                <span className="text-secondary-dark/70">{material.material}</span>
-                <span className="text-primary-main font-medium text-xs bg-primary-main/10 px-2 py-1 rounded-full">
-                  {material.points_per_kg} pts/kg
+              <li key={materialIndex} className="flex items-center justify-between text-xs">
+                <span className="text-secondary-dark/60">{material.material}</span>
+                <span className="text-primary-main font-semibold tabular-nums">
+                  {material.points_per_kg}
                 </span>
               </li>
             ))}

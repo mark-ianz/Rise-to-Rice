@@ -1,4 +1,3 @@
-import HeaderText from "@/components/general/HeaderText";
 import { useTranslation } from "react-i18next";
 
 type List = {
@@ -13,14 +12,21 @@ export default function Benefits() {
   }) as List;
 
   return (
-    <div className="flex-1 flex flex-col gap-12 max-lg:gap-8 max-md:gap-6 max-sm:gap-4">
-      <HeaderText>{t("benefits.title")}</HeaderText>
-      <p>{t("benefits.description")}</p>
-      <ul className="flex flex-col gap-4">
+    <div className="flex flex-col gap-8">
+      <div>
+        <span className="text-primary-main text-sm font-semibold uppercase tracking-wider">
+          Your Rewards
+        </span>
+        <h3 className="mt-2 text-3xl max-lg:text-2xl font-bold text-secondary-dark">
+          {t("benefits.title")}
+        </h3>
+        <p className="mt-4 leading-relaxed text-secondary-dark/70">{t("benefits.description")}</p>
+      </div>
+      <ul className="flex flex-col gap-3">
         {benefits.map((benefit, index) => (
-          <li key={index}>
-            <p className="font-semibold">{benefit.title}</p>
-            <p className="pl-5">{benefit.description}</p>
+          <li key={index} className="bg-white p-5 rounded-xl border border-warm-tan/30">
+            <p className="font-semibold text-secondary-dark">{benefit.title}</p>
+            <p className="mt-2 text-secondary-dark/60 text-sm leading-relaxed">{benefit.description}</p>
           </li>
         ))}
       </ul>

@@ -1,7 +1,5 @@
 import SectionWrapper from "@/components/general/SectionWrapper";
-import AreaCover from "@/components/general/AreaCover";
 import { partners } from "@/lib/const/partners";
-import HeaderText from "@/components/general/HeaderText";
 import { useTranslation } from "react-i18next";
 
 export default function OurPartners() {
@@ -10,31 +8,36 @@ export default function OurPartners() {
   return (
     <SectionWrapper
       id="our-partners"
-      className="bg-ourPartners items-start flex-col relative px-20 py-10 max-sm:px-10"
+      className="py-24 max-lg:py-20 max-md:py-16 bg-secondary-dark"
     >
-      <div className="h-full grow w-full items-center flex flex-col justify-center z-40 gap-10">
-        <div className="flex flex-col items-center max-w-[800px] text-center">
-          <HeaderText className="text-secondary-light font-semibold">
+      <div className="max-w-screen-xl mx-auto px-20 max-lg:px-10 max-sm:px-6 w-full">
+        <div className="text-center mb-16 max-md:mb-12">
+          <span className="text-primary-main-light text-sm font-semibold uppercase tracking-wider">
+            Working Together
+          </span>
+          <h2 className="mt-3 text-4xl max-lg:text-3xl max-md:text-2xl font-bold text-white">
             {i18n.language === "en" ? "Our Partners" : "Mga Kasosyo Namin"}
-          </HeaderText>
-          <p className="text-secondary-light-2 max-md:text-sm">
+          </h2>
+          <p className="mt-4 text-white/60 max-w-2xl mx-auto leading-relaxed">
             {i18n.language === "en"
-              ? "Our Solid Waste Management Program thrives through the support of our valued partners local government units, businesses, and environmental organizations working together to create a sustainable and waste-free community."
-              : "Ang aming Solid Waste Management Program ay umuunlad sa pamamagitan ng suporta ng aming mga pinahahalagahang kasosyo na mga yunit ng lokal na pamahalaan, negosyo, at mga organisasyong pangkalikasan na nagtutulungan upang lumikha ng isang napapanatiling at walang basurang komunidad."}
+              ? "Our Solid Waste Management Program thrives through the support of our valued partners working together to create a sustainable community."
+              : "Ang aming Solid Waste Management Program ay umuunlad sa pamamagitan ng suporta ng aming mga pinahahalagahang kasosyo na nagtutulungan upang lumikha ng isang napapanatiling komunidad."}
           </p>
         </div>
-        <ul className="grid grid-cols-3 gap-4 max-lg:grid-cols-2 max-sm:grid-cols-1 items-start">
+        
+        <ul className="grid grid-cols-3 gap-6 max-lg:grid-cols-2 max-sm:grid-cols-1">
           {partners.map((partner, index) => (
             <li
               key={index + partner.name}
-              className="max-w-[300px] h-full rounded-lg bg-secondary-light flex flex-col items-center gap-4"
+              className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden transition-all duration-300 hover:bg-white/10 hover:border-white/20"
             >
               <a
                 href={partner.url}
                 target="_blank"
-                className="h-full rounded-lg hover:bg-secondary-light-2 items-center flex flex-col p-8"
+                rel="noopener noreferrer"
+                className="flex flex-col items-center p-8 max-md:p-6 h-full"
               >
-                <div className="rounded-full items-center flex justify-center p-8">
+                <div className="w-20 h-20 rounded-2xl bg-white/10 flex items-center justify-center p-4 mb-4">
                   <img
                     loading="lazy"
                     src={partner.logo}
@@ -42,21 +45,19 @@ export default function OurPartners() {
                     className="w-full h-full object-contain"
                   />
                 </div>
-                <span className="text-center">
-                  {partner.name}{" "}
+                <div className="text-center">
+                  <p className="font-medium text-white">{partner.name}</p>
                   {partner.subtext && (
-                    <span className="text-sm text-tertiary italic">
+                    <p className="text-sm text-white/50 mt-1">
                       {partner.subtext}
-                    </span>
+                    </p>
                   )}
-                </span>
+                </div>
               </a>
             </li>
           ))}
         </ul>
       </div>
-
-      <AreaCover className="bg-tertiary/90" />
     </SectionWrapper>
   );
 }

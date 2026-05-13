@@ -59,7 +59,6 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
-    errorElement: <NotFoundPage />,
     children: [
       {
         index: true,
@@ -162,6 +161,10 @@ const router = createBrowserRouter([
             element: withSuspense(<ContactMessages />),
           },
         ],
+      },
+      {
+        path: "*",
+        element: <NotFoundPage />,
       },
     ],
   },

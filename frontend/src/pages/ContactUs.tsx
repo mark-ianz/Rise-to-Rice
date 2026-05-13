@@ -1,4 +1,3 @@
-import HeaderText from "@/components/general/HeaderText";
 import InputText from "@/components/general/InputText";
 import SectionWrapper from "@/components/general/SectionWrapper";
 import { Button } from "@/components/ui/button";
@@ -91,7 +90,7 @@ export default function ContactUs() {
   return (
     <SectionWrapper
       id="contact-us"
-      className="px-20 py-10 justify-center gap-10 max-lg:px-10 max-sm:px-6"
+      className="flex-col py-24 max-lg:py-20 max-md:py-16 bg-warm-cream"
     >
       <Helmet>
         <title>Contact Us | Rise to Rice</title>
@@ -114,70 +113,84 @@ export default function ContactUs() {
         />
       </Helmet>
 
-      <form
-        className="flex flex-col gap-4 max-md:text-sm max-lg:w-full"
-        onSubmit={handleSubmit}
-      >
-        <span>
-          <HeaderText>{t("header")}</HeaderText>
-          <p className="italic text-tertiary">{t("description")}</p>
-        </span>
-        <span className="flex gap-4 max-md:flex-col">
-          <span className="flex gap-4">
-            <InputText
-              ref={firstNameRef}
-              label={t("form.first_name")}
-              name="first_name"
-              type="text"
-              inputClassName="max-md:text-sm max-sm:text-xs"
-              labelClassname="text-sm"
-              defaultValue={state.first_name}
-            />
-            <InputText
-              ref={lastNameRef}
-              label={t("form.last_name")}
-              name="last_name"
-              inputClassName="max-md:text-sm max-sm:text-xs"
-              type="text"
-              labelClassname="text-sm"
-            />
+      <div className="max-w-screen-xl mx-auto px-20 max-lg:px-10 max-sm:px-6 w-full">
+        <div className="text-center mb-16 max-md:mb-12">
+          <span className="text-primary-main text-sm font-semibold uppercase tracking-wider">
+            Get In Touch
           </span>
+          <h1 className="mt-3 text-4xl max-lg:text-3xl max-md:text-2xl font-bold text-secondary-dark">
+            {t("header")}
+          </h1>
+          <p className="mt-4 text-secondary-dark/60 max-w-lg mx-auto">{t("description")}</p>
+        </div>
 
-          <InputText
-            ref={emailRef}
-            label={t("form.email")}
-            inputClassName="max-md:text-sm max-sm:text-xs"
-            name="email"
-            type="email"
-            labelClassname="text-sm"
-          />
-        </span>
-        <span className="flex flex-col gap-1">
-          <label htmlFor="message" className="block text-primary text-sm">
-            {t("form.message.label")}
-          </label>
-          <Textarea
-            ref={messageRef}
-            rows={10}
-            className="bg-background max-md:text-sm max-xsm:text-xs"
-            placeholder={t("form.message.placeholder")}
-            name="message"
-          />
-        </span>
-        <ZodErrorDisplay error={error} />
-        <span className="flex justify-end">
-          <Button size={"sm"} disabled={isPending} type="submit">
-            {isPending ? <Loading /> : t("form.submit")}
-          </Button>
-        </span>
-      </form>
-      <div className="w-[500px] h-[500px] max-md:hidden">
-        <img
-          loading="lazy"
-          src={ContactUsImage}
-          aria-hidden
-          className="w-full h-full object-contain"
-        />
+        <div className="flex items-center justify-center gap-16 max-lg:gap-10">
+          <form
+            className="flex flex-col gap-6 max-md:text-sm max-lg:w-full bg-white p-10 max-md:p-8 rounded-2xl border border-warm-tan/30 max-w-lg w-full"
+            onSubmit={handleSubmit}
+          >
+            <div className="flex flex-col gap-5">
+              <div className="flex gap-4 max-sm:flex-col">
+                <InputText
+                  ref={firstNameRef}
+                  label={t("form.first_name")}
+                  name="first_name"
+                  type="text"
+                  inputClassName="max-md:text-sm max-sm:text-xs"
+                  labelClassname="text-sm font-medium text-secondary-dark"
+                  defaultValue={state.first_name}
+                />
+                <InputText
+                  ref={lastNameRef}
+                  label={t("form.last_name")}
+                  name="last_name"
+                  inputClassName="max-md:text-sm max-sm:text-xs"
+                  type="text"
+                  labelClassname="text-sm font-medium text-secondary-dark"
+                />
+              </div>
+
+              <InputText
+                ref={emailRef}
+                label={t("form.email")}
+                inputClassName="max-md:text-sm max-sm:text-xs"
+                name="email"
+                type="email"
+                labelClassname="text-sm font-medium text-secondary-dark"
+              />
+            </div>
+            <div className="flex flex-col gap-2">
+              <label htmlFor="message" className="block text-secondary-dark text-sm font-medium">
+                {t("form.message.label")}
+              </label>
+              <Textarea
+                ref={messageRef}
+                rows={6}
+                className="bg-warm-beige/50 border-warm-tan/30 max-md:text-sm max-xsm:text-xs resize-none"
+                placeholder={t("form.message.placeholder")}
+                name="message"
+              />
+            </div>
+            <ZodErrorDisplay error={error} />
+            <Button 
+              size={"lg"} 
+              disabled={isPending} 
+              type="submit"
+              className="w-full"
+            >
+              {isPending ? <Loading /> : t("form.submit")}
+            </Button>
+          </form>
+          
+          <div className="w-[400px] h-[400px] max-lg:hidden flex-shrink-0">
+            <img
+              loading="lazy"
+              src={ContactUsImage}
+              aria-hidden
+              className="w-full h-full object-contain"
+            />
+          </div>
+        </div>
       </div>
     </SectionWrapper>
   );

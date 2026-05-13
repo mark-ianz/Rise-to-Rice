@@ -1,10 +1,10 @@
+import { Button } from "@/components/ui/button";
 import { handleError } from "@/helper/errorHandler";
 import useCreateAccountContext from "@/hooks/useCreateAccountContext";
 import { UserCreate_First_Part_Schema } from "@/schema/CreateAccountSchema";
 import { UserCreate_First_Part_Schema as UserCreate_First_Part_SchemaTL } from "@/schema/tl/CreateAccountSchema";
-import { SectionAndSetSection } from "../credentials/CredentialsSubmitButton";
-import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
+import { SectionAndSetSection } from "../credentials/CredentialsSubmitButton";
 
 export default function PersonalInformationSubmitButton({
   setSection,
@@ -29,7 +29,10 @@ export default function PersonalInformationSubmitButton({
   }
 
   return (
-    <Button size={"sm"} className="w-full" onClick={handleSubmit}>
+    <Button
+      className="h-12 w-full rounded-md text-base font-semibold bg-primary-main text-white hover:bg-primary-dark shadow-md shadow-primary-main/20 transition-all hover:-translate-y-0.5 active:translate-y-0"
+      onClick={handleSubmit}
+    >
       {t("continue")}
     </Button>
   );

@@ -1,9 +1,18 @@
 {
-  "title": "Maligayang Pagbabalik!",
-  "subtitle": "Pakilagay ang iyong mga kredensyal upang magpatuloy.",
+  "eyebrow": "Access ng miyembro",
+  "title": "Maligayang pagbabalik",
+  "subtitle": "Mag-sign in upang magpatuloy.",
   "button": {
     "login": "Mag-login",
     "forgot_password": "Nakalimutan ang password?",
-    "register": "Walang account?"
+    "register": "Gumawa ng account"
+  },
+  "links": {
+    "register_prompt": "Bago sa Rise to Rice?"
+  },
+  "hero": {
+    "badge": "Rise to Rice",
+    "title": "Simpleng access sa iyong account.",
+    "description": "Makita ang iyong puntos, rewards, at profile sa iisang lugar."
   }
 }

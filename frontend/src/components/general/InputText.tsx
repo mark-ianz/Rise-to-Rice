@@ -23,6 +23,7 @@ type Props = {
   defaultValue?: string;
   autoFocus?: boolean;
   step?: string | number;
+  autoComplete?: string;
 };
 
 const InputText = forwardRef<HTMLInputElement, Props>(
@@ -42,6 +43,7 @@ const InputText = forwardRef<HTMLInputElement, Props>(
       defaultValue,
       autoFocus,
       step,
+      autoComplete,
     },
     ref
   ) => {
@@ -51,6 +53,7 @@ const InputText = forwardRef<HTMLInputElement, Props>(
         <Input
           step={step}
           autoFocus={autoFocus}
+          autoComplete={autoComplete}
           defaultValue={defaultValue}
           name={name}
           disabled={disabled}

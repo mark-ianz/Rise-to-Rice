@@ -1,9 +1,18 @@
 {
-  "title": "Welcome Back!",
-  "subtitle": "Please enter your credentials to continue.",
+  "eyebrow": "Member access",
+  "title": "Welcome back",
+  "subtitle": "Sign in to continue.",
   "button": {
     "login": "Login",
     "forgot_password": "Forgot Password?",
-    "register": "Doesn't have an account?"
+    "register": "Create an account"
+  },
+  "links": {
+    "register_prompt": "New to Rise to Rice?"
+  },
+  "hero": {
+    "badge": "Rise to Rice",
+    "title": "Simple access to your account.",
+    "description": "View your points, rewards, and profile in one place."
   }
 }

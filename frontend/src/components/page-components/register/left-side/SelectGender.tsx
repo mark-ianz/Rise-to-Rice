@@ -14,10 +14,14 @@ export default function SelectGender({
   onChange,
   value,
   className,
+  labelClassName,
+  triggerClassName,
 }: {
   onChange: (value: Gender) => void;
   value: Gender;
   className?: string;
+  labelClassName?: string;
+  triggerClassName?: string;
 }) {
   const { t } = useTranslation("form");
   const gender_list = t("gender_list", {
@@ -26,9 +30,9 @@ export default function SelectGender({
 
   return (
     <span className={cn("min-w-[150px] flex flex-col gap-1", className)}>
-      <p className="text-sm">{t("gender")}</p>
+      <p className={cn("text-sm", labelClassName)}>{t("gender")}</p>
       <Select value={value} onValueChange={onChange}>
-        <SelectTrigger className="bg-white">
+        <SelectTrigger className={cn("bg-white", triggerClassName)}>
           <SelectValue placeholder="Male" />
         </SelectTrigger>
         <SelectContent>

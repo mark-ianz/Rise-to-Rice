@@ -1,10 +1,33 @@
 {
-  "right_side": {
-    "paragraph_1": "Sumali sa aming Solid Waste Management Program at maging bahagi ng kilusan tungo sa isang mas malinis, mas luntiang komunidad!",
-    "paragraph_2": "Sama-sama, maaari nating bawasan ang basura, protektahan ang kapaligiran, at lumikha ng mas malusog na kinabukasan para sa lahat."
-  },
   "register": "Mag-rehistro",
   "already_have_account": "May account ka na?",
   "verify_email": "Kumpirmahin ang iyong email address",
-  "email_exists": "Ang email ay nagamit na"
+  "email_exists": "Ang email ay nagamit na",
+  "form_badge": "Pag-setup ng bagong miyembro",
+  "form_description": "Gumawa ng account sa ilang simpleng hakbang.",
+  "steps": {
+    "personal_information": {
+      "label": "Profile",
+      "eyebrow": "Hakbang 1 ng 3",
+      "title": "Ikwento mo muna ang tungkol sa iyo",
+      "description": "Pangunahing impormasyon para sa iyong account."
+    },
+    "credentials": {
+      "label": "Credentials",
+      "eyebrow": "Hakbang 2 ng 3",
+      "title": "I-set up ang iyong login details",
+      "description": "Piliin ang email at password na gagamitin mo sa pag-sign in."
+    },
+    "email_verification": {
+      "label": "Verify",
+      "eyebrow": "Hakbang 3 ng 3",
+      "title": "Kumpirmahin ang iyong email",
+      "description": "Ilagay ang anim na digit na code na ipinadala namin."
+    }
+  },
+  "hero": {
+    "badge": "Rise to Rice",
+    "title": "Gumawa ng iyong account.",
+    "description": "Sumali sa programa at simulang subaybayan ang iyong puntos at rewards."
+  }
 }

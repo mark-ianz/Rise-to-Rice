@@ -1,8 +1,8 @@
+import { Button } from "@/components/ui/button";
+import { handleError } from "@/helper/errorHandler";
 import useCreateAccountContext from "@/hooks/useCreateAccountContext";
 import { UserCreate_Second_Part_Schema } from "@/schema/CreateAccountSchema";
 import { UserCreate_Second_Part_Schema as UserCreate_Second_Part_SchemaTL } from "@/schema/tl/CreateAccountSchema";
-import { Button } from "@/components/ui/button";
-import { handleError } from "@/helper/errorHandler";
 import { RegisterSections } from "@/types/register";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
@@ -29,7 +29,6 @@ export default function CredentialsSubmitButton({
 
   const { mutate, isPending } = useMutation({
     mutationFn: async (email: string) => {
-      // this will check if the email exists
       const response = await axios.post<{ exists: boolean }>(
         "/api/user/email-exists",
         {
@@ -45,13 +44,11 @@ export default function CredentialsSubmitButton({
       dispatch({ type: "SET_ERROR", payload: [error.message] });
     },
     onSuccess: () => {
-      // if the email does not exist, go to the next step
       setSection("email-verification");
     },
   });
 
   async function handleSubmit() {
-    // handle second part
     try {
       dispatch({ type: "SET_ERROR", payload: null });
       const parsedCredentials = parser.parse(state);
@@ -67,14 +64,18 @@ export default function CredentialsSubmitButton({
   }
 
   return (
-    <div className="flex flex-col items-center justify-center gap-2">
-      <Button className="w-full" onClick={handleSubmit} disabled={isPending}>
+    <div className="flex flex-col items-center justify-center gap-3">
+      <Button
+        className="h-12 w-full rounded-md text-base font-semibold bg-primary-main text-white hover:bg-primary-dark shadow-md shadow-primary-main/20 transition-all hover:-translate-y-0.5 active:translate-y-0"
+        onClick={handleSubmit}
+        disabled={isPending}
+      >
         {isPending ? <Loader2Icon className="animate-spin" /> : t("continue")}
       </Button>
       <Button
-        type="submit"
+        type="button"
         variant={"outline"}
-        className="w-full"
+        className="h-12 w-full rounded-md text-base font-semibold bg-white text-gray-800 border border-gray-200 hover:bg-gray-50 transition-colors"
         onClick={handleGoBackClick}
         disabled={isPending}
       >

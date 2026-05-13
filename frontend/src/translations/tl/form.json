@@ -12,6 +12,7 @@
   "optional": "Hindi Sapilitan",
   "birthdate": "Kaarawan",
   "continue": "Magpatuloy",
+  "password": "Password",
   "confirm_password": "Kumpirmahin ang Password",
   "gender_list": ["lalaki", "babae", "mas piniling hindi sabihin"],
   "go_back": "Bumalik",

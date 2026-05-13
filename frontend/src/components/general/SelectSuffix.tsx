@@ -14,19 +14,23 @@ export default function SelectSuffix({
   onChange,
   value,
   className,
+  labelClassName,
+  triggerClassName,
 }: {
   onChange: (value: string) => void;
   value: string;
   className?: string;
+  labelClassName?: string;
+  triggerClassName?: string;
 }) {
   const { t } = useTranslation("form");
   const suffix = ["None", "Jr.", "Sr.", "II", "III", "IV", "V"];
 
   return (
     <span className={cn("flex flex-col gap-1", className)}>
-      <p className="text-sm">{t("suffix")}</p>
+      <p className={cn("text-sm", labelClassName)}>{t("suffix")}</p>
       <Select value={value} onValueChange={onChange}>
-        <SelectTrigger className="bg-white">
+        <SelectTrigger className={cn("bg-white", triggerClassName)}>
           <SelectValue placeholder={t("optional")} />
         </SelectTrigger>
         <SelectContent>

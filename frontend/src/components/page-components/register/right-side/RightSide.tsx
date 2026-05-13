@@ -1,23 +1,35 @@
-import man_recycling from "@/assets/Young man bringing a bottle for recycling.png";
+import AuthHeroPanel from "@/components/page-components/auth/AuthHeroPanel";
 import { useTranslation } from "react-i18next";
 
 export default function RightSide() {
   const { t } = useTranslation("register");
 
+  const registerFeatures = [
+    {
+      title: "Verified Community",
+      description: "Join a trusted network of individuals committed to making a positive impact.",
+    },
+    {
+      title: "Seamless Experience",
+      description: "Enjoy a streamlined onboarding process designed to get you started quickly.",
+    },
+    {
+      title: "Direct Communication",
+      description: "Connect easily with other members to share tips, updates, and progress.",
+    },
+  ];
+
   return (
-    <div className="rounded-r-xl bg-secondary-light-2/75 flex items-center justify-center flex-col px-10 py-4 text-center gap-4 max-lg:rounded-none">
-      <div className="w-72 max-sm:w-52">
-        <img
-          loading="lazy"
-          className="w-full h-auto"
-          src={man_recycling}
-          alt="Young man bringing a bottle for recycling"
-        />
-      </div>
-      <div className="flex flex-col gap-4">
-        <p className="max-sm:text-sm">{t("right_side.paragraph_1")}</p>
-        <p className="text-sm max-sm:text-xs">{t("right_side.paragraph_2")}</p>
-      </div>
-    </div>
+    <AuthHeroPanel
+      title={
+        <>
+          Make an
+          <br />
+          Impact.
+        </>
+      }
+      description={t("hero.description", "Join a community dedicated to sustainability. Start recycling, track your contributions, and earn exclusive rewards for making a real difference.")}
+      features={registerFeatures}
+    />
   );
 }

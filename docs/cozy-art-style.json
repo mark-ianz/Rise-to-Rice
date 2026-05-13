@@ -1,0 +1,49 @@
+{
+  "art_style_profile": {
+    "primary_category": "Flat Illustration",
+    "sub_genre": "Corporate Memphis / Modern Web Illustration",
+    "visual_characteristics": {
+      "line_work": "Defined, consistent black outlines with varying weights for depth.",
+      "shading": "Minimalist cell-shading with subtle darker tonal shifts for depth.",
+      "geometry": "Soft, rounded edges and organic shapes mixed with simplified geometric objects.",
+      "perspective": "Isometric-adjacent or 2D flat perspective with slight layering."
+    },
+    "color_palette": {
+      "primary_hues": [
+        "Sky Blue",
+        "Safety Orange",
+        "White"
+      ],
+      "accent_colors": [
+        "Soft Peach",
+        "Deep Navy (Outlines)"
+      ],
+      "color_theory": "High-contrast complementary scheme (Blue vs. Orange) for visual pop and professional friendliness."
+    },
+    "character_design": {
+      "proportions": "Stylized, slightly oversized head and simplified features.",
+      "facial_features": "Minimalist 'Kawaii' influence (dot eyes, simple smile, pink cheek ovals).",
+      "anatomy": "Simplified, non-complex limbs and torso."
+    },
+    "thematic_elements": [
+      "Productivity and technology",
+      "Nature integration (botanical leaf motifs)",
+      "Digital communication (speech bubbles, play icons)",
+      "Cozy work-from-home vibes"
+    ],
+    "common_use_cases": [
+      "SaaS landing pages",
+      "Mobile app onboarding screens",
+      "Educational blog graphics",
+      "Social media infographics"
+    ],
+    "technical_tags": [
+      "Vector",
+      "2D",
+      "Digital Art",
+      "Clean",
+      "Friendly",
+      "Accessible"
+    ]
+  }
+}

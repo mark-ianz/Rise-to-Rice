@@ -1,10 +1,33 @@
 {
-  "right_side": {
-    "paragraph_1": "Join our Solid Waste Management Program and be a part of the movement toward a cleaner, greener community!",
-    "paragraph_2": "Together, we can reduce waste, protect the environment, and create a healthier future for everyone."
-  },
   "register": "Register",
   "already_have_account": "Already have an account?",
   "verify_email": "Verify your email address",
-  "email_exists": "Email already exists"
+  "email_exists": "Email already exists",
+  "form_badge": "New member setup",
+  "form_description": "Create your account in a few simple steps.",
+  "steps": {
+    "personal_information": {
+      "label": "Profile",
+      "eyebrow": "Step 1 of 3",
+      "title": "Tell us about yourself",
+      "description": "Basic information for your account."
+    },
+    "credentials": {
+      "label": "Credentials",
+      "eyebrow": "Step 2 of 3",
+      "title": "Set up your login details",
+      "description": "Choose the email and password you will use to sign in."
+    },
+    "email_verification": {
+      "label": "Verify",
+      "eyebrow": "Step 3 of 3",
+      "title": "Confirm your email",
+      "description": "Enter the six-digit code we sent you."
+    }
+  },
+  "hero": {
+    "badge": "Rise to Rice",
+    "title": "Create your account.",
+    "description": "Join the program and start tracking your points and rewards."
+  }
 }

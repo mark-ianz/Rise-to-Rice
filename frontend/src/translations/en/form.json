@@ -22,5 +22,7 @@
   "resend_code_2": "Resend code in {{timer}}s",
   "sending": "Sending...",
   "didnt_receive_code": "Didn't receive the code?",
-  "code_validity": "The code is valid for {{time}} minutes."
+  "code_validity": "The code is valid for {{time}} minutes.",
+  "send_verification_code": "Send Verification Code",
+  "click_to_send": "Click the button below to send a six-digit verification code to"
 }

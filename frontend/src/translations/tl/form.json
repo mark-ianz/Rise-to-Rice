@@ -22,5 +22,7 @@
   "resend_code_2": "Ipadala muli ang code sa loob ng {{timer}}s",
   "sending": "Pinapadala...",
   "didnt_receive_code": "Hindi natanggap ang code?",
-  "code_validity": "Ang code ay wasto sa loob ng {{time}} minuto."
+  "code_validity": "Ang code ay wasto sa loob ng {{time}} minuto.",
+  "send_verification_code": "Ipadala ang Verification Code",
+  "click_to_send": "I-click ang button sa ibaba para ipadala ang anim na digit na verification code sa"
 }

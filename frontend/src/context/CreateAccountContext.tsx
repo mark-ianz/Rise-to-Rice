@@ -3,7 +3,7 @@ import { createContext, Dispatch, ReactNode, useReducer, useEffect } from "react
 
 type CreateAccountAction = {
   type: string;
-  payload: string | boolean | Gender | Date | string[] | null;
+  payload: string | boolean | Gender | Date | string[] | number | null;
 };
 
 const initialState = {
@@ -21,6 +21,8 @@ const initialState = {
   error: null,
   success: "",
   loading: false,
+  hasSentCode: false,
+  lastSentAt: null,
 };
 
 type CreateContextType = {
@@ -65,6 +67,10 @@ const createAccountReducer = (
       return { ...state, success: action.payload as string };
     case "SET_LOADING":
       return { ...state, loading: action.payload as boolean };
+    case "SET_HAS_SENT_CODE":
+      return { ...state, hasSentCode: action.payload as boolean };
+    case "SET_LAST_SENT_AT":
+      return { ...state, lastSentAt: action.payload as number };
     default:
       return state;
   }

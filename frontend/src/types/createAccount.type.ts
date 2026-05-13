@@ -13,6 +13,8 @@ export type CreateAccountState = {
   error: string[] | null;
   success: string;
   loading: boolean;
+  hasSentCode: boolean;
+  lastSentAt: number | null;
 };
 
 export type Gender = "male" | "female" | "prefer not to say"

@@ -2,7 +2,6 @@ import SectionWrapper from "@/components/general/SectionWrapper";
 import participating from "@/assets/participating.webp";
 import reward from "@/assets/reward.webp";
 import ViewImage from "@/components/general/ViewImage";
-import HeaderText from "@/components/general/HeaderText";
 import { useTranslation } from "react-i18next";
 
 type ContentType = {
@@ -19,32 +18,43 @@ export default function MissionVision() {
   return (
     <SectionWrapper
       id="mission-vision"
-      className="px-20 py-16 flex-col gap-10 bg-secondary-light/50 max-lg:px-10 max-sm:px-6 max-md:py-12 items-center justify-center"
+      className="py-24 max-lg:py-20 max-md:py-16 bg-white"
     >
-      <ul className="grid grid-cols-2 items-stretch min-h-full gap-10 max-lg:gap-8 max-sm:grid-cols-1 max-sm:gap-12 max-w-screen-xl w-full">
-        {content.map((item, index) => (
-          <li
-            key={index + item.title}
-            className="flex gap-6 items-center flex-col max-w-[550px] justify-start max-sm:flex-col-reverse bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300"
-          >
-            <ViewImage src={images[index]} alt={item.title}>
-              <div className="h-80 max-lg:h-64 w-full max-sm:h-auto overflow-hidden">
-                <img
-                  loading="lazy"
-                  src={images[index]}
-                  alt={item.title}
-                  className="w-full h-full object-cover object-top transition-transform duration-500 hover:scale-105"
-                />
-              </div>
-            </ViewImage>
+      <div className="max-w-screen-xl mx-auto px-20 max-lg:px-10 max-sm:px-6 w-full">
+        <div className="text-center mb-16 max-md:mb-12">
+          <span className="text-primary-main text-sm font-semibold uppercase tracking-wider">
+            Our Purpose
+          </span>
+          <h2 className="mt-3 text-4xl max-lg:text-3xl max-md:text-2xl font-bold text-secondary-dark">
+            Mission & Vision
+          </h2>
+        </div>
+        
+        <ul className="grid grid-cols-2 gap-8 max-lg:gap-6 max-sm:grid-cols-1">
+          {content.map((item, index) => (
+            <li
+              key={index + item.title}
+              className="flex flex-col bg-warm-beige rounded-2xl overflow-hidden group"
+            >
+              <ViewImage src={images[index]} alt={item.title}>
+                <div className="aspect-video w-full overflow-hidden">
+                  <img
+                    loading="lazy"
+                    src={images[index]}
+                    alt={item.title}
+                    className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                  />
+                </div>
+              </ViewImage>
 
-            <div className="flex flex-col gap-3 max-lg:text-sm p-6 pt-0 max-sm:pt-6 max-sm:pb-0">
-              <HeaderText className="font-semibold text-2xl max-lg:text-xl">{item.title}</HeaderText>
-              <p className="leading-relaxed text-secondary-dark/80">{item.description}</p>
-            </div>
-          </li>
-        ))}
-      </ul>
+              <div className="flex flex-col gap-3 p-8 max-md:p-6">
+                <h3 className="font-bold text-2xl max-lg:text-xl text-secondary-dark">{item.title}</h3>
+                <p className="leading-relaxed text-secondary-dark/70">{item.description}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
     </SectionWrapper>
   );
 }

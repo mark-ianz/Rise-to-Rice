@@ -8,9 +8,9 @@ import BackToTop from "./components/general/BackToTop";
 function Layout() {
   return (
     <>
-      <div className="pt-[112px]">
+      <div className="pt-20">
         <Header />
-        <main className="bg-secondary-light relative">
+        <main className="bg-warm-cream relative min-h-screen">
           <Outlet />
           <ScrollRestoration />
           <ScrollToHash />

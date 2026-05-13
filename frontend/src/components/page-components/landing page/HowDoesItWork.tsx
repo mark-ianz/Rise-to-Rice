@@ -3,8 +3,6 @@ import segregate_icon from "@/assets/segregate-icon.png";
 import exchange_icon from "@/assets/exchange-icon.png";
 import redeem_points_icon from "@/assets/redeem-points-icon.png";
 import recycle_icon from "@/assets/recycle-icon.png";
-import SectionHeader from "./SectionHeader";
-import AreaCover from "@/components/general/AreaCover";
 import { useTranslation } from "react-i18next";
 
 const icons = [segregate_icon, exchange_icon, redeem_points_icon, recycle_icon];
@@ -24,35 +22,47 @@ export default function HowDoesItWork() {
   return (
     <SectionWrapper
       id="how-does-it-work"
-      className="items-start flex-col bg-howDoesItWork relative"
+      className="flex-col bg-white py-24 max-lg:py-20 max-md:py-16"
     >
-      <div className="flex flex-col flex-1 w-full z-40">
-        <SectionHeader>{t("how_does_it_work.title")}</SectionHeader>
-        <ol className="py-20 flex justify-center w-full px-20 max-lg:px-10 max-sm:px-6 items-start flex-1 gap-12 max-lg:gap-8 flex-wrap">
+      <div className="flex flex-col w-full max-w-screen-xl mx-auto px-20 max-lg:px-10 max-sm:px-6">
+        <div className="text-center mb-16 max-md:mb-12">
+          <span className="text-primary-main text-sm font-semibold uppercase tracking-wider">
+            Simple Process
+          </span>
+          <h2 className="mt-3 text-4xl max-lg:text-3xl max-md:text-2xl font-bold text-secondary-dark">
+            {t("how_does_it_work.title")}
+          </h2>
+        </div>
+        
+        <ol className="grid grid-cols-4 gap-8 max-lg:grid-cols-2 max-sm:grid-cols-1">
           {steps.map((step, index) => (
             <li
               key={index}
-              className="flex gap-5 flex-col items-center text-center w-[280px] max-lg:w-[240px] max-sm:w-full text-secondary-light group"
+              className="flex flex-col items-center text-center group"
             >
-              <div className="w-48 h-48 max-lg:w-40 max-lg:h-40 max-sm:w-36 max-sm:h-36 bg-secondary-light rounded-full p-5 shadow-lg transition-transform duration-300 group-hover:scale-105">
-                <img
-                  loading="lazy"
-                  src={icons[index]}
-                  alt={step.title}
-                  className="w-full h-full object-contain"
-                />
+              <div className="relative mb-6">
+                <div className="absolute -top-2 -left-2 w-8 h-8 bg-primary-main text-white rounded-full flex items-center justify-center text-sm font-bold z-10">
+                  {index + 1}
+                </div>
+                <div className="w-32 h-32 max-lg:w-28 max-lg:h-28 bg-warm-beige rounded-2xl p-5 transition-all duration-300 group-hover:bg-primary-main/10 group-hover:scale-105">
+                  <img
+                    loading="lazy"
+                    src={icons[index]}
+                    alt={step.title}
+                    className="w-full h-full object-contain"
+                  />
+                </div>
               </div>
-              <div className="flex flex-col gap-2">
-                <p className="text-xl max-lg:text-lg max-sm:text-base font-semibold">
-                  <span className="text-secondary-light-2">{index + 1}.</span> {step.title}
-                </p>
-                <p className="text-sm max-lg:text-xs leading-relaxed opacity-90">{step.description}</p>
-              </div>
+              <h3 className="text-lg max-lg:text-base font-semibold text-secondary-dark mb-2">
+                {step.title}
+              </h3>
+              <p className="text-sm text-secondary-dark/60 leading-relaxed">
+                {step.description}
+              </p>
             </li>
           ))}
         </ol>
       </div>
-      <AreaCover className="bg-tertiary/90" />
     </SectionWrapper>
   );
 }

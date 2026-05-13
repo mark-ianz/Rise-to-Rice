@@ -1,16 +1,23 @@
 import { ReactNode } from "react";
-import HeaderText from "@/components/general/HeaderText";
 import { cn } from "@/lib/utils";
 
 type Props = {
   children: ReactNode;
   className?: string;
+  subtitle?: string;
 };
 
-export default function SectionHeader({ children, className }: Props) {
+export default function SectionHeader({ children, className, subtitle }: Props) {
   return (
-    <div className={cn("bg-secondary-light-2 w-full h-28 max-lg:h-24 max-md:h-20 flex items-center px-20 max-lg:px-10 max-sm:px-6 border-b border-primary-main/10", className)}>
-      <HeaderText className="text-3xl max-lg:text-2xl max-md:text-xl font-semibold">{children}</HeaderText>
+    <div className={cn("text-center mb-16 max-md:mb-12", className)}>
+      {subtitle && (
+        <span className="text-primary-main text-sm font-semibold uppercase tracking-wider">
+          {subtitle}
+        </span>
+      )}
+      <h2 className="mt-3 text-4xl max-lg:text-3xl max-md:text-2xl font-bold text-secondary-dark">
+        {children}
+      </h2>
     </div>
   );
 }

@@ -8,8 +8,8 @@ export default function AcceptedWastesRight() {
   const { t } = useTranslation("education_and_awareness");
 
   return (
-    <div className="flex-1 flex flex-col gap-4 max-lg:gap-2">
-      <HeaderText className="text-2xl">
+    <div className="flex-1 flex flex-col gap-6 max-lg:gap-4">
+      <HeaderText className="text-2xl max-lg:text-xl">
         {t("right.items_we_accept")}
       </HeaderText>
       <List />
@@ -50,16 +50,16 @@ function List() {
   }
 
   return (
-    <ul className="grid grid-cols-2 gap-4 max-sm:grid-cols-1">
+    <ul className="grid grid-cols-2 gap-5 max-sm:grid-cols-1">
       {categories.map((category, index) => (
-        <li key={`accepted-wastes-${index}`} className="items-center">
-          <p className="font-semibold">{category.category}</p>
-          <ul className="list-disc pl-5">
-            {category.types.map((material, index) => (
-              <li key={index} className="">
+        <li key={`accepted-wastes-${index}`} className="bg-white/60 p-4 rounded-lg">
+          <p className="font-semibold text-primary-main mb-2">{category.category}</p>
+          <ul className="list-disc pl-5 space-y-1">
+            {category.types.map((material, materialIndex) => (
+              <li key={materialIndex} className="text-secondary-dark/80">
                 {material.material}{" "}
-                <span className="text-sm text-tertiary">
-                  ({material.points_per_kg} points/kg)
+                <span className="text-xs text-tertiary font-medium">
+                  ({material.points_per_kg} pts/kg)
                 </span>
               </li>
             ))}

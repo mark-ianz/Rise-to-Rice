@@ -11,17 +11,17 @@ export default function AcceptedWastes() {
   return (
     <SectionWrapper
       id="accepted-wastes"
-      className="px-20 flex-col items-start pt-10 gap-8 max-lg:text-sm pb-10 max-lg:gap-4 max-md:px-10"
+      className="px-20 flex-col items-start py-14 gap-10 max-lg:text-sm max-lg:gap-8 max-lg:px-10 max-sm:px-6 max-md:py-10"
     >
-      <span>
-        <HeaderText>{t("accepted_wastes.title")}</HeaderText>
+      <div className="flex flex-col gap-2">
+        <HeaderText className="text-3xl max-lg:text-2xl max-md:text-xl">{t("accepted_wastes.title")}</HeaderText>
         <p className="text-sm italic text-tertiary">
           {t("accepted_wastes.date", {
             date: format(new Date(), "MMMM dd, yyyy"),
           })}
         </p>
-      </span>
-      <div className="flex gap-20 max-lg:flex-col max-lg:gap-10">
+      </div>
+      <div className="flex gap-16 max-lg:flex-col max-lg:gap-10 w-full">
         <AcceptedWastesLeft />
         <AcceptedWastesRight />
       </div>

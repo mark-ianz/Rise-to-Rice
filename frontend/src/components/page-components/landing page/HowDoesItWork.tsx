@@ -28,24 +28,26 @@ export default function HowDoesItWork() {
     >
       <div className="flex flex-col flex-1 w-full z-40">
         <SectionHeader>{t("how_does_it_work.title")}</SectionHeader>
-        <ol className="py-20 flex justify-center w-full px-20 max-lg:px-10 max-sm:px-6 items-center flex-1 gap-20 flex-wrap">
+        <ol className="py-20 flex justify-center w-full px-20 max-lg:px-10 max-sm:px-6 items-start flex-1 gap-12 max-lg:gap-8 flex-wrap">
           {steps.map((step, index) => (
             <li
               key={index}
-              className="flex gap-4 flex-col items-center text-center w-[300px] text-secondary-light"
+              className="flex gap-5 flex-col items-center text-center w-[280px] max-lg:w-[240px] max-sm:w-full text-secondary-light group"
             >
-              <div className="w-52 h-52 max-lg:w-44 max-lg:h-44 bg-secondary-light rounded-full p-4">
+              <div className="w-48 h-48 max-lg:w-40 max-lg:h-40 max-sm:w-36 max-sm:h-36 bg-secondary-light rounded-full p-5 shadow-lg transition-transform duration-300 group-hover:scale-105">
                 <img
                   loading="lazy"
                   src={icons[index]}
                   alt={step.title}
-                  className="w-full h-full"
+                  className="w-full h-full object-contain"
                 />
               </div>
-              <p className="text-xl max-lg:text-lg">
-                {index + 1 + ". " + step.title}
-              </p>
-              <p className="text-md max-lg:text-sm">{step.description}</p>
+              <div className="flex flex-col gap-2">
+                <p className="text-xl max-lg:text-lg max-sm:text-base font-semibold">
+                  <span className="text-secondary-light-2">{index + 1}.</span> {step.title}
+                </p>
+                <p className="text-sm max-lg:text-xs leading-relaxed opacity-90">{step.description}</p>
+              </div>
             </li>
           ))}
         </ol>

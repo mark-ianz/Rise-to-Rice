@@ -14,20 +14,20 @@ export default function Matters() {
   }) as SegregatingHelps;
 
   return (
-    <div className="flex-1 flex flex-col gap-12 max-lg:gap-8">
-      <div className="flex flex-col gap-12 max-lg:gap-8 max-md:gap-6 max-sm:gap-4">
-        <HeaderText className="text-primary-main">
+    <div className="flex-1 flex flex-col gap-8 max-lg:gap-6">
+      <div className="flex flex-col gap-4">
+        <HeaderText className="text-primary-main text-2xl max-lg:text-xl">
           {t("matters.title")}
         </HeaderText>
-        <p>{t("matters.description")}</p>
+        <p className="leading-relaxed text-secondary-dark/80">{t("matters.description")}</p>
       </div>
       <div className="flex flex-col gap-4">
-        <p>{t("matters.list.header")}</p>
+        <p className="font-medium text-secondary-dark">{t("matters.list.header")}</p>
         <ul className="flex flex-col gap-4">
           {segregating_helps.map((help, index) => (
-            <li key={index}>
-              <p className="font-semibold">{help.title}</p>
-              <p className="pl-5">{help.description}</p>
+            <li key={index} className="bg-white/60 p-4 rounded-lg">
+              <p className="font-semibold text-primary-main">{help.title}</p>
+              <p className="pl-4 mt-1 text-secondary-dark/80 leading-relaxed">{help.description}</p>
             </li>
           ))}
         </ul>

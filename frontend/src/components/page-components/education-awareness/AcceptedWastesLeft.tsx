@@ -10,23 +10,23 @@ export default function AcceptedWastesLeft() {
   const { t } = useTranslation("education_and_awareness");
 
   return (
-    <div className="flex flex-col gap-4 flex-1">
+    <div className="flex flex-col gap-6 flex-1">
       <ul className="grid grid-cols-2 gap-4">
         {wasteImages.map((image, index) => (
-          <li className="h-52 max-sm:h-auto" key={index}>
+          <li className="h-52 max-sm:h-40 overflow-hidden rounded-lg group" key={index}>
             <img
               loading="lazy"
               src={image}
               alt="waste"
-              className="w-full h-full object-cover object-bottom rounded-md"
+              className="w-full h-full object-cover object-bottom rounded-lg transition-transform duration-500 group-hover:scale-105"
             />
           </li>
         ))}
       </ul>
-      <span className="flex flex-col gap-4">
-        <p>{t("left.content_1")}</p>
-        <p>{t("left.content_2")}</p>
-      </span>
+      <div className="flex flex-col gap-4">
+        <p className="leading-relaxed text-secondary-dark/80">{t("left.content_1")}</p>
+        <p className="leading-relaxed text-secondary-dark/80">{t("left.content_2")}</p>
+      </div>
     </div>
   );
 }

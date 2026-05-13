@@ -91,7 +91,7 @@ export default function ContactUs() {
   return (
     <SectionWrapper
       id="contact-us"
-      className="px-20 py-10 justify-center gap-10 max-lg:px-10 max-sm:px-6"
+      className="px-20 py-16 justify-center gap-16 max-lg:px-10 max-sm:px-6 max-md:py-12 max-lg:gap-10"
     >
       <Helmet>
         <title>Contact Us | Rise to Rice</title>
@@ -115,68 +115,73 @@ export default function ContactUs() {
       </Helmet>
 
       <form
-        className="flex flex-col gap-4 max-md:text-sm max-lg:w-full"
+        className="flex flex-col gap-6 max-md:text-sm max-lg:w-full bg-white p-8 max-md:p-6 rounded-xl shadow-sm max-w-lg w-full"
         onSubmit={handleSubmit}
       >
-        <span>
-          <HeaderText>{t("header")}</HeaderText>
-          <p className="italic text-tertiary">{t("description")}</p>
-        </span>
-        <span className="flex gap-4 max-md:flex-col">
-          <span className="flex gap-4">
+        <div className="flex flex-col gap-2">
+          <HeaderText className="text-3xl max-lg:text-2xl max-md:text-xl">{t("header")}</HeaderText>
+          <p className="italic text-tertiary text-base max-md:text-sm">{t("description")}</p>
+        </div>
+        <div className="flex flex-col gap-5">
+          <div className="flex gap-4 max-sm:flex-col">
             <InputText
               ref={firstNameRef}
               label={t("form.first_name")}
               name="first_name"
               type="text"
-              inputClassName="max-md:text-sm max-sm:text-xs"
-              labelClassname="text-sm"
+              inputClassName="max-md:text-sm max-sm:text-xs focus:ring-2 focus:ring-primary-main/20 transition-all duration-200"
+              labelClassname="text-sm font-medium"
               defaultValue={state.first_name}
             />
             <InputText
               ref={lastNameRef}
               label={t("form.last_name")}
               name="last_name"
-              inputClassName="max-md:text-sm max-sm:text-xs"
+              inputClassName="max-md:text-sm max-sm:text-xs focus:ring-2 focus:ring-primary-main/20 transition-all duration-200"
               type="text"
-              labelClassname="text-sm"
+              labelClassname="text-sm font-medium"
             />
-          </span>
+          </div>
 
           <InputText
             ref={emailRef}
             label={t("form.email")}
-            inputClassName="max-md:text-sm max-sm:text-xs"
+            inputClassName="max-md:text-sm max-sm:text-xs focus:ring-2 focus:ring-primary-main/20 transition-all duration-200"
             name="email"
             type="email"
-            labelClassname="text-sm"
+            labelClassname="text-sm font-medium"
           />
-        </span>
-        <span className="flex flex-col gap-1">
-          <label htmlFor="message" className="block text-primary text-sm">
+        </div>
+        <div className="flex flex-col gap-2">
+          <label htmlFor="message" className="block text-primary text-sm font-medium">
             {t("form.message.label")}
           </label>
           <Textarea
             ref={messageRef}
-            rows={10}
-            className="bg-background max-md:text-sm max-xsm:text-xs"
+            rows={8}
+            className="bg-background max-md:text-sm max-xsm:text-xs focus:ring-2 focus:ring-primary-main/20 transition-all duration-200 resize-none"
             placeholder={t("form.message.placeholder")}
             name="message"
           />
-        </span>
+        </div>
         <ZodErrorDisplay error={error} />
-        <span className="flex justify-end">
-          <Button size={"sm"} disabled={isPending} type="submit">
+        <div className="flex justify-end pt-2">
+          <Button 
+            size={"default"} 
+            disabled={isPending} 
+            type="submit"
+            className="px-8 py-3 transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
+          >
             {isPending ? <Loading /> : t("form.submit")}
           </Button>
-        </span>
+        </div>
       </form>
-      <div className="w-[500px] h-[500px] max-md:hidden">
+      <div className="w-[450px] h-[450px] max-lg:w-[350px] max-lg:h-[350px] max-md:hidden flex-shrink-0">
         <img
           loading="lazy"
           src={ContactUsImage}
           aria-hidden
-          className="w-full h-full object-contain"
+          className="w-full h-full object-contain drop-shadow-lg"
         />
       </div>
     </SectionWrapper>

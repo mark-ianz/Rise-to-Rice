@@ -54,6 +54,8 @@ export default function Login() {
           }
         },
         onSuccess: (data) => {
+          localStorage.removeItem("registerState");
+          localStorage.removeItem("registerSection");
           dispatch({ type: "LOGIN", payload: data });
           navigate("/");
         },

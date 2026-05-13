@@ -1,5 +1,5 @@
 import { CreateAccountState, Gender } from "@/types/createAccount.type.tsx";
-import { createContext, Dispatch, ReactNode, useReducer } from "react";
+import { createContext, Dispatch, ReactNode, useReducer, useEffect } from "react";
 
 type CreateAccountAction = {
   type: string;
@@ -70,8 +70,25 @@ const createAccountReducer = (
   }
 };
 
+const getInitialState = (): CreateAccountState => {
+  const savedState = localStorage.getItem("registerState");
+  if (savedState) {
+    try {
+      const parsed = JSON.parse(savedState);
+      return { ...initialState, ...parsed, error: null, success: "", loading: false };
+    } catch (e) {
+      console.error("Failed to parse saved registerState", e);
+    }
+  }
+  return initialState;
+};
+
 const CreateAccountProvider = ({ children }: { children: ReactNode }) => {
-  const [state, dispatch] = useReducer(createAccountReducer, initialState);
+  const [state, dispatch] = useReducer(createAccountReducer, getInitialState());
+
+  useEffect(() => {
+    localStorage.setItem("registerState", JSON.stringify(state));
+  }, [state]);
 
   return (
     <CreateAccountContext.Provider value={{ state, dispatch }}>

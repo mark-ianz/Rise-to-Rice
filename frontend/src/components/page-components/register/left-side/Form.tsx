@@ -22,9 +22,10 @@ import { useTranslation } from "react-i18next";
 export default function LeftSide() {
   const { state, dispatch } = useCreateAccountContext();
   const { refetchAuth } = useUserContext();
-  const [section, setSection] = useState<RegisterSections>(
-    "personal-information"
-  );
+  const [section, setSection] = useState<RegisterSections>(() => {
+    const savedSection = localStorage.getItem("registerSection");
+    return (savedSection as RegisterSections) || "personal-information";
+  });
   const navigate = useNavigate();
   const { t } = useTranslation("register");
 
@@ -40,6 +41,8 @@ export default function LeftSide() {
       handleError(error, dispatch);
     },
     onSuccess: (data) => {
+      localStorage.removeItem("registerState");
+      localStorage.removeItem("registerSection");
       dispatch({ type: "LOGIN", payload: data });
       refetchAuth();
       navigate("/");
@@ -65,6 +68,7 @@ export default function LeftSide() {
     if (section === "success") {
       mutate(state as UserCreate_First_Part & UserCreate_Second_Part);
     }
+    localStorage.setItem("registerSection", section);
   }, [section, mutate, state]);
 
   useEffect(() => {

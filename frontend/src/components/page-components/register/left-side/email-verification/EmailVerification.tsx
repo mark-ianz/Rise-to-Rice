@@ -8,6 +8,7 @@ import {
   InputOTPGroup,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
+import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
@@ -121,6 +122,11 @@ export default function EmailVerification({
     }
   };
 
+  const handleGoBack = () => {
+    setSection("credentials");
+    dispatch({ type: "SET_ERROR", payload: null });
+  };
+
   if (request_code_isPending && !otp) {
     return (
       <div className="flex min-h-[18rem] items-center justify-center">
@@ -130,20 +136,18 @@ export default function EmailVerification({
   }
 
   return (
-    <div className="space-y-10">
-      <div className="space-y-3">
+    <div className="space-y-6">
+      <div className="space-y-4">
         <p className="text-xs font-semibold uppercase tracking-[0.24em] text-gray-500">
           {t("steps.email_verification.eyebrow")}
         </p>
         <HeaderText className="text-gray-900 text-2xl font-bold">
           {t("steps.email_verification.title")}
         </HeaderText>
-        <p className="max-w-2xl text-sm leading-6 text-gray-500 font-medium">
-          {t("steps.email_verification.description")}
-        </p>
+
       </div>
 
-      <div className="grid gap-6">
+      <div className="grid gap-4">
         <div className="bg-gray-50 p-6 rounded-md border border-gray-200 text-sm leading-6 text-gray-700">
           <p>
             {form("we_emailed_code")}{" "}
@@ -154,18 +158,19 @@ export default function EmailVerification({
           <p className="text-gray-500">{form("we_emailed_code_2")}</p>
         </div>
 
-        <div className="mt-4 overflow-x-auto pb-1">
+        <div className="mt-4">
           <InputOTP
             maxLength={6}
             value={otp}
             onChange={handleOtpChange}
+            containerClassName="w-full"
           >
-            <InputOTPGroup className="gap-2">
+            <InputOTPGroup className=" w-full">
               {[0, 1, 2, 3, 4, 5].map((index) => (
                 <InputOTPSlot
                   key={index}
                   index={index}
-                  className="h-14 w-12 rounded-none border-b-2 border-gray-300 bg-transparent text-2xl font-bold focus:border-black first:rounded-none first:border-b-2 last:rounded-none max-sm:h-12 max-sm:w-10 max-sm:text-xl"
+                  className="flex-1 aspect-square h-auto  text-2xl font-bold max-sm:text-xl"
                 />
               ))}
             </InputOTPGroup>
@@ -177,32 +182,44 @@ export default function EmailVerification({
           className="mt-4 rounded-lg bg-red-50 p-3 text-sm text-red-600 border border-red-100"
         />
 
-        <p className="text-sm text-gray-500 font-medium">
-          {form("code_validity", {
-            time: "10",
-          })}
-        </p>
+        <div className="space-y-2 flex items-center flex-col">
+          <p className="text-sm text-gray-500 font-medium">
+            {form("code_validity", {
+              time: "10",
+            })}
+          </p>
 
-        {!canResend ? (
-          <span className="flex flex-col gap-1 text-sm text-gray-500 font-medium">
-            <span>{form("didnt_receive_code")}</span>
-            <span className="font-bold text-gray-900">
-              {request_code_isPending
-                ? form("sending")
-                : form("resend_code_2", {
+          {!canResend ? (
+            <div className="flex flex-col gap-1 text-sm text-gray-500 font-medium">
+              <span>{form("didnt_receive_code")}</span>
+              <span className="font-bold text-gray-900 text-center w-full">
+                {request_code_isPending
+                  ? form("sending")
+                  : form("resend_code_2", {
                     timer,
                   })}
-            </span>
-          </span>
-        ) : (
-          <button
-            type="button"
-            onClick={handleResend}
-            className="text-sm font-bold text-gray-900 underline underline-offset-4 transition-colors hover:text-black self-start text-left"
-          >
-            {form("resend_code")}
-          </button>
-        )}
+              </span>
+            </div>
+          ) : (
+            <button
+              type="button"
+              onClick={handleResend}
+              className="text-sm font-bold text-gray-900 underline underline-offset-4 transition-colors hover:text-black self-start text-left"
+            >
+              {form("resend_code")}
+            </button>
+          )}
+          <div className="pt-6 flex flex-col gap-4 w-full">
+            <Button
+              type="button"
+              className="h-12 w-full rounded-md text-base font-semibold bg-white text-gray-800 border border-gray-200 hover:bg-gray-50 hover:text-gray-900 transition-colors shadow-none"
+              onClick={handleGoBack}
+            >
+              {form("go_back")}
+            </Button>
+          </div>
+        </div>
+
       </div>
     </div>
   );

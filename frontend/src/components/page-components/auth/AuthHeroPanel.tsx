@@ -29,7 +29,7 @@ export default function AuthHeroPanel({
   return (
     <aside
       className={cn(
-        "relative flex h-full flex-col bg-[linear-gradient(135deg,#2D5A27_0%,#1A3D18_100%)] p-12 lg:p-16 overflow-hidden shadow-[20px_0_50px_-15px_rgba(0,0,0,0.3)] z-10",
+        "relative flex h-full flex-col bg-[linear-gradient(135deg,#2D5A27_0%,#1A3D18_100%)] p-12 lg:p-16 shadow-[20px_0_50px_-15px_rgba(0,0,0,0.3)] z-10",
         className
       )}
     >
@@ -85,7 +85,7 @@ export default function AuthHeroPanel({
                 <div key={idx} className="flex items-start gap-4 max-w-md">
                   <div className="mt-1 flex-shrink-0">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M20 6L9 17L4 12" stroke="#22c55e" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                      <path d="M20 6L9 17L4 12" stroke="#22c55e" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   </div>
                   <div>

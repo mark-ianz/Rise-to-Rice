@@ -45,7 +45,7 @@ export default function Login() {
           if (axios.isAxiosError(error)) {
             setError(
               (error.response?.data.error && [error.response.data.error]) ||
-                (error.response?.statusText && [error.response.statusText])
+              (error.response?.statusText && [error.response.statusText])
             );
           }
 
@@ -114,7 +114,7 @@ export default function Login() {
           >
             <div className="space-y-2">
               <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-                Sign In
+                Welcome back!
               </h1>
               <p className="text-base text-gray-500 font-medium">
                 Enter your credentials to securely access your account.
@@ -144,16 +144,16 @@ export default function Login() {
                     toggleButtonClassName="right-2 h-9 w-9 text-gray-400 hover:text-gray-600 transition-colors"
                     placeholder="Password"
                   />
-                  <div className="flex justify-start">
+                  <div className="flex justify-end">
                     <Link
                       to={"/forgot-password"}
                       className="text-sm font-semibold text-primary-main hover:text-primary-dark transition-colors"
                     >
-                      Forget password?
+                      Forgot password?
                     </Link>
                   </div>
                 </div>
-                
+
                 <ZodErrorDisplay
                   error={error}
                   className="rounded-lg bg-red-50 p-3 text-sm text-red-600 border border-red-100"
@@ -169,7 +169,7 @@ export default function Login() {
                 >
                   {isPending ? <LoadingComponent /> : "Login Now"}
                 </Button>
-                
+
                 <Link
                   to={"/register"}
                   className="text-sm text-primary-main hover:text-primary-dark transition-colors"

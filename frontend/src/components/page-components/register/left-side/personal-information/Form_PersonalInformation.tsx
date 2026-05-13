@@ -170,7 +170,7 @@ export default function Form_PersonalInformation({
         className="rounded-lg bg-red-50 p-3 text-sm text-red-600 border border-red-100"
       />
 
-      <div className="pt-4 flex flex-col gap-4 items-center">
+      <div className="pt-4 flex flex-col gap-4">
         <PersonalInformationSubmitButton
           section={section}
           setSection={setSection}

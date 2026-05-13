@@ -25,7 +25,7 @@ export default function AuthShell({
     >
       <div
         className={cn(
-          "order-1 lg:order-1 flex-1 flex flex-col h-full",
+          "order-1 lg:order-1 flex-1 flex flex-col h-full min-h-screen",
           heroClassName
         )}
       >

@@ -89,7 +89,7 @@ export default function Form_Credentials({
         className="rounded-lg bg-red-50 p-3 text-sm text-red-600 border border-red-100"
       />
 
-      <div className="pt-4 flex flex-col gap-4 items-center">
+      <div className="pt-4 flex flex-col gap-4">
         <SubmitButton section={section} setSection={setSection} />
         <LoginLink className="text-gray-500">{t("already_have_account")}</LoginLink>
       </div>

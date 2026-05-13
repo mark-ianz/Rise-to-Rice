@@ -64,7 +64,7 @@ export default function CredentialsSubmitButton({
   }
 
   return (
-    <div className="flex flex-col items-center justify-center gap-3">
+    <div className="flex flex-col gap-3 w-full">
       <Button
         className="h-12 w-full rounded-md text-base font-semibold bg-primary-main text-white hover:bg-primary-dark shadow-md shadow-primary-main/20 transition-all hover:-translate-y-0.5 active:translate-y-0"
         onClick={handleSubmit}
@@ -74,8 +74,7 @@ export default function CredentialsSubmitButton({
       </Button>
       <Button
         type="button"
-        variant={"outline"}
-        className="h-12 w-full rounded-md text-base font-semibold bg-white text-gray-800 border border-gray-200 hover:bg-gray-50 transition-colors"
+        className="h-12 w-full rounded-md text-base font-semibold bg-white text-gray-800 border border-gray-200 hover:bg-gray-50 hover:text-gray-900 transition-colors shadow-none"
         onClick={handleGoBackClick}
         disabled={isPending}
       >

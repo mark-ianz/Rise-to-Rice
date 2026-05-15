@@ -16,6 +16,7 @@ import {
   useVerifyVerificationCode,
 } from "@/hooks/query/useVerification";
 import { SectionAndSetSection } from "../credentials/CredentialsSubmitButton";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function EmailVerification({
   setSection,
@@ -132,8 +133,30 @@ export default function EmailVerification({
 
   if (request_code_isPending && !otp) {
     return (
-      <div className="flex min-h-[18rem] items-center justify-center">
-        <LoadingComponent className="h-12 w-12 text-gray-900" />
+      <div className="space-y-6">
+        <div className="space-y-4">
+          <Skeleton className="h-4 w-24" />
+          <Skeleton className="h-8 w-64" />
+        </div>
+
+        <div className="grid gap-4">
+          <Skeleton className="h-24 w-full rounded-md" />
+          
+          <div className="mt-4 flex gap-3">
+            {[...Array(6)].map((_, i) => (
+              <Skeleton key={i} className="flex-1 aspect-square rounded-md h-auto" />
+            ))}
+          </div>
+
+          <div className="space-y-2 flex items-center justify-center flex-col mt-4">
+            <Skeleton className="h-4 w-48" />
+            <Skeleton className="h-4 w-32" />
+          </div>
+
+          <div className="pt-6">
+            <Skeleton className="h-12 w-full rounded-md" />
+          </div>
+        </div>
       </div>
     );
   }

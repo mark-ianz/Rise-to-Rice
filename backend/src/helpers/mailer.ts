@@ -1,5 +1,4 @@
-import SMTPTransport from "nodemailer/lib/smtp-transport";
-import { transporter } from "../nodemailer/transporter";
+import { resend } from "../nodemailer/transporter";
 import { RedeemRequestStatus } from "../types/redeem-request";
 
 export async function sendEmail(
@@ -7,17 +6,21 @@ export async function sendEmail(
   subject: string,
   text: string,
   html?: string
-): Promise<SMTPTransport.SentMessageInfo | Error> {
+): Promise<any> {
   try {
-    const info = await transporter.sendMail({
-      from: process.env.NODEMAILER_EMAIL_ADDRESS,
+    const { data, error } = await resend.emails.send({
+      from: `${process.env.SMTP_FROM_NAME} <${process.env.RESEND_FROM_EMAIL}>`,
       to,
       subject,
       text,
       html,
     });
 
-    return info;
+    if (error) {
+      return error;
+    }
+
+    return data;
   } catch (error) {
     return error as Error;
   }
@@ -28,7 +31,7 @@ export async function sendStatusUpdateEmail(
   subject: string,
   status: RedeemRequestStatus,
   html?: string
-): Promise<SMTPTransport.SentMessageInfo | Error> {
+): Promise<any> {
   const templates = [
     {
       status: "For Pick Up",
@@ -53,7 +56,7 @@ export async function sendStatusUpdateEmail(
     },
   ];
 
-  let text;
+  let text = "";
 
   const statusObj = templates.find((t) => t.status === status);
   if (statusObj) {
@@ -61,16 +64,21 @@ export async function sendStatusUpdateEmail(
   }
 
   try {
-    const info = await transporter.sendMail({
-      from: process.env.NODEMAILER_EMAIL_ADDRESS,
+    const { data, error } = await resend.emails.send({
+      from: `${process.env.SMTP_FROM_NAME} <${process.env.RESEND_FROM_EMAIL}>`,
       to,
       subject,
       text,
       html,
     });
 
-    return info;
+    if (error) {
+      return error;
+    }
+
+    return data;
   } catch (error) {
     return error as Error;
   }
 }
+

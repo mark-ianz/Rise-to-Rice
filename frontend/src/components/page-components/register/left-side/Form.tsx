@@ -91,7 +91,7 @@ export default function LeftSide() {
   return (
     <div className="relative flex flex-col h-full bg-[#fcfdfc] p-8 sm:p-12 lg:p-16">
       <div className="absolute top-12 right-12">
-        <LogoNav />
+        <LogoNav rightLogo />
       </div>
 
       <form

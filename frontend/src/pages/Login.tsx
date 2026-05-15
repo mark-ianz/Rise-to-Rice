@@ -107,7 +107,7 @@ export default function Login() {
       >
         <div className="relative flex flex-col justify-center h-full bg-[#fcfdfc] p-8 sm:p-12 lg:p-16">
           <div className="absolute top-12 right-12">
-            <LogoNav />
+            <LogoNav rightLogo />
           </div>
 
           <form

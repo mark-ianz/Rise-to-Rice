@@ -3,6 +3,7 @@ import HeaderText from "@/components/general/HeaderText";
 import SectionWrapper from "@/components/general/SectionWrapper";
 import ZodErrorDisplay from "@/components/general/ZodErrorDisplay";
 import PasswordInput from "@/components/general/PasswordInput";
+import { getErrorMessage } from "@/helper/errorHandler";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -141,15 +142,7 @@ function FirstSection({
       { email, type: "forgot-password" },
       {
         onError: (error) => {
-          if (isAxiosError(error)) {
-            setError(
-              error.response?.data.errors.map(
-                (error: { message: string }) => error.message
-              )
-            );
-          } else {
-            setError(["An unknown error occurred. Please try again later."]);
-          }
+          setError(getErrorMessage(error));
         },
         onSuccess: () => {
           // handle success, e.g., navigate to the next step
@@ -249,15 +242,7 @@ function SecondSection({
           setOtp("");
         },
         onError: (error) => {
-          if (isAxiosError(error)) {
-            setError(
-              error.response?.data.errors.map(
-                (error: { message: string }) => error.message
-              )
-            );
-          } else {
-            setError([global("error.generic")]);
-          }
+          setError(getErrorMessage(error));
         },
       }
     );
@@ -283,8 +268,8 @@ function SecondSection({
             setResetToken(data.reset_token);
             setSection("reset-password");
           },
-          onError: () => {
-            setError([global("error.invalid_otp")]);
+          onError: (error) => {
+            setError(getErrorMessage(error));
           },
         }
       );
@@ -405,27 +390,19 @@ function ResetPassword({
                     </span>
                   );
                 },
-                onError: () => {
-                  setError([
-                    "An unknown error occurred. Please try again later.",
-                  ]);
+                onError: (error) => {
+                  setError(getErrorMessage(error));
                 },
               }
             );
           },
           onError: (error) => {
-            if (isAxiosError(error)) {
-              setError(formatZodErrors(error.response?.data));
-            }
+            setError(getErrorMessage(error));
           },
         }
       );
     } catch (error) {
-      if (error instanceof ZodError) {
-        setError(formatZodErrors(error));
-      } else {
-        setError(["An unknown error occurred. Please try again later."]);
-      }
+      setError(getErrorMessage(error));
     }
   };
 

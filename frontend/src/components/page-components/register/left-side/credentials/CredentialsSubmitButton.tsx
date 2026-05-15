@@ -41,7 +41,7 @@ export default function CredentialsSubmitButton({
       }
     },
     onError: (error) => {
-      dispatch({ type: "SET_ERROR", payload: [error.message] });
+      handleError(error, dispatch);
     },
     onSuccess: () => {
       setSection("email-verification");

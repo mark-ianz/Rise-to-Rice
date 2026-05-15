@@ -70,33 +70,29 @@ export default function HeroSection() {
           </div>
 
           {/* Right: Bento Image Grid */}
-          <div className="grid grid-cols-2 gap-4 max-md:hidden">
-            <div className="space-y-4">
-              <div className="aspect-[4/5] rounded-3xl overflow-hidden bg-warm-beige">
+          <div className="grid grid-cols-2 gap-6 max-md:hidden items-center">
+            <div className="space-y-6">
+              <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden bg-warm-beige shadow-2xl shadow-primary-main/10 animate-float border-4 border-white/50">
                 <img 
                   src={heroImage1} 
                   alt="Community participating in recycling" 
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover hover:scale-110 transition-transform duration-700" 
                 />
               </div>
-              <div className="bg-primary-main text-white p-6 rounded-3xl">
-                <p className="text-3xl font-bold">10kg</p>
-                <p className="text-sm text-white/80 mt-1">= 1kg Rice</p>
-              </div>
             </div>
-            <div className="space-y-4 pt-8">
-              <div className="aspect-square rounded-3xl overflow-hidden bg-warm-beige">
+            <div className="space-y-6 pt-12">
+              <div className="aspect-square rounded-[2rem] overflow-hidden bg-warm-beige shadow-xl shadow-primary-main/10 animate-float-delayed border-4 border-white/50">
                 <img 
                   src={heroImage2} 
                   alt="Weighing recyclables" 
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover hover:scale-110 transition-transform duration-700" 
                 />
               </div>
-              <div className="aspect-[4/3] rounded-3xl overflow-hidden bg-warm-beige">
+              <div className="aspect-[4/3] rounded-[2rem] overflow-hidden bg-warm-beige shadow-lg shadow-primary-main/10 animate-float-more-delayed border-4 border-white/50">
                 <img 
                   src={heroImage3} 
                   alt="Receiving rewards" 
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover hover:scale-110 transition-transform duration-700" 
                 />
               </div>
             </div>

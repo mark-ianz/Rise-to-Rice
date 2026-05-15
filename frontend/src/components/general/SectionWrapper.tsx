@@ -20,7 +20,7 @@ export default function SectionWrapper({
       className={cn(
         "flex items-center w-full h-full bg-secondary-light-2",
         className,
-        screen && "min-h-[calc(100dvh-112px)]"
+        screen && "min-h-[calc(100dvh-80px)]"
       )}
     >
       {children}

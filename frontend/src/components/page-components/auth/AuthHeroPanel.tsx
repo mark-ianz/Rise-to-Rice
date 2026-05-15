@@ -29,7 +29,7 @@ export default function AuthHeroPanel({
   return (
     <aside
       className={cn(
-        "relative flex h-full flex-col bg-[linear-gradient(135deg,#2D5A27_0%,#1A3D18_100%)] p-12 lg:p-16 shadow-[20px_0_50px_-15px_rgba(0,0,0,0.3)] z-10",
+        "relative flex min-h-full flex-col bg-[linear-gradient(135deg,#2D5A27_0%,#1A3D18_100%)] p-12 lg:p-16 shadow-[20px_0_50px_-15px_rgba(0,0,0,0.3)] z-10",
         className
       )}
     >
@@ -66,7 +66,7 @@ export default function AuthHeroPanel({
         <circle cx="80%" cy="20%" r="60%" stroke="white" strokeWidth="0.5" fill="none" />
       </svg>
 
-      <div className="relative z-10 flex w-full flex-col h-full justify-between">
+      <div className="relative z-10 flex w-full flex-col flex-1 justify-between">
         <div className="space-y-12">
           <div className="h-16" /> {/* Spacer for logo removal */}
 

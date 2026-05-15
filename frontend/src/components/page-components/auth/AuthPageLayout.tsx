@@ -13,7 +13,7 @@ export default function AuthPageLayout({ children, className, id }: Props) {
     <div
       id={id}
       className={cn(
-        "relative isolate flex w-full h-screen bg-white",
+        "relative isolate flex w-full min-h-screen bg-white",
         className
       )}
     >

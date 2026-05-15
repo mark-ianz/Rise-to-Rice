@@ -89,7 +89,7 @@ export default function LeftSide() {
   }, [section, dispatch]);
 
   return (
-    <div className="relative flex flex-col h-full bg-[#fcfdfc] p-8 sm:p-12 lg:p-16">
+    <div className="relative flex flex-col min-h-screen bg-[#fcfdfc] p-8 sm:p-12 lg:p-16">
       <div className="absolute top-12 right-12">
         <LogoNav rightLogo />
       </div>

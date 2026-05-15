@@ -53,7 +53,7 @@ const createAccountReducer = (
     case "SET_CONTACT_NUMBER":
       return { ...state, contact_number: action.payload as string };
     case "SET_DATE_OF_BIRTH":
-      return { ...state, birthdate: action.payload as Date };
+      return { ...state, birthdate: action.payload as string };
     case "SET_EMAIL":
       return { ...state, email: action.payload as string };
     case "SET_GENDER":

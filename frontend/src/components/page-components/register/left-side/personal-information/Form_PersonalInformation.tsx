@@ -130,6 +130,16 @@ export default function Form_PersonalInformation({
           <InputText
             name="birthdate"
             onChange={handleBirthDateChange}
+            value={
+              state.birthdate
+                ? typeof state.birthdate === "string"
+                  ? state.birthdate.split("T")[0]
+                  : state.birthdate instanceof Date
+                  ? state.birthdate.toISOString().split("T")[0]
+                  : ""
+                : ""
+            }
+            max={new Date().toISOString().split("T")[0]}
             label={form("birthdate")}
             type="date"
             labelClassname={authLabelClassName}

@@ -64,7 +64,16 @@ export const UserCreate_First_Part_Schema = z.object({
     }),
   birthdate: z
     .string({ message: "Birthdate is required." })
-    .min(1, { message: "Birthdate is required." }),
+    .min(1, { message: "Birthdate is required." })
+    .refine(
+      (date) => {
+        const selectedDate = new Date(date);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        return selectedDate <= today;
+      },
+      { message: "Birthdate cannot be in the future." }
+    ),
 });
 
 export const UserCreate_Second_Part_Schema = z

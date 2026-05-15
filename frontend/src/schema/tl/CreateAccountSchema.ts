@@ -64,7 +64,16 @@ export const UserCreate_First_Part_Schema = z.object({
     }),
   birthdate: z
     .string({ message: "Kaarawan ay kailangan" })
-    .min(1, { message: "Kaarawan ay kailangan" }),
+    .min(1, { message: "Kaarawan ay kailangan" })
+    .refine(
+      (date) => {
+        const selectedDate = new Date(date);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        return selectedDate <= today;
+      },
+      { message: "Ang kaarawan ay hindi maaaring sa hinaharap" }
+    ),
 });
 
 export const UserCreate_Second_Part_Schema = z

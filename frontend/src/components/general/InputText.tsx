@@ -24,6 +24,8 @@ type Props = {
   autoFocus?: boolean;
   step?: string | number;
   autoComplete?: string;
+  max?: string | number;
+  min?: string | number;
 };
 
 const InputText = forwardRef<HTMLInputElement, Props>(
@@ -44,6 +46,8 @@ const InputText = forwardRef<HTMLInputElement, Props>(
       autoFocus,
       step,
       autoComplete,
+      max,
+      min,
     },
     ref
   ) => {
@@ -51,6 +55,8 @@ const InputText = forwardRef<HTMLInputElement, Props>(
       <span className={cn("flex flex-col gap-1", wrapperClassName)}>
         <p className={cn("text-sm", labelClassname)}>{label}</p>
         <Input
+          max={max}
+          min={min}
           step={step}
           autoFocus={autoFocus}
           autoComplete={autoComplete}

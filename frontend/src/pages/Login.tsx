@@ -58,7 +58,7 @@ export default function Login() {
           localStorage.removeItem("registerSection");
           localStorage.removeItem("registerMaxReachedSection");
           dispatch({ type: "LOGIN", payload: data });
-          navigate("/");
+          navigate("/home");
         },
       }
     );

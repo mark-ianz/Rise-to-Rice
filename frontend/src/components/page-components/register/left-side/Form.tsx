@@ -50,7 +50,7 @@ export default function LeftSide() {
       localStorage.removeItem("registerMaxReachedSection");
       dispatch({ type: "LOGIN", payload: data });
       refetchAuth();
-      navigate("/");
+      navigate("/home");
     },
   });
 

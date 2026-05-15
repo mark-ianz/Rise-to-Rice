@@ -29,6 +29,7 @@ const ForgotPassword = lazy(() => import("./pages/ForgotPassword.tsx"));
 const ViewAnnouncement = lazy(() => import("./pages/ViewAnnouncement.tsx"));
 const TermsAndConditions = lazy(() => import("./pages/TermsAndConditions.tsx"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy.tsx"));
+const UserHome = lazy(() => import("./pages/UserHome.tsx"));
 const DashboardLayout = lazy(
   () => import("./components/page-components/dashboard/base/DashboardLayout.tsx")
 );
@@ -65,6 +66,14 @@ const router = createBrowserRouter([
       {
         index: true,
         element: withSuspense(<LandingPage />),
+      },
+      {
+        path: "home",
+        element: (
+          <ProtectedRoute role={"user"}>
+            {withSuspense(<UserHome />)}
+          </ProtectedRoute>
+        ),
       },
       {
         path: "register",

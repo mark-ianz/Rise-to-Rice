@@ -16,8 +16,14 @@ export default function ViewProfile({ user_id }: { user_id?: number }) {
       <HeaderText className="font-bold mb-4">{t("profile.title")}</HeaderText>
       <div className="flex flex-col gap-4">
         <PersonalInformation id={user_id} />
-        <hr />
-        <UserAnalytics user_id={user_id} />
+        {/* Analytics only shown when admin is viewing another user's profile.
+            For the user's own profile, analytics are on /home dashboard. */}
+        {user_id && (
+          <>
+            <hr />
+            <UserAnalytics user_id={user_id} />
+          </>
+        )}
       </div>
     </div>
   );

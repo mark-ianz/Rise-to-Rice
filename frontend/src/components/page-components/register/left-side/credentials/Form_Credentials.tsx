@@ -101,7 +101,7 @@ export default function Form_Credentials({
           />
           <Label
             htmlFor="terms"
-            className="text-sm leading-relaxed text-gray-600 font-medium cursor-pointer select-none"
+            className="text-sm leading-relaxed text-foreground/50 font-medium cursor-pointer select-none"
           >
             <Trans
               i18nKey="register:agreement_text"
@@ -109,12 +109,12 @@ export default function Form_Credentials({
                 <Link
                   key="terms-link"
                   to="/terms-and-conditions"
-                  className="text-black font-bold underline underline-offset-4 hover:text-gray-700 transition-colors"
+                  className="font-bold underline underline-offset-4 hover:text-foreground/70 transition-colors"
                 />,
                 <Link
                   key="privacy-link"
                   to="/privacy-policy"
-                  className="text-black font-bold underline underline-offset-4 hover:text-gray-700 transition-colors"
+                  className="font-bold underline underline-offset-4 hover:text-foreground/70 transition-colors"
                 />,
               ]}
             />

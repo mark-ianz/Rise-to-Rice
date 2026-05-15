@@ -6,6 +6,10 @@ import useCreateAccountContext from "@/hooks/useCreateAccountContext";
 import { useTranslation } from "react-i18next";
 import LoginLink from "../LoginLink";
 import SubmitButton, { SectionAndSetSection } from "./CredentialsSubmitButton";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
+import { Trans } from "react-i18next";
+import { Link } from "react-router-dom";
 
 export default function Form_Credentials({
   section,
@@ -35,61 +39,95 @@ export default function Form_Credentials({
   };
 
   return (
-    <div className="space-y-10">
-      <div className="space-y-3">
-        <p className="text-xs font-semibold uppercase tracking-[0.24em] text-gray-500">
-          {t("steps.credentials.eyebrow")}
-        </p>
-        <HeaderText className="text-gray-900 text-2xl font-bold">
-          {t("steps.credentials.title")}
-        </HeaderText>
-        <p className="max-w-2xl text-sm leading-6 text-gray-500 font-medium">
-          {t("steps.credentials.description")}
-        </p>
+    <div>
+      <div className="space-y-4">
+
+        <div className="space-y-3">
+          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-gray-500">
+            {t("steps.credentials.eyebrow")}
+          </p>
+          <HeaderText className="text-gray-900 text-2xl font-bold">
+            {t("steps.credentials.title")}
+          </HeaderText>
+          <p className="max-w-2xl text-sm leading-6 text-gray-500 font-medium">
+            {t("steps.credentials.description")}
+          </p>
+        </div>
+
+        <div className="grid gap-6">
+          <InputText
+            name="email"
+            value={state.email}
+            onChange={handleEmailChange}
+            type="email"
+            label={form("email")}
+            autoComplete="email"
+            labelClassname={authLabelClassName}
+            inputClassName={authFieldClassName}
+            placeholder="Email address"
+          />
+          <PasswordInput
+            onChange={handlePasswordChange}
+            label={form("password")}
+            name="password"
+            value={state.password}
+            autoComplete="new-password"
+            labelClassName={authLabelClassName}
+            inputClassName={authFieldClassName}
+            toggleButtonClassName="right-2 h-9 w-9 text-gray-400 hover:text-gray-600 transition-colors"
+            placeholder="Password"
+          />
+          <PasswordInput
+            onChange={handleConfirmPasswordChange}
+            label={form("confirm_password")}
+            name="confirm_password"
+            value={state.confirm_password}
+            autoComplete="new-password"
+            labelClassName={authLabelClassName}
+            inputClassName={authFieldClassName}
+            toggleButtonClassName="right-2 h-9 w-9 text-gray-400 hover:text-gray-600 transition-colors"
+            placeholder="Confirm password"
+          />
+        </div>
+
+        <div className="flex items-start space-x-3 bg-gray-50/50 p-4 rounded-xl border border-gray-100 transition-all hover:bg-gray-50">
+          <Checkbox
+            id="terms"
+            checked={state.agreedToTerms}
+            onCheckedChange={(checked) =>
+              dispatch({ type: "SET_AGREED_TO_TERMS", payload: !!checked })
+            }
+            className="mt-1 h-5 w-5 rounded-md border-gray-300 data-[state=checked]:bg-black data-[state=checked]:border-black"
+          />
+          <Label
+            htmlFor="terms"
+            className="text-sm leading-relaxed text-gray-600 font-medium cursor-pointer select-none"
+          >
+            <Trans
+              i18nKey="register:agreement_text"
+              components={[
+                <Link
+                  key="terms-link"
+                  to="/terms-and-conditions"
+                  className="text-black font-bold underline underline-offset-4 hover:text-gray-700 transition-colors"
+                />,
+                <Link
+                  key="privacy-link"
+                  to="/privacy-policy"
+                  className="text-black font-bold underline underline-offset-4 hover:text-gray-700 transition-colors"
+                />,
+              ]}
+            />
+          </Label>
+        </div>
+
+        <ZodErrorDisplay
+          error={state.error}
+          className="rounded-lg bg-red-50 p-3 text-sm text-red-600 border border-red-100"
+        />
       </div>
 
-      <div className="grid gap-6">
-        <InputText
-          name="email"
-          value={state.email}
-          onChange={handleEmailChange}
-          type="email"
-          label={form("email")}
-          autoComplete="email"
-          labelClassname={authLabelClassName}
-          inputClassName={authFieldClassName}
-          placeholder="Email address"
-        />
-        <PasswordInput
-          onChange={handlePasswordChange}
-          label={form("password")}
-          name="password"
-          value={state.password}
-          autoComplete="new-password"
-          labelClassName={authLabelClassName}
-          inputClassName={authFieldClassName}
-          toggleButtonClassName="right-2 h-9 w-9 text-gray-400 hover:text-gray-600 transition-colors"
-          placeholder="Password"
-        />
-        <PasswordInput
-          onChange={handleConfirmPasswordChange}
-          label={form("confirm_password")}
-          name="confirm_password"
-          value={state.confirm_password}
-          autoComplete="new-password"
-          labelClassName={authLabelClassName}
-          inputClassName={authFieldClassName}
-          toggleButtonClassName="right-2 h-9 w-9 text-gray-400 hover:text-gray-600 transition-colors"
-          placeholder="Confirm password"
-        />
-      </div>
-
-      <ZodErrorDisplay
-        error={state.error}
-        className="rounded-lg bg-red-50 p-3 text-sm text-red-600 border border-red-100"
-      />
-
-      <div className="pt-4 flex flex-col gap-4">
+      <div className="pt-4 flex flex-col gap-4 mt-5">
         <SubmitButton section={section} setSection={setSection} />
         <LoginLink className="text-gray-500">{t("already_have_account")}</LoginLink>
       </div>

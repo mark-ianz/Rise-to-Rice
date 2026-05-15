@@ -51,9 +51,14 @@ export default function CredentialsSubmitButton({
   async function handleSubmit() {
     try {
       dispatch({ type: "SET_ERROR", payload: null });
+
+      if (!state.agreedToTerms) {
+        throw new Error(register("agreement_error"));
+      }
+
       const parsedCredentials = parser.parse(state);
       mutate(parsedCredentials.email);
-    } catch (error) {
+    } catch (error: any) {
       handleError(error, dispatch);
     }
   }

@@ -24,6 +24,13 @@ export function handleError(error: unknown, dispatch: Dispatch<ErrorAction>) {
       payload: error.errors.map((err) => err.message),
     });
   }
+
+  if (error instanceof Error && !(error instanceof ZodError)) {
+    dispatch({
+      type: "SET_ERROR",
+      payload: [error.message],
+    });
+  }
 }
 
 export function axiosError(error: unknown) {

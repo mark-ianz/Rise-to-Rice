@@ -29,5 +29,7 @@
     "badge": "Rise to Rice",
     "title": "Gumawa ng iyong account.",
     "description": "Sumali sa programa at simulang subaybayan ang iyong puntos at rewards."
-  }
+  },
+  "agreement_text": "Sa paggawa ng account, sumasang-ayon ka sa aming <0>Terms and Conditions</0> at kinikilala na nabasa mo ang aming <1>Privacy Policy</1>. Sumasang-ayon ka rin sa pagkolekta at paggamit ng iyong data tulad ng inilarawan sa mga dokumentong ito.",
+  "agreement_error": "Dapat kang sumang-ayon sa Terms and Conditions at Privacy Policy para magpatuloy."
 }

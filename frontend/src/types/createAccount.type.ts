@@ -15,6 +15,7 @@ export type CreateAccountState = {
   loading: boolean;
   hasSentCode: boolean;
   lastSentAt: number | null;
+  agreedToTerms: boolean;
 };
 
 export type Gender = "male" | "female" | "prefer not to say"

@@ -29,5 +29,7 @@
     "badge": "Rise to Rice",
     "title": "Create your account.",
     "description": "Join the program and start tracking your points and rewards."
-  }
+  },
+  "agreement_text": "By creating an account, you agree to our <0>Terms and Conditions</0> and acknowledge that you have read our <1>Privacy Policy</1>. You also consent to the collection and use of your data as described in these documents.",
+  "agreement_error": "You must agree to the Terms and Conditions and Privacy Policy to continue."
 }

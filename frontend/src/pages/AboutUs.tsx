@@ -2,7 +2,7 @@ import BESWMC from "@/components/page-components/about-us/BESWMC";
 import HeroSection from "@/components/page-components/about-us/HeroSection";
 import MissionVision from "@/components/page-components/about-us/MissionVision";
 import OurPartners from "@/components/page-components/about-us/OurPartners";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 export default function AboutUs() {
   return (

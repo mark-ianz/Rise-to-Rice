@@ -1,6 +1,6 @@
 import SectionWrapper from "@/components/general/SectionWrapper";
 import ViewProfile from "@/components/page-components/view_profile/ViewProfile";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 export default function Profile() {
   return (

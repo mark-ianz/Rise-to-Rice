@@ -15,6 +15,8 @@ import { LogExchangeProvider } from "./context/LogExchangeContext.tsx";
 import "./utils/i18n.ts";
 import NotFoundPage from "./components/page-components/NotFoundPage.tsx";
 import WholePageLoader from "./components/general/WholePageLoader.tsx";
+import { HelmetProvider } from "react-helmet-async";
+
 
 const LandingPage = lazy(() => import("./pages/LandingPage.tsx"));
 const Register = lazy(() => import("./pages/Register.tsx"));
@@ -197,7 +199,9 @@ createRoot(document.getElementById("root")!).render(
           <EditProfileProvider>
             <SearchUserResultProvider>
               <LogExchangeProvider>
-                <RouterProvider router={router} />
+                <HelmetProvider>
+                  <RouterProvider router={router} />
+                </HelmetProvider>
               </LogExchangeProvider>
             </SearchUserResultProvider>
           </EditProfileProvider>

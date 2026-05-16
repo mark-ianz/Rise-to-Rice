@@ -4,7 +4,7 @@ import SearchUserResult from "@/components/page-components/dashboard/users/Searc
 import SectionWrapper from "@/components/general/SectionWrapper";
 import { userSearchForFilter } from "@/lib/const/filter_items";
 import RoleCheckboxFilter from "../../components/page-components/dashboard/users/RoleCheckboxFilter";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 export default function Users() {
   return (

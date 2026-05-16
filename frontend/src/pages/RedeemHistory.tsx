@@ -10,7 +10,7 @@ import GenericError from "@/components/general/GenericError";
 import RedeemHistoryCardSkeleton from "@/components/skeletons/RedeemHistoryCardSkeleton";
 import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 export default function RedeemHistory() {
   const { state } = useUserContext();

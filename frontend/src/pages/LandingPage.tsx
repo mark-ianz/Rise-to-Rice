@@ -3,7 +3,7 @@ import HeroSection from "@/components/page-components/landing page/HeroSection";
 import HowDoesItWork from "@/components/page-components/landing page/HowDoesItWork";
 import LatestPosts from "@/components/page-components/landing page/LatestPosts";
 import EducationAndAwareness from "@/components/page-components/landing page/EducationAndAwareness";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 export default function LandingPage() {
   return (

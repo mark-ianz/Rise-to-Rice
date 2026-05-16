@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 import AnnouncementCardSkeleton from "@/components/skeletons/announcements/AnnouncementCardSkeleton";
 import NotFoundPage from "@/components/page-components/NotFoundPage";
 import { useGetSingleAnnouncement } from "@/hooks/query/useAnnouncement";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 export default function ViewAnnouncement() {
   const { id } = useParams<{ id: string }>();

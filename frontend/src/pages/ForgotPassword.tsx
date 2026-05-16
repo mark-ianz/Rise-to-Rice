@@ -25,7 +25,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 type Sections = "first" | "second" | "reset-password";
 

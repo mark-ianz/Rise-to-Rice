@@ -4,7 +4,7 @@ import SectionWrapper from "@/components/general/SectionWrapper";
 import AnnouncementList from "@/components/page-components/announcements/AnnouncementList";
 import SortAnnouncement from "@/components/page-components/announcements/SortAnnouncement";
 import { useTranslation } from "react-i18next";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 export default function Announcements() {
   const { t } = useTranslation("announcements");

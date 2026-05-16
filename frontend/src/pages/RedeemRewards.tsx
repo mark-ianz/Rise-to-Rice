@@ -4,7 +4,7 @@ import Points from "@/components/general/Points";
 import SectionWrapper from "@/components/general/SectionWrapper";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 export default function RedeemRewards() {
   const { t } = useTranslation("redeem_rewards");

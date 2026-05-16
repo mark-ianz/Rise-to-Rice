@@ -10,7 +10,7 @@ import { lazy, Suspense, useState } from "react";
 import DashboardCards from "../../components/page-components/dashboard/base/DashboardCards";
 import { get_total_weight } from "@/services/analytics.service";
 import { useQuery } from "@tanstack/react-query";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import LoadingComponent from "@/components/general/LoadingComponent";
 
 const MaterialsChart = lazy(

@@ -4,7 +4,7 @@ import SearchForm from "@/components/page-components/dashboard/SearchForm";
 import { redeemRequestSearchForFilter } from "@/lib/const/filter_items";
 import SearchRedeemRequestResult from "@/components/page-components/dashboard/redeem-request/SearchRedeemRequestResult";
 import StatusCheckBoxFilter from "@/components/page-components/dashboard/redeem-request/StatusCheckBoxFilter";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 export default function RedeemRequest() {
   return (

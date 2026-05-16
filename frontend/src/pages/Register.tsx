@@ -2,7 +2,7 @@ import AuthPageLayout from "@/components/page-components/auth/AuthPageLayout";
 import AuthShell from "@/components/page-components/auth/AuthShell";
 import LeftSide from "@/components/page-components/register/left-side/Form";
 import RightSide from "@/components/page-components/register/right-side/RightSide";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 export default function Register() {
   return (

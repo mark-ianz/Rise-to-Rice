@@ -12,7 +12,7 @@ import useUserContext from "@/hooks/useUserContext";
 import { formatZodErrors } from "@/lib/format";
 import axios from "axios";
 import { FormEvent, useRef, useState } from "react";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
 import { ZodError } from "zod";

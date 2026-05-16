@@ -1,7 +1,7 @@
 import ProtectedRoute from "@/components/protected/ProtectedRoute";
 import { Outlet } from "react-router-dom";
 import AsideNav from "../AsideNav";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 export default function DashboardLayout() {
   return (

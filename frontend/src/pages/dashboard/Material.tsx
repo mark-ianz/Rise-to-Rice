@@ -2,7 +2,7 @@ import HeaderText from "@/components/general/HeaderText";
 import SearchMaterialResult from "@/components/page-components/dashboard/materials/SearchMaterialResult";
 import SectionWrapper from "@/components/general/SectionWrapper";
 import AddCategory from "@/components/page-components/dashboard/materials/AddCategory";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 export default function Material() {
   return (

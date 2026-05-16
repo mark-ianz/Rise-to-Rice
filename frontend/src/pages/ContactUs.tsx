@@ -18,7 +18,7 @@ import { formatZodErrors } from "@/lib/format";
 import { ZodError } from "zod";
 import ZodErrorDisplay from "@/components/general/ZodErrorDisplay";
 import { useTranslation } from "react-i18next";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 export default function ContactUs() {
   const { t, i18n } = useTranslation("contact_us");

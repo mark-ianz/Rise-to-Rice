@@ -3,7 +3,7 @@ import WelcomeHeader from "@/components/page-components/user-home/WelcomeHeader"
 import PointsRewardsCard from "@/components/page-components/user-home/PointsRewardsCard";
 import ImpactStats from "@/components/page-components/user-home/ImpactStats";
 import Analytics from "@/components/page-components/view_profile/analytics/Analytics";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 export default function UserHome() {
   return (

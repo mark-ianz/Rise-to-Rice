@@ -3,7 +3,7 @@ import SearchContactMessagesResult from "@/components/page-components/dashboard/
 import SearchForm from "@/components/page-components/dashboard/SearchForm";
 import SectionWrapper from "@/components/general/SectionWrapper";
 import { userSearchForFilter } from "@/lib/const/filter_items";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 export default function ContactMessages() {
   return (

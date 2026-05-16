@@ -3,13 +3,13 @@ import jwt from "jsonwebtoken";
 
 export function generateAuthToken(user: ReqUser) {
   return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET!, {
-    expiresIn: "15m",
+    expiresIn: (process.env.ACCESS_TOKEN_JWT_EXPIRES_IN as any) || "15m",
   });
 }
 
 export function generateRefreshToken(user: ReqUser) {
   return jwt.sign(user, process.env.REFRESH_TOKEN_SECRET!, {
-    expiresIn: "7d",
+    expiresIn: (process.env.REFRESH_TOKEN_JWT_EXPIRES_IN as any) || "7d",
   });
 }
 

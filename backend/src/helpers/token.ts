@@ -2,12 +2,13 @@ import { Request, Response } from "express";
 import pool from "../connection/database";
 import { RowDataPacket } from "mysql2";
 import { PoolConnection } from "mysql2/promise";
-import { Role } from "../types/role";
-import { ReqUser } from "../types/account_info.types";
+import { ReqUser, Role } from "../types/account_info.types";
 import { generateAuthToken, generateRefreshToken } from "./jwt";
 import { setCookie } from "./cookie";
 
-const REFRESH_TOKEN_MAX_AGE = 1000 * 60 * 60 * 24 * 7;
+const REFRESH_TOKEN_MAX_AGE = Number(process.env.REFRESH_TOKEN_COOKIE_MAX_AGE) || 1000 * 60 * 60 * 24 * 7;
+const REFRESH_TOKEN_INTERVAL = process.env.REFRESH_TOKEN_SQL_INTERVAL || "7 DAY";
+const ACCESS_TOKEN_MAX_AGE = Number(process.env.ACCESS_TOKEN_COOKIE_MAX_AGE) || 1000 * 60 * 15;
 
 export async function deleteExpiredRefreshTokens(connection: PoolConnection) {
   await connection.query("DELETE FROM refresh_token WHERE expired_at < NOW()");
@@ -21,7 +22,7 @@ export async function replaceUserRefreshToken(
   await deleteExpiredRefreshTokens(connection);
   await connection.query("DELETE FROM refresh_token WHERE user_id = ?", [userId]);
   await connection.query(
-    "INSERT INTO refresh_token (token, user_id, expired_at) VALUES (?, ?, DATE_ADD(NOW(), INTERVAL 7 DAY))",
+    `INSERT INTO refresh_token (token, user_id, expired_at) VALUES (?, ?, DATE_ADD(NOW(), INTERVAL ${REFRESH_TOKEN_INTERVAL}))`,
     [refreshToken, userId]
   );
 }
@@ -39,7 +40,7 @@ export async function getUserWithRefreshToken(req: Request, res: Response) {
 
     // get user_id, email, and account_id through refresh token
     const [result] = await connection.query<RowDataPacket[]>(
-      "SELECT rt.user_id, a.email, a.account_id, rt.expired_at, rt.token FROM refresh_token AS rt INNER JOIN account AS a ON a.user_id = rt.user_id WHERE token = ?",
+      "SELECT rt.user_id, a.email, a.account_id, rt.expired_at FROM refresh_token AS rt INNER JOIN account AS a ON a.user_id = rt.user_id WHERE token = ?",
       [refreshToken]
     );
 
@@ -52,7 +53,7 @@ export async function getUserWithRefreshToken(req: Request, res: Response) {
 
     // get the role of the user
     const [roleResult] = await connection.query<
-      ({ role: Role } & RowDataPacket)[]
+      ({ role_name: Role } & RowDataPacket)[]
     >(
       "SELECT r.role_name FROM user_role AS ur INNER JOIN role as r ON r.role_id = ur.role_id WHERE ur.user_id = ?",
       [result[0].user_id]
@@ -69,8 +70,6 @@ export async function getUserWithRefreshToken(req: Request, res: Response) {
       role: roleResult[0].role_name,
     };
 
-    const newRefreshToken = generateRefreshToken(user);
-
     // check if the refresh token is expired
     if (new Date(result[0].expired_at) < new Date()) {
       // if it's expired, delete the refresh token from the database and clear the cookie in the client
@@ -81,16 +80,17 @@ export async function getUserWithRefreshToken(req: Request, res: Response) {
       res.clearCookie("refreshToken");
       return null;
     } else {
-      // Rotate the current refresh token instead of creating additional rows.
+      // Just update the expiration time in the database for the current refresh token
+      // We STOP rotating the token string here to prevent race conditions
       await connection.query(
-        "UPDATE refresh_token SET token = ?, expired_at = DATE_ADD(NOW(), INTERVAL 7 DAY) WHERE token = ?",
-        [newRefreshToken, refreshToken]
+        `UPDATE refresh_token SET expired_at = DATE_ADD(NOW(), INTERVAL ${REFRESH_TOKEN_INTERVAL}) WHERE token = ?`,
+        [refreshToken]
       );
     }
 
     const token = generateAuthToken(user);
-    setCookie(res, "authToken", token, 1000 * 60 * 15);
-    setCookie(res, "refreshToken", newRefreshToken, REFRESH_TOKEN_MAX_AGE);
+    setCookie(res, "authToken", token, ACCESS_TOKEN_MAX_AGE);
+    setCookie(res, "refreshToken", refreshToken, REFRESH_TOKEN_MAX_AGE);
 
     // commit the transaction
     await connection.commit();

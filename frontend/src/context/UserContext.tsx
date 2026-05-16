@@ -51,9 +51,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
 
   const checkAuth = async () => {
     try {
-      const response = await axios.get("/api/auth/check", {
-        withCredentials: true,
-      });
+      const response = await axios.get("/api/auth/check");
 
       dispatch({ type: "LOGIN", payload: response.data });
     } catch {

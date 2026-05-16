@@ -16,6 +16,9 @@ import "./utils/i18n.ts";
 import NotFoundPage from "./components/page-components/NotFoundPage.tsx";
 import WholePageLoader from "./components/general/WholePageLoader.tsx";
 import { HelmetProvider } from "react-helmet-async";
+import axios from "axios";
+
+axios.defaults.withCredentials = true;
 
 
 const LandingPage = lazy(() => import("./pages/LandingPage.tsx"));

@@ -1,11 +1,15 @@
 {
-  "nav_links": [
+  "guest_links": [
     { "name": "Home", "url": "/" },
-    { "name": "Dashboard", "url": "/dashboard", "role": "admin" },
     { "name": "Announcements", "url": "/announcements" },
-    { "name": "Rewards", "url": "/redeem-rewards", "role": "user" },
     { "name": "About Us", "url": "/about-us" },
     { "name": "Contact Us", "url": "/contact-us" }
+  ],
+  "authenticated_links": [
+    { "name": "Home", "url": "/home" },
+    { "name": "Dashboard", "url": "/dashboard", "role": "admin" },
+    { "name": "Announcements", "url": "/announcements" },
+    { "name": "Rewards", "url": "/redeem-rewards", "role": "user" }
   ],
   "profile_popover": {
     "greetings": "Hello",

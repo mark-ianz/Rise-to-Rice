@@ -1,8 +1,26 @@
 {
-  "nav_links": [
+  "guest_links": [
     {
       "name": "I-home",
       "url": "/"
+    },
+    {
+      "name": "Anunsyo",
+      "url": "/announcements"
+    },
+    {
+      "name": "Tungkol sa Amin",
+      "url": "/about-us"
+    },
+    {
+      "name": "Makipag-ugnayan",
+      "url": "/contact-us"
+    }
+  ],
+  "authenticated_links": [
+    {
+      "name": "I-home",
+      "url": "/home"
     },
     {
       "name": "Dashboard",
@@ -17,14 +35,6 @@
       "name": "Gantimpala",
       "url": "/redeem-rewards",
       "role": "user"
-    },
-    {
-      "name": "Tungkol sa Amin",
-      "url": "/about-us"
-    },
-    {
-      "name": "Makipag-ugnayan",
-      "url": "/contact-us"
     }
   ],
   "profile_popover": {

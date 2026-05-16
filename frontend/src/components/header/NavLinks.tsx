@@ -12,23 +12,19 @@ export default function NavLinks() {
   const { t } = useTranslation("header");
   const { state } = useUserContext();
 
-  const links = t("nav_links", { returnObjects: true }) as LinkType[];
-
   const isAuth = !!state.account_id;
   const isAdmin = state?.isAdmin;
+
+  const links = t(isAuth ? "authenticated_links" : "guest_links", {
+    returnObjects: true,
+  }) as LinkType[];
 
   return (
     <ol className="flex gap-6 max-xl:gap-4">
       {links.map((link) => {
         if (link.role === "admin" && !isAdmin) return null;
         if (link.role === "user" && !isAuth) return null;
-
-        let finalUrl = link.url;
-        if (isAuth && link.url === "/") {
-          finalUrl = "/home";
-        }
-
-        return <RenderLink key={link.name} link={{ ...link, url: finalUrl }} />;
+        return <RenderLink key={link.name} link={link} />;
       })}
     </ol>
   );

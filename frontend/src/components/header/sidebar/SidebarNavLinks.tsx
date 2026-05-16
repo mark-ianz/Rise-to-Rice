@@ -19,6 +19,10 @@ const iconedLinks = [
     icon: <Home size={20} />,
   },
   {
+    url: "/home",
+    icon: <Home size={20} />,
+  },
+  {
     url: "/dashboard",
     icon: <LayoutDashboard size={20} />,
   },
@@ -44,10 +48,12 @@ export default function SidebarNavLinks() {
   const { t } = useTranslation("header");
   const { state } = useUserContext();
 
-  const links = t("nav_links", { returnObjects: true }) as LinkType[];
-
   const isAuth = !!state.account_id;
   const isAdmin = state?.isAdmin;
+
+  const links = t(isAuth ? "authenticated_links" : "guest_links", {
+    returnObjects: true,
+  }) as LinkType[];
 
   return (
     <div className="flex flex-col gap-4">
@@ -55,13 +61,7 @@ export default function SidebarNavLinks() {
         {links.map((link) => {
           if (link.role === "admin" && !isAdmin) return null;
           if (link.role === "user" && !isAuth) return null;
-
-          let finalUrl = link.url;
-          if (isAuth && link.url === "/") {
-            finalUrl = "/home";
-          }
-
-          return <RenderLink key={link.name} link={{ ...link, url: finalUrl }} />;
+          return <RenderLink key={link.name} link={link} />;
         })}
       </ol>
       <Separator />

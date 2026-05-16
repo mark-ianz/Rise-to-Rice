@@ -16,11 +16,7 @@ export default function ProtectedRoute({ children, role }: Props) {
     if (isLoading) return;
 
     if (role === "not authenticated" && state?.user_id) {
-      if (state.isAdmin) {
-        navigate("/dashboard");
-      } else {
-        navigate("/home");
-      }
+      navigate("/home");
     }
     if (role === "user" && !state?.user_id) {
       navigate("/");

@@ -70,7 +70,11 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: withSuspense(<LandingPage />),
+        element: (
+          <ProtectedRoute role="not authenticated">
+            {withSuspense(<LandingPage />)}
+          </ProtectedRoute>
+        ),
       },
       {
         path: "home",

@@ -22,7 +22,13 @@ export default function NavLinks() {
       {links.map((link) => {
         if (link.role === "admin" && !isAdmin) return null;
         if (link.role === "user" && !isAuth) return null;
-        return <RenderLink key={link.name} link={link} />;
+
+        let finalUrl = link.url;
+        if (isAuth && link.url === "/") {
+          finalUrl = "/home";
+        }
+
+        return <RenderLink key={link.name} link={{ ...link, url: finalUrl }} />;
       })}
     </ol>
   );

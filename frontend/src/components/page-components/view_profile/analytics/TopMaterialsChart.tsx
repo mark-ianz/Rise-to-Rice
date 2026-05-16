@@ -52,46 +52,50 @@ export function TopMaterialsChart({ user_id, time }: TopMaterialChartProps) {
   };
 
   return (
-    <div className="grow flex flex-col gap-4">
-      <div className="flex gap-4 items-center justify-center">
+    "<div className="grow flex flex - col gap - 4">
+      < div className = "flex gap-4 items-center justify-center" >
         <HeaderText className="font-bold">Top Materials Chart</HeaderText>
-        {top_material.length > 0 && (
-          <SelectDropDown
-            onValueChange={onSelectDropDownChange}
-            items={chartFilterItems}
-            value={chartType.label}
-          >
-            {chartType.label}
-          </SelectDropDown>
-        )}
-      </div>
-      {top_material.length > 0 ? (
-        <Card className="flex bg-transparent shadow-none border-none p-0">
-          <CardContent className="flex-1 pb-0 flex flex-col items-cente">
-            <CardHeader className="items-center p-0">
-              <CardDescription className="text-sm">
-                Total Weight by Material ({time.label})
-              </CardDescription>
-            </CardHeader>
-            <div className="flex flex-col justify-center items-center w-full gap-20">
-              {chartType.value === "pie_chart" && (
-                <MaterialPieChart
-                  chartData={chartData}
-                  chartConfig={chartConfig}
-                />
-              )}
-              {chartType.value === "bar_chart" && (
-                <ProfileMaterialBarChart
-                  chartData={chartData}
-                  chartConfig={chartConfig}
-                />
-              )}
-            </div>
-          </CardContent>
-        </Card>
-      ) : (
-        <p className="text-center">No data available</p>
-      )}
-    </div>
+  {
+    top_material.length > 0 && (
+      <SelectDropDown
+        onValueChange={onSelectDropDownChange}
+        items={chartFilterItems}
+        value={chartType.label}
+      >
+        {chartType.label}
+      </SelectDropDown>
+    )
+  }
+      </div >
+  {
+    top_material.length > 0 ? (
+      <Card className="flex bg-transparent shadow-none border-none p-0">
+        <CardContent className="flex-1 pb-0 flex flex-col items-cente">
+          <CardHeader className="items-center p-0">
+            <CardDescription className="text-sm">
+              Total Weight by Material ({time.label})
+            </CardDescription>
+          </CardHeader>
+          <div className="flex flex-col justify-center items-center w-full gap-20">
+            {chartType.value === "pie_chart" && (
+              <MaterialPieChart
+                chartData={chartData}
+                chartConfig={chartConfig}
+              />
+            )}
+            {chartType.value === "bar_chart" && (
+              <ProfileMaterialBarChart
+                chartData={chartData}
+                chartConfig={chartConfig}
+              />
+            )}
+          </div>
+        </CardContent>
+      </Card>
+    ) : (
+      <p className="text-center">No data available</p>
+    )
+  }
+    </div > "
   );
 }

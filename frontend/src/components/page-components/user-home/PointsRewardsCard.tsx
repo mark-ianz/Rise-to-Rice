@@ -2,7 +2,7 @@ import { Points as PointsType } from "@/types/points";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { ArrowRight, Gift, Coins } from "lucide-react";
+import { ArrowRight, Gift, Coins, Package } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { formatNumberWithCommasAndDecimals } from "@/lib/format";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -33,7 +33,7 @@ export default function PointsRewardsCard() {
   const recentRedemptions = redeemHistory?.result?.slice(0, 3) || [];
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-warm-tan/20 overflow-hidden h-full flex flex-col">
+    <div className="bg-white rounded-2xl shadow-sm border border-warm-tan/15 overflow-hidden h-full flex flex-col">
       {/* Points Header */}
       <div className="bg-gradient-to-br from-primary-main to-primary-main-dark p-6 text-white">
         <div className="flex items-center gap-3 mb-3">
@@ -65,10 +65,10 @@ export default function PointsRewardsCard() {
         </Link>
       </div>
 
-      {/* Recent Redemptions */}
+      {/* Recent Activity */}
       <div className="p-6 flex-1 flex flex-col">
-        <h3 className="text-sm font-semibold text-secondary-dark/70 uppercase tracking-wider mb-4">
-          Recent Redemptions
+        <h3 className="text-lg font-bold text-secondary-dark tracking-tight mb-4">
+          Recent Activity
         </h3>
         {historyLoading ? (
           <div className="flex flex-col gap-3">
@@ -80,22 +80,25 @@ export default function PointsRewardsCard() {
             ))}
           </div>
         ) : recentRedemptions.length > 0 ? (
-          <ul className="flex flex-col gap-3 flex-1">
+          <ul className="flex flex-col gap-0 flex-1">
             {recentRedemptions.map((request) => (
               <li
                 key={request.redeem_request_id}
-                className="flex items-center justify-between gap-2 py-2 border-b border-warm-beige last:border-0"
+                className="flex items-center gap-3 py-3 border-b border-warm-tan/10 last:border-0"
               >
-                <div className="flex flex-col min-w-0">
-                  <span className="text-sm font-medium text-secondary-dark truncate">
-                    {request.reward_name}
-                  </span>
-                  <span className="text-xs text-secondary-dark/40">
-                    {request.quantity}{" "}
-                    {formatUnit(request.unit, request.quantity)} ·{" "}
-                    {format(new Date(request.timestamp), "MMM d")}
-                  </span>
+                <div className="w-8 h-8 rounded-lg bg-warm-beige flex items-center justify-center flex-shrink-0">
+                  <Package size={16} className="text-secondary-dark/50" />
                 </div>
+                <span className="text-sm font-medium text-secondary-dark truncate min-w-0 flex-1">
+                  {request.reward_name}
+                </span>
+                <span className="text-sm text-secondary-dark/50 flex-shrink-0">
+                  {request.quantity}{" "}
+                  {formatUnit(request.unit, request.quantity)}
+                </span>
+                <span className="text-sm text-secondary-dark/40 flex-shrink-0">
+                  {format(new Date(request.timestamp), "MMM d")}
+                </span>
                 <Badge
                   className="font-normal text-xs px-2 py-0.5 shrink-0"
                   variant={request.status}

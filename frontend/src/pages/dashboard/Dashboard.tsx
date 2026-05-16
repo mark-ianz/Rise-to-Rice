@@ -68,7 +68,6 @@ export default function Dashboard() {
           </SelectDropDown>
         </div>
         <DashboardCards time={time} />
-        <hr />
         <Suspense
           fallback={
             <div className="flex justify-center py-10">
@@ -76,8 +75,10 @@ export default function Dashboard() {
             </div>
           }
         >
-          <MaterialsChart time={time} />
-          <DetailedMaterialAnalytics className="p-4" time={time} />
+          <div className="grid grid-cols-2 gap-6 max-lg:grid-cols-1">
+            <MaterialsChart time={time} />
+            <DetailedMaterialAnalytics time={time} />
+          </div>
         </Suspense>
       </div>
     </SectionWrapper>

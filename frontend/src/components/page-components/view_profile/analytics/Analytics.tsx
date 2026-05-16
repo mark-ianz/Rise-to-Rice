@@ -23,19 +23,16 @@ export default function Analytics({ user_id }: { user_id?: number }) {
 
 
   return (
-    <div className="flex flex-col gap-10 pb-10">
-      <div className="grid grid-cols-2 max-sm:grid-cols-1 max-sm:gap-6">
+    <div className="flex flex-col gap-8 pb-10">
+      <div className="grid grid-cols-2 gap-6 max-sm:grid-cols-1">
         <UserAnalytics
-          className=""
           user_id={user_id_to_use}
           time={time}
           onSelectDropDownChange={onValueChange}
         />
         <DetailedMaterialAnalytics
-          className="justify-start max-sm:items-start"
           time={time}
           user_id={user_id_to_use}
-          listClassName="pl-5"
         />
       </div>
       <MaterialsChart time={time} user_id={user_id_to_use}/>

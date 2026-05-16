@@ -5,7 +5,7 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import { ChartData } from "@/types/analytics";
-import { LabelList, Pie, PieChart } from "recharts";
+import { Pie, PieChart } from "recharts";
 
 type Props = {
   chartData: ChartData;
@@ -24,15 +24,15 @@ export default function MaterialPieChart({ chartData, chartConfig }: Props) {
     <ChartContainer config={chartConfig} className="mx-auto aspect-square">
       <PieChart>
         <ChartTooltip content={<ChartTooltipContent hideLabel />} />
-        <Pie data={chartData} dataKey="weight" nameKey="material">
-          <LabelList
-            dataKey="weight_percentage"
-            className="fill-background"
-            stroke="none"
-            fontSize={12}
-            formatter={(value: number) => `${value}%`}
-          />
-        </Pie>
+        <Pie
+          data={chartData}
+          dataKey="weight"
+          nameKey="material"
+          innerRadius="55%"
+          outerRadius="90%"
+          strokeWidth={2}
+          stroke="hsl(var(--background))"
+        />
       </PieChart>
     </ChartContainer>
   );

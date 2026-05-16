@@ -348,23 +348,30 @@ export async function handleGetAllRedeemRequestsByUser(
 ) {
   try {
     const { id } = req.params;
-    const { page, limit, status } = req.query;
+    const { page, limit, status, search, startDate, endDate } = req.query as any;
 
     let whereClause = { statement: "WHERE user_id = ?", values: [id] };
 
+    if (search) {
+      whereClause.statement += " AND r.reward_name LIKE ?";
+      whereClause.values.push(`%${search}%`);
+    }
+
     if (status && status.length > 0) {
-      // this maps to the status and put ? each
-      const placeholder = status.map(() => "?").join(", ");
+      const statusArr = Array.isArray(status) ? status : [status];
+      const placeholder = statusArr.map(() => "?").join(", ");
+      whereClause.statement += ` AND status IN (${placeholder})`;
+      whereClause.values.push(...statusArr);
+    }
 
-      // if there was an existing whereClause, append with AND else use WHERE
-      const statement = ` AND status IN (${placeholder})`;
+    if (startDate) {
+      whereClause.statement += " AND rr.timestamp >= ?";
+      whereClause.values.push(startDate);
+    }
 
-      // manipulate the whereClause
-      whereClause = {
-        statement: whereClause.statement + statement,
-        // spread the current whereClause values and the status
-        values: [...whereClause.values, ...status],
-      };
+    if (endDate) {
+      whereClause.statement += " AND rr.timestamp <= ?";
+      whereClause.values.push(endDate);
     }
 
     const pagination = await checkForPagination(

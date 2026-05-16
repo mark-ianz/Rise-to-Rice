@@ -55,5 +55,28 @@
       "title": "You have no redeem requests. Redeem a reward to see requests.",
       "link": "Redeem Here"
     }
+  },
+  "activity_history": {
+    "title": "Activity History",
+    "subtitle": "Track your progress and rewards",
+    "filter_by": "Filter by:",
+    "all_activities": "All Activities",
+    "exchanges": "Exchanges",
+    "redemptions": "Redemptions",
+    "no_activity": "No activity found",
+    "start_recycling": "Start recycling to see your impact here!",
+    "material_exchange": "Material Exchange",
+    "reward_redemption": "Reward Redemption",
+    "weight": "Weight:",
+    "search_activities_placeholder": "Search activities...",
+    "search_rewards_placeholder": "Search rewards...",
+    "type_placeholder": "Type",
+    "date_range_placeholder": "Date Range",
+    "all_time": "All Time",
+    "today": "Today",
+    "last_7_days": "Last 7 Days",
+    "last_30_days": "Last 30 Days",
+    "status_filter_redeem_only": "Status Filter (Redemptions only)",
+    "status_filter": "Status Filter"
   }
 }

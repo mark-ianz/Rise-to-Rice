@@ -66,7 +66,7 @@ export default function RedeemButton({
             <span>
               <p>{t("redeem_button.toast.success")}</p>
               <Link
-                to="/redeem-history"
+                to="/activity-history"
                 className="ml-auto w-full text-tertiary underline"
               >
                 {t("view_redeem_history")}

@@ -109,22 +109,27 @@ export function useGetRedeemHistory({
   status,
   page,
   endpoint,
-}: SearchParamType & { endpoint: string }) {
+  search,
+  startDate,
+}: {
+  status: string[];
+  page: number;
+  endpoint: string;
+  search?: string;
+  startDate?: string;
+}) {
   return useQuery({
-    queryKey: queryKeys.redeemHistory({
-      endpoint,
-      page,
-      status,
-    }),
+    queryKey: ["redeem-history", status, page, endpoint, search, startDate],
     queryFn: async () => {
       const response = await axios.get<RedeemRequestHistoryResponse>(endpoint, {
         params: {
           status,
-          limit: 12,
           page,
+          search,
+          startDate,
+          limit: 12,
         },
       });
-
       return response.data;
     },
   });

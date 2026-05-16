@@ -2,15 +2,14 @@ import { Points as PointsType } from "@/types/points";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { ArrowRight, Gift, Coins, Package } from "lucide-react";
+import { ArrowRight, Gift, Coins, Recycle, Package } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { formatNumberWithCommasAndDecimals } from "@/lib/format";
 import { Skeleton } from "@/components/ui/skeleton";
 import useUserContext from "@/hooks/useUserContext";
-import { useGetRedeemHistory } from "@/hooks/query/useRedeemRequest";
+import { useGetUserActivity } from "@/hooks/query/useUserActivity";
 import { Badge } from "@/components/ui/badge";
-import { capitalizeWordStart, formatUnit } from "@/lib/format";
-import { format } from "date-fns";
+import { capitalizeWordStart } from "@/lib/format";
 
 export default function PointsRewardsCard() {
   const { state } = useUserContext();
@@ -23,14 +22,14 @@ export default function PointsRewardsCard() {
     },
   });
 
-  const { data: redeemHistory, isLoading: historyLoading } =
-    useGetRedeemHistory({
-      status: [],
+  const { data: activityHistory, isLoading: historyLoading } =
+    useGetUserActivity({
+      userId: state?.user_id,
+      limit: 3,
       page: 1,
-      endpoint: `/api/redeem-request/user/${state.user_id}`,
     });
 
-  const recentRedemptions = redeemHistory?.result?.slice(0, 3) || [];
+  const recentActivities = activityHistory?.result || [];
 
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-warm-tan/15 overflow-hidden h-full flex flex-col">
@@ -79,51 +78,63 @@ export default function PointsRewardsCard() {
               </div>
             ))}
           </div>
-        ) : recentRedemptions.length > 0 ? (
+        ) : recentActivities.length > 0 ? (
           <ul className="flex flex-col gap-0 flex-1">
-            {recentRedemptions.map((request) => (
-              <li
-                key={request.redeem_request_id}
-                className="flex items-center gap-3 py-3 border-b border-warm-tan/10 last:border-0"
-              >
-                <div className="w-8 h-8 rounded-lg bg-warm-beige flex items-center justify-center flex-shrink-0">
-                  <Package size={16} className="text-secondary-dark/50" />
-                </div>
-                <span className="text-sm font-medium text-secondary-dark truncate min-w-0 flex-1">
-                  {request.reward_name}
-                </span>
-                <span className="text-sm text-secondary-dark/50 flex-shrink-0">
-                  {request.quantity}{" "}
-                  {formatUnit(request.unit, request.quantity)}
-                </span>
-                <span className="text-sm text-secondary-dark/40 flex-shrink-0">
-                  {format(new Date(request.timestamp), "MMM d")}
-                </span>
-                <Badge
-                  className="font-normal text-xs px-2 py-0.5 shrink-0"
-                  variant={request.status}
+            {recentActivities.map((activity) => {
+              const isExchange = activity.activity_type === "exchange";
+              return (
+                <li
+                  key={`${activity.activity_type}-${activity.id}`}
+                  className="flex items-center gap-3 py-3 border-b border-warm-tan/10 last:border-0"
                 >
-                  {capitalizeWordStart(request.status)}
-                </Badge>
-              </li>
-            ))}
+                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${isExchange ? 'bg-green-50' : 'bg-warm-beige'}`}>
+                    {isExchange ? (
+                      <Recycle size={16} className="text-green-600" />
+                    ) : (
+                      <Package size={16} className="text-secondary-dark/50" />
+                    )}
+                  </div>
+                  <div className="flex-1 min-w-0 flex flex-col">
+                    <span className="text-sm font-medium text-secondary-dark truncate">
+                      {isExchange ? activity.material_name : activity.reward_name}
+                    </span>
+                    <span className="text-[10px] text-secondary-dark/40 uppercase tracking-tight">
+                      {isExchange ? "Exchange" : "Redeem"}
+                    </span>
+                  </div>
+                  <div className="flex flex-col items-end gap-1">
+                    <span className={`text-sm font-bold ${isExchange ? 'text-green-600' : 'text-secondary-dark/60'}`}>
+                      {isExchange ? '+' : '-'}{activity.points}
+                    </span>
+                    {activity.status && (
+                      <Badge
+                        className="font-normal text-[10px] px-1.5 py-0 h-4 shrink-0"
+                        variant={activity.status as any}
+                      >
+                        {capitalizeWordStart(activity.status)}
+                      </Badge>
+                    )}
+                  </div>
+                </li>
+              );
+            })}
           </ul>
         ) : (
           <div className="flex-1 flex flex-col items-center justify-center text-center py-4">
-            <Gift
+            <Recycle
               size={28}
               className="text-secondary-dark/15 mb-2"
             />
             <p className="text-sm text-secondary-dark/40">
-              No redemptions yet
+              No activity yet
             </p>
             <p className="text-xs text-secondary-dark/30">
-              Redeem your points for exciting rewards!
+              Exchange recyclables to earn points!
             </p>
           </div>
         )}
         <Link
-          to="/redeem-history"
+          to="/activity-history"
           className="inline-flex items-center gap-1.5 text-primary-main text-sm font-medium hover:underline mt-4 group"
         >
           View full history

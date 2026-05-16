@@ -46,7 +46,7 @@ export default function RedeemRewards() {
         <span>
           <Points className="text-lg max-md:text-sm max-sm:text-xs" />
           <Link
-            to={"/redeem-history"}
+            to={"/activity-history"}
             className="text-sm text-tertiary-light underline w-fit max-sm:text-xs"
           >
             {t("view_redeem_history")}

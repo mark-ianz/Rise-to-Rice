@@ -1,30 +1,30 @@
 import HeaderText from "@/components/general/HeaderText";
-import StatusCheckBoxFilter from "@/components/page-components/dashboard/redeem-request/StatusCheckBoxFilter";
 import SearchPagination from "@/components/page-components/dashboard/SearchPagination";
-import RedeemHistoryCard from "@/components/page-components/redeem-history/RedeemHistoryCard";
+import ActivityHistoryCard from "@/components/page-components/activity-history/ActivityHistoryCard";
 import SectionWrapper from "@/components/general/SectionWrapper";
 import useUserContext from "@/hooks/useUserContext";
-import { Link, useSearchParams } from "react-router-dom";
-import { useGetRedeemHistory } from "@/hooks/query/useRedeemRequest";
+import { useSearchParams } from "react-router-dom";
+import { useGetUserActivity } from "@/hooks/query/useUserActivity";
 import GenericError from "@/components/general/GenericError";
 import RedeemHistoryCardSkeleton from "@/components/skeletons/RedeemHistoryCardSkeleton";
 import { useTranslation } from "react-i18next";
-import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
-import { Input } from "@/components/ui/input";
-import { Search, Calendar } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
+import { Search, Calendar, Filter } from "lucide-react";
 import { subDays, startOfDay, formatISO } from "date-fns";
+import StatusCheckBoxFilter from "@/components/page-components/dashboard/redeem-request/StatusCheckBoxFilter";
 
-export default function RedeemHistory() {
+export default function ActivityHistory() {
   const { state } = useUserContext();
   const [searchParams, setSearchParams] = useSearchParams();
   const { t } = useTranslation("redeem_rewards");
 
-  const status = searchParams.getAll("status");
+  const type = searchParams.get("type") || "all";
   const page = Number(searchParams.get("page")) || 1;
   const search = searchParams.get("search") || "";
   const dateRange = searchParams.get("dateRange") || "all";
+  const status = searchParams.getAll("status");
 
   let startDate: string | undefined;
   if (dateRange !== "all") {
@@ -35,17 +35,18 @@ export default function RedeemHistory() {
   }
 
   const {
-    data: user_redeem_request,
+    data: activityData,
     isLoading,
     isError,
-    refetch,
-  } = useGetRedeemHistory({
-    status,
+  } = useGetUserActivity({
+    userId: state?.user_id,
     page,
-    endpoint: `/api/redeem-request/user/${state.user_id}`,
+    limit: 12,
+    type: type === "all" ? undefined : type,
     search: search || undefined,
     startDate,
-  } as any);
+    status: status.length > 0 ? status : undefined,
+  });
 
   const updateParams = (key: string, value: string | null) => {
     const newParams = new URLSearchParams(searchParams);
@@ -58,29 +59,27 @@ export default function RedeemHistory() {
     setSearchParams(newParams);
   };
 
-  // refetch the data when filters change
-  useEffect(() => {
-    refetch();
-  }, [status, page, search, dateRange, refetch]);
+  if (isError && !isLoading) return <GenericError />;
 
-  if ((!user_redeem_request || isError) && !isLoading) return <GenericError />;
-
-  const isEmpty = user_redeem_request?.result.length === 0;
+  const isEmpty = activityData?.result.length === 0;
 
   return (
     <SectionWrapper
-      id="redeem-history"
+      id="activity-history"
       className="px-20 items-start py-10 justify-center max-md:px-10 max-sm:px-6"
     >
       <Helmet>
-        <title>Redeem History | Rise to Rice</title>
+        <title>{t("activity_history.title")} | Rise to Rice</title>
       </Helmet>
 
       <div className="max-w-screen-lg w-full">
-        <div className="flex flex-col gap-6 mb-8">
+        <div className="flex flex-col gap-8 mb-8">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <HeaderText>{t("redeem_history.title")}</HeaderText>
-            
+            <div>
+              <HeaderText className="mb-1">{t("activity_history.title")}</HeaderText>
+              <p className="text-muted-foreground">{t("activity_history.subtitle")}</p>
+            </div>
+
             <div className="flex flex-wrap items-center gap-3">
               <div className="relative w-full md:w-64">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={18} />
@@ -94,6 +93,18 @@ export default function RedeemHistory() {
                   onBlur={(e) => updateParams("search", e.target.value)}
                 />
               </div>
+
+              <Select value={type} onValueChange={(v) => updateParams("type", v)}>
+                <SelectTrigger className="w-[150px] bg-white">
+                  <Filter className="mr-2 text-muted-foreground" size={16} />
+                  <SelectValue placeholder={t("activity_history.type_placeholder")} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">{t("activity_history.all_activities")}</SelectItem>
+                  <SelectItem value="exchange">{t("activity_history.exchanges")}</SelectItem>
+                  <SelectItem value="redeem">{t("activity_history.redemptions")}</SelectItem>
+                </SelectContent>
+              </Select>
 
               <Select value={dateRange} onValueChange={(v) => updateParams("dateRange", v)}>
                 <SelectTrigger className="w-[150px] bg-white">
@@ -110,33 +121,41 @@ export default function RedeemHistory() {
             </div>
           </div>
 
-          <div className="p-4 bg-warm-beige/20 rounded-2xl border border-warm-tan/10">
-            <p className="text-xs font-semibold text-secondary-dark/60 uppercase tracking-wider mb-3">{t("activity_history.status_filter")}</p>
-            <StatusCheckBoxFilter />
-          </div>
-        </div>
-        <ol className="grid grid-cols-3 gap-4 my-4 max-md:grid-cols-2 max-xsm:grid-cols-1">
-          {isLoading && <RedeemHistoryCardSkeleton length={12} />}
-          {user_redeem_request?.result.map((request) => (
-            <RedeemHistoryCard
-              key={request.redeem_request_id}
-              request={request}
-            />
-          ))}
-          {isEmpty && (
-            <div className="col-span-3 text-center text-muted-foreground max-lg:text-sm">
-              <p>{t("redeem_history.empty.title")}</p>
-              <Link to={"/redeem-rewards"} className="underline text-tertiary">
-                {t("redeem_history.empty.link")}
-              </Link>
+          {type === "redeem" && (
+            <div className="p-4 bg-warm-beige/20 rounded-2xl border border-warm-tan/10">
+              <p className="text-xs font-semibold text-secondary-dark/60 uppercase tracking-wider mb-3">{t("activity_history.status_filter")}</p>
+              <StatusCheckBoxFilter />
             </div>
           )}
+        </div>
+
+        <ol className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 my-4">
+          {isLoading ? (
+            <RedeemHistoryCardSkeleton length={12} />
+          ) : (
+            activityData?.result.map((activity) => (
+              <ActivityHistoryCard
+                key={`${activity.activity_type}-${activity.id}`}
+                activity={activity}
+              />
+            ))
+          )}
         </ol>
-        {!isEmpty && (
-          <SearchPagination
-            hasNext={user_redeem_request?.hasNext}
-            hasPrev={user_redeem_request?.hasPrev}
-          />
+
+        {isEmpty && !isLoading && (
+          <div className="text-center py-20 bg-warm-beige/30 rounded-3xl border border-dashed border-warm-tan/30">
+            <p className="text-lg font-medium text-secondary-dark/60">{t("activity_history.no_activity")}</p>
+            <p className="text-sm text-secondary-dark/40 mt-1">{t("activity_history.start_recycling")}</p>
+          </div>
+        )}
+
+        {!isEmpty && !isLoading && (
+          <div className="mt-8">
+            <SearchPagination
+              hasNext={activityData?.hasNext}
+              hasPrev={activityData?.hasPrev}
+            />
+          </div>
         )}
       </div>
     </SectionWrapper>

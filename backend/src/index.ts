@@ -16,6 +16,7 @@ import rewardVariationRoutes from "./routes/reward-variation";
 import redeemRequestRoutes from "./routes/redeem-request";
 import testRoutes from "./routes/test";
 import reactionsRoutes from "./routes/reactions";
+import activityRoutes from "./routes/activity";
 import cors from "cors";
 import path from "path";
 
@@ -54,6 +55,7 @@ app.use("/api/reward", rewardRoutes);
 app.use("/api/reward-variation", rewardVariationRoutes);
 app.use("/api/redeem-request", requireAuth, redeemRequestRoutes);
 app.use("/api/reactions", requireAuth, reactionsRoutes);
+app.use("/api/activity", requireAuth, activityRoutes);
 app.use("/api/test", testRoutes);
 
 app.use((req, res) => {

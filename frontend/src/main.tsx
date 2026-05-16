@@ -30,6 +30,7 @@ const AboutUs = lazy(() => import("./pages/AboutUs.tsx"));
 const ContactUs = lazy(() => import("./pages/ContactUs.tsx"));
 const RedeemRewards = lazy(() => import("./pages/RedeemRewards.tsx"));
 const RedeemHistory = lazy(() => import("./pages/RedeemHistory.tsx"));
+const ActivityHistory = lazy(() => import("./pages/ActivityHistory.tsx"));
 const ForgotPassword = lazy(() => import("./pages/ForgotPassword.tsx"));
 const ViewAnnouncement = lazy(() => import("./pages/ViewAnnouncement.tsx"));
 const TermsAndConditions = lazy(() => import("./pages/TermsAndConditions.tsx"));
@@ -137,6 +138,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute role={"user"}>
             {withSuspense(<RedeemHistory />)}
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "activity-history",
+        element: (
+          <ProtectedRoute role={"user"}>
+            {withSuspense(<ActivityHistory />)}
           </ProtectedRoute>
         ),
       },

@@ -55,5 +55,28 @@
       "title": "Wala kang mga kahilingan sa pag-redeem. Mag-redeem ng gantimpala upang makakita ng mga kahilingan.",
       "link": "Mag-redeem dito"
     }
+  },
+  "activity_history": {
+    "title": "Kasaysayan ng Aktibidad",
+    "subtitle": "Subaybayan ang iyong pag-unlad at mga gantimpala",
+    "filter_by": "I-filter ayon sa:",
+    "all_activities": "Lahat ng Aktibidad",
+    "exchanges": "Mga Palitan",
+    "redemptions": "Mga Pag-redeem",
+    "no_activity": "Walang nahanap na aktibidad",
+    "start_recycling": "Magsimulang mag-recycle para makita ang iyong epekto dito!",
+    "material_exchange": "Palitan ng Materyales",
+    "reward_redemption": "Pag-redeem ng Gantimpala",
+    "weight": "Timbang:",
+    "search_activities_placeholder": "Maghanap ng mga aktibidad...",
+    "search_rewards_placeholder": "Maghanap ng mga gantimpala...",
+    "type_placeholder": "Uri",
+    "date_range_placeholder": "Saklaw ng Petsa",
+    "all_time": "Lahat ng Oras",
+    "today": "Ngayong Araw",
+    "last_7_days": "Nakaraang 7 Araw",
+    "last_30_days": "Nakaraang 30 Araw",
+    "status_filter_redeem_only": "Filter ng Katayuan (Para sa pag-redeem lamang)",
+    "status_filter": "Filter ng Katayuan"
   }
 }

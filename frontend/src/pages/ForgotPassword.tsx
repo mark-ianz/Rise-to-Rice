@@ -17,14 +17,14 @@ import {
   useVerifyVerificationCode,
 } from "@/hooks/query/useVerification";
 import useUserContext from "@/hooks/useUserContext";
-import { formatZodErrors } from "@/lib/format";
+
 import { PasswordResetSchema } from "@/schema/CreateAccountSchema";
-import { isAxiosError } from "axios";
+
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { ZodError } from "zod";
+
 import { Helmet } from "react-helmet";
 
 type Sections = "first" | "second" | "reset-password";
@@ -200,7 +200,7 @@ function SecondSection({
 
   const { t: form } = useTranslation("form");
   const { t } = useTranslation("forgot_password");
-  const { t: global } = useTranslation("global");
+
 
   const [error, setError] = useState<string[] | null>(null);
   const [isResendDisabled, setIsResendDisabled] = useState(true);

@@ -28,10 +28,10 @@ export default function AnnouncementSnippet({ announcement }: Props) {
           </div>
         )}
         <div className="p-5 flex flex-col grow gap-2">
-          {announcement.created_at && (
+          {announcement.createdAt && (
             <span className="flex items-center gap-1.5 text-secondary-dark/40 text-xs">
               <Calendar size={12} />
-              {format(new Date(announcement.created_at), "MMM d, yyyy")}
+              {format(new Date(announcement.createdAt), "MMM d, yyyy")}
             </span>
           )}
           <h3 className="font-semibold text-base line-clamp-2 text-secondary-dark group-hover:text-primary-main transition-colors duration-200">

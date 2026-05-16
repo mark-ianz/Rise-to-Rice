@@ -1,5 +1,4 @@
 import HeaderText from "@/components/general/HeaderText";
-import LoadingComponent from "@/components/general/LoadingComponent";
 import ZodErrorDisplay from "@/components/general/ZodErrorDisplay";
 import useCreateAccountContext from "@/hooks/useCreateAccountContext";
 import { handleError } from "@/helper/errorHandler";

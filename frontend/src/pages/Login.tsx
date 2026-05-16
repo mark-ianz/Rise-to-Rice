@@ -23,7 +23,6 @@ export default function Login() {
   const password = useRef<HTMLInputElement>(null);
   const [error, setError] = useState<string[] | null>(null);
   const navigate = useNavigate();
-  const { t } = useTranslation("login");
   const { t: form } = useTranslation("form");
 
   const { mutate, isPending } = useLogin();

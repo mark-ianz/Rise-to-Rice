@@ -1,4 +1,3 @@
-import SectionWrapper from "@/components/general/SectionWrapper";
 import { cn } from "@/lib/utils";
 import { ReactNode } from "react";
 

@@ -1,4 +1,3 @@
-import CompanyLogo from "@/components/logo/CompanyLogo";
 import { cn } from "@/lib/utils";
 import { ReactNode } from "react";
 

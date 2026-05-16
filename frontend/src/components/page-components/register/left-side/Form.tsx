@@ -1,12 +1,12 @@
 import LogoNav from "@/components/header/LogoNav";
-import GoBackButton from "@/components/general/GoBackButton";
+
 import LoadingComponent from "@/components/general/LoadingComponent";
 import AuthStepIndicator from "@/components/page-components/auth/AuthStepIndicator";
 import Form_PersonalInformation from "./personal-information/Form_PersonalInformation";
 import useCreateAccountContext from "@/hooks/useCreateAccountContext";
 import { FormEvent, useEffect, useState } from "react";
 import Field_SecondSection from "./credentials/Form_Credentials";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { RegisterSections } from "@/types/register";
 import EmailVerification from "./email-verification/EmailVerification";
 import {

@@ -29,14 +29,12 @@ import {
 } from "@/components/ui/tooltip";
 
 function StatCard({
-  iconLeft,
-  iconRight,
+  icon,
   value,
   subtext,
   description,
 }: {
-  iconLeft: ReactNode;
-  iconRight: ReactNode;
+  icon: ReactNode;
   value: string;
   subtext: string;
   description: string;
@@ -44,26 +42,27 @@ function StatCard({
   return (
     <div className="bg-warm-cream rounded-xl p-5 border border-warm-tan/15 hover:shadow-md transition-all duration-200 flex flex-col gap-3 group relative">
       <div className="flex items-start justify-between">
-        <div className="w-9 h-9 rounded-lg bg-primary-main/10 flex items-center justify-center group-hover:bg-primary-main/20 transition-colors">
-          {iconLeft}
+        <div className="w-10 h-10 rounded-lg bg-primary-main/10 flex items-center justify-center group-hover:bg-primary-main/20 transition-colors">
+          {icon}
         </div>
-        <div className="flex items-center gap-2">
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <button className="text-secondary-dark/20 hover:text-primary-main transition-colors">
-                  <Info size={14} />
-                </button>
-              </TooltipTrigger>
-              <TooltipContent side="top" className="bg-secondary-dark text-white border-none p-2 max-w-[200px] text-[10px]">
-                <p>{description}</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-          <div className="w-9 h-9 rounded-lg bg-primary-main/10 flex items-center justify-center">
-            {iconRight}
-          </div>
-        </div>
+        <TooltipProvider delayDuration={0}>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <button 
+                className="text-secondary-dark/40 hover:text-primary-main transition-colors p-1 rounded-full hover:bg-primary-main/5"
+                aria-label="More information"
+              >
+                <Info size={18} />
+              </button>
+            </TooltipTrigger>
+            <TooltipContent 
+              side="top" 
+              className="bg-secondary-dark text-white border-none p-3 max-w-[220px] text-xs shadow-xl rounded-xl"
+            >
+              <p className="leading-relaxed">{description}</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       </div>
       <div>
         <p className="text-2xl max-lg:text-xl max-md:text-lg font-bold text-secondary-dark tracking-tight">
@@ -156,29 +155,25 @@ export default function ImpactStats({
       ) : (
         <div className="grid grid-cols-2 gap-4 max-sm:grid-cols-1 flex-1">
           <StatCard
-            iconLeft={<Scale size={18} className="text-primary-main" />}
-            iconRight={<Recycle size={18} className="text-primary-main" />}
+            icon={<Recycle size={20} className="text-primary-main" />}
             value={`${totalWeight} kg`}
             subtext="Weight Recycled"
             description="The total mass of waste you've successfully diverted from landfills through our program."
           />
           <StatCard
-            iconLeft={<ArrowLeftRight size={18} className="text-primary-main" />}
-            iconRight={<Repeat size={18} className="text-primary-main" />}
+            icon={<ArrowLeftRight size={20} className="text-primary-main" />}
             value={`${totalExchanges} times`}
             subtext="Total Exchanges"
             description="Number of times you've visited a collection point to exchange waste for rewards."
           />
           <StatCard
-            iconLeft={<TrendingUp size={18} className="text-primary-main" />}
-            iconRight={<BarChart3 size={18} className="text-primary-main" />}
+            icon={<TrendingUp size={20} className="text-primary-main" />}
             value={`${totalPoints} points`}
             subtext="Points Earned"
             description="Total reward points accumulated based on the type and weight of materials recycled."
           />
           <StatCard
-            iconLeft={<Package size={18} className="text-primary-main" />}
-            iconRight={<Leaf size={18} className="text-primary-main" />}
+            icon={<Leaf size={20} className="text-primary-main" />}
             value={topMaterialName}
             subtext="Top Material"
             description="The waste category you recycle most frequently, showing your biggest impact area."

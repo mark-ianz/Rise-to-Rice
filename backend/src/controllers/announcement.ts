@@ -7,6 +7,7 @@ import {
 import pool from "../connection/database";
 import { Announcement, GetAnnouncement } from "../types/announcement";
 import { QueryResult, ResultSetHeader, RowDataPacket } from "mysql2";
+import { PoolConnection } from "mysql2/promise";
 import { handleZodErrors, throwServerError } from "../helpers/errorHandlers";
 import { saveToActionLog } from "../service/admin.service";
 import { querySingleAnnouncement } from "../service/announcement.service";
@@ -15,13 +16,15 @@ import { User } from "../types/account_info.types";
 import path from "path";
 import { promises as fs } from "fs";
 import { checkForPagination } from "../helpers/query";
+import { uploadToCloudinary, deleteFromCloudinary } from "../utils/cloudinary";
 
 export async function postAnnouncement(
   req: Request<{}, {}, AnnouncementCreate>,
   res: Response
 ) {
   const authorId = req.user!.user_id;
-  const connection = await pool.getConnection();
+  let connection: PoolConnection | null = null;
+  let image_url: string | null = null;
 
   try {
     // validate the request body
@@ -29,21 +32,25 @@ export async function postAnnouncement(
       ...req.body,
     });
 
+    // If an image is uploaded, upload it to Cloudinary first
+    if (req.file) {
+      console.log("Uploading file to Cloudinary:", req.file.path);
+      image_url = await uploadToCloudinary(req.file.path);
+      console.log("File uploaded successfully. Cloudinary URL:", image_url);
+
+      // Clean up the local temp file immediately
+      try {
+        await fs.unlink(req.file.path);
+        console.log("Deleted temporary local file:", req.file.path);
+      } catch (err) {
+        console.error("Failed to delete temporary local file:", req.file.path, err);
+      }
+    }
+
+    connection = await pool.getConnection();
+
     // start transaction
     await connection.beginTransaction();
-
-    // image_url will be null if no image is uploaded
-    let image_url: string | null = null;
-
-    // first step is to upload the image to imgur if it exists
-    if (req.file) {
-      console.log(req.file);
-      image_url = `/uploads/${req.file.filename}`;
-
-      // release the connection
-      await connection.rollback();
-      connection.release();
-    }
 
     const [result] = await connection.query<ResultSetHeader>(
       "INSERT INTO announcement (title, description, image_url, author_id) VALUES (?, ?, ?, ?)",
@@ -68,7 +75,19 @@ export async function postAnnouncement(
 
     res.status(201).json(new_announcement);
   } catch (error) {
-    await connection.rollback();
+    if (connection) {
+      await connection.rollback();
+    }
+
+    // Clean up uploaded Cloudinary image if database operation failed
+    if (image_url) {
+      try {
+        console.log("Database transaction failed. Cleaning up Cloudinary image...");
+        await deleteFromCloudinary(image_url);
+      } catch (cloudinaryErr) {
+        console.error("Failed to delete orphaned Cloudinary image:", cloudinaryErr);
+      }
+    }
 
     if (error instanceof ZodError) {
       handleZodErrors(error, res);
@@ -78,7 +97,9 @@ export async function postAnnouncement(
     console.log(error);
     throwServerError(res);
   } finally {
-    if (connection) connection.release();
+    if (connection) {
+      connection.release();
+    }
   }
   return;
 }
@@ -231,16 +252,27 @@ export async function deleteAnnouncement(req: Request, res: Response) {
     const imageUrl = announcement[0].image_url;
 
     if (imageUrl) {
-      const filePath = path.join(
-        __dirname,
-        "../../uploads",
-        path.basename(imageUrl)
-      );
-      try {
-        await fs.unlink(filePath);
-        console.log("Deleted file:", filePath);
-      } catch (err) {
-        console.error("File deletion error:", err);
+      // Check if it's a Cloudinary URL or a legacy local file URL
+      if (imageUrl.includes("cloudinary.com")) {
+        try {
+          await deleteFromCloudinary(imageUrl);
+          console.log("Deleted file from Cloudinary:", imageUrl);
+        } catch (err) {
+          console.error("Cloudinary file deletion error:", err);
+        }
+      } else {
+        // Legacy local file cleanup
+        const filePath = path.join(
+          __dirname,
+          "../../uploads",
+          path.basename(imageUrl)
+        );
+        try {
+          await fs.unlink(filePath);
+          console.log("Deleted legacy local file:", filePath);
+        } catch (err) {
+          console.error("Legacy file deletion error:", err);
+        }
       }
     }
 

@@ -1,0 +1,242 @@
+[
+  {
+    "id": 1,
+    "category": "rice",
+    "title_en": "Rice Husk Utility",
+    "title_tl": "Paggamit ng Ipa",
+    "text_en": "Rice husks can be processed into eco-friendly ash for high-durability concrete, keeping agricultural waste out of landfills.",
+    "text_tl": "Ang ipa ng palay ay maaaring gawing eco-friendly na semento, na nakababawas sa mga basura sa mga landfill."
+  },
+  {
+    "id": 2,
+    "category": "rice",
+    "title_en": "Nutrient Rice Water",
+    "title_tl": "Masustansyang Hugas-Bigas",
+    "text_en": "Don't wash away your rice water! Use it to irrigate home plants; it is packed with starches and nutrients that feed soil microflora.",
+    "text_tl": "Huwag itapon ang hugas-bigas! Ipagdidilig ito sa mga halaman dahil mayaman ito sa starch at sustansya para sa lupa."
+  },
+  {
+    "id": 3,
+    "category": "rice",
+    "title_en": "Rice Starch Packaging",
+    "title_tl": "Lalagyang gawa sa Bigas",
+    "text_en": "Broken rice grains can be used to make compostable organic packaging that naturally degrades in a few months.",
+    "text_tl": "Ang mga durog na butil ng bigas ay maaaring gawing nabubulok na packaging na natural na natutunaw sa loob ng ilang buwan."
+  },
+  {
+    "id": 4,
+    "category": "water",
+    "title_en": "Save Water Rinsing",
+    "title_tl": "Magtipid sa Paghuhugas",
+    "text_en": "Rinse vegetables and rice in a bowl rather than under a running tap. You can reuse the collected water for gardening.",
+    "text_tl": "Hugasan ang mga gulay at bigas sa isang mangkok sa halip na sa umaagos na gripo. Gamitin muli ang tubig na naipon pampadilig."
+  },
+  {
+    "id": 5,
+    "category": "plastic",
+    "title_en": "Refuse Single-Use",
+    "title_tl": "Tanggihan ang Single-Use",
+    "text_en": "Bring your own reusable bags, containers, and water bottles. Eliminating single-use plastics is one of the most effective actions you can take.",
+    "text_tl": "Magdala ng sariling reusable bag, lalagyan, at bote ng tubig. Ang pag-iwas sa single-use plastic ay napakalaking tulong sa kalikasan."
+  },
+  {
+    "id": 6,
+    "category": "compost",
+    "title_en": "Kitchen Composting",
+    "title_tl": "Paggawa ng Kompost sa Kusina",
+    "text_en": "Keep a small compost bin for fruit peels, vegetable scraps, and coffee grounds. This reduces kitchen waste and creates premium fertilizer.",
+    "text_tl": "Gumawa ng compost bin para sa mga balat ng prutas at tirang gulay. Nababawasan nito ang basura at nakalilikha ng pataba."
+  },
+  {
+    "id": 7,
+    "category": "energy",
+    "title_en": "Unplug Idle Devices",
+    "title_tl": "Tanggalin sa Saksakan ang Hindi Ginamit",
+    "text_en": "Unplug electronics when not in use. Even when turned off, standby power or 'vampire draw' can consume substantial electricity.",
+    "text_tl": "Tanggalin sa saksakan ang mga gamit na hindi ginagamit. Kahit patay ito, kumokonsumo pa rin ito ng kuryente kapag nakasaksak."
+  },
+  {
+    "id": 8,
+    "category": "general",
+    "title_en": "Support Local Farmers",
+    "title_tl": "Suportahan ang Lokal na Magsasaka",
+    "text_en": "Buy fresh produce from local wet markets and farmers' cooperatives. This cuts carbon footprints by reducing transportation distance.",
+    "text_tl": "Bumili ng sariwang produkto mula sa mga lokal na magsasaka at palengke. Bawas ito sa carbon footprint mula sa malayong transportasyon."
+  },
+  {
+    "id": 9,
+    "category": "recycling",
+    "title_en": "Clean Before Recycling",
+    "title_tl": "Linisin Bago I-recycle",
+    "text_en": "Always rinse plastic, glass, and metal containers before putting them in the recycling bin. Contaminated items can ruin entire batches of recycling.",
+    "text_tl": "Hugasan muna ang mga plastic, salamin, at lata bago i-recycle. Ang maduduming basura ay maaaring makasira sa buong batch ng recycling."
+  },
+  {
+    "id": 10,
+    "category": "energy",
+    "title_en": "Switch to LEDs",
+    "title_tl": "Gumamit ng LED Bulbs",
+    "text_en": "Replace incandescent lightbulbs with energy-efficient LEDs. They use up to 75% less energy and last 25 times longer.",
+    "text_tl": "Palitan ng LED ang mga lumang bumbilya. Mas nakatitipid ito ng kuryente ng hanggang 75% at mas matagal ang buhay nito."
+  },
+  {
+    "id": 11,
+    "category": "paper",
+    "title_en": "Go Paperless",
+    "title_tl": "Piliin ang Paperless",
+    "text_en": "Opt for digital receipts, utility bills, and bank statements. Doing so saves trees and reduces emissions from physical delivery.",
+    "text_tl": "Piliin ang digital receipts at bills sa halip na papel. Nakatutulong ito sa pagliligtas ng mga puno at pagbawas sa polusyon."
+  },
+  {
+    "id": 12,
+    "category": "compost",
+    "title_en": "Dry Leaves mulch",
+    "title_tl": "Paggamit ng Tuyong Dahon",
+    "text_en": "Instead of burning dry yard leaves, pile them around trees and garden beds as mulch. It retains moisture and enriches the soil.",
+    "text_tl": "Huwag sunugin ang mga tuyong dahon. Ilagay ito sa ilalim ng mga puno bilang mulching upang mapanatili ang basâ ng lupa."
+  },
+  {
+    "id": 13,
+    "category": "water",
+    "title_en": "Shorten Your Showers",
+    "title_tl": "Bawasan ang Oras ng Paliligo",
+    "text_en": "Cutting your shower time by just two minutes can save up to 30 liters of clean water per shower. Use a bucket for better control.",
+    "text_tl": "Ang pagbawas ng dalawang minuto sa paliligo ay makatitipid ng hanggang 30 litro ng tubig. Gumamit ng tabo at timba kung maaari."
+  },
+  {
+    "id": 14,
+    "category": "plastic",
+    "title_en": "Bar Soap Over Bottles",
+    "title_tl": "Sabon na Bar sa halip na Liquid",
+    "text_en": "Switch from liquid soaps in plastic bottles to traditional bar soaps with recyclable paper packaging to minimize plastic waste.",
+    "text_tl": "Gumamit ng bar soap kaysa sa liquid soap na nakalagay sa plastik na bote upang mabawasan ang mga plastik na basura."
+  },
+  {
+    "id": 15,
+    "category": "general",
+    "title_en": "Wash Laundry in Cold",
+    "title_tl": "Paghugas ng Damit sa Cold Water",
+    "text_en": "Wash your laundry in cold water. Heating water accounts for about 90% of the energy consumed by a standard washing machine.",
+    "text_tl": "Labhan ang mga damit gamit ang malamig o gripo na tubig. Ang pagpapainit ng tubig ay kumokonsumo ng 90% kuryente sa washing machine."
+  },
+  {
+    "id": 16,
+    "category": "compost",
+    "title_en": "Eggshell Mineral Gold",
+    "title_tl": "Balat ng Itlog bilang Pataba",
+    "text_en": "Crush dry eggshells and sprinkle them on garden soil. They provide a rich source of calcium carbonate, which strengthens plants.",
+    "text_tl": "Durugin ang mga balat ng itlog at ihalo sa lupa ng halaman. Mayaman ito sa calcium na nagpapalakas sa mga pananim."
+  },
+  {
+    "id": 17,
+    "category": "general",
+    "title_en": "Air Dry Your Clothes",
+    "title_tl": "Patuyuin ang Damit sa Araw",
+    "text_en": "Take advantage of natural sunlight to dry your clothes instead of using a mechanical dryer, saving significant household energy.",
+    "text_tl": "Isampay at patuyuin sa sikat ng araw ang mga damit kaysa gumamit ng dryer upang makatipid sa kuryente sa bahay."
+  },
+  {
+    "id": 18,
+    "category": "plastic",
+    "title_en": "Say No to Straws",
+    "title_tl": "Tanggihan ang Straw",
+    "text_en": "Request drinks without plastic straws. If needed, invest in a reusable bamboo or metal straw that you can carry anywhere.",
+    "text_tl": "Huwag nang gumamit ng plastik na straw sa mga inumin. Gumamit na lamang ng reusable na kawayan o metal straw kung kinakailangan."
+  },
+  {
+    "id": 19,
+    "category": "general",
+    "title_en": "Plan Your Meals",
+    "title_tl": "Iplano ang mga Pagkain",
+    "text_en": "Plan your grocery trips and meals in advance to prevent food waste. Up to one-third of all food produced globally goes straight to landfills.",
+    "text_tl": "Iplano ang mga lulutuin bago mamili upang maiwasan ang masirang pagkain. Maraming pagkain ang nasasayang at napupunta sa basura."
+  },
+  {
+    "id": 20,
+    "category": "water",
+    "title_en": "Fix Dripping Faucets",
+    "title_tl": "Ayusin ang mga Sirang Gripo",
+    "text_en": "A leaky faucet dripping once per second can waste over 10,000 liters of water a year. Repair leaks immediately to save water and money.",
+    "text_tl": "Ang tumutulong gripo ay maaaring mag-aksaya ng 10,000 litro ng tubig sa isang taon. Ayusin agad ang mga leaks upang makatipid."
+  },
+  {
+    "id": 21,
+    "category": "recycling",
+    "title_en": "Rechargeable Batteries",
+    "title_tl": "Paggamit ng Rechargeable Batteries",
+    "text_en": "Switch to rechargeable batteries. Disposable batteries leak harmful chemicals like mercury and acid into soils when discarded.",
+    "text_tl": "Gumamit ng rechargeable na baterya. Ang mga lumang disposable na baterya ay nagdudulot ng lason sa lupa at tubig."
+  },
+  {
+    "id": 22,
+    "category": "general",
+    "title_en": "Declutter Sustainably",
+    "title_tl": "I-donate ang mga Lumang Gamit",
+    "text_en": "Instead of throwing away old clothes, toys, or furniture, donate them to local charities or host a garage sale to extend their life.",
+    "text_tl": "Sa halip na itapon ang mga lumang damit o laruan, i-donate ito sa mga nangangailangan upang mapakinabangan pa ng iba."
+  },
+  {
+    "id": 23,
+    "category": "compost",
+    "title_en": "Coffee Grounds Boost",
+    "title_tl": "Residuo ng Kape para sa Lupa",
+    "text_en": "Use leftover coffee grounds as a mild nitrogen fertilizer for acid-loving plants like roses, tomatoes, and blueberries.",
+    "text_tl": "Gamitin ang tirang lapa o grounds ng kape bilang natural na pataba sa mga halaman tulong upang lumago ang mga ito."
+  },
+  {
+    "id": 24,
+    "category": "plastic",
+    "title_en": "Choose Glass or Metal",
+    "title_tl": "Pumili ng Salamin o Metal",
+    "text_en": "When buying items, opt for glass jars or metal tin packaging. Both materials can be recycled infinitely, unlike plastics.",
+    "text_tl": "Pumili ng mga produktong nakalagay sa garapon o lata. Madali silang i-recycle nang paulit-ulit kumpara sa plastik."
+  },
+  {
+    "id": 25,
+    "category": "general",
+    "title_en": "Carpool or Bike",
+    "title_tl": "Mag-bike o Mag-carpool",
+    "text_en": "Reduce fuel emissions by walking, biking, carpooling, or riding public transit. Even doing this once a week makes a significant difference.",
+    "text_tl": "Maglakad, mag-bisikleta, o mag-commute kung malapit lang ang pupuntahan upang mabawasan ang air pollution mula sa mga sasakyan."
+  },
+  {
+    "id": 26,
+    "category": "water",
+    "title_en": "Harvest Rainwater",
+    "title_tl": "Pag-ipon ng Tubig-Ulan",
+    "text_en": "Place clean drums under roof gutters to collect rainwater. Use this free resource for cleaning laundry, flushing toilets, or watering plants.",
+    "text_tl": "Mag-ipon ng tubig-ulan gamit ang mga timba o drum. Magagamit ito sa paglilinis ng bahay, paghugas ng sasakyan, at pampadilig."
+  },
+  {
+    "id": 27,
+    "category": "general",
+    "title_en": "Support Green Brands",
+    "title_tl": "Suportahan ang Green Brands",
+    "text_en": "Spend your money on brands that actively demonstrate sustainability practices, ethical sourcing, and carbon-neutral goals.",
+    "text_tl": "Bumili sa mga kumpanyang gumagamit ng eco-friendly na materyales at nagmamalasakit sa kalikasan."
+  },
+  {
+    "id": 28,
+    "category": "compost",
+    "title_en": "Banana Peel Potassium",
+    "title_tl": "Balat ng Saging para sa Potasyum",
+    "text_en": "Soak banana peels in water for 48 hours to create a nutrient-rich potassium tea for your plants, or bury them directly in garden beds.",
+    "text_tl": "Ibabad ang balat ng saging sa tubig ng 2 araw para makagawa ng likidong pataba na mayaman sa potassium para sa mga halaman."
+  },
+  {
+    "id": 29,
+    "category": "paper",
+    "title_en": "Reuse Shipping Boxes",
+    "title_tl": "Gamitin Muli ang mga Karton",
+    "text_en": "Save shipping cardboard boxes for packaging gifts, organizing closets, or as compost materials in garden beds to prevent wood pulp waste.",
+    "text_tl": "Itabi ang mga lumang karton at kahon. Magagamit mo pa ito sa pag-oorganisa ng gamit sa bahay o bilang compost sa halamanan."
+  },
+  {
+    "id": 30,
+    "category": "general",
+    "title_en": "Educate Others",
+    "title_tl": "Turuan ang Iba tungkol sa Kalikasan",
+    "text_en": "Spread eco-awareness by sharing your recycling tips and sustainable habits with family and friends. Change begins with small discussions!",
+    "text_tl": "Ibahagi sa pamilya at mga kaibigan ang kahalagahan ng pag-recycle. Ang pagbabago ay nagsisimula sa maliliit na usapan!"
+  }
+]

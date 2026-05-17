@@ -24,5 +24,8 @@
     "success": "Maayos na nakopya ang link!",
     "subtext": "Maaari mo na itong ibahagi sa iba."
   },
-  "no_announcements": "Walang mga anunsyo."
+  "no_announcements": "Walang mga anunsyo.",
+  "no_matching_announcements": "Walang katugmang mga anunsyo",
+  "no_matching_subtext": "Hindi kami makahanap ng anunsyong tumutugma sa \"{{search}}\". Subukang baguhin o linawin ang iyong hinahanap.",
+  "search_placeholder": "Maghanap ng mga anunsyo..."
 }

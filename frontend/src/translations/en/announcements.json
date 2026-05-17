@@ -24,5 +24,8 @@
     "success": "Link copied successfully!",
     "subtext": "You can now share this to others."
   },
-  "no_announcements": "No announcements available."
+  "no_announcements": "No announcements available.",
+  "no_matching_announcements": "No matching announcements",
+  "no_matching_subtext": "We couldn't find any announcements matching \"{{search}}\". Try refining your search query.",
+  "search_placeholder": "Search announcements..."
 }

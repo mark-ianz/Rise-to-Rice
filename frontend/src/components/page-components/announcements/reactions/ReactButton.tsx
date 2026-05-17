@@ -28,7 +28,6 @@ export default function ReactButton({ announcement_id }: Props) {
     if (!state.user_id) {
       return;
     }
-
     mutate(reaction);
   };
 
@@ -38,27 +37,24 @@ export default function ReactButton({ announcement_id }: Props) {
       <PopoverContent
         side="top"
         align="start"
-        sideOffset={10}
-        className="flex gap-2 w-full p-2 rounded-full"
+        sideOffset={8}
+        className="flex gap-1.5 w-auto p-1.5 rounded-full bg-white/95 backdrop-blur-md border border-slate-100 shadow-[0_15px_35px_rgba(0,0,0,0.08)] animate-[fadeSlideUp_0.15s_ease-out] z-50 pointer-events-auto"
       >
         <TooltipProvider>
           {reactions.map((reaction, index) => (
-            <Tooltip delayDuration={200} key={index}>
-              <TooltipContent className="bg-tertiary/60 font-semibold">
-                {reaction}
-              </TooltipContent>
+            <Tooltip delayDuration={150} key={reaction + index}>
               <TooltipTrigger asChild autoFocus={false}>
-                <Button
+                <button
                   disabled={isPending}
-                  autoFocus={false}
-                  key={reaction + index}
-                  variant={"secondary"}
-                  className="rounded-full [&_svg]:size-6 h-14 max-md:[&_svg]:size-4 max-md:h-12 max-sm:[&_svg]:size-4 max-sm:h-10 max-sm:w-10"
+                  className="rounded-full w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center transition-all duration-300 hover:scale-135 hover:-translate-y-1.5 hover:bg-slate-50 focus:outline-none"
                   onClick={() => handleReact(reaction)}
                 >
-                  <GetReactionIcon reaction={reaction} />
-                </Button>
+                  <GetReactionIcon reaction={reaction} className="w-7 h-7 sm:w-8 sm:h-8" />
+                </button>
               </TooltipTrigger>
+              <TooltipContent className="bg-slate-900 text-white font-bold text-[10px] px-2.5 py-1 rounded-md shadow-md border-0 mb-1">
+                {reaction}
+              </TooltipContent>
             </Tooltip>
           ))}
         </TooltipProvider>

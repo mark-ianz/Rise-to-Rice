@@ -18,7 +18,6 @@ export default function ShareButton({ announcement_id }: Props) {
         fallbackCopy(text);
       }
     } else {
-      // Clipboard API not available
       fallbackCopy(text);
     }
   };
@@ -26,7 +25,7 @@ export default function ShareButton({ announcement_id }: Props) {
   const fallbackCopy = (text: string) => {
     const textarea = document.createElement("textarea");
     textarea.value = text;
-    textarea.style.position = "fixed"; // prevents scrolling
+    textarea.style.position = "fixed";
     document.body.appendChild(textarea);
     textarea.focus();
     textarea.select();
@@ -43,21 +42,21 @@ export default function ShareButton({ announcement_id }: Props) {
     await copyToClipboard(post_link);
 
     toast.success(
-      <span className="flex flex-col">
-        <span>{t("toast.success")}</span>
-        <span className="font-normal">{t("toast.subtext")}</span>
+      <span className="flex flex-col gap-0.5">
+        <span className="font-bold text-slate-800">{t("toast.success")}</span>
+        <span className="font-normal text-slate-500 text-xs">{t("toast.subtext")}</span>
       </span>
     );
   };
+
   return (
     <Button
-      className="max-md:text-xs"
-      variant={"secondary"}
+      className="rounded-full px-4 h-9 flex items-center gap-1.5 border border-slate-200/80 bg-white hover:bg-slate-50 hover:border-slate-300 hover:scale-[1.02] text-slate-600 font-semibold shadow-sm transition-all duration-200 [&_svg]:size-4 max-md:text-xs"
       onClick={handleCopyLink}
       size={"sm"}
     >
-      <Link size={20} />
-      <p>{t("button.share")}</p>
+      <Link className="w-4 h-4 text-slate-400 group-hover:text-slate-600 transition-colors" />
+      <span className="text-xs">{t("button.share")}</span>
     </Button>
   );
 }

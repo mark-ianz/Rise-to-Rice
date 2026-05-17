@@ -20,6 +20,7 @@ import ViewImage from "@/components/general/ViewImage";
 import { usePostAnnouncement } from "@/hooks/query/useAnnouncement";
 import { toast } from "sonner";
 import { Link } from "react-router-dom";
+import { Image, Megaphone, Plus, Sparkles, FileUp } from "lucide-react";
 
 export default function PostAnnouncementButton() {
   const { state: user } = useUserContext();
@@ -50,11 +51,11 @@ export default function PostAnnouncementButton() {
       setIsOpen(false);
 
       toast.success(
-        <span className="flex flex-col">
-          Announcement posted successfully!
+        <span className="flex flex-col gap-0.5">
+          <span className="font-bold text-slate-800">Announcement posted successfully!</span>
           <Link
             to={`/announcements/${data.announcement_id}`}
-            className="text-blue-500 hover:underline"
+            className="text-emerald-600 hover:text-emerald-700 font-semibold text-xs flex items-center gap-1 mt-1 hover:underline"
           >
             View it here
           </Link>
@@ -65,7 +66,6 @@ export default function PostAnnouncementButton() {
 
   const handleAnnouncementPost = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     setErrors([]);
 
     try {
@@ -104,10 +104,7 @@ export default function PostAnnouncementButton() {
   };
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    // reset errors
     setErrors([]);
-
-    // check if there is an existing image
     const image = e.target.files?.[0];
 
     if (!image) {
@@ -115,7 +112,6 @@ export default function PostAnnouncementButton() {
       return;
     }
 
-    // check if the file type is allowed
     if (!allowedUploadTypes.includes(image?.type)) {
       setErrors([
         "Invalid file type. Only png, jpeg, jpg and webp are allowed.",
@@ -123,76 +119,155 @@ export default function PostAnnouncementButton() {
       return;
     }
 
-    // generate the image source
     const src = URL.createObjectURL(image);
     setImageSrc(src);
+  };
+
+  const getInitials = () => {
+    if (!user) return "A";
+    const first = user.firstName?.charAt(0) || "";
+    const last = user.lastName?.charAt(0) || "";
+    return (first + last).toUpperCase() || "A";
   };
 
   return (
     user?.isAdmin && (
       <Dialog onOpenChange={setIsOpen} open={isOpen}>
         <DialogTrigger asChild>
-          <Button
-            onClick={() => setImageSrc(null)} // clear the image source when the dialog is clicked
-            variant={"ghost"}
-            className="bg-secondary-light border-tertiary border-dashed border-2 p-4 rounded-lg shadow-md hover:scale-105 transition-transform duration-200 cursor-pointer flex items-center justify-center h-20 hover:bg-secondary-light hover:brightness-105"
+          {/* Native Feed-Composer Trigger Card */}
+          <div 
+            onClick={() => setImageSrc(null)}
+            className="bg-white p-5 rounded-3xl border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.02)] hover:shadow-[0_15px_45px_rgba(45,90,39,0.04)] hover:-translate-y-0.5 transition-all duration-300 cursor-pointer flex flex-col gap-4 w-full"
           >
-            <HeaderText className="text-xl text-tertiary max-lg:text-md">
-              Post New Announcement
-            </HeaderText>
-          </Button>
+            {/* Upper Composer Block */}
+            <div className="flex items-center gap-3 w-full">
+              {/* User Avatar */}
+              <div className="w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center bg-gradient-to-br from-emerald-500 to-primary-main text-white font-extrabold text-xs tracking-wider select-none shadow-sm overflow-hidden ring-2 ring-emerald-100/50">
+                {user.photo_url ? (
+                  <img
+                    src={user.photo_url}
+                    alt={user.firstName}
+                    className="w-full h-full object-cover rounded-full"
+                  />
+                ) : (
+                  <span>{getInitials()}</span>
+                )}
+              </div>
+              
+              {/* Mock Input Placeholder */}
+              <div className="flex-1 bg-slate-50 hover:bg-slate-100/70 border border-slate-100/60 rounded-full py-2.5 px-5 text-slate-400 text-xs sm:text-sm font-medium transition-colors text-left select-none">
+                Write an official community announcement...
+              </div>
+            </div>
+            
+            {/* Divider */}
+            <div className="border-t border-slate-50 w-full" />
+            
+            {/* Lower Quick Action Bar */}
+            <div className="flex items-center gap-4 justify-between max-xsm:flex-col max-xsm:items-start max-xsm:gap-3">
+              <div className="flex gap-4">
+                <span className="flex items-center gap-1.5 text-xs text-slate-500 font-bold hover:text-emerald-600 transition-colors">
+                  <Image className="w-4 h-4 text-emerald-500" />
+                  <span>Photo / Image</span>
+                </span>
+                <span className="flex items-center gap-1.5 text-xs text-slate-500 font-bold hover:text-blue-600 transition-colors">
+                  <Megaphone className="w-4 h-4 text-blue-500" />
+                  <span>Official Alert</span>
+                </span>
+              </div>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-50 text-emerald-800 text-xs font-bold hover:bg-emerald-100/80 transition-all select-none">
+                <Plus className="w-3.5 h-3.5" /> Post Announcement
+              </span>
+            </div>
+          </div>
         </DialogTrigger>
-        <DialogContent onInteractOutside={(e) => e.preventDefault()}>
+
+        {/* Redesigned Composer Dialog */}
+        <DialogContent onInteractOutside={(e) => e.preventDefault()} className="rounded-3xl border border-slate-100 shadow-2xl p-6 sm:p-8 max-w-[500px]">
           <form
-            className="flex flex-col gap-4"
+            className="flex flex-col gap-5"
             onSubmit={handleAnnouncementPost}
           >
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-1">
               <DialogHeader>
-                <DialogTitle className="text-center">
-                  Post New Announcement
+                <DialogTitle className="text-xl font-extrabold text-slate-800 flex items-center gap-1.5">
+                  <Sparkles className="w-5 h-5 text-emerald-500" />
+                  Post Announcement
                 </DialogTitle>
               </DialogHeader>
-              <DialogDescription>
-                Fill out the form below to post a new announcement.
+              <DialogDescription className="text-slate-400 text-xs">
+                Draft an announcement to keep the Rise to Rice community informed and engaged.
               </DialogDescription>
             </div>
-            <div className="flex flex-col gap-2">
+
+            <div className="flex flex-col gap-4">
+              {/* Title input */}
               <InputText
-                labelClassname="text-sm"
-                label="Title"
+                labelClassname="text-xs font-bold text-slate-500 uppercase tracking-wide"
+                label="Announcement Title"
                 type="text"
                 name="announcement-title"
                 ref={titleRef}
+                className="rounded-xl border-slate-200/80 focus-visible:ring-emerald-500 focus-visible:border-emerald-500"
               />
-              <textarea
-                ref={descriptionRef}
-                rows={7}
-                className="text-sm border rounded-md outline-none px-4 py-2"
-                placeholder="(Optional)"
-              />
-              <span className="flex flex-col gap-4">
+
+              {/* Description inputs */}
+              <div className="flex flex-col gap-1.5">
+                <label className="text-xs font-bold text-slate-500 uppercase tracking-wide">
+                  Description / Content
+                </label>
+                <textarea
+                  ref={descriptionRef}
+                  rows={6}
+                  className="text-sm text-slate-600 border border-slate-200/80 hover:border-slate-300 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 rounded-xl outline-none px-4 py-3 min-h-[140px] transition-all leading-relaxed font-roboto placeholder:text-slate-300"
+                  placeholder="Share details about upcoming clean-ups, events, statistics, or rewards..."
+                />
+              </div>
+
+              {/* File Upload inputs */}
+              <div className="flex flex-col gap-1.5">
+                <label className="text-xs font-bold text-slate-500 uppercase tracking-wide flex items-center gap-1">
+                  <FileUp className="w-3.5 h-3.5 text-slate-400" />
+                  Upload Hero Image (Optional)
+                </label>
                 <InputText
                   onChange={handleImageChange}
                   ref={imageInputRef}
-                  labelClassname="text-sm"
-                  label="Upload Image (Optional)"
                   type="file"
                   name="announcement-image"
+                  className="rounded-xl border-slate-200/80 text-xs file:mr-4 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-slate-50 file:text-slate-600 hover:file:bg-slate-100 transition-all"
                 />
+
                 {imageSrc && (
-                  <div className="w-full flex flex-col items-center rounded-md max-lg:text-sm">
-                    <ViewImage src={imageSrc} alt="Image uploaded by the user.">
-                      <p className="text-tertiary">Image Preview</p>
-                    </ViewImage>
+                  <div className="w-full flex flex-col items-center rounded-xl p-3 border border-dashed border-slate-200 bg-slate-50/50 mt-2 max-lg:text-sm">
+                    <p className="text-[11px] font-bold text-slate-400 mb-2 uppercase tracking-wider">Image Preview</p>
+                    <div className="rounded-lg overflow-hidden max-h-48 shadow-sm">
+                      <ViewImage src={imageSrc} alt="Image uploaded by the user." />
+                    </div>
                   </div>
                 )}
-              </span>
+              </div>
             </div>
+
             <ZodErrorDisplay error={errors} />
-            <Button disabled={isPending} type="submit">
-              {isPending ? <LoadingComponent /> : "Post"}
-            </Button>
+
+            <div className="flex justify-end gap-3 mt-2">
+              <Button 
+                type="button" 
+                variant="ghost" 
+                onClick={() => setIsOpen(false)}
+                className="rounded-xl text-xs font-bold text-slate-500 hover:bg-slate-50"
+              >
+                Cancel
+              </Button>
+              <Button 
+                disabled={isPending} 
+                type="submit"
+                className="rounded-xl px-5 text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white min-w-[80px]"
+              >
+                {isPending ? <LoadingComponent /> : "Post"}
+              </Button>
+            </div>
           </form>
         </DialogContent>
       </Dialog>

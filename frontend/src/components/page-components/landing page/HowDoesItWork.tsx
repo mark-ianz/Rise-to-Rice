@@ -39,7 +39,7 @@ export default function HowDoesItWork() {
             </p>
           </div>
         </div>
-        
+
         <div className="grid grid-cols-2 gap-6 max-md:grid-cols-1">
           {steps.map((step, index) => (
             <div
@@ -48,7 +48,7 @@ export default function HowDoesItWork() {
             >
               {/* Step Number Badge */}
               <div className="flex-shrink-0 relative">
-                <div className="w-20 h-20 max-sm:w-16 max-sm:h-16 bg-white/5 rounded-[1.75rem] p-5 max-sm:p-4 border border-white/10 group-hover:bg-primary-main/30 group-hover:border-primary-main/50 transition-all duration-700 shadow-2xl">
+                <div className="w-20 h-20 max-sm:w-16 max-sm:h-16 bg-warm-cream rounded-[1.75rem] p-2 max-sm:p-4 border border-white/10 group-hover:bg-warm-cream/80 group-hover:border-primary-main/50 transition-all duration-700 shadow-2xl">
                   <img
                     loading="lazy"
                     src={icons[index]}

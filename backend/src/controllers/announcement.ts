@@ -184,18 +184,54 @@ export async function updateAnnouncement(
   res: Response
 ) {
   const { id } = req.params;
-
   const connection = await pool.getConnection();
-
   const action_performer = req.user!.user_id;
+  let new_image_url: string | null = null;
+  let old_image_url: string | null = null;
 
   try {
-    const { title, description } = UpdateAnnouncementSchema.parse(req.body);
+    const { title, description } = UpdateAnnouncementSchema.parse({
+      ...req.body,
+    });
+
+    // Get the existing announcement to retrieve the current image_url
+    const [announcement] = await connection.query<
+      (Announcement & RowDataPacket)[]
+    >("SELECT * FROM announcement WHERE announcement_id = ?", [id]);
+
+    if (announcement.length === 0) {
+      res.status(404).json({ error: "Announcement not found" });
+      return;
+    }
+
+    old_image_url = announcement[0].image_url ?? null;
+
+    // If a new file is uploaded, upload to Cloudinary
+    if (req.file) {
+      console.log("Uploading replacement file to Cloudinary:", req.file.path);
+      new_image_url = await uploadToCloudinary(req.file.path);
+      console.log("Replacement file uploaded. Cloudinary URL:", new_image_url);
+
+      // Clean up the temporary local file
+      try {
+        await fs.unlink(req.file.path);
+        console.log("Deleted temporary local file:", req.file.path);
+      } catch (err) {
+        console.error("Failed to delete temporary local file:", req.file.path, err);
+      }
+    }
+
     await connection.beginTransaction();
-    const [result] = await connection.query<ResultSetHeader>(
-      "UPDATE announcement SET title = ?, description = ? WHERE announcement_id = ?",
-      [title, description, id]
-    );
+
+    const query = new_image_url 
+      ? "UPDATE announcement SET title = ?, description = ?, image_url = ? WHERE announcement_id = ?"
+      : "UPDATE announcement SET title = ?, description = ? WHERE announcement_id = ?";
+
+    const queryParams = new_image_url 
+      ? [title, description, new_image_url, id]
+      : [title, description, id];
+
+    const [result] = await connection.query<ResultSetHeader>(query, queryParams);
 
     if (result.affectedRows === 0) {
       res.status(404).json({ error: "Announcement not found" });
@@ -207,14 +243,50 @@ export async function updateAnnouncement(
       announcement_id: id,
       title,
       description,
+      image_url: new_image_url || old_image_url,
     });
 
     await connection.commit();
+
+    // If a new image was successfully uploaded, delete the old image to prevent orphans
+    if (new_image_url && old_image_url) {
+      if (old_image_url.includes("cloudinary.com")) {
+        try {
+          await deleteFromCloudinary(old_image_url);
+          console.log("Successfully deleted old image from Cloudinary:", old_image_url);
+        } catch (err) {
+          console.error("Failed to delete old image from Cloudinary:", old_image_url, err);
+        }
+      } else {
+        // Clean up legacy local file
+        const filePath = path.join(
+          __dirname,
+          "../../uploads",
+          path.basename(old_image_url)
+        );
+        try {
+          await fs.unlink(filePath);
+          console.log("Successfully deleted old legacy file:", filePath);
+        } catch (err) {
+          console.error("Failed to delete old legacy file:", filePath, err);
+        }
+      }
+    }
 
     res.json({ message: "Announcement updated successfully" });
   } catch (error) {
     await connection.rollback();
     console.log(error);
+
+    // Clean up the new image from Cloudinary if the transaction failed
+    if (new_image_url) {
+      try {
+        console.log("Transaction failed. Cleaning up newly uploaded image...");
+        await deleteFromCloudinary(new_image_url);
+      } catch (cloudinaryErr) {
+        console.error("Failed to delete orphaned Cloudinary image:", new_image_url, cloudinaryErr);
+      }
+    }
 
     if (error instanceof ZodError) {
       handleZodErrors(error, res);
@@ -225,7 +297,6 @@ export async function updateAnnouncement(
   } finally {
     if (connection) connection.release();
   }
-  return;
 }
 
 export async function deleteAnnouncement(req: Request, res: Response) {

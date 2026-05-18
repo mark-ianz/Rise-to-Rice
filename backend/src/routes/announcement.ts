@@ -22,7 +22,13 @@ router.post(
   upload.single("image"),
   postAnnouncement
 );
-router.put("/:id", requireAuth, requireAdmin, updateAnnouncement);
+router.put(
+  "/:id",
+  requireAuth,
+  requireAdmin,
+  upload.single("image"),
+  updateAnnouncement
+);
 router.delete("/:id", requireAuth, requireAdmin, deleteAnnouncement);
 
 export default router;

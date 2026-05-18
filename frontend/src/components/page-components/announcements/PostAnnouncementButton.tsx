@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
-import HeaderText from "@/components/general/HeaderText";
 import useUserContext from "@/hooks/useUserContext";
+import companyLogo from "@/assets/COMPONY LOGO NO BG.png";
 import {
   Dialog,
   DialogContent,
@@ -20,7 +20,7 @@ import ViewImage from "@/components/general/ViewImage";
 import { usePostAnnouncement } from "@/hooks/query/useAnnouncement";
 import { toast } from "sonner";
 import { Link } from "react-router-dom";
-import { Image, Megaphone, Plus, Sparkles, FileUp } from "lucide-react";
+import { Image, Megaphone, Plus, FileUp } from "lucide-react";
 
 export default function PostAnnouncementButton() {
   const { state: user } = useUserContext();
@@ -123,46 +123,35 @@ export default function PostAnnouncementButton() {
     setImageSrc(src);
   };
 
-  const getInitials = () => {
-    if (!user) return "A";
-    const first = user.firstName?.charAt(0) || "";
-    const last = user.lastName?.charAt(0) || "";
-    return (first + last).toUpperCase() || "A";
-  };
-
   return (
     user?.isAdmin && (
       <Dialog onOpenChange={setIsOpen} open={isOpen}>
         <DialogTrigger asChild>
           {/* Native Feed-Composer Trigger Card */}
-          <div 
+          <div
             onClick={() => setImageSrc(null)}
             className="bg-white p-5 rounded-3xl border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.02)] hover:shadow-[0_15px_45px_rgba(45,90,39,0.04)] hover:-translate-y-0.5 transition-all duration-300 cursor-pointer flex flex-col gap-4 w-full"
           >
             {/* Upper Composer Block */}
             <div className="flex items-center gap-3 w-full">
               {/* User Avatar */}
-              <div className="w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center bg-gradient-to-br from-emerald-500 to-primary-main text-white font-extrabold text-xs tracking-wider select-none shadow-sm overflow-hidden ring-2 ring-emerald-100/50">
-                {user.photo_url ? (
-                  <img
-                    src={user.photo_url}
-                    alt={user.firstName}
-                    className="w-full h-full object-cover rounded-full"
-                  />
-                ) : (
-                  <span>{getInitials()}</span>
-                )}
+              <div className="w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center bg-white p-0.5 select-none shadow-sm overflow-hidden ring-2 ring-emerald-100/50">
+                <img
+                  src={companyLogo}
+                  alt="Rise to Rice Logo"
+                  className="w-full h-full object-contain"
+                />
               </div>
-              
+
               {/* Mock Input Placeholder */}
               <div className="flex-1 bg-slate-50 hover:bg-slate-100/70 border border-slate-100/60 rounded-full py-2.5 px-5 text-slate-400 text-xs sm:text-sm font-medium transition-colors text-left select-none">
                 Write an official community announcement...
               </div>
             </div>
-            
+
             {/* Divider */}
             <div className="border-t border-slate-50 w-full" />
-            
+
             {/* Lower Quick Action Bar */}
             <div className="flex items-center gap-4 justify-between max-xsm:flex-col max-xsm:items-start max-xsm:gap-3">
               <div className="flex gap-4">
@@ -191,7 +180,6 @@ export default function PostAnnouncementButton() {
             <div className="flex flex-col gap-1">
               <DialogHeader>
                 <DialogTitle className="text-xl font-extrabold text-slate-800 flex items-center gap-1.5">
-                  <Sparkles className="w-5 h-5 text-emerald-500" />
                   Post Announcement
                 </DialogTitle>
               </DialogHeader>
@@ -208,7 +196,7 @@ export default function PostAnnouncementButton() {
                 type="text"
                 name="announcement-title"
                 ref={titleRef}
-                className="rounded-xl border-slate-200/80 focus-visible:ring-emerald-500 focus-visible:border-emerald-500"
+                inputClassName="rounded-xl border-slate-200/80 focus-visible:ring-emerald-500 focus-visible:border-emerald-500"
               />
 
               {/* Description inputs */}
@@ -231,18 +219,21 @@ export default function PostAnnouncementButton() {
                   Upload Hero Image (Optional)
                 </label>
                 <InputText
+                  label=""
                   onChange={handleImageChange}
                   ref={imageInputRef}
                   type="file"
                   name="announcement-image"
-                  className="rounded-xl border-slate-200/80 text-xs file:mr-4 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-slate-50 file:text-slate-600 hover:file:bg-slate-100 transition-all"
+                  inputClassName="rounded-xl border-slate-200/80 text-xs file:mr-4 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-slate-50 file:text-slate-600 hover:file:bg-slate-100 transition-all"
                 />
 
                 {imageSrc && (
                   <div className="w-full flex flex-col items-center rounded-xl p-3 border border-dashed border-slate-200 bg-slate-50/50 mt-2 max-lg:text-sm">
                     <p className="text-[11px] font-bold text-slate-400 mb-2 uppercase tracking-wider">Image Preview</p>
                     <div className="rounded-lg overflow-hidden max-h-48 shadow-sm">
-                      <ViewImage src={imageSrc} alt="Image uploaded by the user." />
+                      <ViewImage src={imageSrc} alt="Image uploaded by the user.">
+                        <img src={imageSrc} className="w-full object-contain max-h-48" />
+                      </ViewImage>
                     </div>
                   </div>
                 )}
@@ -252,16 +243,16 @@ export default function PostAnnouncementButton() {
             <ZodErrorDisplay error={errors} />
 
             <div className="flex justify-end gap-3 mt-2">
-              <Button 
-                type="button" 
-                variant="ghost" 
+              <Button
+                type="button"
+                variant="ghost"
                 onClick={() => setIsOpen(false)}
                 className="rounded-xl text-xs font-bold text-slate-500 hover:bg-slate-50"
               >
                 Cancel
               </Button>
-              <Button 
-                disabled={isPending} 
+              <Button
+                disabled={isPending}
                 type="submit"
                 className="rounded-xl px-5 text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white min-w-[80px]"
               >

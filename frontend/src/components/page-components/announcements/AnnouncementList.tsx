@@ -43,7 +43,7 @@ export default function AnnouncementList() {
     if (!search) return true;
     return (
       announcement.title.toLowerCase().includes(search) ||
-      announcement.description.toLowerCase().includes(search)
+      (announcement.description && announcement.description.toLowerCase().includes(search))
     );
   });
 

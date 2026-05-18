@@ -1,4 +1,3 @@
-import { UpdateAnnouncement } from "@/schema/PostAnnouncementSchema";
 import { queryKeys } from "@/lib/queryKeys";
 import { Announcement, AnnouncementPagination, AnnouncementQueryResponse } from "@/types/announcements";
 import { UserProfile } from "@/types/user.type";
@@ -141,23 +140,28 @@ export function useUpdateAnnouncement() {
 
   return useMutation({
     mutationKey: ["updateAnnouncement"],
-    mutationFn: async (data: UpdateAnnouncement) => {
-      await axios.put<Announcement>(
-        `/api/announcements/${data.announcement_id}`,
+    mutationFn: async (data: FormData) => {
+      const id = data.get("announcement_id");
+      const response = await axios.put<Announcement>(
+        `/api/announcements/${id}`,
         data
       );
-      return data;
+      return response.data;
     },
-    onSuccess: (data) => {
+    onSuccess: (_, variables) => {
+      const id = variables.get("announcement_id");
+      const announcement_id = id ? Number(id) : 0;
       queryClient.invalidateQueries({
         queryKey: ["announcements"],
       });
       queryClient.invalidateQueries({
         queryKey: queryKeys.recentAnnouncements(),
       });
-      queryClient.invalidateQueries({
-        queryKey: queryKeys.announcement(data.announcement_id),
-      });
+      if (announcement_id) {
+        queryClient.invalidateQueries({
+          queryKey: queryKeys.announcement(announcement_id),
+        });
+      }
     },
   });
 }

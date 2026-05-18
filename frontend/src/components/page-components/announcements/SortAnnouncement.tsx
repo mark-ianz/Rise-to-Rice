@@ -30,7 +30,7 @@ export default function SortAnnouncement() {
 
     setOrder(value);
     newSearchParams.set("sort", value);
-    setSearchParams(newSearchParams);
+    setSearchParams(newSearchParams, { preventScrollReset: true });
     
   };
 

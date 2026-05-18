@@ -40,6 +40,9 @@ export default function Announcements() {
 
   // Debounced sync of search text with searchParams
   useEffect(() => {
+    const currentSearch = searchParams.get("search") || "";
+    if (localSearch === currentSearch) return;
+
     const timer = setTimeout(() => {
       const newSearchParams = new URLSearchParams(searchParams);
       if (localSearch) {
@@ -47,10 +50,10 @@ export default function Announcements() {
       } else {
         newSearchParams.delete("search");
       }
-      setSearchParams(newSearchParams);
+      setSearchParams(newSearchParams, { replace: true, preventScrollReset: true });
     }, 300);
     return () => clearTimeout(timer);
-  }, [localSearch]);
+  }, [localSearch, searchParams, setSearchParams]);
 
   const [activeTipIdx, setActiveTipIdx] = useState(0);
   const [shuffledTips, setShuffledTips] = useState<any[]>([]);

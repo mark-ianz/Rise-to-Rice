@@ -17,12 +17,8 @@ export default function AnnouncementList() {
 
   const sort = searchParams.get("sort");
 
-  const { data, isLoading, fetchNextPage, isFetchingNextPage, refetch } =
+  const { data, isLoading, fetchNextPage, isFetchingNextPage } =
     useGetAnnouncements(sort || "latest");
-
-  useEffect(() => {
-    refetch();
-  }, [sort, refetch]);
 
   // this is for infinite scroll
   const { ref, inView } = useInView();

@@ -40,7 +40,7 @@ export default function PersonalInformation({ id }: { id?: number }) {
 
   return (
     <>
-      <div className="flex flex-col gap-6 max-lg:text-sm">
+      <div className="flex flex-col gap-7 max-lg:text-sm">
         {/* Action Buttons Top Right for Desktop, Bottom for Mobile */}
         <div className="flex gap-3 max-md:flex-col justify-end w-full">
           <EditProfileButton user_id={user_id} />
@@ -49,7 +49,7 @@ export default function PersonalInformation({ id }: { id?: number }) {
 
         <div
           className={cn(
-            "flex gap-6 flex-row max-md:flex-col",
+            "flex gap-7 flex-row max-md:flex-col",
             editProfile.isEditing && "flex-col"
           )}
         >
@@ -57,54 +57,54 @@ export default function PersonalInformation({ id }: { id?: number }) {
           <div
             id="basic-information"
             className={cn(
-              "flex flex-col h-full bg-white dark:bg-card border border-border/50 rounded-2xl p-6 shadow-sm relative overflow-hidden group hover:shadow-md transition-shadow",
+              "flex flex-col h-full bg-white dark:bg-card border border-border/50 rounded-2xl p-7 shadow-md relative overflow-hidden group hover:shadow-lg transition-all duration-300",
               editProfile.isEditing ? "w-full" : "w-1/2 max-md:w-full"
             )}
           >
-            <div className="absolute top-0 right-0 w-32 h-32 bg-primary-main/5 rounded-full -translate-y-16 translate-x-16 blur-2xl group-hover:bg-primary-main/10 transition-colors"></div>
+            <div className="absolute top-0 right-0 w-40 h-40 bg-primary-main/8 rounded-full -translate-y-20 translate-x-20 blur-3xl group-hover:bg-primary-main/12 transition-colors duration-300"></div>
             
-            <div className="flex items-center gap-3 mb-6">
-              <div className="p-2.5 bg-primary-main/10 text-primary-main rounded-xl">
-                <IdCard className="w-5 h-5" />
+            <div className="flex items-center gap-3.5 mb-7 relative z-10 pb-3 border-b border-primary-main/10">
+              <div className="p-3 bg-gradient-to-br from-primary-main/15 to-primary-main/8 text-primary-main rounded-xl group-hover:from-primary-main/20 group-hover:to-primary-main/12 transition-colors duration-300">
+                <IdCard className="w-6 h-6" />
               </div>
-              <p className="text-xl font-bold text-foreground">
+              <p className="text-lg font-bold text-foreground">
                 {t("profile.basic_information")}
               </p>
             </div>
             
             {!editProfile.isEditing ? (
-              <div className="flex flex-col gap-5 flex-1 z-10">
-                <div className="flex gap-4 items-start">
-                  <User className="w-5 h-5 text-muted-foreground mt-0.5 shrink-0" />
+              <div className="flex flex-col gap-6 flex-1 z-10">
+                <div className="flex gap-4 items-start pb-5 border-b border-border/30">
+                  <User className="w-5 h-5 text-primary-main mt-0.5 shrink-0" />
                   <KeyValuePair head={form("name")}>
-                    <span className="flex gap-2 font-medium">{displayFullName(user)}</span>
+                    <span className="flex gap-2 font-semibold text-foreground">{displayFullName(user)}</span>
                   </KeyValuePair>
                 </div>
                 
-                <div className="flex gap-4 items-start">
-                  <User className="w-5 h-5 text-muted-foreground mt-0.5 shrink-0 opacity-70" />
+                <div className="flex gap-4 items-start pb-5 border-b border-border/30">
+                  <User className="w-5 h-5 text-primary-main mt-0.5 shrink-0" />
                   <KeyValuePair
                     head={form("gender")}
                     value={capitalizeFirstLetter(user?.gender)}
-                    valueClassName="font-medium"
+                    valueClassName="font-semibold text-foreground"
                   />
                 </div>
                 
-                <div className="flex gap-4 items-start">
-                  <Calendar className="w-5 h-5 text-muted-foreground mt-0.5 shrink-0" />
+                <div className="flex gap-4 items-start pb-5 border-b border-border/30">
+                  <Calendar className="w-5 h-5 text-primary-main mt-0.5 shrink-0" />
                   <KeyValuePair
                     head={form("birthdate")}
                     value={formatDate(new Date(user?.birthdate), "MMMM dd, yyyy")}
-                    valueClassName="font-medium"
+                    valueClassName="font-semibold text-foreground"
                   />
                 </div>
                 
                 <div className="flex gap-4 items-start">
-                  <BadgeCheck className="w-5 h-5 text-muted-foreground mt-0.5 shrink-0" />
+                  <BadgeCheck className="w-5 h-5 text-primary-main mt-0.5 shrink-0" />
                   <KeyValuePair
                     head={t("profile.account_created")}
                     value={formatDate(new Date(user?.createdAt), "MMMM dd, yyyy")}
-                    valueClassName="font-medium"
+                    valueClassName="font-semibold text-foreground"
                   />
                 </div>
               </div>
@@ -119,47 +119,47 @@ export default function PersonalInformation({ id }: { id?: number }) {
           <div
             id="contact-information"
             className={cn(
-              "flex flex-col h-full bg-white dark:bg-card border border-border/50 rounded-2xl p-6 shadow-sm relative overflow-hidden group hover:shadow-md transition-shadow",
+              "flex flex-col h-full bg-white dark:bg-card border border-border/50 rounded-2xl p-7 shadow-md relative overflow-hidden group hover:shadow-lg transition-all duration-300",
               editProfile.isEditing ? "w-full" : "w-1/2 max-md:w-full"
             )}
           >
-            <div className="absolute top-0 right-0 w-32 h-32 bg-primary-main/5 rounded-full -translate-y-16 translate-x-16 blur-2xl group-hover:bg-primary-main/10 transition-colors"></div>
+            <div className="absolute top-0 right-0 w-40 h-40 bg-primary-main/8 rounded-full -translate-y-20 translate-x-20 blur-3xl group-hover:bg-primary-main/12 transition-colors duration-300"></div>
             
-            <div className="flex items-center gap-3 mb-6">
-              <div className="p-2.5 bg-primary-main/10 text-primary-main rounded-xl">
-                <Contact className="w-5 h-5" />
+            <div className="flex items-center gap-3.5 mb-7 relative z-10 pb-3 border-b border-primary-main/10">
+              <div className="p-3 bg-gradient-to-br from-primary-main/15 to-primary-main/8 text-primary-main rounded-xl group-hover:from-primary-main/20 group-hover:to-primary-main/12 transition-colors duration-300">
+                <Contact className="w-6 h-6" />
               </div>
-              <p className="text-xl font-bold text-foreground">
+              <p className="text-lg font-bold text-foreground">
                 {t("profile.contact_information")}
               </p>
             </div>
             
             {!editProfile.isEditing ? (
-              <div className="flex flex-col gap-5 flex-1 z-10">
-                <div className="flex gap-4 items-start">
-                  <Mail className="w-5 h-5 text-muted-foreground mt-0.5 shrink-0" />
+              <div className="flex flex-col gap-6 flex-1 z-10">
+                <div className="flex gap-4 items-start pb-5 border-b border-border/30">
+                  <Mail className="w-5 h-5 text-primary-main mt-0.5 shrink-0" />
                   <KeyValuePair 
                     head="Email" 
                     value={user?.email} 
-                    valueClassName="font-medium break-all" 
+                    valueClassName="font-semibold text-foreground break-all" 
                   />
                 </div>
                 
-                <div className="flex gap-4 items-start">
-                  <Phone className="w-5 h-5 text-muted-foreground mt-0.5 shrink-0" />
+                <div className="flex gap-4 items-start pb-5 border-b border-border/30">
+                  <Phone className="w-5 h-5 text-primary-main mt-0.5 shrink-0" />
                   <KeyValuePair
                     head={form("contact_number")}
                     value={user?.contact_number}
-                    valueClassName="font-medium"
+                    valueClassName="font-semibold text-foreground"
                   />
                 </div>
                 
                 <div className="flex gap-4 items-start">
-                  <MapPin className="w-5 h-5 text-muted-foreground mt-0.5 shrink-0" />
+                  <MapPin className="w-5 h-5 text-primary-main mt-0.5 shrink-0" />
                   <KeyValuePair 
                     head={form("address")} 
                     value={user?.address} 
-                    valueClassName="font-medium" 
+                    valueClassName="font-semibold text-foreground" 
                   />
                 </div>
               </div>

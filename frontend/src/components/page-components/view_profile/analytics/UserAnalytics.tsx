@@ -40,21 +40,25 @@ function StatCard({
   subtext?: string;
 }) {
   return (
-    <div className="bg-white rounded-xl p-4 border border-warm-tan/20 shadow-sm hover:shadow-md transition-shadow duration-200">
-      <div className="flex items-center gap-2.5 mb-3">
-        <div className="w-9 h-9 rounded-lg bg-primary-main/8 flex items-center justify-center">
-          {icon}
+    <div className="bg-white dark:bg-card rounded-xl p-5 border border-border/50 shadow-md hover:shadow-lg hover:border-primary-main/30 transition-all duration-300 group relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-br from-primary-main/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      
+      <div className="relative z-10">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="w-11 h-11 rounded-lg bg-gradient-to-br from-primary-main/20 to-primary-main/10 flex items-center justify-center text-primary-main group-hover:from-primary-main/30 group-hover:to-primary-main/15 transition-colors duration-300">
+            {icon}
+          </div>
+          <span className="text-xs font-bold text-muted-foreground uppercase tracking-widest truncate">
+            {label}
+          </span>
         </div>
-        <span className="text-xs font-semibold text-secondary-dark/50 uppercase tracking-wider truncate">
-          {label}
-        </span>
+        <p className="text-3xl max-lg:text-2xl max-md:text-xl font-bold text-foreground tracking-tight truncate mb-1">
+          {value}
+        </p>
+        {subtext && (
+          <p className="text-xs text-muted-foreground/70 truncate">{subtext}</p>
+        )}
       </div>
-      <p className="text-2xl max-lg:text-xl max-md:text-lg font-bold text-secondary-dark tracking-tight truncate">
-        {value}
-      </p>
-      {subtext && (
-        <p className="text-xs text-secondary-dark/40 mt-0.5 truncate">{subtext}</p>
-      )}
     </div>
   );
 }
@@ -96,23 +100,30 @@ export default function UserAnalytics({
   );
 
   return (
-    <div className={cn("flex flex-col gap-4", className)}>
-      <div className="flex items-center justify-between flex-wrap gap-2">
-        <h2 className="text-sm font-semibold text-secondary-dark/70 uppercase tracking-wider flex items-center gap-2">
-          <TrendingUp size={16} className="text-primary-main" />
-          {t("user_analytics.title")}
-        </h2>
+    <div className={cn("flex flex-col gap-6", className)}>
+      <div className="flex items-center justify-between flex-wrap gap-3 pb-4 border-b border-border/30">
+        <div className="flex items-center gap-3">
+          <div className="p-2 bg-primary-main/10 text-primary-main rounded-lg">
+            <TrendingUp size={18} className="" />
+          </div>
+          <div>
+            <h2 className="text-lg font-bold text-foreground">
+              {t("user_analytics.title")}
+            </h2>
+            <p className="text-xs text-muted-foreground/60 mt-0.5">Your performance metrics</p>
+          </div>
+        </div>
         <SelectDropDown
           onValueChange={onSelectDropDownChange}
           value={time.value}
           items={timeFilterItems}
-          className="h-8 py-0 text-xs"
+          className="h-9 py-0 text-xs px-3 rounded-lg"
         >
           {time.label}
         </SelectDropDown>
       </div>
 
-      <div className="grid grid-cols-2 gap-4 max-sm:grid-cols-1">
+      <div className="grid grid-cols-2 gap-5 max-sm:grid-cols-1">
         <StatCard
           icon={<Scale size={18} className="text-primary-main" />}
           label={t("user_analytics.wastes_exchanged")}

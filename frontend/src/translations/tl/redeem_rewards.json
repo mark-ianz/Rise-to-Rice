@@ -78,5 +78,22 @@
     "last_30_days": "Nakaraang 30 Araw",
     "status_filter_redeem_only": "Filter ng Katayuan (Para sa pag-redeem lamang)",
     "status_filter": "Filter ng Katayuan"
+  },
+  "custom_redesign": {
+    "program_tag": "Programa sa Gantimpala",
+    "catalog_title": "Mga Gantimpalang Maaaring Kunin",
+    "catalog_subtitle": "Pumili ng nais na dami, tingnan ang sapat na puntos, at i-redeem ang gantimpala agad.",
+    "points_wallet_title": "Kasalukuyang Puntos",
+    "points_wallet_helper": "Nakuha mula sa pag-recycle ng mga basura at materyales.",
+    "quick_tip_title": "Tip",
+    "quick_tip_text": "Maaari mong i-redeem agad ang bigas at liquid soap! Kung kulang ang iyong puntos, magdala ng mga recyclable sa pinakamalapit na collection hub upang makakuha ng puntos.",
+    "eligible_badge": "Maaaring i-redeem",
+    "insufficient_points": "Kailangan pa ng {{points}} puntos para ma-redeem.",
+    "reset_search": "I-reset ang Paghahanap",
+    "search_no_results": "Walang nahanap na gantimpala para sa \"{{query}}\". Subukang baguhin ang baybay o i-reset ang filter.",
+    "sort_by": "I-sort ayon sa",
+    "sort_alphabetical": "Alpabetiko",
+    "sort_low_to_high": "Puntos: Mababa Pataas",
+    "sort_high_to_low": "Puntos: Mataas Pababa"
   }
 }

@@ -21,7 +21,7 @@ import { allowedUploadTypes } from "@/lib/const";
 import ViewImage from "@/components/general/ViewImage";
 import { Sparkles, FileUp } from "lucide-react";
 
-type Props = { 
+type Props = {
   announcement: Announcement;
   children?: React.ReactNode;
 };
@@ -186,9 +186,9 @@ export default function EditAnnouncementButton({ announcement, children }: Props
           <ZodErrorDisplay error={errors} />
 
           <div className="flex justify-end gap-3 mt-2">
-            <Button 
-              type="button" 
-              variant="ghost" 
+            <Button
+              type="button"
+              variant="ghost"
               onClick={() => {
                 setIsOpen(false);
                 setImageSrc(announcement.image_url || null);
@@ -198,8 +198,8 @@ export default function EditAnnouncementButton({ announcement, children }: Props
             >
               Cancel
             </Button>
-            <Button 
-              disabled={isPending} 
+            <Button
+              disabled={isPending}
               type="submit"
               className="rounded-xl px-5 text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white min-w-[80px]"
             >

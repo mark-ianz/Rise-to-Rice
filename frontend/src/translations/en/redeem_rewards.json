@@ -78,5 +78,22 @@
     "last_30_days": "Last 30 Days",
     "status_filter_redeem_only": "Status Filter (Redemptions only)",
     "status_filter": "Status Filter"
+  },
+  "custom_redesign": {
+    "program_tag": "Eco Rewards Program",
+    "catalog_title": "Available Rewards",
+    "catalog_subtitle": "Select your desired quantity, check points eligibility, and claim your rewards instantly.",
+    "points_wallet_title": "Points Balance",
+    "points_wallet_helper": "Earned by recycling household waste and materials.",
+    "quick_tip_title": "Quick Tip",
+    "quick_tip_text": "Redeem items like rice and liquid soap directly! If your points balance is low, drop off materials at our nearest collection hub to earn points.",
+    "eligible_badge": "Eligible for redemption",
+    "insufficient_points": "Need {{points}} more points to redeem.",
+    "reset_search": "Reset Search",
+    "search_no_results": "We couldn't find any rewards matching \"{{query}}\". Try updating your spelling or resetting filters.",
+    "sort_by": "Sort by",
+    "sort_alphabetical": "Alphabetical",
+    "sort_low_to_high": "Points: Low to High",
+    "sort_high_to_low": "Points: High to Low"
   }
 }

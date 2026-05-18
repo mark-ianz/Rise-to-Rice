@@ -35,10 +35,17 @@ export default function ToggleLanguage({ children, className }: Props) {
       )}
       asChild
     >
-      <span className="flex items-center">
-        {children}: {currentLanguage.name}
-        {currentLanguage.flag}
-      </span>
+      <div className="flex items-center justify-between w-full">
+        <div className="flex items-center">
+          {children}
+        </div>
+        <div className="flex items-center gap-1.5 text-xs text-muted-foreground ml-2">
+          {currentLanguage.name}
+          <div className="w-4 h-4 rounded-sm overflow-hidden border border-border/50">
+            {currentLanguage.flag}
+          </div>
+        </div>
+      </div>
     </Button>
   );
 }

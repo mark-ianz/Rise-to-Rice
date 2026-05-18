@@ -5,6 +5,7 @@ import useFullUserContext from "@/hooks/useFullUserContext";
 import { useTranslation } from "react-i18next";
 import ToggleLanguage from "./ToggleLanguage";
 import { cn } from "@/lib/utils";
+import { User, LogOut, LogIn, UserPlus, Gift, Globe } from "lucide-react";
 
 type PopoverContentType = {
   display_name: string;
@@ -18,9 +19,7 @@ export default function ProfileButtonLinks({
   className?: string;
 }) {
   const { t } = useTranslation("header");
-
   const logout = useLogout();
-
   const { state } = useFullUserContext();
   const isAuth = !!state.account_id;
 
@@ -28,36 +27,51 @@ export default function ProfileButtonLinks({
     returnObjects: true,
   }) as PopoverContentType;
 
+  const getIcon = (name: string) => {
+    switch (name) {
+      case "Profile": return <User size={16} />;
+      case "Rewards": return <Gift size={16} />;
+      case "Language": return <Globe size={16} />;
+      case "Logout": return <LogOut size={16} />;
+      case "Login": return <LogIn size={16} />;
+      case "Register": return <UserPlus size={16} />;
+      default: return null;
+    }
+  };
+
+  const itemClass = "w-full flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-xl hover:bg-secondary-light/60 transition-colors text-foreground";
+  const activeClass = "bg-[#2D5A27] text-white hover:bg-[#1E3B1A]";
+
   return popoverContent.map((item, index) => {
     // if the link is login or register and the user is authenticated, return null
     if (item.name === "Login" || item.name === "Register") {
       if (isAuth || !item.link) return null;
-
-      <Link
-        to={item.link}
-        key={item.display_name + index}
-        className={cn(
-          "py-2 px-4 hover:bg-secondary-light-2 h-full",
-          className
-        )}
-      >
-        {item.display_name}
-      </Link>;
+      return (
+        <Link
+          to={item.link}
+          key={item.display_name + index}
+          className={cn(itemClass, className)}
+        >
+          {getIcon(item.name)}
+          {item.display_name}
+        </Link>
+      );
     }
 
     // if the link is logout and the user is not authenticated, return null
-    // but if the user is authenticated, return the logout button
     if (item.name === "Logout" && isAuth) {
       return (
         <Button
           onClick={logout}
-          variant={"ghost"}
+          variant="ghost"
           key={item.display_name + index}
           className={cn(
-            "rounded-none h-full py-2 font-normal px-4 hover:bg-secondary-light-2 flex items-start justify-start",
+            itemClass,
+            "h-auto hover:text-red-600 hover:bg-red-50",
             className
           )}
         >
+          {getIcon(item.name)}
           {item.display_name}
         </Button>
       );
@@ -65,23 +79,14 @@ export default function ProfileButtonLinks({
 
     // if the link is profile or rewards and the user is not authenticated, return null
     if (item.name === "Profile" || item.name === "Rewards") {
-      // if the user is authenticated or has link, return the nav link
       if (!isAuth || !item.link) return null;
-
       return (
         <NavLink
           to={item.link}
           key={item.display_name + index}
-          className={({ isActive }) =>
-            cn(
-              "text-sm py-2 px-4 h-full",
-              isActive
-                ? "bg-primary-main text-secondary-light"
-                : "hover:bg-secondary-light-2 transition-all",
-              className
-            )
-          }
+          className={({ isActive }) => cn(itemClass, isActive && activeClass, className)}
         >
+          {getIcon(item.name)}
           {item.display_name}
         </NavLink>
       );
@@ -90,27 +95,27 @@ export default function ProfileButtonLinks({
     // if the title is language, return the language button
     if (item.name === "Language") {
       return (
-        <ToggleLanguage className={className} key={item.display_name + index}>
-          {item.display_name}
+        <ToggleLanguage 
+          className={cn(itemClass, "h-auto", className)} 
+          key={item.display_name + index}
+        >
+          <span className="flex items-center gap-3">
+            {getIcon(item.name)}
+            {item.display_name}
+          </span>
         </ToggleLanguage>
       );
     }
 
-    // at this point, the user is authenticated and the link is not login or register
-    // if somehow the link is not defined, return null
-    // this is a fallback in case the link is not defined
+    // generic fallback
     if (!item.link) return null;
-
-    // if none of the above, return the link
     return (
       <NavLink
         to={item.link}
         key={item.display_name + index}
-        className={cn(
-          "py-2 px-4 hover:bg-secondary-light-2",
-          className
-        )}
+        className={({ isActive }) => cn(itemClass, isActive && activeClass, className)}
       >
+        {getIcon(item.name)}
         {item.display_name}
       </NavLink>
     );

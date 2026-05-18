@@ -4,10 +4,14 @@ import { Outlet, ScrollRestoration, useLocation } from "react-router-dom";
 import ScrollToHash from "./components/general/ScrollToHash";
 import { Toaster } from "./components/ui/sonner";
 import BackToTop from "./components/general/BackToTop";
+import { useMemo } from "react";
 
 function Layout() {
   const location = useLocation();
-  const isAuthPage = ["/login", "/register", "/forgot-password"].includes(location.pathname);
+  
+  const isAuthPage = useMemo(() => {
+    return ["/login", "/register", "/forgot-password"].includes(location.pathname);
+  }, [location.pathname]);
 
   if (isAuthPage) {
     return (

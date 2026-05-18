@@ -14,5 +14,12 @@
   "toast": {
     "success_message": "Message sent successfully!",
     "description": "We will get back to you as soon as possible."
-  }
+  },
+  "contact_info": "Contact Information",
+  "contact_info_sub": "Find us through our direct communication channels or visit our local barangay office.",
+  "email_label": "Email Us",
+  "phone_label": "Call Us",
+  "visit_label": "Visit Us",
+  "social_label": "Stay Connected",
+  "social_action": "Follow us on Facebook"
 }

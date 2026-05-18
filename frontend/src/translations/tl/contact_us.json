@@ -14,5 +14,12 @@
   "toast": {
     "success_message": "Matagumpay na naipadala ang mensahe!",
     "description": "Kami ay magbabalik tugon sa lalong madaling panahon."
-  }
+  },
+  "contact_info": "Impormasyon sa Pakikipag-ugnayan",
+  "contact_info_sub": "Makipag-ugnayan sa pamamagitan ng aming mga direktang channel o bisitahin ang aming barangay hall.",
+  "email_label": "Mag-email sa Amin",
+  "phone_label": "Tawagan Kami",
+  "visit_label": "Bisitahin Kami",
+  "social_label": "Manatiling Konektado",
+  "social_action": "I-follow kami sa Facebook"
 }

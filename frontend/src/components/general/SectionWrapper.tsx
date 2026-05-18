@@ -18,7 +18,7 @@ export default function SectionWrapper({
     <section
       id={id}
       className={cn(
-        "flex items-center w-full h-full bg-secondary-light-2",
+        "flex flex-col flex-1 w-full bg-secondary-light-2",
         className,
         screen && "min-h-[calc(100dvh-80px)]"
       )}

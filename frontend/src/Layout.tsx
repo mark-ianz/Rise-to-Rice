@@ -22,7 +22,7 @@ function Layout() {
     <>
       <div className="pt-20">
         <Header />
-        <main className="bg-warm-cream relative min-h-screen">
+        <main className="bg-warm-cream relative min-h-screen flex flex-col">
           <Outlet />
           <ScrollRestoration />
           <ScrollToHash />

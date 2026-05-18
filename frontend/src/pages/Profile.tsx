@@ -6,7 +6,7 @@ export default function Profile() {
   return (
     <SectionWrapper
       id="profile"
-      className="px-20 py-10 max-md:px-10 max-sm:px-6"
+      className="px-20 py-10 max-md:px-10 max-sm:px-6 items-start bg-secondary-light-2 dark:bg-background"
     >
       <Helmet>
         <title>Profile | Rise to Rice</title>

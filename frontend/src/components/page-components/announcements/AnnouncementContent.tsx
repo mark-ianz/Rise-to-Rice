@@ -12,10 +12,10 @@ export default function AnnouncementContent({ announcement, viewing }: Props) {
   return (
     <div className="flex flex-col gap-3">
       {/* Title */}
-      <h2 className="text-xl md:text-2xl font-extrabold text-slate-800 tracking-tight leading-snug hover:text-emerald-700 transition-colors">
+      <h2 className="text-xl md:text-2xl font-bold text-slate-800 tracking-tight leading-snug hover:text-emerald-700 transition-colors">
         {announcement.title}
       </h2>
-      
+
       {/* Description Body */}
       {announcement.description && (
         <p className={cn(
@@ -25,15 +25,15 @@ export default function AnnouncementContent({ announcement, viewing }: Props) {
           {announcement.description.replace(/\n/g, "\n")}
         </p>
       )}
-      
+
       {/* Media Content (Image) with dynamic zoom container */}
       {announcement.image_url && (
         <div className="overflow-hidden rounded-2xl border border-slate-100 shadow-sm bg-slate-50 mt-2 transition-all duration-300 hover:shadow-md max-w-full">
           <ViewImage src={announcement.image_url} alt={announcement.title}>
             <div className="group overflow-hidden w-full cursor-zoom-in">
-              <ImageDisplay 
-                src={announcement.image_url} 
-                alt={announcement.title} 
+              <ImageDisplay
+                src={announcement.image_url}
+                alt={announcement.title}
                 containerClassName={cn(
                   "aspect-video max-h-[480px] bg-slate-50 w-full rounded-2xl overflow-hidden",
                   viewing && "max-h-[600px]"

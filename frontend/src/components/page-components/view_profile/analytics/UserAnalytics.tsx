@@ -40,23 +40,21 @@ function StatCard({
   subtext?: string;
 }) {
   return (
-    <div className="bg-white dark:bg-card rounded-xl p-5 border border-border/50 shadow-md hover:shadow-lg hover:border-primary-main/30 transition-all duration-300 group relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-primary-main/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-      
-      <div className="relative z-10">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="w-11 h-11 rounded-lg bg-gradient-to-br from-primary-main/20 to-primary-main/10 flex items-center justify-center text-primary-main group-hover:from-primary-main/30 group-hover:to-primary-main/15 transition-colors duration-300">
-            {icon}
-          </div>
-          <span className="text-xs font-bold text-muted-foreground uppercase tracking-widest truncate">
-            {label}
-          </span>
+    <div className="flex flex-col gap-4 py-6 px-2">
+      <div className="flex items-center gap-3">
+        <div className="w-10 h-10 rounded-full bg-primary-main/10 flex items-center justify-center text-primary-main">
+          {icon}
         </div>
-        <p className="text-3xl max-lg:text-2xl max-md:text-xl font-bold text-foreground tracking-tight truncate mb-1">
+        <span className="text-xs font-medium text-muted-foreground/70 uppercase tracking-wide">
+          {label}
+        </span>
+      </div>
+      <div className="flex flex-col gap-1">
+        <p className="text-4xl max-lg:text-3xl max-md:text-2xl font-light text-foreground tracking-tight">
           {value}
         </p>
         {subtext && (
-          <p className="text-xs text-muted-foreground/70 truncate">{subtext}</p>
+          <p className="text-xs text-muted-foreground/60">{subtext}</p>
         )}
       </div>
     </div>
@@ -100,18 +98,13 @@ export default function UserAnalytics({
   );
 
   return (
-    <div className={cn("flex flex-col gap-6", className)}>
-      <div className="flex items-center justify-between flex-wrap gap-3 pb-4 border-b border-border/30">
-        <div className="flex items-center gap-3">
-          <div className="p-2 bg-primary-main/10 text-primary-main rounded-lg">
-            <TrendingUp size={18} className="" />
-          </div>
-          <div>
-            <h2 className="text-lg font-bold text-foreground">
-              {t("user_analytics.title")}
-            </h2>
-            <p className="text-xs text-muted-foreground/60 mt-0.5">Your performance metrics</p>
-          </div>
+    <div className={cn("flex flex-col gap-10", className)}>
+      <div className="flex items-center justify-between flex-wrap gap-4">
+        <div className="flex flex-col gap-2">
+          <h2 className="text-3xl font-light text-foreground">
+            {t("user_analytics.title")}
+          </h2>
+          <p className="text-xs text-muted-foreground/60">Track your sustainability impact</p>
         </div>
         <SelectDropDown
           onValueChange={onSelectDropDownChange}
@@ -123,7 +116,7 @@ export default function UserAnalytics({
         </SelectDropDown>
       </div>
 
-      <div className="grid grid-cols-2 gap-5 max-sm:grid-cols-1">
+      <div className="grid grid-cols-2 gap-x-8 gap-y-4 max-sm:grid-cols-1 border-t border-border/40 pt-8">
         <StatCard
           icon={<Scale size={18} className="text-primary-main" />}
           label={t("user_analytics.wastes_exchanged")}

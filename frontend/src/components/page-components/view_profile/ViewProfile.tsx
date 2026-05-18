@@ -25,60 +25,63 @@ export default function ViewProfile({ user_id }: { user_id?: number }) {
   });
 
   return (
-    <div className="w-full max-w-5xl mx-auto flex flex-col gap-8">
-      {/* Profile Header Banner - Enhanced */}
-      <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-primary-main/15 via-primary-main/5 to-primary-main/0 border border-primary-main/25 p-10 flex items-center gap-8 max-md:flex-col max-md:text-center max-md:p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
-        {/* Decorative Background Elements */}
-        <div className="absolute top-0 right-0 w-40 h-40 bg-primary-main/8 rounded-full -translate-y-1/2 translate-x-1/3 blur-3xl pointer-events-none"></div>
-        <div className="absolute bottom-0 left-0 w-32 h-32 bg-primary-main/5 rounded-full translate-y-1/3 -translate-x-1/4 blur-3xl pointer-events-none"></div>
-        
-        {/* Avatar */}
-        <div className="relative z-10">
-          <div className="h-32 w-32 rounded-full bg-gradient-to-br from-primary-main to-primary-main/70 flex items-center justify-center text-white shadow-xl shrink-0 border-4 border-white dark:border-card/50 backdrop-blur-sm ring-4 ring-primary-main/20 max-md:h-28 max-md:w-28">
+    <div className="w-full max-w-4xl mx-auto flex flex-col gap-16 py-12">
+      {/* Minimalist Profile Header */}
+      <div className="flex flex-col gap-8 max-md:gap-6">
+        {/* Avatar - Clean and Simple */}
+        <div className="flex items-start gap-8 max-md:gap-6 max-md:items-center max-md:justify-center">
+          <div className="h-24 w-24 rounded-full bg-primary-main/10 flex items-center justify-center text-primary-main shrink-0 max-md:h-20 max-md:w-20">
             {user?.first_name ? (
-              <span className="text-5xl font-bold max-md:text-4xl">
+              <span className="text-3xl font-light max-md:text-2xl">
                 {user.first_name.charAt(0).toUpperCase()}
                 {user.last_name.charAt(0).toUpperCase()}
               </span>
             ) : (
-              <User size={48} />
+              <User size={40} />
+            )}
+          </div>
+          
+          {/* User Info - Minimalist */}
+          <div className="flex flex-col gap-3 flex-1 max-md:text-center max-md:gap-2">
+            <div className="flex items-baseline gap-3 max-md:justify-center max-md:flex-wrap">
+              <h1 className="text-5xl font-light text-foreground max-md:text-4xl tracking-tight">
+                {user ? `${user.first_name}` : t("profile.title")}
+              </h1>
+              {user?.role === "admin" || user?.role === "super_admin" ? (
+                <div className="flex items-center gap-1.5 text-primary-main">
+                  <ShieldCheck className="w-4 h-4" />
+                  <span className="text-xs font-medium uppercase tracking-wide">
+                    {capitalizeFirstLetter(user.role.replace("_", " "))}
+                  </span>
+                </div>
+              ) : null}
+            </div>
+            <p className="text-lg text-muted-foreground font-light">
+              {user?.last_name}
+            </p>
+            <p className="text-sm text-muted-foreground/70 pt-2">
+              {user?.email}
+            </p>
+            {user?.role && !user?.role.includes("admin") && (
+              <span className="inline-flex w-fit text-xs text-muted-foreground/60 font-light max-md:justify-center max-md:mx-auto">
+                {capitalizeFirstLetter(user.role.replace("_", " "))}
+              </span>
             )}
           </div>
         </div>
         
-        {/* User Info */}
-        <div className="flex flex-col gap-2 flex-1 z-10">
-          <div className="flex items-center gap-3 max-md:justify-center max-md:flex-wrap">
-            <h2 className="text-4xl font-bold text-foreground tracking-tight max-md:text-3xl">
-              {user ? `${user.first_name} ${user.last_name}` : t("profile.title")}
-            </h2>
-            {user?.role === "admin" || user?.role === "super_admin" ? (
-              <div className="flex items-center gap-1.5 px-3 py-1.5 bg-primary-main/15 text-primary-main rounded-lg">
-                <ShieldCheck className="w-5 h-5" />
-                <span className="text-xs font-bold uppercase tracking-wider hidden max-sm:inline">
-                  {capitalizeFirstLetter(user.role.replace("_", " "))}
-                </span>
-              </div>
-            ) : null}
-          </div>
-          <p className="text-muted-foreground font-medium text-base max-md:text-sm">
-            {user?.email}
-          </p>
-          {user?.role && !user?.role.includes("admin") && (
-            <span className="inline-flex w-fit px-3 py-1.5 rounded-full bg-primary-main/10 text-primary-main text-xs font-bold uppercase tracking-wider max-md:mx-auto">
-              {capitalizeFirstLetter(user.role.replace("_", " "))}
-            </span>
-          )}
-        </div>
+        {/* Divider */}
+        <div className="w-full h-px bg-border/40"></div>
       </div>
 
-      <div className="flex flex-col gap-6">
+      {/* Content Sections */}
+      <div className="flex flex-col gap-16">
         <PersonalInformation id={targetId} />
         {user_id && (
-          <>
-            <div className="w-full h-[1px] bg-border my-2"></div>
+          <div className="flex flex-col gap-10">
+            <div className="w-full h-px bg-border/40"></div>
             <UserAnalytics user_id={user_id} />
-          </>
+          </div>
         )}
       </div>
     </div>

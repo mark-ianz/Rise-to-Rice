@@ -19,7 +19,7 @@ import { toast } from "sonner";
 import { ZodError } from "zod";
 import { allowedUploadTypes } from "@/lib/const";
 import ViewImage from "@/components/general/ViewImage";
-import { Sparkles, FileUp } from "lucide-react";
+import { FileUp } from "lucide-react";
 
 type Props = {
   announcement: Announcement;
@@ -120,7 +120,6 @@ export default function EditAnnouncementButton({ announcement, children }: Props
           <div className="flex flex-col gap-1">
             <DialogHeader>
               <DialogTitle className="text-xl font-extrabold text-slate-800 flex items-center gap-1.5">
-                <Sparkles className="w-5 h-5 text-emerald-500" />
                 Edit Announcement
               </DialogTitle>
             </DialogHeader>

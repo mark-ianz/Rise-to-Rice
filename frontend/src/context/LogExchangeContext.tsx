@@ -9,6 +9,7 @@ type LogExchangeState = {
   weight: string;
   unit: UnitConversion;
   points: number;
+  image: File | null;
   error: string[];
 };
 
@@ -18,6 +19,7 @@ type LogExchangeAction =
   | { type: "SET_WEIGHT"; payload: string }
   | { type: "SET_UNIT"; payload: UnitConversion }
   | { type: "SET_POINTS"; payload: number }
+  | { type: "SET_IMAGE"; payload: File | null }
   | { type: "RESET" }
   | { type: "SET_ERROR"; payload: string[] }
   | { type: "CLEAR_ERROR" };
@@ -43,6 +45,7 @@ const initialState: LogExchangeState = {
   weight: "",
   unit: { unit: "kg", conversion: 1 },
   points: 0,
+  image: null,
   error: [],
 };
 
@@ -75,6 +78,11 @@ const logExchangeReducer = (
       return {
         ...state,
         points: action.payload,
+      };
+    case "SET_IMAGE":
+      return {
+        ...state,
+        image: action.payload,
       };
     case "SET_ERROR":
       return {

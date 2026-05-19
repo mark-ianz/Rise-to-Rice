@@ -14,6 +14,9 @@ export type RedeemRequest = {
   unit: Unit;
   email: string;
   contact_number: string;
+  admin_notes?: string;
+  cancel_reason?: string;
+  nano_id?: string;
 };
 
 export type Status =
@@ -21,7 +24,8 @@ export type Status =
   | "for pick up"
   | "completed"
   | "rejected"
-  | "cancelled";
+  | "cancelled"
+  | "working";
 
 export type RedeemRequestResponse = PaginationResult & {
   result: RedeemRequest[];
@@ -38,6 +42,9 @@ export type RedeemRequestHistory = PaginationResult & {
   reward_id: number
   reward_name: string
   unit: Unit
+  admin_notes?: string;
+  cancel_reason?: string;
+  nano_id?: string;
 };
 
 export type RedeemRequestHistoryResponse = PaginationResult & {

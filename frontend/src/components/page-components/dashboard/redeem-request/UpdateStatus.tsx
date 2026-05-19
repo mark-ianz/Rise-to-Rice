@@ -23,6 +23,7 @@ type MutationValue = {
   user_id?: number;
   current_status?: string;
   new_status: string;
+  admin_notes?: string;
 };
 
 type Props = {
@@ -61,6 +62,7 @@ export default function UpdateStatus({
   }>();
   const [error, setError] = useState<string[] | null>(null);
   const [confirmationInput, setConfirmationInput] = useState<string>("");
+  const [adminNotes, setAdminNotes] = useState<string>("");
 
   const neededInput = `update ${resource_name} id #${id}`;
 
@@ -91,7 +93,7 @@ export default function UpdateStatus({
     }
 
     mutate(
-      { ...mutation_value, new_status: selectedStatus.value },
+      { ...mutation_value, new_status: selectedStatus.value, admin_notes: adminNotes || undefined },
       {
         onSuccess: () => {
           setOpen(false);
@@ -149,6 +151,21 @@ export default function UpdateStatus({
                 </SelectDropDown>
               </span>
             </div>
+            {resource_name === "request" && (
+              <div className="flex flex-col gap-1.5">
+                <label htmlFor="admin_notes" className="text-sm font-medium">
+                  Admin Notes (Optional)
+                </label>
+                <textarea
+                  id="admin_notes"
+                  className="w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 min-h-[80px]"
+                  placeholder="Enter any notes about this status change..."
+                  value={adminNotes}
+                  onChange={(e) => setAdminNotes(e.target.value)}
+                />
+                <p className="text-xs text-muted-foreground">These notes will be visible to the user and in email notifications.</p>
+              </div>
+            )}
             <ConfirmationInput
               onValueChange={(e) => setConfirmationInput(e.target.value)}
               value={confirmationInput}

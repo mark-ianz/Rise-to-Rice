@@ -43,3 +43,27 @@ export function useGetUserActivity({
     enabled: !!userId,
   });
 }
+
+export function useGetRedeemRequestByNanoId(nanoId: string | undefined) {
+  return useQuery({
+    queryKey: ["redeem-request-nano", nanoId],
+    queryFn: async () => {
+      if (!nanoId) return null;
+      const response = await axios.get(`/api/redeem-request/activity/${nanoId}`);
+      return response.data;
+    },
+    enabled: !!nanoId,
+  });
+}
+
+export function useGetExchangeLogByNanoId(nanoId: string | undefined) {
+  return useQuery({
+    queryKey: ["exchange-log-nano", nanoId],
+    queryFn: async () => {
+      if (!nanoId) return null;
+      const response = await axios.get(`/api/exchange/activity/${nanoId}`);
+      return response.data;
+    },
+    enabled: !!nanoId,
+  });
+}

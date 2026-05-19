@@ -11,15 +11,26 @@ export function useLogExchange() {
     mutationFn: async ({
       data,
       user_id,
+      image,
     }: {
       data: LogExchange;
       user_id: number;
+      image?: File | null;
     }) => {
-      await axios.post("/api/exchange/log", {
-        user_id: user_id,
-        material_id: data.selectedMaterial.material_id,
-        weight: Number(data.weight),
-        points_added: data.points,
+      const formData = new FormData();
+      formData.append("user_id", String(user_id));
+      formData.append("material_id", String(data.selectedMaterial.material_id));
+      formData.append("weight", String(data.weight));
+      formData.append("points_added", String(data.points));
+      
+      if (image) {
+        formData.append("image", image);
+      }
+
+      await axios.post("/api/exchange/log", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       });
     },
     onSuccess: () => {

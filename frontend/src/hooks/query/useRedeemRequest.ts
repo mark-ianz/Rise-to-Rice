@@ -46,6 +46,7 @@ export function useUpdateRedeemRequestStatus() {
       points_cost,
       user_id,
       current_status,
+      admin_notes,
     }: {
       new_status: string;
       id: number;
@@ -53,6 +54,7 @@ export function useUpdateRedeemRequestStatus() {
       points_cost?: number;
       user_id?: number;
       current_status?: string;
+      admin_notes?: string;
     }) => {
       await axios.put("/api/redeem-request/status/" + id, {
         new_status,
@@ -60,18 +62,21 @@ export function useUpdateRedeemRequestStatus() {
         points_cost,
         user_id,
         current_status,
+        admin_notes,
       });
 
       return id;
     },
     onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: ["redeem-request"] });
+      queryClient.invalidateQueries({ queryKey: ["redeem-request-nano"] });
       queryClient.setQueriesData(
         { queryKey: ["redeem-request"] },
         (oldData: RedeemRequestResponse | undefined) => {
           if (!oldData) return;
           const updatedData = oldData.result.map((rr: RedeemRequest) => {
             if (rr.redeem_request_id === variables.id) {
-              return { ...rr, status: variables.new_status };
+              return { ...rr, status: variables.new_status, admin_notes: variables.admin_notes };
             }
             return rr;
           });

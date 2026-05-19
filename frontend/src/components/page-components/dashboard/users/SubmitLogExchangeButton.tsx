@@ -33,7 +33,7 @@ export default function SubmitLogExchangeButton({ user, points_added }: Props) {
       const parsed = LogExchangeSchema.parse(state);
 
       mutate(
-        { data: parsed, user_id: user.user_id },
+        { data: parsed, user_id: user.user_id, image: state.image },
         {
           onSuccess: () => [toast.success("Exchange logged successfully!")],
           onError: () => {

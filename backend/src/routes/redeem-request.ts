@@ -6,7 +6,8 @@ import {
   handleGetRedeemRequest,
   handlePostRedeemRequest,
   handleStatusUpdate,
-  handleCancelStatus
+  handleCancelStatusUser,
+  handleGetRedeemRequestByNanoId
 } from "../controllers/redeem-request";
 import { requireAdmin, requireAuth } from "../middleware/authentication";
 
@@ -15,9 +16,12 @@ const router = Router();
 // This route is for user to create a redeem request
 router.post("/", handlePostRedeemRequest);
 
+// Specific Activity View (Publicish/Auth)
+router.get("/activity/:nano_id", requireAuth, handleGetRedeemRequestByNanoId);
+
 // User Route
 router.get("/user/:id", requireAuth, handleGetAllRedeemRequestsByUser); // Get all user redeem requests
-router.put("/cancel/:id", requireAuth, handleCancelStatus); // Cancel redeem request
+router.put("/cancel/:id", requireAuth, handleCancelStatusUser); // Cancel redeem request
 
 // This route is for admin to get all redeem requests
 router.get("/", requireAdmin, handleGetAllRedeemRequests);

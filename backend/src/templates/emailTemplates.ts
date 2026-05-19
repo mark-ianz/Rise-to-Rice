@@ -9,6 +9,12 @@ export interface TranslationDictionary {
   status_label: string;
   action_button: string;
   status_intro: string;
+  exchange_status_label: string;
+  exchange_action_button: string;
+  exchange_intro: string;
+  receipt_status_label: string;
+  receipt_action_button: string;
+  receipt_intro: string;
 }
 
 export const translations: Record<"en" | "tl", TranslationDictionary> = {
@@ -16,25 +22,37 @@ export const translations: Record<"en" | "tl", TranslationDictionary> = {
     brand_name: "Rise to Rice",
     footer_tagline: "Empowering low-income families through sustainable recycling.",
     footer_support: "Support & Inquiries",
-    greeting: "Hello!",
+    greeting: "Hello",
     intro: "You requested a verification code to complete your action on Rise to Rice. Please use the verification code below to proceed:",
     code_label: "Your Verification Code",
     expires_in: "This code is valid for 10 minutes. If you did not request this, please ignore this email.",
     status_label: "Redemption Request Status",
     action_button: "Visit Rise to Rice",
     status_intro: "Your redemption request status has been updated. Please find the details of the update below:",
+    exchange_status_label: "Waste Material Exchanged",
+    exchange_action_button: "View Proof & Details",
+    exchange_intro: "A new waste material exchange has been logged to your account. Details are listed below:",
+    receipt_status_label: "Redemption Request Submitted",
+    receipt_action_button: "Track Status",
+    receipt_intro: "We have received your redemption request! Here is your receipt containing details of the transaction:",
   },
   tl: {
     brand_name: "Rise to Rice",
     footer_tagline: "Pagbibigay-kapangyarihan sa mga pamilya sa pamamagitan ng recycling.",
     footer_support: "Suporta at mga Katanungan",
-    greeting: "Kumusta!",
+    greeting: "Kumusta",
     intro: "Humingi ka ng verification code para makumpleto ang iyong aksyon sa Rise to Rice. Mangyaring gamitin ang verification code sa ibaba upang magpatuloy:",
     code_label: "Iyong Verification Code",
     expires_in: "Ang code na ito ay valid sa loob ng 10 minuto. Kung hindi mo ito hiniling, mangyaring balewalain ang email na ito.",
     status_label: "Katayuan ng Iyong Redeem Request",
     action_button: "Pumunta sa Rise to Rice",
     status_intro: "Ang katayuan ng iyong redeem request ay na-update. Mangyaring tingnan ang mga detalye sa ibaba:",
+    exchange_status_label: "Waste Material na Ipinagpalit",
+    exchange_action_button: "Tingnan ang Katibayan at Detalye",
+    exchange_intro: "Isang bagong waste material exchange ang naitala sa iyong account. Ang mga detalye ay nasa ibaba:",
+    receipt_status_label: "Natanggap ang Iyong Redeem Request",
+    receipt_action_button: "Subaybayan ang Katayuan",
+    receipt_intro: "Natanggap na namin ang iyong redeem request! Narito ang iyong resibo na naglalaman ng mga detalye ng transaksyon:",
   },
 };
 
@@ -89,7 +107,7 @@ export const BASE_LAYOUT = `
 `;
 
 export const VERIFICATION_TEMPLATE = `
-<h2 style="margin: 0 0 15px 0; font-size: 20px; font-weight: 700; color: #1A361D;"><%= t.greeting %></h2>
+<h2 style="margin: 0 0 15px 0; font-size: 20px; font-weight: 700; color: #1A361D;"><%= t.greeting %><%= firstName ? ', ' + firstName : '' %>!</h2>
 <p style="margin: 0 0 25px 0;"><%= t.intro %></p>
 
 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom: 25px;">
@@ -105,7 +123,7 @@ export const VERIFICATION_TEMPLATE = `
 `;
 
 export const STATUS_UPDATE_TEMPLATE = `
-<h2 style="margin: 0 0 15px 0; font-size: 20px; font-weight: 700; color: #1A361D;"><%= t.greeting %></h2>
+<h2 style="margin: 0 0 15px 0; font-size: 20px; font-weight: 700; color: #1A361D;"><%= t.greeting %><%= firstName ? ', ' + firstName : '' %>!</h2>
 <p style="margin: 0 0 25px 0;"><%= t.status_intro %></p>
 
 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom: 25px; border-collapse: separate; border-spacing: 0;">
@@ -118,13 +136,96 @@ export const STATUS_UPDATE_TEMPLATE = `
     </td>
   </tr>
   <tr>
-    <td style="padding: 20px; background-color: #ffffff; border: 1px solid #EDF2EE; border-top: none; border-radius: 0 0 8px 8px; font-size: 15px; color: #2C3E2B; line-height: 1.6;">
+    <td style="padding: 20px; background-color: #ffffff; border: 1px solid #EDF2EE; border-top: none; border-radius: 0 0 <%= adminNotes ? '0 0' : '8px 8px' %>; font-size: 15px; color: #2C3E2B; line-height: 1.6;">
       <%= statusMessage %>
+    </td>
+  </tr>
+  <% if (adminNotes) { %>
+  <tr>
+    <td style="padding: 15px 20px; background-color: #FFFDE7; border: 1px solid #FFF59D; border-top: none; border-radius: 0 0 8px 8px; font-size: 14px; color: #5D4037; line-height: 1.5; border-left: 4px solid #F57F17;">
+      <strong><%= lang === 'tl' ? 'Tala ng Admin' : 'Admin Notes' %>:</strong> <%= adminNotes %>
+    </td>
+  </tr>
+  <% } %>
+</table>
+
+<div align="center" style="margin-top: 30px; margin-bottom: 10px;">
+  <a href="<%= websiteUrl %>" style="display: inline-block; background-color: #2D5A27; color: #ffffff; font-weight: 600; text-decoration: none; padding: 12px 30px; border-radius: 8px; font-size: 15px; box-shadow: 0 4px 6px rgba(45, 90, 39, 0.15);"><%= t.action_button %></a>
+</div>
+`;
+
+export const EXCHANGE_TEMPLATE = `
+<h2 style="margin: 0 0 15px 0; font-size: 20px; font-weight: 700; color: #1A361D;"><%= t.greeting %><%= firstName ? ', ' + firstName : '' %>!</h2>
+<p style="margin: 0 0 25px 0;"><%= t.exchange_intro %></p>
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom: 25px; border-collapse: separate; border-spacing: 0;">
+  <tr>
+    <td style="padding: 15px; background-color: #F8FAF7; border: 1px solid #EDF2EE; border-radius: 8px 8px 0 0; font-weight: bold; color: #556B2F;">
+      <%= t.exchange_status_label %>
+    </td>
+  </tr>
+  <tr>
+    <td style="padding: 20px; background-color: #ffffff; border: 1px solid #EDF2EE; border-top: none; border-radius: 0 0 8px 8px; font-size: 15px; color: #2C3E2B; line-height: 1.6;">
+      <table border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+          <td style="padding: 6px 0; color: #718096;"><%= lang === 'tl' ? 'Uri ng Material' : 'Material Type' %>:</td>
+          <td style="padding: 6px 0; font-weight: bold; text-align: right;"><%= materialName %></td>
+        </tr>
+        <tr>
+          <td style="padding: 6px 0; color: #718096;"><%= lang === 'tl' ? 'Timbang' : 'Weight' %>:</td>
+          <td style="padding: 6px 0; font-weight: bold; text-align: right;"><%= weight %> kg</td>
+        </tr>
+        <tr>
+          <td style="padding: 6px 0; color: #718096;"><%= lang === 'tl' ? 'Puntos na Idinagdag' : 'Points Earned' %>:</td>
+          <td style="padding: 6px 0; font-weight: bold; color: #2E7D32; text-align: right;">+<%= pointsAdded %> pts</td>
+        </tr>
+        <% if (loggedBy) { %>
+        <tr>
+          <td style="padding: 6px 0; color: #718096;"><%= lang === 'tl' ? 'Itinala ni' : 'Logged By' %>:</td>
+          <td style="padding: 6px 0; font-weight: 500; text-align: right;"><%= loggedBy %></td>
+        </tr>
+        <% } %>
+      </table>
     </td>
   </tr>
 </table>
 
 <div align="center" style="margin-top: 30px; margin-bottom: 10px;">
-  <a href="<%= websiteUrl %>" style="display: inline-block; background-color: #2D5A27; color: #ffffff; font-weight: 600; text-decoration: none; padding: 12px 30px; border-radius: 8px; font-size: 15px; box-shadow: 0 4px 6px rgba(45, 90, 39, 0.15);"><%= t.action_button %></a>
+  <a href="<%= websiteUrl %>" style="display: inline-block; background-color: #2D5A27; color: #ffffff; font-weight: 600; text-decoration: none; padding: 12px 30px; border-radius: 8px; font-size: 15px; box-shadow: 0 4px 6px rgba(45, 90, 39, 0.15);"><%= t.exchange_action_button %></a>
+</div>
+`;
+
+export const RECEIPT_TEMPLATE = `
+<h2 style="margin: 0 0 15px 0; font-size: 20px; font-weight: 700; color: #1A361D;"><%= t.greeting %><%= firstName ? ', ' + firstName : '' %>!</h2>
+<p style="margin: 0 0 25px 0;"><%= t.receipt_intro %></p>
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom: 25px; border-collapse: separate; border-spacing: 0;">
+  <tr>
+    <td style="padding: 15px; background-color: #F8FAF7; border: 1px solid #EDF2EE; border-radius: 8px 8px 0 0; font-weight: bold; color: #556B2F;">
+      <%= t.receipt_status_label %>
+    </td>
+  </tr>
+  <tr>
+    <td style="padding: 20px; background-color: #ffffff; border: 1px solid #EDF2EE; border-top: none; border-radius: 0 0 8px 8px; font-size: 15px; color: #2C3E2B; line-height: 1.6;">
+      <table border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+          <td style="padding: 6px 0; color: #718096;"><%= lang === 'tl' ? 'Pangalan ng Reward' : 'Reward Name' %>:</td>
+          <td style="padding: 6px 0; font-weight: bold; text-align: right;"><%= rewardName %></td>
+        </tr>
+        <tr>
+          <td style="padding: 6px 0; color: #718096;"><%= lang === 'tl' ? 'Dami' : 'Quantity' %>:</td>
+          <td style="padding: 6px 0; font-weight: bold; text-align: right;"><%= quantity %></td>
+        </tr>
+        <tr>
+          <td style="padding: 6px 0; color: #718096;"><%= lang === 'tl' ? 'Puntos na Ginamit' : 'Points Redeemed' %>:</td>
+          <td style="padding: 6px 0; font-weight: bold; color: #C62828; text-align: right;">-<%= pointsCost %> pts</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+
+<div align="center" style="margin-top: 30px; margin-bottom: 10px;">
+  <a href="<%= websiteUrl %>" style="display: inline-block; background-color: #2D5A27; color: #ffffff; font-weight: 600; text-decoration: none; padding: 12px 30px; border-radius: 8px; font-size: 15px; box-shadow: 0 4px 6px rgba(45, 90, 39, 0.15);"><%= t.receipt_action_button %></a>
 </div>
 `;

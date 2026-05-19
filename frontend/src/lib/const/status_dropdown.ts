@@ -4,6 +4,10 @@ export const requestStatusDropdown = [
     label: "Pending",
   },
   {
+    value: "working",
+    label: "Working",
+  },
+  {
     value: "for pick up",
     label: "For Pick Up",
   },

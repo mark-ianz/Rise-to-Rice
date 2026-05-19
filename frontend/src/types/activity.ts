@@ -9,6 +9,7 @@ export interface ActivityLog {
   weight: number | null;
   status: 'pending' | 'for pick up' | 'completed' | 'rejected' | 'cancelled' | null;
   reward_name: string | null;
+  nano_id: string;
 }
 
 export interface ActivityHistoryResponse extends PaginationResult {

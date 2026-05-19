@@ -1,0 +1,5 @@
+- Logging materials should also email the users, and the nav link on the email should point to the '/activity-history/exchange/nano_id'
+- Redeeming material should also email it to the user as like receipt, and not just only the change of status.
+- if the user cancelled, add the reason on admin side.
+- shouldn't be able to update the status if the new status is the same
+- /activity-history should be sorted by latest updated.

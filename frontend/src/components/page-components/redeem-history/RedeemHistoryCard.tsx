@@ -39,7 +39,7 @@ export default function RedeemHistoryCard({ request }: Props) {
           {t("terms.status")}:{"  "}
           <Badge
             className="font-normal px-2 py-[.2em] w-fit"
-            variant={request.status}
+            variant={request.status as any}
           >
             {capitalizeWordStart(
               t(`redeem_history.status.${request.status.toLocaleLowerCase()}`)

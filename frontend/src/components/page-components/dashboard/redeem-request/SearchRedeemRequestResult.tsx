@@ -56,10 +56,20 @@ export default function SearchRedeemRequestResult() {
             <TableCell className="max-w-14 overflow-hidden text-ellipsis whitespace-nowrap">
               {rr.points_cost}
             </TableCell>
-            <TableCell className="max-w-20 overflow-hidden text-ellipsis whitespace-nowrap">
-              <Badge className="font-normal" variant={rr.status}>
+            <TableCell className="max-w-28 overflow-hidden text-ellipsis">
+              <Badge className="font-normal" variant={rr.status as any}>
                 {capitalizeWordStart(rr.status)}
               </Badge>
+              {rr.status === "cancelled" && rr.cancel_reason && (
+                <div className="text-[10px] text-red-500 mt-1 max-w-[150px] overflow-hidden text-ellipsis whitespace-nowrap" title={rr.cancel_reason}>
+                  Reason: {rr.cancel_reason}
+                </div>
+              )}
+              {rr.admin_notes && (
+                <div className="text-[10px] text-blue-500 mt-1 max-w-[150px] overflow-hidden text-ellipsis whitespace-nowrap" title={rr.admin_notes}>
+                  Notes: {rr.admin_notes}
+                </div>
+              )}
             </TableCell>
             <TableCell className="max-w-32">
               <HideViewText>{rr.email}</HideViewText>
@@ -110,7 +120,19 @@ export default function SearchRedeemRequestResult() {
                 />
                 <ValueWrapper
                   label="Status"
-                  value={capitalizeWordStart(redeem_request.status)}
+                  value={
+                    <div className="flex flex-col items-start gap-1">
+                      <Badge className="font-normal" variant={redeem_request.status as any}>
+                        {capitalizeWordStart(redeem_request.status)}
+                      </Badge>
+                      {redeem_request.status === "cancelled" && redeem_request.cancel_reason && (
+                        <span className="text-xs text-red-500 font-medium">Reason: {redeem_request.cancel_reason}</span>
+                      )}
+                      {redeem_request.admin_notes && (
+                        <span className="text-xs text-blue-500 font-medium">Notes: {redeem_request.admin_notes}</span>
+                      )}
+                    </div>
+                  }
                 />
                 <ValueWrapper label="Email" value={<HideViewText>{redeem_request.email}</HideViewText>} />
                 <ValueWrapper

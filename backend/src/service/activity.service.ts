@@ -9,6 +9,7 @@ export interface ActivityLog extends RowDataPacket {
   weight: number | null;
   status: string | null;
   reward_name: string | null;
+  nano_id: string;
 }
 
 export async function getUserActivity(
@@ -69,10 +70,12 @@ export async function getUserActivity(
       el.exchange_log_id AS id,
       el.points_added AS points,
       el.timestamp,
+      COALESCE(el.updated_at, el.timestamp) AS updated_at,
       m.material AS material_name,
       el.weight,
       NULL AS status,
-      NULL AS reward_name
+      NULL AS reward_name,
+      el.nano_id
     FROM exchange_log el
     JOIN material m ON el.material_id = m.material_id
     ${exchangeWhere}
@@ -84,10 +87,12 @@ export async function getUserActivity(
       rr.redeem_request_id AS id,
       rv.points_cost AS points,
       rr.timestamp,
+      COALESCE(rr.updated_at, rr.timestamp) AS updated_at,
       NULL AS material_name,
       NULL AS weight,
       rr.status,
-      r.reward_name
+      r.reward_name,
+      rr.nano_id
     FROM redeem_request rr
     INNER JOIN reward_variation rv ON rr.variation_id = rv.variation_id
     INNER JOIN reward r ON r.reward_id = rv.reward_id
@@ -98,10 +103,10 @@ export async function getUserActivity(
   let params: any[] = [];
 
   if (type === 'exchange') {
-    query = `${exchangeQuery} ORDER BY timestamp DESC LIMIT ? OFFSET ?`;
+    query = `${exchangeQuery} ORDER BY updated_at DESC LIMIT ? OFFSET ?`;
     params = [...exchangeParams, limit, offset];
   } else if (type === 'redeem') {
-    query = `${redeemQuery} ORDER BY timestamp DESC LIMIT ? OFFSET ?`;
+    query = `${redeemQuery} ORDER BY updated_at DESC LIMIT ? OFFSET ?`;
     params = [...redeemParams, limit, offset];
   } else {
     // If searching or filtering by status, we might need to handle the case where one side returns nothing
@@ -109,7 +114,7 @@ export async function getUserActivity(
       (${exchangeQuery})
       UNION ALL
       (${redeemQuery})
-      ORDER BY timestamp DESC
+      ORDER BY updated_at DESC
       LIMIT ? OFFSET ?
     `;
     params = [...exchangeParams, ...redeemParams, limit, offset];

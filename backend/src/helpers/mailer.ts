@@ -5,6 +5,8 @@ import {
   BASE_LAYOUT,
   VERIFICATION_TEMPLATE,
   STATUS_UPDATE_TEMPLATE,
+  EXCHANGE_TEMPLATE,
+  RECEIPT_TEMPLATE,
   translations,
 } from "../templates/emailTemplates";
 
@@ -16,9 +18,23 @@ export async function sendEmail(
   options?: {
     lang?: "en" | "tl";
     code?: string;
+    actionUrl?: string;
+    firstName?: string;
+    adminNotes?: string;
     statusInfo?: {
       status: string;
       message: string;
+    };
+    exchangeInfo?: {
+      materialName: string;
+      weight: number;
+      pointsAdded: number;
+      loggedBy?: string;
+    };
+    receiptInfo?: {
+      rewardName: string;
+      quantity: string;
+      pointsCost: number;
     };
   }
 ): Promise<any> {
@@ -35,6 +51,28 @@ export async function sendEmail(
         bodyContent = ejs.render(VERIFICATION_TEMPLATE, {
           t,
           code: options.code,
+          firstName: options.firstName || "",
+        });
+      } else if (options?.exchangeInfo) {
+        bodyContent = ejs.render(EXCHANGE_TEMPLATE, {
+          t,
+          firstName: options.firstName || "",
+          materialName: options.exchangeInfo.materialName,
+          weight: options.exchangeInfo.weight,
+          pointsAdded: options.exchangeInfo.pointsAdded,
+          loggedBy: options.exchangeInfo.loggedBy || "",
+          websiteUrl: options?.actionUrl || process.env.FRONTEND_URL || "http://localhost:5173",
+          lang,
+        });
+      } else if (options?.receiptInfo) {
+        bodyContent = ejs.render(RECEIPT_TEMPLATE, {
+          t,
+          firstName: options.firstName || "",
+          rewardName: options.receiptInfo.rewardName,
+          quantity: options.receiptInfo.quantity,
+          pointsCost: options.receiptInfo.pointsCost,
+          websiteUrl: options?.actionUrl || process.env.FRONTEND_URL || "http://localhost:5173",
+          lang,
         });
       } else if (options?.statusInfo) {
         const status = options.statusInfo.status.toLowerCase();
@@ -69,6 +107,11 @@ export async function sendEmail(
           badgeTextColor = "#1565C0";
           badgeBorderColor = "#BBDEFB";
           statusText = lang === "tl" ? "Pinoproseso" : "Pending";
+        } else if (status === "working") {
+          badgeBgColor = "#FFF8E1";
+          badgeTextColor = "#F57F17";
+          badgeBorderColor = "#FFECB3";
+          statusText = lang === "tl" ? "Tinatrabaho" : "Working";
         }
 
         bodyContent = ejs.render(STATUS_UPDATE_TEMPLATE, {
@@ -78,12 +121,16 @@ export async function sendEmail(
           badgeBgColor,
           badgeTextColor,
           badgeBorderColor,
-          websiteUrl: process.env.FRONTEND_URL || "http://localhost:5173",
+          websiteUrl: options?.actionUrl || process.env.FRONTEND_URL || "http://localhost:5173",
+          firstName: options?.firstName || "",
+          adminNotes: options?.adminNotes || "",
+          lang,
         });
       } else {
         // Fallback generic HTML wrapping for plain text messages
+        const greetingText = lang === "tl" ? "Kumusta" : "Hello";
         bodyContent = `
-          <h2 style="margin: 0 0 15px 0; font-size: 20px; font-weight: 700; color: #1A361D;">${t.greeting}</h2>
+          <h2 style="margin: 0 0 15px 0; font-size: 20px; font-weight: 700; color: #1A361D;">${greetingText}${options?.firstName ? ", " + options.firstName : ""}!</h2>
           <p style="margin: 0; line-height: 1.6; color: #2C3E2B;">${text.replace(/\n/g, "<br>")}</p>
         `;
       }
@@ -118,7 +165,10 @@ export async function sendStatusUpdateEmail(
   subject: string,
   status: RedeemRequestStatus,
   html?: string,
-  lang: "en" | "tl" = "en"
+  lang: "en" | "tl" = "en",
+  actionUrl?: string,
+  firstName?: string,
+  adminNotes?: string
 ): Promise<any> {
   const templates = [
     {
@@ -148,6 +198,11 @@ export async function sendStatusUpdateEmail(
       message: "Your redeem request is pending. Please wait for further updates.",
       messageTl: "Ang iyong redeem request ay kasalukuyang pinoproseso. Mangyaring maghintay para sa mga susunod na balita.",
     },
+    {
+      status: "Working",
+      message: "Your redeem request is now being worked on.",
+      messageTl: "Ang iyong redeem request ay kasalukuyang tinatrabaho na ng aming mga tauhan.",
+    },
   ];
 
   const statusObj = templates.find((t) => t.status.toLowerCase() === status.toLowerCase());
@@ -157,6 +212,9 @@ export async function sendStatusUpdateEmail(
 
   return sendEmail(to, subject, text, html, {
     lang,
+    actionUrl,
+    firstName,
+    adminNotes,
     statusInfo: {
       status,
       message: text,

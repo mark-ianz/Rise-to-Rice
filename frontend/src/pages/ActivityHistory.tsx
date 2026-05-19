@@ -66,7 +66,7 @@ export default function ActivityHistory() {
   return (
     <SectionWrapper
       id="activity-history"
-      className="px-20 items-start py-10 justify-center max-md:px-10 max-sm:px-6"
+      className="px-20 items-center py-10 justify-center max-md:px-10 max-sm:px-6"
     >
       <Helmet>
         <title>{t("activity_history.title")} | Rise to Rice</title>

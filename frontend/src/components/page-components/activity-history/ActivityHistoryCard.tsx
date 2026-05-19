@@ -3,7 +3,7 @@ import { capitalizeWordStart, formatUnit } from "@/lib/format";
 import { ActivityLog } from "@/types/activity";
 import { format } from "date-fns";
 import { useTranslation } from "react-i18next";
-import { Recycle, Package, TrendingUp, TrendingDown } from "lucide-react";
+import { Recycle, Package, TrendingUp, TrendingDown, Minus } from "lucide-react";
 
 type Props = {
   activity: ActivityLog;
@@ -12,6 +12,7 @@ type Props = {
 export default function ActivityHistoryCard({ activity }: Props) {
   const { t } = useTranslation("redeem_rewards");
   const isExchange = activity.activity_type === 'exchange';
+  const isRefunded = !isExchange && (activity.status === 'cancelled' || activity.status === 'rejected');
 
   return (
     <li className="flex flex-col gap-4 border p-5 rounded-2xl bg-white shadow-sm hover:shadow-md transition-shadow border-warm-tan/10">
@@ -29,9 +30,9 @@ export default function ActivityHistoryCard({ activity }: Props) {
             </p>
           </div>
         </div>
-        <div className={`flex items-center gap-1 font-bold ${isExchange ? 'text-green-600' : 'text-red-500'}`}>
-          {isExchange ? <TrendingUp size={16} /> : <TrendingDown size={16} />}
-          <span>{isExchange ? '+' : '-'}{activity.points} pts</span>
+        <div className={`flex items-center gap-1 font-bold ${isExchange ? 'text-green-600' : isRefunded ? 'text-secondary-dark/60' : 'text-red-500'}`}>
+          {isExchange ? <TrendingUp size={16} /> : isRefunded ? <Minus size={16} /> : <TrendingDown size={16} />}
+          <span>{isExchange ? '+' : isRefunded ? '' : '-'}{isRefunded ? 0 : activity.points} pts</span>
         </div>
       </div>
 

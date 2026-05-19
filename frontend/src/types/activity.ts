@@ -1,4 +1,4 @@
-import { Pagination } from "./pagination";
+import { PaginationResult } from "./pagination";
 
 export interface ActivityLog {
   activity_type: 'exchange' | 'redeem';
@@ -11,6 +11,6 @@ export interface ActivityLog {
   reward_name: string | null;
 }
 
-export interface ActivityHistoryResponse extends Pagination {
+export interface ActivityHistoryResponse extends PaginationResult {
   result: ActivityLog[];
 }

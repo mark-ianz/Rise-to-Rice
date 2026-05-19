@@ -85,6 +85,7 @@ export default function PointsRewardsCard() {
           <ul className="flex flex-col gap-0 flex-1">
             {recentActivities.map((activity) => {
               const isExchange = activity.activity_type === "exchange";
+              const isRefunded = !isExchange && (activity.status === "cancelled" || activity.status === "rejected");
               return (
                 <li
                   key={`${activity.activity_type}-${activity.id}`}
@@ -107,7 +108,7 @@ export default function PointsRewardsCard() {
                   </div>
                   <div className="flex flex-col items-end gap-1">
                     <span className={`text-sm font-bold ${isExchange ? 'text-green-600' : 'text-secondary-dark/60'}`}>
-                      {isExchange ? '+' : '-'}{activity.points}
+                      {isExchange ? '+' : isRefunded ? '' : '-'}{isRefunded ? 0 : activity.points}
                     </span>
                     {activity.status && (
                       <Badge

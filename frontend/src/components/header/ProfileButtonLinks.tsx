@@ -40,7 +40,7 @@ export default function ProfileButtonLinks({
   };
 
   const itemClass = "w-full flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-xl hover:bg-secondary-light/60 transition-colors text-foreground";
-  const activeClass = "bg-[#2D5A27] text-white hover:bg-[#1E3B1A]";
+  const activeClass = "bg-[#2D5A27]/8 text-[#2D5A27] font-semibold hover:bg-[#2D5A27]/12";
 
   return popoverContent.map((item, index) => {
     // if the link is login or register and the user is authenticated, return null

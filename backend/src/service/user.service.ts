@@ -8,7 +8,7 @@ export async function createUserData(
 ) {
   // insert the data and destructure the result to get insertId
   const [{ insertId }] = await connection.query<ResultSetHeader>(
-    "INSERT INTO user (first_name, middle_name, last_name, suffix, gender, address, birthdate, contact_number) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", // using prepared statement to avoid injection
+    "INSERT INTO user (first_name, middle_name, last_name, suffix, gender, address, birthdate, contact_number, preferred_language) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", // using prepared statement to avoid injection
     [
       user.first_name,
       user.middle_name,
@@ -18,6 +18,7 @@ export async function createUserData(
       user.address,
       user.birthdate,
       user.contact_number,
+      user.preferred_language || "en",
     ]
   );
 

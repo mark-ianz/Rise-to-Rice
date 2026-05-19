@@ -24,6 +24,7 @@ export type UserProfile = {
   contact_number: string;
   createdAt: string;
   role: Role;
+  preferred_language?: "en" | "tl";
 };
 
 export type EditProfile = {

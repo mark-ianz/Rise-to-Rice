@@ -12,6 +12,7 @@ import {
   updateUserInfo,
   updateUserRole,
   verifyVerificationCode,
+  updatePreferredLanguage,
 } from "../controllers/user";
 import {
   requireAdmin,
@@ -25,6 +26,7 @@ const router = Router();
 
 router.get("/", requireAuth, requireAdmin, getAllUser);
 router.put("/reset-password", resetPassword);
+router.put("/preferred-language", requireAuth, updatePreferredLanguage);
 router.put("/change-password/:id", requireAuth, requireSelf, changePassword);
 router.post("/verification-code/request", requestVerificationCode);
 router.post("/verification-code/verify", verifyVerificationCode);

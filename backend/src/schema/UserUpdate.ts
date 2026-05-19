@@ -65,6 +65,7 @@ export const UserUpdateSchema = z.object({
     })
     .transform((birthdate) => new Date(birthdate)),
   reason: z.string().min(1, "Reason must have at least 1 character").optional(),
+  preferred_language: z.enum(["en", "tl"]).optional(),
 });
 
 export type UserUpdate = z.infer<typeof UserUpdateSchema>;

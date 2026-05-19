@@ -276,8 +276,12 @@ export async function handleStatusUpdate(req: Request, res: Response) {
 
     console.log({ new_status, email, points_cost, user_id, current_status });
 
-    const acceptLang = req.headers["accept-language"];
-    const lang = (acceptLang && typeof acceptLang === "string" && acceptLang.startsWith("tl")) ? "tl" : "en";
+    const [userRows]: any = await connection.query(
+      "SELECT preferred_language FROM user WHERE user_id = ?",
+      [user_id]
+    );
+    const userPrefLang = userRows?.[0]?.preferred_language;
+    const lang = userPrefLang === "tl" ? "tl" : "en";
 
     let text = "";
     const templates = [
@@ -459,8 +463,12 @@ export async function handleCancelStatus(
       [points_cost, req.user!.user_id]
     );
 
-    const acceptLang = req.headers["accept-language"];
-    const lang = (acceptLang && typeof acceptLang === "string" && acceptLang.startsWith("tl")) ? "tl" : "en";
+    const [userRows]: any = await connection.query(
+      "SELECT preferred_language FROM user WHERE user_id = ?",
+      [req.user!.user_id]
+    );
+    const userPrefLang = userRows?.[0]?.preferred_language;
+    const lang = userPrefLang === "tl" ? "tl" : "en";
     const text = lang === "tl"
       ? "Ang iyong redeem request ay nakansela. Ang mga puntos na iyong ginamit para sa hiling na ito ay naibalik na sa iyong account."
       : "Your redeem request has been cancelled. The points you used for this request have been returned to your account.";

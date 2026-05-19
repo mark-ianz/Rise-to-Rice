@@ -73,6 +73,7 @@ export const UserCreateSchema = z.object({
       message: "Invalid format.",
     })
     .transform((birthdate) => new Date(birthdate)),
+  preferred_language: z.enum(["en", "tl"]).optional(),
 });
 
 export type UserCreate = z.infer<typeof UserCreateSchema>;

@@ -4,6 +4,8 @@ import { Button } from "../ui/button";
 import UnitedStatesFlag from "../icons/UnitedStatesFlag";
 import PhilippineFlag from "../icons/PhilippineFlag";
 import { cn } from "@/lib/utils";
+import useFullUserContext from "@/hooks/useFullUserContext";
+import axios from "axios";
 
 type Props = {
   children: ReactNode | string;
@@ -12,6 +14,7 @@ type Props = {
 
 export default function ToggleLanguage({ children, className }: Props) {
   const { i18n } = useTranslation("header");
+  const { state: fullUser } = useFullUserContext();
 
   const currentLanguage = {
     code: i18n.language,
@@ -19,10 +22,20 @@ export default function ToggleLanguage({ children, className }: Props) {
     flag: i18n.language === "en" ? <UnitedStatesFlag /> : <PhilippineFlag />,
   };
 
-  const toggleLanguageChange = () => {
+  const toggleLanguageChange = async () => {
     const newLanguage = currentLanguage.code === "en" ? "tl" : "en";
     i18n.changeLanguage(newLanguage);
     localStorage.setItem("i18nextLng", newLanguage);
+
+    if (fullUser && fullUser.user_id) {
+      try {
+        await axios.put("/api/user/preferred-language", {
+          preferred_language: newLanguage,
+        });
+      } catch (error) {
+        console.error("Failed to update preferred language in database:", error);
+      }
+    }
   };
 
   return (

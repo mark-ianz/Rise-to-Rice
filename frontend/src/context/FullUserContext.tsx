@@ -2,6 +2,7 @@ import useUserContext from "@/hooks/useUserContext";
 import { Gender } from "@/types/createAccount.type";
 import { Role, UserProfile } from "@/types/user.type";
 import axios from "axios";
+import i18next from "i18next";
 import {
   createContext,
   Dispatch,
@@ -28,7 +29,8 @@ const initialState = {
   birthdate: "",
   contact_number: "",
   createdAt: "",
-  role: "" as Role
+  role: "" as Role,
+  preferred_language: undefined as "en" | "tl" | undefined,
 };
 
 type FullUserContextType = {
@@ -65,6 +67,16 @@ const FullUserProvider = ({ children }: { children: ReactNode }) => {
           withCredentials: true,
         });
         dispatch({ type: "SET_FULL_USER_PROFILE", payload: response.data });
+
+        // Sync dynamic language preference from database on mount/refresh
+        if (response.data?.preferred_language) {
+          const savedLang = response.data.preferred_language;
+          const currentLang = localStorage.getItem("i18nextLng") || i18next.language;
+          if (savedLang !== currentLang) {
+            i18next.changeLanguage(savedLang);
+            localStorage.setItem("i18nextLng", savedLang);
+          }
+        }
       } catch {
         dispatch({ type: "CLEAR_FULL_USER_PROFILE", payload: initialState });
       }

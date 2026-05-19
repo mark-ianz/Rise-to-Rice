@@ -59,8 +59,14 @@ export async function createUser(
 ) {
   const connection = await pool.getConnection();
   try {
+    const acceptLang = req.headers["accept-language"];
+    const headerLang = (acceptLang && typeof acceptLang === "string" && acceptLang.startsWith("tl")) ? "tl" : "en";
+
     // destructure the datas from zod
     const user = UserCreateSchema.parse(req.body);
+    if (!user.preferred_language) {
+      user.preferred_language = headerLang;
+    }
 
     // start the transaction
     await connection.beginTransaction();
@@ -908,5 +914,27 @@ export async function changePassword(
     throwServerError(res);
   } finally {
     if (connection) connection.release();
+  }
+}
+
+export async function updatePreferredLanguage(req: Request, res: Response) {
+  try {
+    const { preferred_language } = req.body;
+    if (preferred_language !== "en" && preferred_language !== "tl") {
+      res.status(400).json({ error: "Invalid language. Must be 'en' or 'tl'." });
+      return;
+    }
+
+    const user_id = req.user!.user_id;
+
+    await pool.query(
+      "UPDATE user SET preferred_language = ? WHERE user_id = ?",
+      [preferred_language, user_id]
+    );
+
+    res.json({ message: "Preferred language updated successfully.", preferred_language });
+  } catch (error) {
+    console.error(error);
+    throwServerError(res);
   }
 }

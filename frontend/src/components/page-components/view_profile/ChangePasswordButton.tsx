@@ -18,6 +18,7 @@ import { FormEvent, useRef, useState } from "react";
 import { toast } from "sonner";
 import { ZodError } from "zod";
 import { useTranslation } from "react-i18next";
+import { Lock } from "lucide-react";
 
 type Props = {
   user_id: number;
@@ -104,8 +105,12 @@ export default function ChangePasswordButton({ user_id }: Props) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant={"destructive"} className="max-lg:text-xs">
-          {t("title")}
+        <Button
+          variant="outline"
+          className="max-lg:text-xs flex gap-2 items-center hover:bg-muted/50 border-border rounded-lg px-4 h-10 shadow-sm transition-all duration-200 cursor-pointer"
+        >
+          <Lock size={15} className="text-muted-foreground" />
+          <span className="font-medium text-foreground">{t("title")}</span>
         </Button>
       </DialogTrigger>
       <DialogContent aria-describedby={undefined}>
@@ -131,12 +136,15 @@ export default function ChangePasswordButton({ user_id }: Props) {
             />
             <ZodErrorDisplay error={error} />
           </div>
-          <DialogFooter>
-            <Button type="submit" variant="destructive">
+          <DialogFooter className="gap-2 max-sm:gap-2">
+            <Button
+              type="submit"
+              className="bg-primary-main text-white hover:bg-primary-dark shadow-sm rounded-lg px-5 cursor-pointer"
+            >
               {t("title")}
             </Button>
             <DialogClose asChild>
-              <Button variant="outline" type="button">
+              <Button variant="outline" type="button" className="rounded-lg cursor-pointer">
                 {t("cancel")}
               </Button>
             </DialogClose>

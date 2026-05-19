@@ -1,19 +1,16 @@
 import { UserProfile } from "@/types/user.type";
-import KeyValuePair from "./analytics/KeyValuePair";
 import useEditProfileContext from "@/hooks/useEditProfileContext";
 import EditBasicInformation from "./editing/EditBasicInformation";
 import { useQuery } from "@tanstack/react-query";
 import useUserContext from "@/hooks/useUserContext";
 import axios from "axios";
 import EditContactInformation from "./editing/EditContactInformation";
-import EditProfileButton from "./editing/EditProfileButton";
 import { formatDate } from "date-fns";
 import { capitalizeFirstLetter, displayFullName } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import { useTranslation } from "react-i18next";
 import PersonalInformationSkeleton from "@/components/skeletons/profile/PersonalInformationSkeleton";
 import GenericError from "@/components/general/GenericError";
-import ChangePasswordButton from "./ChangePasswordButton";
 import { User, Calendar, MapPin, Phone, Mail, IdCard, Contact, BadgeCheck } from "lucide-react";
 
 export default function PersonalInformation({ id }: { id?: number }) {
@@ -39,126 +36,191 @@ export default function PersonalInformation({ id }: { id?: number }) {
   if (!user || !user_id) return <GenericError />;
 
   return (
-    <>
-      <div className="flex flex-col gap-12 max-lg:text-sm">
-        {/* Action Buttons */}
-        <div className="flex gap-3 max-md:flex-col justify-end w-full pt-4">
-          <EditProfileButton user_id={user_id} />
-          {!editProfile.isEditing && <ChangePasswordButton user_id={user_id}/>}
-        </div>
-
+    <div className="flex flex-col gap-8 max-lg:text-sm">
+      <div
+        className={cn(
+          "flex gap-8 flex-row max-md:flex-col",
+          editProfile.isEditing && "flex-col"
+        )}
+      >
+        {/* Basic Information Card */}
         <div
+          id="basic-information"
           className={cn(
-            "flex gap-12 flex-row max-md:flex-col",
-            editProfile.isEditing && "flex-col"
+            "flex-1 bg-white dark:bg-card border border-border/60 dark:border-border/10 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300",
+            editProfile.isEditing && "w-full"
           )}
         >
-          {/* Basic Information */}
-          <div
-            id="basic-information"
-            className={cn(
-              "flex flex-col h-full",
-              editProfile.isEditing && "w-full"
-            )}
-          >
-            {!editProfile.isEditing ? (
-              <div className="flex flex-col gap-8 flex-1">
-                <h2 className="text-2xl font-light text-foreground">
+          {!editProfile.isEditing ? (
+            <div className="flex flex-col gap-6 flex-1">
+              {/* Header Title Area */}
+              <div className="flex items-center gap-3 border-b border-border/30 dark:border-border/10 pb-4">
+                <div className="p-2 rounded-lg bg-primary-main/10 text-primary-main">
+                  <User size={18} />
+                </div>
+                <h2 className="text-xl font-light text-foreground">
                   {t("profile.basic_information")}
                 </h2>
-                
-                <div className="flex flex-col gap-8">
-                  <div className="flex flex-col gap-2">
-                    <p className="text-xs font-medium text-muted-foreground/60 uppercase tracking-wide">
+              </div>
+              
+              {/* Profile Details List */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                <div className="flex items-start gap-3.5 p-3 rounded-xl hover:bg-muted/30 transition-colors">
+                  <div className="p-2.5 rounded-lg bg-muted text-muted-foreground/80 shrink-0 mt-0.5">
+                    <IdCard size={18} />
+                  </div>
+                  <div className="flex flex-col gap-0.5">
+                    <span className="text-[10px] font-semibold text-muted-foreground/60 uppercase tracking-wider leading-none">
                       {form("name")}
-                    </p>
-                    <p className="text-lg text-foreground font-light">
+                    </span>
+                    <span className="text-base text-foreground font-light">
                       {displayFullName(user)}
-                    </p>
+                    </span>
                   </div>
-                  
-                  <div className="flex flex-col gap-2">
-                    <p className="text-xs font-medium text-muted-foreground/60 uppercase tracking-wide">
+                </div>
+                
+                <div className="flex items-start gap-3.5 p-3 rounded-xl hover:bg-muted/30 transition-colors">
+                  <div className="p-2.5 rounded-lg bg-muted text-muted-foreground/80 shrink-0 mt-0.5">
+                    <User size={18} />
+                  </div>
+                  <div className="flex flex-col gap-0.5">
+                    <span className="text-[10px] font-semibold text-muted-foreground/60 uppercase tracking-wider leading-none">
                       {form("gender")}
-                    </p>
-                    <p className="text-lg text-foreground font-light">
+                    </span>
+                    <span className="text-base text-foreground font-light">
                       {capitalizeFirstLetter(user?.gender)}
-                    </p>
+                    </span>
                   </div>
-                  
-                  <div className="flex flex-col gap-2">
-                    <p className="text-xs font-medium text-muted-foreground/60 uppercase tracking-wide">
+                </div>
+                
+                <div className="flex items-start gap-3.5 p-3 rounded-xl hover:bg-muted/30 transition-colors">
+                  <div className="p-2.5 rounded-lg bg-muted text-muted-foreground/80 shrink-0 mt-0.5">
+                    <Calendar size={18} />
+                  </div>
+                  <div className="flex flex-col gap-0.5">
+                    <span className="text-[10px] font-semibold text-muted-foreground/60 uppercase tracking-wider leading-none">
                       {form("birthdate")}
-                    </p>
-                    <p className="text-lg text-foreground font-light">
+                    </span>
+                    <span className="text-base text-foreground font-light">
                       {formatDate(new Date(user?.birthdate), "MMMM dd, yyyy")}
-                    </p>
+                    </span>
                   </div>
-                  
-                  <div className="flex flex-col gap-2">
-                    <p className="text-xs font-medium text-muted-foreground/60 uppercase tracking-wide">
+                </div>
+                
+                <div className="flex items-start gap-3.5 p-3 rounded-xl hover:bg-muted/30 transition-colors">
+                  <div className="p-2.5 rounded-lg bg-muted text-muted-foreground/80 shrink-0 mt-0.5">
+                    <BadgeCheck size={18} />
+                  </div>
+                  <div className="flex flex-col gap-0.5">
+                    <span className="text-[10px] font-semibold text-muted-foreground/60 uppercase tracking-wider leading-none">
                       {t("profile.account_created")}
-                    </p>
-                    <p className="text-lg text-foreground font-light">
+                    </span>
+                    <span className="text-base text-foreground font-light">
                       {formatDate(new Date(user?.createdAt), "MMMM dd, yyyy")}
-                    </p>
+                    </span>
                   </div>
                 </div>
               </div>
-            ) : (
-              <EditBasicInformation />
-            )}
-          </div>
+            </div>
+          ) : (
+            <div className="flex flex-col gap-6">
+              <div className="flex items-center gap-3 border-b border-border/30 dark:border-border/10 pb-4">
+                <div className="p-2 rounded-lg bg-primary-main/10 text-primary-main">
+                  <User size={18} />
+                </div>
+                <h2 className="text-xl font-light text-foreground">
+                  Edit {t("profile.basic_information")}
+                </h2>
+              </div>
+              <div className="pt-2">
+                <EditBasicInformation />
+              </div>
+            </div>
+          )}
+        </div>
 
-          {/* Contact Information */}
-          <div
-            id="contact-information"
-            className={cn(
-              "flex flex-col h-full",
-              editProfile.isEditing && "w-full"
-            )}
-          >
-            {!editProfile.isEditing ? (
-              <div className="flex flex-col gap-8 flex-1">
-                <h2 className="text-2xl font-light text-foreground">
+        {/* Contact Information Card */}
+        <div
+          id="contact-information"
+          className={cn(
+            "flex-1 bg-white dark:bg-card border border-border/60 dark:border-border/10 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300",
+            editProfile.isEditing && "w-full"
+          )}
+        >
+          {!editProfile.isEditing ? (
+            <div className="flex flex-col gap-6 flex-1">
+              {/* Header Title Area */}
+              <div className="flex items-center gap-3 border-b border-border/30 dark:border-border/10 pb-4">
+                <div className="p-2 rounded-lg bg-secondary-main/10 text-secondary-dark dark:text-secondary-light">
+                  <Contact size={18} />
+                </div>
+                <h2 className="text-xl font-light text-foreground">
                   {t("profile.contact_information")}
                 </h2>
-                
-                <div className="flex flex-col gap-8">
-                  <div className="flex flex-col gap-2">
-                    <p className="text-xs font-medium text-muted-foreground/60 uppercase tracking-wide">
+              </div>
+              
+              {/* Contact Details List */}
+              <div className="flex flex-col gap-4 pt-2">
+                <div className="flex items-start gap-3.5 p-3 rounded-xl hover:bg-muted/30 transition-colors">
+                  <div className="p-2.5 rounded-lg bg-muted text-muted-foreground/80 shrink-0 mt-0.5">
+                    <Mail size={18} />
+                  </div>
+                  <div className="flex flex-col gap-0.5">
+                    <span className="text-[10px] font-semibold text-muted-foreground/60 uppercase tracking-wider leading-none">
                       Email
-                    </p>
-                    <p className="text-lg text-foreground font-light break-all">
+                    </span>
+                    <span className="text-base text-foreground font-light break-all">
                       {user?.email}
-                    </p>
+                    </span>
                   </div>
-                  
-                  <div className="flex flex-col gap-2">
-                    <p className="text-xs font-medium text-muted-foreground/60 uppercase tracking-wide">
+                </div>
+                
+                <div className="flex items-start gap-3.5 p-3 rounded-xl hover:bg-muted/30 transition-colors">
+                  <div className="p-2.5 rounded-lg bg-muted text-muted-foreground/80 shrink-0 mt-0.5">
+                    <Phone size={18} />
+                  </div>
+                  <div className="flex flex-col gap-0.5">
+                    <span className="text-[10px] font-semibold text-muted-foreground/60 uppercase tracking-wider leading-none">
                       {form("contact_number")}
-                    </p>
-                    <p className="text-lg text-foreground font-light">
+                    </span>
+                    <span className="text-base text-foreground font-light">
                       {user?.contact_number}
-                    </p>
+                    </span>
                   </div>
-                  
-                  <div className="flex flex-col gap-2">
-                    <p className="text-xs font-medium text-muted-foreground/60 uppercase tracking-wide">
+                </div>
+                
+                <div className="flex items-start gap-3.5 p-3 rounded-xl hover:bg-muted/30 transition-colors">
+                  <div className="p-2.5 rounded-lg bg-muted text-muted-foreground/80 shrink-0 mt-0.5">
+                    <MapPin size={18} />
+                  </div>
+                  <div className="flex flex-col gap-0.5">
+                    <span className="text-[10px] font-semibold text-muted-foreground/60 uppercase tracking-wider leading-none">
                       {form("address")}
-                    </p>
-                    <p className="text-lg text-foreground font-light">
+                    </span>
+                    <span className="text-base text-foreground font-light">
                       {user?.address}
-                    </p>
+                    </span>
                   </div>
                 </div>
               </div>
-            ) : (
-              <EditContactInformation email={user?.email} />
-            )}
-          </div>
+            </div>
+          ) : (
+            <div className="flex flex-col gap-6">
+              <div className="flex items-center gap-3 border-b border-border/30 dark:border-border/10 pb-4">
+                <div className="p-2 rounded-lg bg-secondary-main/10 text-secondary-dark dark:text-secondary-light">
+                  <Contact size={18} />
+                </div>
+                <h2 className="text-xl font-light text-foreground">
+                  Edit {t("profile.contact_information")}
+                </h2>
+              </div>
+              <div className="pt-2">
+                <EditContactInformation email={user?.email} />
+              </div>
+            </div>
+          )}
         </div>
       </div>
-    </>
+    </div>
   );
 }

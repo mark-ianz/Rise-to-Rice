@@ -19,6 +19,7 @@ import useFullUserContext from "@/hooks/useFullUserContext";
 import { useTranslation } from "react-i18next";
 import { useGetUser, useUpdateUser } from "@/hooks/query/useUser";
 import { toast } from "sonner";
+import { PenSquare } from "lucide-react";
 
 export default function EditProfileButton({ user_id }: { user_id: number }) {
   const { t, i18n } = useTranslation("profile");
@@ -128,11 +129,14 @@ export default function EditProfileButton({ user_id }: { user_id: number }) {
   if (!editProfile.isEditing) {
     return (
       <Button
-        variant={"outline"}
+        variant="default"
         onClick={handleEditClick}
-        className={cn("w-fit flex gap-1 cursor-pointer items-center")}
+        className={cn(
+          "w-fit flex gap-2 cursor-pointer items-center bg-primary-main text-white hover:bg-primary-dark hover:shadow-md rounded-lg px-4 h-10 shadow-sm transition-all duration-200"
+        )}
       >
-        <span className="max-lg:text-xs">
+        <PenSquare size={15} />
+        <span className="max-lg:text-xs font-medium">
           {t("profile.edit_profile.button")}
         </span>
       </Button>
@@ -148,7 +152,9 @@ export default function EditProfileButton({ user_id }: { user_id: number }) {
           <AlertDialog>
             <AlertDialogTrigger asChild>
               <Button
-                className={cn("w-fit flex gap-1 cursor-pointer items-center")}
+                className={cn(
+                  "w-fit flex gap-1.5 cursor-pointer items-center bg-primary-main hover:bg-primary-dark rounded-lg px-4 h-10 shadow-sm transition-all duration-200"
+                )}
               >
                 {t("profile.edit_profile.save")}
               </Button>
@@ -161,19 +167,21 @@ export default function EditProfileButton({ user_id }: { user_id: number }) {
                 {t("profile.edit_profile.dialog.description")}
               </AlertDialogDescription>
               <AlertDialogFooter>
-                <AlertDialogAction onClick={handleSaveChanges}>
+                <AlertDialogAction onClick={handleSaveChanges} className="bg-primary-main text-white hover:bg-primary-dark rounded-lg">
                   {t("profile.edit_profile.dialog.confirm")}
                 </AlertDialogAction>
-                <AlertDialogCancel className="bg-destructive text-destructive-foreground border-destructive hover:bg-destructive/90">
+                <AlertDialogCancel className="bg-destructive text-destructive-foreground border-destructive hover:bg-destructive/90 rounded-lg">
                   {t("profile.edit_profile.dialog.cancel")}
                 </AlertDialogCancel>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
           <Button
-            variant={"destructive"}
+            variant="destructive"
             onClick={handleEditClick}
-            className={cn("w-fit flex gap-1 cursor-pointer items-center")}
+            className={cn(
+              "w-fit flex gap-1.5 cursor-pointer items-center bg-destructive text-white hover:bg-destructive/90 rounded-lg px-4 h-10 shadow-sm transition-all duration-200"
+            )}
           >
             {t("profile.edit_profile.cancel")}
           </Button>

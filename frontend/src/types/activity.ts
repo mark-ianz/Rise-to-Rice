@@ -5,6 +5,7 @@ export interface ActivityLog {
   id: number;
   points: number;
   timestamp: string;
+  updated_at?: string;
   material_name: string | null;
   weight: number | null;
   status: 'pending' | 'for pick up' | 'completed' | 'rejected' | 'cancelled' | null;

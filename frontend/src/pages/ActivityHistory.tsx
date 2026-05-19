@@ -84,7 +84,7 @@ export default function ActivityHistory() {
               <div className="relative w-full md:w-64">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={18} />
                 <Input
-                  placeholder={t("activity_history.search_rewards_placeholder")}
+                  placeholder={t("activity_history.search_activities_placeholder")}
                   className="pl-10 bg-white"
                   defaultValue={search}
                   onKeyDown={(e) => {

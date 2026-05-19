@@ -8,16 +8,20 @@ export default function RedeemHistoryCardSkeleton({
   return Array.from({ length }).map((_, index) => (
     <li
       key={`redeem-history-card-skeleton-${index}`}
-      className="flex flex-col gap-6 border p-4 rounded-md bg-white shadow-md"
+      className="flex flex-col gap-4 border border-l-4 border-l-slate-200 p-5 pl-6 rounded-2xl bg-white shadow-sm border-warm-tan/10 h-[160px] justify-between"
     >
-      <div>
-        <Skeleton className="w-full h-3 max-w-24" />
-        <Skeleton className="w-full h-3 mt-2 max-w-44" />
+      <div className="flex justify-between items-start gap-3">
+        <Skeleton className="h-6 w-32 rounded" />
+        <Skeleton className="h-6 w-20 rounded-full" />
       </div>
-      <div className="flex flex-col gap-2">
-        <Skeleton className="w-full h-4 max-w-44" />
-        <Skeleton className="w-full h-4 max-w-28" />
-        <Skeleton className="w-full h-4 max-w-32" />
+      <div className="flex gap-2">
+        <Skeleton className="h-4 w-28 rounded" />
+        <Skeleton className="h-4 w-4 rounded" />
+        <Skeleton className="h-4 w-20 rounded" />
+      </div>
+      <div className="pt-3 border-t border-slate-50 flex justify-between items-center mt-1">
+        <Skeleton className="h-4 w-12 rounded" />
+        <Skeleton className="h-5 w-16 rounded-full" />
       </div>
     </li>
   ));

@@ -3,7 +3,7 @@ import { capitalizeWordStart } from "@/lib/format";
 import { ActivityLog } from "@/types/activity";
 import { format } from "date-fns";
 import { useTranslation } from "react-i18next";
-import { Recycle, Package, TrendingUp, TrendingDown, Minus } from "lucide-react";
+import { Recycle, Package, Calendar } from "lucide-react";
 import { Link } from "react-router-dom";
 
 type Props = {
@@ -13,62 +13,114 @@ type Props = {
 export default function ActivityHistoryCard({ activity }: Props) {
   const { t } = useTranslation("redeem_rewards");
   const isExchange = activity.activity_type === 'exchange';
-  const isRefunded = !isExchange && (activity.status === 'cancelled' || activity.status === 'rejected');
 
-  const linkTo = isExchange
-    ? `/activity-history/exchange/${activity.nano_id}`
-    : `/activity-history/redeem/${activity.nano_id}`;
+  if (isExchange) {
+    return <MaterialExchangeCard activity={activity} t={t} />;
+  }
+
+  return <RewardRedemptionCard activity={activity} t={t} />;
+}
+
+function MaterialExchangeCard({ activity, t }: { activity: ActivityLog; t: any }) {
+  const linkTo = `/activity-history/exchange/${activity.nano_id}`;
+  const displayDate = new Date(activity.timestamp);
 
   return (
     <li>
-      <Link to={linkTo} className="flex flex-col gap-4 border p-5 rounded-2xl bg-white shadow-sm hover:shadow-md transition-shadow border-warm-tan/10 block">
-        <div className="flex justify-between items-start">
-          <div className="flex items-center gap-3">
-            <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${isExchange ? 'bg-green-50 text-green-600' : 'bg-blue-50 text-blue-600'}`}>
-              {isExchange ? <Recycle size={20} /> : <Package size={20} />}
-            </div>
-            <div className="flex flex-col">
-              <p className="text-xs text-muted-foreground font-medium uppercase tracking-wider">
-                {isExchange ? t("activity_history.material_exchange") : t("activity_history.reward_redemption")}
-              </p>
-              <p className="text-xs text-muted-foreground">
-                {format(new Date(activity.timestamp), "MMM dd, yyyy - hh:mm a")}
-              </p>
-            </div>
+      <Link 
+        to={linkTo} 
+        className="flex flex-col justify-between gap-4 border border-slate-100 p-5 rounded-2xl bg-white hover:border-slate-200 hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-300 block h-full"
+      >
+        <div className="flex justify-between items-start gap-4">
+          <div className="space-y-1">
+            <span className="inline-flex items-center gap-1 text-[10px] uppercase font-bold tracking-wider text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded">
+              <Recycle size={10} />
+              {t("activity_history.material_exchange")}
+            </span>
+            <h3 className="text-secondary-dark font-bold text-lg leading-tight mt-1.5 truncate">
+              {activity.material_name}
+            </h3>
           </div>
-          <div className={`flex items-center gap-1 font-bold ${isExchange ? 'text-green-600' : isRefunded ? 'text-secondary-dark/60' : 'text-red-500'}`}>
-            {isExchange ? <TrendingUp size={16} /> : isRefunded ? <Minus size={16} /> : <TrendingDown size={16} />}
-            <span>{isExchange ? '+' : isRefunded ? '' : '-'}{isRefunded ? 0 : activity.points} pts</span>
+          <div className="text-right flex-shrink-0">
+            <span className="text-base font-bold text-emerald-600">
+              +{activity.points} pts
+            </span>
           </div>
         </div>
 
-        <div className="space-y-2">
-          {isExchange ? (
-            <>
-              <p className="text-secondary-dark font-semibold text-lg leading-tight">
-                {activity.material_name}
-              </p>
-              <p className="text-sm text-muted-foreground">
-                {t("activity_history.weight")} <span className="text-secondary-dark font-medium">{activity.weight} kg</span>
-              </p>
-            </>
-          ) : (
-            <>
-              <p className="text-secondary-dark font-semibold text-lg leading-tight">
-                {activity.reward_name}
-              </p>
-              <div className="flex items-center justify-between">
-                <Badge
-                  className="font-medium px-2.5 py-0.5 rounded-full"
-                  variant={activity.status as any}
-                >
-                  {capitalizeWordStart(
-                    t(`redeem_history.status.${activity.status?.toLocaleLowerCase()}`)
-                  )}
-                </Badge>
-              </div>
-            </>
-          )}
+        <div className="space-y-3">
+          <div className="flex items-center justify-between text-sm py-2 px-3 bg-slate-50 rounded-xl">
+            <span className="text-muted-foreground">{t("activity_history.weight")}</span>
+            <span className="font-semibold text-secondary-dark">{activity.weight} kg</span>
+          </div>
+
+          <div className="text-xs text-muted-foreground flex items-center gap-1.5">
+            <Calendar size={13} className="text-slate-400" />
+            <span>{format(displayDate, "MMMM dd, yyyy • hh:mm a")}</span>
+          </div>
+        </div>
+      </Link>
+    </li>
+  );
+}
+
+function RewardRedemptionCard({ activity, t }: { activity: ActivityLog; t: any }) {
+  const linkTo = `/activity-history/redeem/${activity.nano_id}`;
+  const isRefunded = activity.status === 'cancelled' || activity.status === 'rejected';
+  const displayDate = new Date(activity.timestamp);
+
+  return (
+    <li>
+      <Link 
+        to={linkTo} 
+        className="flex flex-col justify-between gap-4 border border-slate-100 p-5 rounded-2xl bg-white hover:border-slate-200 hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-300 block h-full"
+      >
+        <div className="flex justify-between items-start gap-4">
+          <div className="space-y-1">
+            <span className="inline-flex items-center gap-1 text-[10px] uppercase font-bold tracking-wider text-blue-600 bg-blue-50 px-2 py-0.5 rounded">
+              <Package size={10} />
+              {t("activity_history.reward_redemption")}
+            </span>
+            <h3 className="text-secondary-dark font-bold text-lg leading-tight mt-1.5 truncate">
+              {activity.reward_name}
+            </h3>
+          </div>
+          <div className="text-right flex-shrink-0">
+            <span className={`text-base font-bold ${isRefunded ? 'text-slate-500 line-through' : 'text-red-500'}`}>
+              {isRefunded ? `-${activity.points}` : `-${activity.points}`} pts
+            </span>
+            {isRefunded && (
+              <span className="block text-[10px] font-semibold text-emerald-600 mt-0.5 bg-emerald-50 px-1.5 py-0.5 rounded text-center">
+                Refunded
+              </span>
+            )}
+          </div>
+        </div>
+
+        <div className="space-y-3">
+          <div className="flex items-center justify-between text-sm py-2 px-3 bg-slate-50 rounded-xl">
+            <span className="text-muted-foreground">{t("terms.status")}</span>
+            <Badge
+              className="font-semibold px-2.5 py-0.5 rounded-full text-xs shadow-none border-none"
+              variant={activity.status as any}
+            >
+              {capitalizeWordStart(
+                t(`redeem_history.status.${activity.status?.toLocaleLowerCase()}`)
+              )}
+            </Badge>
+          </div>
+
+          <div className="text-xs text-muted-foreground flex items-center justify-between">
+            <div className="flex items-center gap-1.5">
+              <Calendar size={13} className="text-slate-400" />
+              <span>{format(displayDate, "MMMM dd, yyyy • hh:mm a")}</span>
+            </div>
+            {activity.updated_at && activity.updated_at !== activity.timestamp && (
+              <span className="text-[10px] text-muted-foreground italic">
+                Updated {format(new Date(activity.updated_at), "MMM dd")}
+              </span>
+            )}
+          </div>
         </div>
       </Link>
     </li>

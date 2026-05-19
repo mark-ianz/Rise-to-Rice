@@ -128,29 +128,27 @@ export default function Announcements() {
       {/* Main Container */}
       <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col gap-6">
 
-        {/* Modern Ambient Hero Banner */}
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary-main to-primary-main-light p-8 md:p-12 shadow-xl border border-primary-main-light/20 text-white w-full animate-[fadeSlideUp_0.4s_ease-out]">
-          {/* Decorative ambient glowing blur rings */}
-          <div className="absolute -right-10 -top-10 w-48 h-48 rounded-full bg-white/10 blur-2xl pointer-events-none" />
-          <div className="absolute -left-10 -bottom-10 w-64 h-64 rounded-full bg-emerald-500/25 blur-3xl pointer-events-none animate-pulse" />
-          <div className="absolute right-1/4 top-1/4 w-32 h-32 rounded-full bg-emerald-400/10 blur-xl pointer-events-none animate-bounce" />
-
+        {/* Modern Ambient Hero Banner - Balanced Sage-Green Theme */}
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#E8F4E5] to-[#D5ECD0]/70 p-8 md:p-12 border border-[#2D5A27]/15 shadow-sm w-full animate-[fadeSlideUp_0.4s_ease-out]">
+          {/* Decorative Accent Line */}
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#2D5A27]/30 via-[#2D5A27] to-[#2D5A27]/50"></div>
+          
           <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div className="max-w-2xl">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/15 backdrop-blur-md text-xs font-semibold uppercase tracking-wider text-emerald-100 mb-4 border border-white/10 shadow-sm">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#2D5A27]/10 text-xs font-bold uppercase tracking-wider text-[#2D5A27] mb-4 border border-[#2D5A27]/20 shadow-sm">
                 <Volume2 className="w-3.5 h-3.5 animate-pulse" />
                 Community Updates
               </span>
-              <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-3 font-roboto bg-gradient-to-r from-white to-emerald-100 bg-clip-text text-transparent">
+              <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-3 font-roboto text-[#2D5A27]">
                 {t("title")}
               </h1>
-              <p className="text-white/85 text-sm sm:text-base leading-relaxed max-w-xl">
+              <p className="text-[#2D5A27]/85 font-medium text-sm sm:text-base leading-relaxed max-w-xl">
                 {t("subtext")}
               </p>
             </div>
             <div className="flex-shrink-0 self-start md:self-center hidden sm:block animate-float">
-              <div className="w-20 h-20 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center shadow-inner">
-                <Leaf className="w-10 h-10 text-emerald-200" />
+              <div className="w-20 h-20 rounded-2xl bg-[#2D5A27] flex items-center justify-center shadow-md">
+                <Leaf className="w-10 h-10 text-white" />
               </div>
             </div>
           </div>
@@ -247,13 +245,15 @@ export default function Announcements() {
               </div>
             </div>
 
-            {/* Widget 3: Quick Links */}
-            <div className="bg-gradient-to-br from-emerald-950 to-emerald-900 p-6 rounded-2xl text-white shadow-lg relative overflow-hidden">
-              <div className="absolute right-0 bottom-0 translate-x-4 translate-y-4 w-28 h-28 rounded-full bg-white/5 blur-xl pointer-events-none" />
-              <h4 className="font-extrabold text-sm mb-1 text-emerald-300">
+            {/* Widget 3: Quick Links - Balanced Sage-Green Theme */}
+            <div className="relative bg-gradient-to-br from-[#E8F4E5] to-[#D5ECD0]/70 p-6 rounded-2xl border border-[#2D5A27]/15 shadow-sm overflow-hidden">
+              {/* Decorative Accent Line */}
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#2D5A27]/30 via-[#2D5A27] to-[#2D5A27]/50"></div>
+              
+              <h4 className="font-bold text-sm mb-1.5 text-[#2D5A27]">
                 {currentLang === "tl" ? "Handa na Mag-recycle?" : "Ready to Recycle?"}
               </h4>
-              <p className="text-xs text-white/80 leading-relaxed mb-4">
+              <p className="text-xs text-[#2D5A27]/85 font-medium leading-relaxed mb-4">
                 {currentLang === "tl"
                   ? "Subaybayan ang iyong mga naiambag na rice waste at kumuha ng mga gantimpala agad."
                   : "Track your active rice waste contributions and earn rewards instantly."}
@@ -261,7 +261,7 @@ export default function Announcements() {
               {isAuth ? (
                 <a
                   href="/home"
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-300 hover:text-white transition-colors group cursor-pointer"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#2D5A27] hover:text-[#1E3B1A] transition-colors group cursor-pointer"
                 >
                   {currentLang === "tl" ? "Subaybayan ang Iyong Impact" : "Track Your Impact"}
                   <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
@@ -270,7 +270,7 @@ export default function Announcements() {
                 <RequiredAuthPopup>
                   <button
                     type="button"
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-300 hover:text-white transition-colors group cursor-pointer text-left"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#2D5A27] hover:text-[#1E3B1A] transition-colors group cursor-pointer text-left"
                   >
                     {currentLang === "tl" ? "Subaybayan ang Iyong Impact" : "Track Your Impact"}
                     <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />

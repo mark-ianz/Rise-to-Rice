@@ -24,14 +24,14 @@ export default function WelcomeHeader() {
   }
 
   return (
-    <div className="bg-gradient-to-r from-primary-main/5 to-transparent rounded-2xl px-6 py-5 max-md:px-4 max-md:py-4 flex-1">
+    <div className="relative bg-warm-cream rounded-2xl px-6 py-5 max-md:px-4 max-md:py-4 flex-1 border border-[#2D5A27]/10 shadow-[0_2px_8px_rgba(45,90,39,0.02)]">
       <div className="flex flex-col">
-        <h1 className="text-3xl max-lg:text-2xl max-md:text-xl font-bold tracking-tight text-secondary-dark">
+        <h1 className="text-3xl max-lg:text-2xl max-md:text-xl font-extrabold tracking-tight text-secondary-dark">
           Welcome back,{" "}
-          <span className="text-primary-main">{firstName}</span>!
+          <span className="text-[#2D5A27]">{firstName}</span>!
         </h1>
         {memberSince && (
-          <p className="text-sm text-secondary-dark/50 mt-1">
+          <p className="text-sm text-secondary-dark/70 font-medium mt-1">
             Member since {memberSince}
           </p>
         )}

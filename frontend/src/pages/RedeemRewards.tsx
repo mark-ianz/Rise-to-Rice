@@ -97,17 +97,16 @@ export default function RedeemRewards() {
           {/* Right Column: Sticky wallet balance (top on mobile, sticky sidebar on desktop) */}
           <div className="w-full lg:w-[325px] order-1 lg:order-2 shrink-0 lg:sticky lg:top-24 flex flex-col gap-6">
 
-            {/* Emerald Premium Points Wallet */}
-            <div className="w-full bg-gradient-to-br from-[#2D5A27] to-[#1a3816] rounded-3xl p-6 text-white shadow-md border border-white/5 relative overflow-hidden group">
-              {/* Geometric Ambient Lights */}
-              <div className="absolute -bottom-8 -right-8 w-24 h-24 bg-white/10 rounded-full blur-xl pointer-events-none group-hover:scale-120 transition-transform duration-500" />
-              <div className="absolute top-2 left-1/2 -translate-x-1/2 w-40 h-2 bg-gradient-to-r from-transparent via-white/15 to-transparent rounded-full pointer-events-none" />
-
+            {/* Emerald Premium Points Wallet - Balanced Sage-Green Theme */}
+            <div className="w-full bg-gradient-to-br from-[#E8F4E5] to-[#D5ECD0]/70 rounded-3xl p-6 shadow-sm border border-[#2D5A27]/15 relative overflow-hidden group">
+              {/* Decorative Accent Line */}
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#2D5A27]/30 via-[#2D5A27] to-[#2D5A27]/50"></div>
+              
               <div className="flex flex-col gap-5 relative z-10">
                 {/* Header info */}
                 <div className="flex items-center justify-between w-full">
-                  <span className="text-xs font-bold uppercase tracking-wider text-white/75 flex items-center gap-1.5">
-                    <Coins size={14} className="text-[#E2C974]" />
+                  <span className="text-xs font-bold uppercase tracking-widest text-[#2D5A27]/70 flex items-center gap-1.5">
+                    <Coins size={14} className="text-[#2D5A27]" />
                     {t("custom_redesign.points_wallet_title")}
                   </span>
                 </div>
@@ -119,22 +118,22 @@ export default function RedeemRewards() {
                       <Loading size={24} />
                     </div>
                   ) : (
-                    <h2 className="text-4xl font-extrabold font-mono tracking-tight text-white drop-shadow-sm flex items-baseline gap-1">
+                    <h2 className="text-4xl font-extrabold tracking-tight text-secondary-dark flex items-baseline gap-1">
                       {formatNumberWithCommasAndDecimals(userPoints)}
-                      <span className="text-xs font-semibold tracking-normal text-white/80 font-sans ml-1">pts</span>
+                      <span className="text-xs font-bold tracking-normal text-secondary-dark/65 ml-1">pts</span>
                     </h2>
                   )}
-                  <p className="text-xs text-white/60 leading-normal">
+                  <p className="text-xs text-[#2D5A27]/85 leading-normal font-medium">
                     {t("custom_redesign.points_wallet_helper")}
                   </p>
                 </div>
 
-                <div className="h-px bg-white/10 w-full" />
+                <div className="h-px bg-[#2D5A27]/15 w-full" />
 
                 {/* View history navigation button */}
                 <Link
                   to="/activity-history"
-                  className="w-full h-11 bg-white text-[#2D5A27] hover:bg-gray-50 active:scale-[0.98] transition-all rounded-xl font-bold text-xs flex items-center justify-center gap-2 shadow-md hover:shadow-lg group/btn"
+                  className="w-full h-11 bg-[#2D5A27] hover:bg-[#1E3B1A] text-white active:scale-[0.98] transition-all rounded-xl font-bold text-xs flex items-center justify-center gap-2 shadow-sm cursor-pointer group/btn"
                 >
                   <History size={14} />
                   {t("view_redeem_history")}

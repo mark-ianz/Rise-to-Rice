@@ -295,18 +295,19 @@ export default function ContactUs() {
               </div>
             </div>
 
-            {/* Social Community Card */}
-            <div className="bg-gradient-to-br from-primary-main-light to-primary-main text-white p-8 rounded-3xl border border-primary-main/20 relative overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 group hover:-translate-y-1 flex flex-col gap-4">
-              <div className="absolute right-0 bottom-0 translate-x-6 translate-y-6 w-32 h-32 rounded-full bg-white/5 group-hover:scale-110 transition-transform duration-500" />
+            {/* Social Community Card - Balanced Sage-Green Theme */}
+            <div className="relative bg-gradient-to-br from-[#E8F4E5] to-[#D5ECD0]/70 p-8 rounded-3xl border border-[#2D5A27]/15 shadow-sm hover:shadow-md transition-all duration-300 group hover:-translate-y-1 flex flex-col gap-4 overflow-hidden">
+              {/* Decorative Accent Line */}
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#2D5A27]/30 via-[#2D5A27] to-[#2D5A27]/50"></div>
               
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center border border-white/20">
+                <div className="w-10 h-10 rounded-full bg-[#2D5A27] flex items-center justify-center shadow-sm">
                   <Facebook className="w-5 h-5 text-white" />
                 </div>
-                <h3 className="font-semibold text-lg">{t("social_label")}</h3>
+                <h3 className="font-bold text-lg text-secondary-dark">{t("social_label")}</h3>
               </div>
               
-              <p className="text-white/85 text-sm leading-relaxed">
+              <p className="text-[#2D5A27]/85 font-medium text-sm leading-relaxed">
                 Join the Barangay Bagong Silangan community page on Facebook to stay informed about recycling drives, points-for-rice updates, and local eco events!
               </p>
               
@@ -314,7 +315,7 @@ export default function ContactUs() {
                 href="https://www.facebook.com/brgybagongsilanganqc"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center w-full py-3.5 px-4 rounded-xl bg-white text-primary-main hover:bg-primary-muted transition-colors text-sm font-bold shadow-sm"
+                className="inline-flex items-center justify-center w-full py-3.5 px-4 rounded-xl bg-[#2D5A27] hover:bg-[#1E3B1A] text-white transition-colors text-sm font-semibold shadow-sm cursor-pointer"
               >
                 {t("social_action")}
               </a>

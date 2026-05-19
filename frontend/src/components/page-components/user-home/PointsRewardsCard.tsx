@@ -33,31 +33,34 @@ export default function PointsRewardsCard() {
 
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-warm-tan/15 overflow-hidden h-full flex flex-col">
-      {/* Points Header */}
-      <div className="bg-gradient-to-br from-primary-main to-primary-main-dark p-6 text-white">
+      {/* Points Header - Balanced Sage-Green Theme */}
+      <div className="relative bg-gradient-to-br from-[#E8F4E5] to-[#D5ECD0]/70 p-6 border-b border-[#2D5A27]/15 overflow-hidden">
+        {/* Decorative Accent Line */}
+        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#2D5A27]/30 via-[#2D5A27] to-[#2D5A27]/50"></div>
+        
         <div className="flex items-center gap-3 mb-3">
-          <div className="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center backdrop-blur-sm">
+          <div className="w-10 h-10 rounded-xl bg-[#2D5A27] text-white flex items-center justify-center shadow-sm">
             <Coins size={20} />
           </div>
-          <span className="text-sm font-medium text-white/80 uppercase tracking-wider">
+          <span className="text-xs font-bold text-[#2D5A27]/70 uppercase tracking-widest leading-none">
             Points Balance
           </span>
         </div>
         {pointsLoading ? (
-          <Skeleton className="h-10 w-40 bg-white/20" />
+          <Skeleton className="h-10 w-40 bg-[#2D5A27]/10" />
         ) : (
-          <p className="text-4xl max-lg:text-3xl max-md:text-2xl font-bold tracking-tight">
+          <p className="text-4xl font-extrabold text-secondary-dark tracking-tight">
             {formatNumberWithCommasAndDecimals(
               points?.points_accumulated,
               0
             )}
-            <span className="text-lg max-md:text-base font-normal text-white/70 ml-1.5">
+            <span className="text-base font-semibold text-secondary-dark/60 ml-1.5">
               pts
             </span>
           </p>
         )}
         <Link to="/redeem-rewards" className="mt-4 block">
-          <Button className="bg-white/15 hover:bg-white/25 text-white border border-white/20 rounded-xl h-10 px-5 text-sm font-medium transition-all backdrop-blur-sm w-full">
+          <Button className="bg-[#2D5A27] hover:bg-[#1E3B1A] text-white rounded-xl h-10 px-5 text-sm font-medium transition-all w-full cursor-pointer shadow-sm">
             <Gift size={16} className="mr-2" />
             Redeem Rewards
           </Button>

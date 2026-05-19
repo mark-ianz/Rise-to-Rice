@@ -39,7 +39,7 @@ import {
 } from "../schema/ChangePassword";
 import { setAuthCookies } from "../helpers/cookie";
 
-const PASSWORD_RESET_PROOF_TTL_MINUTES = 10;
+const PASSWORD_RESET_PROOF_TTL_MINUTES = Number(process.env.PASSWORD_RESET_PROOF_TTL_MINUTES) || 10;
 
 function sendResetProofError(
   res: Response,
@@ -580,8 +580,8 @@ export async function requestVerificationCode(
       const lastSentTime = dayjs(existing.created_at);
 
       const diffInSeconds = now.diff(lastSentTime, "second");
-
-      if (diffInSeconds < 120) {
+      const resendInterval = Number(process.env.VERIFICATION_CODE_RESEND_INTERVAL_SECONDS) || 120;
+      if (diffInSeconds < resendInterval) {
         res.status(429).json({
           errors: [{ message: "Please wait before requesting a new code." }],
         });
@@ -596,7 +596,8 @@ export async function requestVerificationCode(
     ).toString();
 
     const hashedCode = hashPassword(verificationCode);
-    const expires_at = now.add(10, "minutes").format("YYYY-MM-DD HH:mm:ss");
+    const verificationCodeTtl = Number(process.env.EMAIL_VERIFICATION_CODE_TTL_MINUTES) || 10;
+    const expires_at = now.add(verificationCodeTtl, "minutes").format("YYYY-MM-DD HH:mm:ss");
 
     if (type === "forgot-password") {
       // check if the email exists in the account table

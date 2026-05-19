@@ -124,7 +124,7 @@ async function main() {
   );
 
   await runTest(
-    "refresh-token validation rotates the stored token instead of inserting a new row",
+    "refresh-token validation extends the stored token expiration instead of rotating it or inserting a new row",
     async () => {
       const executedQueries = [];
       const connection = createConnection(async (sql, params = []) => {
@@ -148,7 +148,7 @@ async function main() {
           return [[{ role_name: "user" }]];
         }
 
-        if (sql.includes("UPDATE refresh_token SET token = ?")) {
+        if (sql.includes("UPDATE refresh_token SET expired_at =")) {
           return [{ affectedRows: 1 }];
         }
 
@@ -175,14 +175,13 @@ async function main() {
       });
       assert.deepEqual(req.user, user);
 
-      const rotateQuery = executedQueries.find((entry) =>
-        entry.sql.includes("UPDATE refresh_token SET token = ?")
+      const extendQuery = executedQueries.find((entry) =>
+        entry.sql.includes("UPDATE refresh_token SET expired_at =")
       );
 
-      assert.ok(rotateQuery, "refresh-token lookup should rotate the stored token");
-      assert.equal(rotateQuery.params[1], "old-refresh-token");
-      assert.notEqual(rotateQuery.params[0], "old-refresh-token");
-      assert.equal(getCookieValue(res, "refreshToken"), rotateQuery.params[0]);
+      assert.ok(extendQuery, "refresh-token lookup should extend the stored token expiration");
+      assert.equal(extendQuery.params[0], "old-refresh-token");
+      assert.equal(getCookieValue(res, "refreshToken"), "old-refresh-token");
       assert.ok(getCookieValue(res, "authToken"));
       assert.equal(
         executedQueries.some((entry) => entry.sql.includes("INSERT INTO refresh_token")),

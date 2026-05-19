@@ -24,7 +24,7 @@ export const AnnouncementCreateSchema = z.object({
 export const UpdateAnnouncementSchema = AnnouncementCreateSchema.omit({
   image: true,
 }).extend({
-  announcement_id: z.number().min(1, "Announcement ID is required"),
+  announcement_id: z.string().min(1, "Announcement ID is required"),
 });
 
 export type UpdateAnnouncement = z.infer<typeof UpdateAnnouncementSchema>;

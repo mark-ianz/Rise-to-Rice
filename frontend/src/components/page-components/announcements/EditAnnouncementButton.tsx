@@ -72,7 +72,7 @@ export default function EditAnnouncementButton({ announcement, children }: Props
       if (parsed.description !== undefined) {
         formData.append("description", parsed.description || "");
       }
-      formData.append("announcement_id", String(parsed.announcement_id));
+      formData.append("announcement_id", parsed.announcement_id);
       if (imageFile) {
         formData.append("image", imageFile);
       }

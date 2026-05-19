@@ -276,38 +276,51 @@ export async function handleStatusUpdate(req: Request, res: Response) {
 
     console.log({ new_status, email, points_cost, user_id, current_status });
 
+    const acceptLang = req.headers["accept-language"];
+    const lang = (acceptLang && typeof acceptLang === "string" && acceptLang.startsWith("tl")) ? "tl" : "en";
+
     let text = "";
     const templates = [
       {
         status: "for pick up",
         message:
           "Your redeem request is ready for pick up. You can now visit the barangay hall to claim your reward.",
+        messageTl:
+          "Ang iyong redeem request ay maaari nang kunin. Maaari ka nang pumunta sa barangay hall para makuha ang iyong reward.",
       },
       {
         status: "completed",
         message:
           "Your redeem request has been completed. Thank you for your patience.",
+        messageTl:
+          "Ang iyong redeem request ay matagumpay nang nakumpleto. Maraming salamat sa iyong paglahok sa pagpapanatiling malinis ng ating komunidad!",
       },
       {
         status: "rejected",
         message:
-          "Your redeem request has been rejected. The points you used for this request have been returned to your account. You Please contact us for more information.",
+          "Your redeem request has been rejected. The points you used for this request have been returned to your account. Please contact us for more information.",
+        messageTl:
+          "Ang iyong redeem request ay tinanggihan. Ang mga puntos na iyong ginamit para sa hiling na ito ay naibalik na sa iyong account. Mangyaring makipag-ugnayan sa amin para sa karagdagang impormasyon.",
       },
       {
         status: "cancelled",
         message:
           "Your redeem request has been cancelled. The points you used for this request have been returned to your account. Please contact us for more information.",
+        messageTl:
+          "Ang iyong redeem request ay nakansela. Ang mga puntos na iyong ginamit para sa hiling na ito ay naibalik na sa iyong account. Mangyaring makipag-ugnayan sa amin para sa karagdagang impormasyon.",
       },
       {
-        status: "cending",
+        status: "pending",
         message:
           "Your redeem request is pending. Please wait for further updates.",
+        messageTl:
+          "Ang iyong redeem request ay kasalukuyang pinoproseso. Mangyaring maghintay para sa mga susunod na balita.",
       },
     ];
 
     const statusObj = templates.find((t) => t.status === new_status);
     if (statusObj) {
-      text = statusObj.message;
+      text = lang === "tl" ? statusObj.messageTl : statusObj.message;
     }
 
     await pool.query(
@@ -315,7 +328,19 @@ export async function handleStatusUpdate(req: Request, res: Response) {
       [new_status, id]
     );
 
-    await sendEmail(email, "Redeem Request Status Update", text);
+    await sendEmail(
+      email,
+      lang === "tl" ? "Balita sa Iyong Redeem Request" : "Redeem Request Status Update",
+      text,
+      undefined,
+      {
+        lang,
+        statusInfo: {
+          status: new_status,
+          message: text,
+        },
+      }
+    );
 
     await connection.commit();
 
@@ -434,10 +459,24 @@ export async function handleCancelStatus(
       [points_cost, req.user!.user_id]
     );
 
+    const acceptLang = req.headers["accept-language"];
+    const lang = (acceptLang && typeof acceptLang === "string" && acceptLang.startsWith("tl")) ? "tl" : "en";
+    const text = lang === "tl"
+      ? "Ang iyong redeem request ay nakansela. Ang mga puntos na iyong ginamit para sa hiling na ito ay naibalik na sa iyong account."
+      : "Your redeem request has been cancelled. The points you used for this request have been returned to your account.";
+
     await sendEmail(
       req.user!.email,
-      "Redeem Request Status Update",
-      "Your redeem request has been cancelled. The points you used for this request have been returned to your account."
+      lang === "tl" ? "Balita sa Iyong Redeem Request" : "Redeem Request Status Update",
+      text,
+      undefined,
+      {
+        lang,
+        statusInfo: {
+          status: "cancelled",
+          message: text,
+        },
+      }
     );
 
     await connection.commit();

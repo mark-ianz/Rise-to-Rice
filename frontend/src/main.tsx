@@ -17,8 +17,15 @@ import NotFoundPage from "./components/page-components/NotFoundPage.tsx";
 import WholePageLoader from "./components/general/WholePageLoader.tsx";
 import { HelmetProvider } from "react-helmet-async";
 import axios from "axios";
+import i18next from "i18next";
 
 axios.defaults.withCredentials = true;
+
+axios.interceptors.request.use((config) => {
+  const lang = i18next.language || localStorage.getItem("i18nextLng") || "en";
+  config.headers["Accept-Language"] = lang;
+  return config;
+});
 
 
 const LandingPage = lazy(() => import("./pages/LandingPage.tsx"));

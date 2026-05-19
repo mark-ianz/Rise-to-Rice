@@ -615,11 +615,21 @@ export async function requestVerificationCode(
       }
     }
 
+    const acceptLang = req.headers["accept-language"];
+    const lang = (acceptLang && typeof acceptLang === "string" && acceptLang.startsWith("tl")) ? "tl" : "en";
+
     // send the verification code to the user's email
     await sendEmail(
       email,
-      type === "register" ? "Verify your email" : "Reset your password",
-      `Your verification code is ${verificationCode}`
+      type === "register"
+        ? (lang === "tl" ? "I-verify ang iyong email" : "Verify your email")
+        : (lang === "tl" ? "I-reset ang iyong password" : "Reset your password"),
+      `Your verification code is ${verificationCode}`,
+      undefined,
+      {
+        lang,
+        code: verificationCode,
+      }
     );
 
     if (existingRecords.length > 0) {

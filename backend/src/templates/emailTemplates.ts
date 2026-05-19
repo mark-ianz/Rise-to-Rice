@@ -8,6 +8,7 @@ export interface TranslationDictionary {
   expires_in: string;
   status_label: string;
   action_button: string;
+  status_intro: string;
 }
 
 export const translations: Record<"en" | "tl", TranslationDictionary> = {
@@ -21,6 +22,7 @@ export const translations: Record<"en" | "tl", TranslationDictionary> = {
     expires_in: "This code is valid for 10 minutes. If you did not request this, please ignore this email.",
     status_label: "Redemption Request Status",
     action_button: "Visit Rise to Rice",
+    status_intro: "Your redemption request status has been updated. Please find the details of the update below:",
   },
   tl: {
     brand_name: "Rise to Rice",
@@ -32,6 +34,7 @@ export const translations: Record<"en" | "tl", TranslationDictionary> = {
     expires_in: "Ang code na ito ay valid sa loob ng 10 minuto. Kung hindi mo ito hiniling, mangyaring balewalain ang email na ito.",
     status_label: "Katayuan ng Iyong Redeem Request",
     action_button: "Pumunta sa Rise to Rice",
+    status_intro: "Ang katayuan ng iyong redeem request ay na-update. Mangyaring tingnan ang mga detalye sa ibaba:",
   },
 };
 
@@ -103,7 +106,7 @@ export const VERIFICATION_TEMPLATE = `
 
 export const STATUS_UPDATE_TEMPLATE = `
 <h2 style="margin: 0 0 15px 0; font-size: 20px; font-weight: 700; color: #1A361D;"><%= t.greeting %></h2>
-<p style="margin: 0 0 25px 0;"><%= t.intro %></p>
+<p style="margin: 0 0 25px 0;"><%= t.status_intro %></p>
 
 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom: 25px; border-collapse: separate; border-spacing: 0;">
   <tr>

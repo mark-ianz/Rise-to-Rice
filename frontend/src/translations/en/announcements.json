@@ -27,5 +27,6 @@
   "no_announcements": "No announcements available.",
   "no_matching_announcements": "No matching announcements",
   "no_matching_subtext": "We couldn't find any announcements matching \"{{search}}\". Try refining your search query.",
-  "search_placeholder": "Search announcements..."
+  "search_placeholder": "Search announcements...",
+  "read_more_indicator": "... Click to read full description"
 }

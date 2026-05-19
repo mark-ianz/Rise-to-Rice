@@ -25,6 +25,7 @@ import EditAnnouncementButton from "@/components/page-components/announcements/E
 import DeleteData from "@/components/page-components/dashboard/DeleteData";
 import useUserContext from "@/hooks/useUserContext";
 import { getAnnouncementUrl } from "@/utils/url";
+import { calculateReadingTime } from "@/utils/text";
 
 function ViewAnnouncementSkeleton() {
   return (
@@ -101,13 +102,6 @@ export default function ViewAnnouncement() {
     (a) => a.announcement_id !== announcement?.announcement_id
   );
 
-  const calculateReadingTime = (text?: string) => {
-    if (!text) return "1 min read";
-    const wordsPerMinute = 200;
-    const noOfWords = text.split(/\s+/).length;
-    const minutes = Math.ceil(noOfWords / wordsPerMinute);
-    return `${minutes} min read`;
-  };
 
   return (
     <SectionWrapper

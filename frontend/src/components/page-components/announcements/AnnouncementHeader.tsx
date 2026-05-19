@@ -6,7 +6,8 @@ import {
   useGetAuthor,
 } from "@/hooks/query/useAnnouncement";
 import { Button } from "@/components/ui/button";
-import { Ellipsis, Clock, ShieldAlert, Pencil, Trash2 } from "lucide-react";
+import { Ellipsis, Clock, ShieldAlert, Pencil, Trash2, BookOpen } from "lucide-react";
+import { calculateReadingTime } from "@/utils/text";
 import {
   Popover,
   PopoverContent,
@@ -51,9 +52,16 @@ export default function AnnouncementHeader({ announcement }: Props) {
               </span>
             )}
           </span>
-          <span className="flex items-center gap-1 text-[11px] text-slate-400 mt-1">
-            <Clock className="w-3.5 h-3.5 text-slate-400" />
-            <DateDifference className="text-slate-400 font-medium hover:text-emerald-600 hover:no-underline transition-colors" date={announcement.createdAt} />
+          <span className="flex items-center gap-2 text-[11px] text-slate-400 mt-1 font-medium flex-wrap animate-fadeIn">
+            <span className="flex items-center gap-1">
+              <Clock className="w-3.5 h-3.5 text-slate-400" />
+              <DateDifference className="text-slate-400 font-medium hover:text-emerald-600 hover:no-underline transition-colors" date={announcement.createdAt} />
+            </span>
+            <span className="text-slate-300">•</span>
+            <span className="flex items-center gap-1">
+              <BookOpen className="w-3.5 h-3.5 text-slate-400" />
+              <span>{calculateReadingTime(announcement.description)}</span>
+            </span>
           </span>
         </div>
       </div>

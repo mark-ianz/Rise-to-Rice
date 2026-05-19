@@ -54,7 +54,7 @@ app.use("/api/contact-us", contactRoutes);
 app.use("/api/reward", rewardRoutes);
 app.use("/api/reward-variation", rewardVariationRoutes);
 app.use("/api/redeem-request", requireAuth, redeemRequestRoutes);
-app.use("/api/reactions", requireAuth, reactionsRoutes);
+app.use("/api/reactions", reactionsRoutes);
 app.use("/api/activity", requireAuth, activityRoutes);
 app.use("/api/test", testRoutes);
 

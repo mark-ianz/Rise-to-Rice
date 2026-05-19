@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const ReactionSchema = z.object({
   user_id: z.number().int(),
-  announcement_id: z.number().int(),
+  announcement_id: z.string(),
   reaction: z.enum(["Like", "Heart", "Haha", "Wow", "Sad", "Angry"]),
 });
 

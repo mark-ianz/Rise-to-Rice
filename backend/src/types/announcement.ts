@@ -1,8 +1,8 @@
 export type Announcement = {
-  announcement_id: number;
+  announcement_id: string;
   title: string;
   description?: string;
-  author_id: number;
+  author_id: number | null;
   image_url?: string;
 }
 

@@ -21,6 +21,7 @@ import { usePostAnnouncement } from "@/hooks/query/useAnnouncement";
 import { toast } from "sonner";
 import { Link } from "react-router-dom";
 import { Image, Megaphone, Plus, FileUp } from "lucide-react";
+import { getAnnouncementUrl } from "@/utils/url";
 
 export default function PostAnnouncementButton() {
   const { state: user } = useUserContext();
@@ -54,7 +55,7 @@ export default function PostAnnouncementButton() {
         <span className="flex flex-col gap-0.5">
           <span className="font-bold text-slate-800">Announcement posted successfully!</span>
           <Link
-            to={`/announcements/${data.announcement_id}`}
+            to={getAnnouncementUrl(data)}
             className="text-emerald-600 hover:text-emerald-700 font-semibold text-xs flex items-center gap-1 mt-1 hover:underline"
           >
             View it here

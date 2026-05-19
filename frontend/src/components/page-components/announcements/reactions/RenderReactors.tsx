@@ -5,7 +5,7 @@ import { Reaction } from "@/types/reactions";
 import GetReactionIcon from "../GetReactionIcon";
 
 type Props = {
-  announcement_id: number;
+  announcement_id: string;
   reaction: Reaction | "all";
 };
 

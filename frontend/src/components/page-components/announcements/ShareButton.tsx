@@ -2,10 +2,12 @@ import { Button } from "@/components/ui/button";
 import { Link } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
+import { Announcement } from "@/types/announcements";
+import { getAnnouncementUrl } from "@/utils/url";
 
-type Props = { announcement_id: number };
+type Props = { announcement: Announcement };
 
-export default function ShareButton({ announcement_id }: Props) {
+export default function ShareButton({ announcement }: Props) {
   const { t } = useTranslation("announcements");
   const base_url = import.meta.env.VITE_FRONTEND_BASE_URL;
 
@@ -38,7 +40,7 @@ export default function ShareButton({ announcement_id }: Props) {
   };
 
   const handleCopyLink = async () => {
-    const post_link = `${base_url}/announcements/${announcement_id}`;
+    const post_link = `${base_url}${getAnnouncementUrl(announcement)}`;
     await copyToClipboard(post_link);
 
     toast.success(

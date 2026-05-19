@@ -17,6 +17,7 @@ import path from "path";
 import { promises as fs } from "fs";
 import { checkForPagination } from "../helpers/query";
 import { uploadToCloudinary, deleteFromCloudinary } from "../utils/cloudinary";
+import { generatePublicId } from "../utils/generate";
 
 export async function postAnnouncement(
   req: Request<{}, {}, AnnouncementCreate>,
@@ -52,19 +53,19 @@ export async function postAnnouncement(
     // start transaction
     await connection.beginTransaction();
 
-    const [result] = await connection.query<ResultSetHeader>(
-      "INSERT INTO announcement (title, description, image_url, author_id) VALUES (?, ?, ?, ?)",
-      [title, description, image_url, authorId]
+    const announcementId = generatePublicId();
+
+    await connection.query<ResultSetHeader>(
+      "INSERT INTO announcement (announcement_id, title, description, image_url, author_id) VALUES (?, ?, ?, ?, ?)",
+      [announcementId, title, description, image_url, authorId]
     );
 
     saveToActionLog(connection, "post_announcement", authorId, {
-      announcement_id: result.insertId,
+      announcement_id: announcementId,
       title,
       description,
       image_url,
     });
-
-    const announcementId = result.insertId;
 
     const new_announcement = await querySingleAnnouncement(
       connection,
@@ -164,7 +165,7 @@ export async function getAnnouncements(
 export async function getSingleAnnouncement(req: Request, res: Response) {
   const { id } = req.params;
   try {
-    const result = await querySingleAnnouncement(pool, Number(id));
+    const result = await querySingleAnnouncement(pool, id);
 
     if (!result) {
       res.status(404).json({ error: "Announcement not found" });

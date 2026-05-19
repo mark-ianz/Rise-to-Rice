@@ -33,8 +33,8 @@ export const queryKeys = {
   user: (userId: number) => ["user", userId] as const,
   announcements: (sort: string) => ["announcements", { sort }] as const,
   recentAnnouncements: () => ["recent_announcements"] as const,
-  announcement: (id: number) => ["announcement", id] as const,
-  author: (announcementId: number) => ["author", announcementId] as const,
+  announcement: (id: string | number) => ["announcement", id] as const,
+  author: (announcementId: string | number) => ["author", announcementId] as const,
   redeemRequests: (params: SearchParamType) =>
     ["redeem-request", createSearchParamsKey(params)] as const,
   redeemHistory: ({

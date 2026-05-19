@@ -86,7 +86,7 @@ export function useGetRecentAnnouncements() {
   });
 }
 
-export function useGetAuthor(announcement_id: number) {
+export function useGetAuthor(announcement_id: string) {
   return useQuery({
     queryKey: queryKeys.author(announcement_id),
     queryFn: async () => {
@@ -108,7 +108,7 @@ export function useDeleteAnnouncement() {
 
   return useMutation({
     mutationKey: ["deleteAnnouncement"],
-    mutationFn: async (announcement_id: number) => {
+    mutationFn: async (announcement_id: string) => {
       const response = await axios.delete(
         `/api/announcements/${announcement_id}`
       );
@@ -125,7 +125,7 @@ export function useDeleteAnnouncement() {
   });
 }
 
-export function useGetSingleAnnouncement(id: number) {
+export function useGetSingleAnnouncement(id: string) {
   return useQuery<Announcement>({
     queryKey: queryKeys.announcement(id),
     queryFn: async () => {
@@ -150,7 +150,7 @@ export function useUpdateAnnouncement() {
     },
     onSuccess: (_, variables) => {
       const id = variables.get("announcement_id");
-      const announcement_id = id ? Number(id) : 0;
+      const announcement_id = id ? String(id) : "";
       queryClient.invalidateQueries({
         queryKey: ["announcements"],
       });

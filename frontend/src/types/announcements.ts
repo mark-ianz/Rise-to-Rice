@@ -13,7 +13,7 @@ export type Announcement = {
   title: string;
   description?: string;
   createdAt: string;
-  announcement_id: number;
+  announcement_id: string;
   author_id: number | null;
   image_id?: string;
   image_url?: string;

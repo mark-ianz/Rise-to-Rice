@@ -1,7 +1,7 @@
 export type Reaction = "Like" | "Heart" | "Haha" | "Wow" | "Sad" | "Angry";
 
 export type ReactionQuery = {
-  announcement_id: number;
+  announcement_id: string;
   user_id?: number;
   reaction: Reaction;
   reaction_id: number;

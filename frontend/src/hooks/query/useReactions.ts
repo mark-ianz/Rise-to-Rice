@@ -7,7 +7,7 @@ import {
 import { Reaction, ReactionQuery } from "@/types/reactions";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-export function useGetAnnouncementReactions(announcement_id: number) {
+export function useGetAnnouncementReactions(announcement_id: string) {
   return useQuery({
     queryKey: ["reactions", announcement_id],
     queryFn: () => get_announcement_reactions(announcement_id),
@@ -16,7 +16,7 @@ export function useGetAnnouncementReactions(announcement_id: number) {
 }
 
 export function useReactToAnnouncement(
-  announcement_id: number,
+  announcement_id: string,
   setOpen: (open: boolean) => void
 ) {
   const queryClient = useQueryClient();
@@ -44,7 +44,7 @@ export function useReactToAnnouncement(
   });
 }
 
-export function useRemoveReaction(announcement_id: number) {
+export function useRemoveReaction(announcement_id: string) {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -64,7 +64,7 @@ export function useRemoveReaction(announcement_id: number) {
 }
 
 export function useGetUsersWhoReacted(
-  announcement_id: number,
+  announcement_id: string,
   reaction: Reaction | "all"
 ) {
   return useQuery({

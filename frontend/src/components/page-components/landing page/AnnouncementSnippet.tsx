@@ -3,6 +3,7 @@ import { ArrowUpRight, Calendar } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { format } from "date-fns";
+import { getAnnouncementUrl } from "@/utils/url";
 
 type Props = {
   announcement: Announcement;
@@ -14,7 +15,7 @@ export default function AnnouncementSnippet({ announcement }: Props) {
   return (
     <li className="group">
       <Link
-        to={`/announcements/${announcement.announcement_id}`}
+        to={getAnnouncementUrl(announcement)}
         className="flex flex-col bg-warm-beige/50 rounded-2xl overflow-hidden transition-all duration-300 hover:bg-warm-beige h-full border border-transparent hover:border-warm-tan/30"
       >
         {announcement.image_url && (

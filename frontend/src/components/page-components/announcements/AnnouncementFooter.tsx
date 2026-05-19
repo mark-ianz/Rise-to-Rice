@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import ReactButton from "./reactions/ReactButton";
 import { useTranslation } from "react-i18next";
 import ShareButton from "./ShareButton";
+import { getAnnouncementUrl } from "@/utils/url";
 
 type Props = {
   announcement: Announcement;
@@ -26,7 +27,7 @@ export default function AnnouncementFooter({ announcement, viewing }: Props) {
           size={"sm"}
           className="rounded-full px-4 h-9 flex items-center gap-1.5 border border-slate-200/80 bg-white hover:bg-slate-50 hover:border-slate-300 hover:scale-[1.02] text-slate-600 font-semibold shadow-sm transition-all duration-200 [&_svg]:size-4 max-md:text-xs"
           onClick={() =>
-            navigate(`/announcements/${announcement.announcement_id}`)
+            navigate(getAnnouncementUrl(announcement))
           }
         >
           <Eye className="w-4 h-4 text-slate-400" />
@@ -35,7 +36,7 @@ export default function AnnouncementFooter({ announcement, viewing }: Props) {
       )}
       
       {/* Share Button Pill */}
-      <ShareButton announcement_id={announcement.announcement_id} />
+      <ShareButton announcement={announcement} />
     </div>
   );
 }

@@ -15,10 +15,10 @@ import { FormEvent, ReactNode, useState } from "react";
 import { toast } from "sonner";
 
 type Props = {
-  id: number;
+  id: number | string;
   useMutation_hook: () => {
     mutate: (
-      id: number,
+      id: any,
       options?: {
         onSuccess?: () => void;
         onError?: (error: Error) => void;

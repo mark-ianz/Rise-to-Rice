@@ -3,7 +3,7 @@ import { Announcement } from "../types/announcement";
 
 export async function querySingleAnnouncement(
   connection: PoolConnection | Pool,
-  id: number
+  id: string
 ) {
   const [result] = await connection.query<(Announcement & RowDataPacket)[]>(
     "SELECT * FROM announcement WHERE announcement_id = ?",
@@ -14,7 +14,7 @@ export async function querySingleAnnouncement(
 
 export async function insertToAnnouncementEditHistory(
   connection: PoolConnection,
-  id: number,
+  id: string,
   previousAnnouncement: Announcement,
   action_performer: number
 ) {

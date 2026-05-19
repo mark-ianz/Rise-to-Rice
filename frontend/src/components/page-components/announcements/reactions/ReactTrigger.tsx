@@ -17,7 +17,7 @@ import RequiredAuthPopup from "@/components/general/RequiredAuthPopup";
 import { useTranslation } from "react-i18next";
 
 type Props = {
-  announcement_id: number;
+  announcement_id: string;
   setOpen: (open: boolean) => void;
 };
 

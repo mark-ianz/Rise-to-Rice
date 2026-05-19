@@ -24,6 +24,7 @@ import { Button } from "@/components/ui/button";
 import EditAnnouncementButton from "@/components/page-components/announcements/EditAnnouncementButton";
 import DeleteData from "@/components/page-components/dashboard/DeleteData";
 import useUserContext from "@/hooks/useUserContext";
+import { getAnnouncementUrl } from "@/utils/url";
 
 function ViewAnnouncementSkeleton() {
   return (
@@ -74,15 +75,14 @@ function ViewAnnouncementSkeleton() {
 
 export default function ViewAnnouncement() {
   const { id } = useParams<{ id: string }>();
-  const { t } = useTranslation("announcements");
   const { state: user } = useUserContext();
   const isAdmin = user?.isAdmin;
 
   const { data: announcement, isLoading } = useGetSingleAnnouncement(
-    Number(id)
+    id || ""
   );
 
-  const { data: author } = useGetAuthor(announcement?.announcement_id || 0);
+  const { data: author } = useGetAuthor(announcement?.announcement_id || "");
   const { data: recentData, isLoading: recentLoading } = useGetRecentAnnouncements();
 
   if (!announcement && !isLoading) {
@@ -121,7 +121,7 @@ export default function ViewAnnouncement() {
         {announcement && (
           <link
             rel="canonical"
-            href={`https://risetorice.com/announcements/${announcement.announcement_id}`}
+            href={`https://risetorice.com${getAnnouncementUrl(announcement)}`}
           />
         )}
       </Helmet>
@@ -298,7 +298,7 @@ export default function ViewAnnouncement() {
                     {filteredRecent.slice(0, 3).map((item) => (
                       <Link
                         key={item.announcement_id}
-                        to={`/announcements/${item.announcement_id}`}
+                        to={getAnnouncementUrl(item)}
                         className="group flex gap-4 p-2.5 rounded-2xl hover:bg-emerald-50/50 transition-all duration-300 border border-transparent hover:border-emerald-100/50"
                       >
                         {/* Mini Thumbnail */}

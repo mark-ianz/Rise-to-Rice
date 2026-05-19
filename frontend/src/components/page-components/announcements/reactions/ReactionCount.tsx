@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next";
 import { Skeleton } from "@/components/ui/skeleton";
 
 type Props = {
-  announcement_id: number;
+  announcement_id: string;
 };
 
 export default function ReactionCount({ announcement_id }: Props) {

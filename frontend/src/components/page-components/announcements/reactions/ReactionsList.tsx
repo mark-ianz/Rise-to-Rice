@@ -13,7 +13,7 @@ import { useTranslation } from "react-i18next";
 
 type Props = {
   reactions: ReactionQuery[];
-  announcement_id: number;
+  announcement_id: string;
 };
 
 export default function ReactionsList({ reactions, announcement_id }: Props) {

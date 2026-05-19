@@ -114,7 +114,7 @@ const router = createBrowserRouter([
         element: withSuspense(<Announcements />),
       },
       {
-        path: "announcements/:id",
+        path: "announcements/:id/:slug?",
         element: withSuspense(<ViewAnnouncement />),
       },
       {

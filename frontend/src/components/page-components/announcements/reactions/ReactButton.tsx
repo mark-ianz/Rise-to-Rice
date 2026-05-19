@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent } from "@/components/ui/popover";
 import {
   Tooltip,
@@ -15,7 +14,7 @@ import { useReactToAnnouncement } from "@/hooks/query/useReactions";
 import ReactTrigger from "./ReactTrigger";
 
 type Props = {
-  announcement_id: number;
+  announcement_id: string;
 };
 
 export default function ReactButton({ announcement_id }: Props) {

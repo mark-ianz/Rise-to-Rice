@@ -1,5 +1,5 @@
 import { ActivityHistoryResponse } from "@/types/activity";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import axios from "axios";
 
 interface UseUserActivityProps {
@@ -41,6 +41,7 @@ export function useGetUserActivity({
       return response.data;
     },
     enabled: !!userId,
+    placeholderData: keepPreviousData,
   });
 }
 

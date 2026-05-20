@@ -4,7 +4,7 @@ export type Announcement = {
   description?: string;
   author_id: number | null;
   image_url?: string;
-  flare: "Rice Impact" | "Water" | "Plastic" | "Campaign" | "Event";
+  flare: "Rice Impact" | "Water" | "Plastic" | "Campaign" | "Event" | "Milestone" | "Tips" | "Rewards" | "Urgent" | "Community" | "Schedule" | "Update" | "Partnership";
   createdAt?: string;
 }
 

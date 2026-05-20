@@ -18,5 +18,5 @@ export type Announcement = {
   image_id?: string;
   image_url?: string;
   total_reactions: number;
-  flare: "Rice Impact" | "Water" | "Plastic" | "Campaign" | "Event";
+  flare: "Rice Impact" | "Water" | "Plastic" | "Campaign" | "Event" | "Milestone" | "Tips" | "Rewards" | "Urgent" | "Community" | "Schedule" | "Update" | "Partnership";
 };

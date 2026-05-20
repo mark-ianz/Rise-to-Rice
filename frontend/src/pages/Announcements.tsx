@@ -24,6 +24,7 @@ import {
 import ecoTipsData from "@/assets/eco_tips.json";
 import useFullUserContext from "@/hooks/useFullUserContext";
 import RequiredAuthPopup from "@/components/general/RequiredAuthPopup";
+import { FLARE_OPTIONS, FLARES } from "@/lib/flares";
 
 export default function Announcements() {
   const { t, i18n } = useTranslation("announcements");
@@ -147,7 +148,7 @@ export default function Announcements() {
         <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#E8F4E5] to-[#D5ECD0]/70 p-8 md:p-12 border border-[#2D5A27]/15 shadow-sm w-full animate-[fadeSlideUp_0.4s_ease-out]">
           {/* Decorative Accent Line */}
           <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#2D5A27]/30 via-[#2D5A27] to-[#2D5A27]/50"></div>
-          
+
           <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div className="max-w-2xl">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#2D5A27]/10 text-xs font-bold uppercase tracking-wider text-[#2D5A27] mb-4 border border-[#2D5A27]/20 shadow-sm">
@@ -178,120 +179,59 @@ export default function Announcements() {
             {/* Post Announcement Component (Admins) */}
             <PostAnnouncementButton />
 
-            {/* Sub-toolbar with Feed Filters & Count */}
-            <div className="flex flex-col gap-4 bg-white p-5 rounded-3xl shadow-sm border border-slate-100/80 w-full animate-[fadeSlideUp_0.3s_ease-out]">
-              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100/80 pb-4 w-full">
-                <div className="flex flex-1 items-center gap-4 w-full">
-                  {/* Search Bar */}
-                  <div className="relative flex-1 w-full max-w">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                    <input
-                      type="text"
-                      value={localSearch}
-                      onChange={(e) => setLocalSearch(e.target.value)}
-                      placeholder={t("search_placeholder")}
-                      className="w-full pl-9 pr-8 py-2.5 text-sm bg-slate-50 border border-slate-200/80 rounded-xl focus:outline-none focus:border-[#2D5A27] focus:ring-1 focus:ring-[#2D5A27]/25 focus:bg-white transition-all text-slate-700 placeholder-slate-400"
-                    />
-                    {localSearch && (
-                      <button
-                        onClick={() => setLocalSearch("")}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
-                        aria-label="Clear search"
-                      >
-                        <X className="w-3.5 h-3.5" />
-                      </button>
-                    )}
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-2 self-end md:self-center shrink-0">
-                  <SortAnnouncement />
-                </div>
+            {/* Search + Sort Row */}
+            <div className="flex items-center gap-3 w-full animate-[fadeSlideUp_0.3s_ease-out]">
+              <div className="relative flex-1">
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                <input
+                  type="text"
+                  value={localSearch}
+                  onChange={(e) => setLocalSearch(e.target.value)}
+                  placeholder={t("search_placeholder")}
+                  className="w-full pl-11 pr-10 py-3 text-sm bg-white border border-slate-200/80 rounded-2xl focus:outline-none focus:border-[#2D5A27] focus:ring-2 focus:ring-[#2D5A27]/15 transition-all text-slate-700 placeholder-slate-400 shadow-sm"
+                />
+                {localSearch && (
+                  <button
+                    onClick={() => setLocalSearch("")}
+                    className="absolute right-3.5 top-1/2 -translate-y-1/2 p-1 rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-all"
+                    aria-label="Clear search"
+                  >
+                    <X className="w-3.5 h-3.5" />
+                  </button>
+                )}
               </div>
-              {/* Flares Selection Row */}
-              <div className="flex items-center gap-2 flex-wrap">
-                <span className="text-[10px] font-bold text-muted-foreground/60 uppercase tracking-widest mr-1">
-                  Flares:
-                </span>
-                
-                {/* All */}
-                <button
-                  onClick={() => handleFlareClick("")}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-lg border transition-all duration-200 active:scale-95 ${
-                    !activeFlare
-                      ? "bg-[#2D5A27] text-white border-[#2D5A27] shadow-sm"
-                      : "bg-slate-50 text-slate-600 border-slate-200/50 hover:bg-slate-100"
-                  }`}
-                >
-                  <Sparkles className="w-3.5 h-3.5" />
-                  <span>All</span>
-                </button>
+              <SortAnnouncement />
+            </div>
 
-                {/* Rice Impact */}
-                <button
-                  onClick={() => handleFlareClick("Rice Impact")}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-lg border transition-all duration-200 active:scale-95 ${
-                    activeFlare === "Rice Impact"
-                      ? "bg-emerald-600 text-white border-emerald-600 shadow-sm"
-                      : "bg-emerald-50/50 text-emerald-700 border-emerald-100/80 hover:bg-emerald-100/50"
+            {/* Flares Row */}
+            <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar w-full animate-[fadeSlideUp_0.35s_ease-out]">
+              <button
+                onClick={() => handleFlareClick("")}
+                className={`shrink-0 px-3.5 py-1.5 text-xs font-bold rounded-full transition-all duration-200 active:scale-95 ${!activeFlare
+                  ? "bg-[#2D5A27] text-white shadow-sm"
+                  : "text-slate-500 hover:text-slate-700 hover:bg-slate-100"
                   }`}
-                >
-                  <Leaf className="w-3.5 h-3.5" />
-                  <span>Rice Impact</span>
-                </button>
-
-                {/* Water */}
-                <button
-                  onClick={() => handleFlareClick("Water")}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-lg border transition-all duration-200 active:scale-95 ${
-                    activeFlare === "Water"
-                      ? "bg-sky-600 text-white border-sky-600 shadow-sm"
-                      : "bg-sky-50/50 text-sky-700 border-sky-100/80 hover:bg-sky-100/50"
-                  }`}
-                >
-                  <Droplet className="w-3.5 h-3.5" />
-                  <span>Water</span>
-                </button>
-
-                {/* Plastic */}
-                <button
-                  onClick={() => handleFlareClick("Plastic")}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-lg border transition-all duration-200 active:scale-95 ${
-                    activeFlare === "Plastic"
-                      ? "bg-rose-600 text-white border-rose-600 shadow-sm"
-                      : "bg-rose-50/50 text-rose-700 border-rose-100/80 hover:bg-rose-100/50"
-                  }`}
-                >
-                  <Trash2 className="w-3.5 h-3.5" />
-                  <span>Plastic</span>
-                </button>
-
-                {/* Campaign */}
-                <button
-                  onClick={() => handleFlareClick("Campaign")}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-lg border transition-all duration-200 active:scale-95 ${
-                    activeFlare === "Campaign"
-                      ? "bg-amber-600 text-white border-amber-600 shadow-sm"
-                      : "bg-amber-50/50 text-amber-700 border-amber-100/80 hover:bg-amber-100/50"
-                  }`}
-                >
-                  <Volume2 className="w-3.5 h-3.5" />
-                  <span>Campaign</span>
-                </button>
-
-                {/* Event */}
-                <button
-                  onClick={() => handleFlareClick("Event")}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-lg border transition-all duration-200 active:scale-95 ${
-                    activeFlare === "Event"
-                      ? "bg-yellow-500 text-white border-yellow-500 shadow-sm"
-                      : "bg-yellow-50/50 text-yellow-700 border-yellow-100/80 hover:bg-yellow-100/50"
-                  }`}
-                >
-                  <Zap className="w-3.5 h-3.5" />
-                  <span>Event</span>
-                </button>
-              </div>
+              >
+                All
+              </button>
+              {FLARE_OPTIONS.map((flare) => {
+                const config = FLARES[flare];
+                const Icon = config.icon;
+                const isActive = activeFlare === flare;
+                return (
+                  <button
+                    key={flare}
+                    onClick={() => handleFlareClick(flare)}
+                    className={`shrink-0 flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-bold rounded-full transition-all duration-200 active:scale-95 ${isActive
+                      ? config.active
+                      : config.filterInactive
+                      }`}
+                  >
+                    <Icon className="w-3 h-3" />
+                    {flare}
+                  </button>
+                );
+              })}
             </div>
 
             {/* Main Announcements Feed */}
@@ -348,7 +288,7 @@ export default function Announcements() {
             <div className="relative bg-gradient-to-br from-[#E8F4E5] to-[#D5ECD0]/70 p-6 rounded-2xl border border-[#2D5A27]/15 shadow-sm overflow-hidden">
               {/* Decorative Accent Line */}
               <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#2D5A27]/30 via-[#2D5A27] to-[#2D5A27]/50"></div>
-              
+
               <h4 className="font-bold text-sm mb-1.5 text-[#2D5A27]">
                 {currentLang === "tl" ? "Handa na Mag-recycle?" : "Ready to Recycle?"}
               </h4>

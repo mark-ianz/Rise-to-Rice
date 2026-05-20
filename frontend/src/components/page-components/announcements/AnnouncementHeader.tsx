@@ -17,6 +17,7 @@ import DeleteData from "../dashboard/DeleteData";
 import EditAnnouncementButton from "./EditAnnouncementButton";
 import companyLogo from "@/assets/COMPONY LOGO NO BG.png";
 import useUserContext from "@/hooks/useUserContext";
+import { FLARES, type FlareType } from "@/lib/flares";
 
 type Props = {
   announcement: Announcement;
@@ -51,17 +52,16 @@ export default function AnnouncementHeader({ announcement }: Props) {
                 Admin
               </span>
             )}
-            {announcement.flare && (
-              <span className={`inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-extrabold border ${
-                announcement.flare === "Rice Impact" ? "bg-emerald-50 text-emerald-700 border-emerald-100/80" :
-                announcement.flare === "Water" ? "bg-sky-50 text-sky-700 border-sky-100/80" :
-                announcement.flare === "Plastic" ? "bg-rose-50 text-rose-700 border-rose-100/80" :
-                announcement.flare === "Campaign" ? "bg-amber-50 text-amber-700 border-amber-100/80" :
-                "bg-yellow-50 text-yellow-700 border-yellow-100/80"
-              }`}>
-                {announcement.flare}
-              </span>
-            )}
+            {announcement.flare && FLARES[announcement.flare as FlareType] && (() => {
+              const config = FLARES[announcement.flare as FlareType];
+              const Icon = config.icon;
+              return (
+                <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-extrabold border ${config.badge}`}>
+                  <Icon className="w-3 h-3" />
+                  {announcement.flare}
+                </span>
+              );
+            })()}
           </span>
           <span className="flex items-center gap-2 text-[11px] text-slate-400 mt-1 font-medium flex-wrap animate-fadeIn">
             <span className="flex items-center gap-1">

@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { FLARE_OPTIONS } from "@/lib/flares";
 
 export const AnnouncementCreateSchema = z.object({
   title: z.string().trim().min(1, "Title is required"),
@@ -19,7 +20,7 @@ export const AnnouncementCreateSchema = z.object({
     )
 
     .optional(),
-  flare: z.enum(["Rice Impact", "Water", "Plastic", "Campaign", "Event"], {
+  flare: z.enum(FLARE_OPTIONS, {
     errorMap: () => ({ message: "A valid flare selection is required" }),
   }),
 });

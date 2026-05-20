@@ -20,6 +20,11 @@
         "link": "/profile"
       },
       {
+        "display_name": "Activity History",
+        "name": "History",
+        "link": "/activity-history"
+      },
+      {
         "display_name": "Language",
         "name": "Language"
       },

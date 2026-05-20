@@ -46,6 +46,11 @@
         "link": "/profile"
       },
       {
+        "display_name": "Kasaysayan ng Aktibidad",
+        "name": "History",
+        "link": "/activity-history"
+      },
+      {
         "display_name": "Wika",
         "name": "Language"
       },

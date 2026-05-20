@@ -5,7 +5,7 @@ import useFullUserContext from "@/hooks/useFullUserContext";
 import { useTranslation } from "react-i18next";
 import ToggleLanguage from "./ToggleLanguage";
 import { cn } from "@/lib/utils";
-import { User, LogOut, LogIn, UserPlus, Gift, Globe } from "lucide-react";
+import { User, LogOut, LogIn, UserPlus, Gift, Globe, History } from "lucide-react";
 
 type PopoverContentType = {
   display_name: string;
@@ -31,6 +31,7 @@ export default function ProfileButtonLinks({
     switch (name) {
       case "Profile": return <User size={16} />;
       case "Rewards": return <Gift size={16} />;
+      case "History": return <History size={16} />;
       case "Language": return <Globe size={16} />;
       case "Logout": return <LogOut size={16} />;
       case "Login": return <LogIn size={16} />;
@@ -77,8 +78,8 @@ export default function ProfileButtonLinks({
       );
     }
 
-    // if the link is profile or rewards and the user is not authenticated, return null
-    if (item.name === "Profile" || item.name === "Rewards") {
+    // if the link is profile, rewards, or history and the user is not authenticated, return null
+    if (item.name === "Profile" || item.name === "Rewards" || item.name === "History") {
       if (!isAuth || !item.link) return null;
       return (
         <NavLink

@@ -4,6 +4,8 @@ export type Announcement = {
   description?: string;
   author_id: number | null;
   image_url?: string;
+  flare: "Rice Impact" | "Water" | "Plastic" | "Campaign" | "Event";
+  createdAt?: string;
 }
 
 export type GetAnnouncement ={

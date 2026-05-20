@@ -32,6 +32,21 @@ export default function Announcements() {
 
   const [searchParams, setSearchParams] = useSearchParams();
   const [localSearch, setLocalSearch] = useState(searchParams.get("search") || "");
+  const activeFlare = searchParams.get("flare") || "";
+
+  const handleFlareClick = (flareName: string) => {
+    const newParams = new URLSearchParams(searchParams);
+    if (!flareName) {
+      newParams.delete("flare");
+    } else {
+      if (activeFlare === flareName) {
+        newParams.delete("flare");
+      } else {
+        newParams.set("flare", flareName);
+      }
+    }
+    setSearchParams(newParams, { replace: true, preventScrollReset: true });
+  };
 
   // Sync input value when URL query params change
   useEffect(() => {
@@ -164,34 +179,118 @@ export default function Announcements() {
             <PostAnnouncementButton />
 
             {/* Sub-toolbar with Feed Filters & Count */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between bg-white p-4 rounded-2xl shadow-sm border border-slate-100/80 gap-4">
-              <div className="flex flex-1 items-center gap-4 w-full">
+            <div className="flex flex-col gap-4 bg-white p-5 rounded-3xl shadow-sm border border-slate-100/80 w-full animate-[fadeSlideUp_0.3s_ease-out]">
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100/80 pb-4 w-full">
+                <div className="flex flex-1 items-center gap-4 w-full">
+                  {/* Search Bar */}
+                  <div className="relative flex-1 w-full max-w">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                    <input
+                      type="text"
+                      value={localSearch}
+                      onChange={(e) => setLocalSearch(e.target.value)}
+                      placeholder={t("search_placeholder")}
+                      className="w-full pl-9 pr-8 py-2.5 text-sm bg-slate-50 border border-slate-200/80 rounded-xl focus:outline-none focus:border-[#2D5A27] focus:ring-1 focus:ring-[#2D5A27]/25 focus:bg-white transition-all text-slate-700 placeholder-slate-400"
+                    />
+                    {localSearch && (
+                      <button
+                        onClick={() => setLocalSearch("")}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
+                        aria-label="Clear search"
+                      >
+                        <X className="w-3.5 h-3.5" />
+                      </button>
+                    )}
+                  </div>
+                </div>
 
-
-                {/* Search Bar */}
-                <div className="relative flex-1 w-full max-w">
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                  <input
-                    type="text"
-                    value={localSearch}
-                    onChange={(e) => setLocalSearch(e.target.value)}
-                    placeholder={t("search_placeholder")}
-                    className="w-full pl-9 pr-8 py-2 text-sm bg-slate-50 border border-slate-200/80 rounded-xl focus:outline-none focus:border-emerald-500 focus:bg-white transition-all text-slate-700 placeholder-slate-400"
-                  />
-                  {localSearch && (
-                    <button
-                      onClick={() => setLocalSearch("")}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
-                      aria-label="Clear search"
-                    >
-                      <X className="w-3.5 h-3.5" />
-                    </button>
-                  )}
+                <div className="flex items-center gap-2 self-end md:self-center shrink-0">
+                  <SortAnnouncement />
                 </div>
               </div>
+              {/* Flares Selection Row */}
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="text-[10px] font-bold text-muted-foreground/60 uppercase tracking-widest mr-1">
+                  Flares:
+                </span>
+                
+                {/* All */}
+                <button
+                  onClick={() => handleFlareClick("")}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-lg border transition-all duration-200 active:scale-95 ${
+                    !activeFlare
+                      ? "bg-[#2D5A27] text-white border-[#2D5A27] shadow-sm"
+                      : "bg-slate-50 text-slate-600 border-slate-200/50 hover:bg-slate-100"
+                  }`}
+                >
+                  <Sparkles className="w-3.5 h-3.5" />
+                  <span>All</span>
+                </button>
 
-              <div className="flex items-center gap-2 self-end sm:self-center">
-                <SortAnnouncement />
+                {/* Rice Impact */}
+                <button
+                  onClick={() => handleFlareClick("Rice Impact")}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-lg border transition-all duration-200 active:scale-95 ${
+                    activeFlare === "Rice Impact"
+                      ? "bg-emerald-600 text-white border-emerald-600 shadow-sm"
+                      : "bg-emerald-50/50 text-emerald-700 border-emerald-100/80 hover:bg-emerald-100/50"
+                  }`}
+                >
+                  <Leaf className="w-3.5 h-3.5" />
+                  <span>Rice Impact</span>
+                </button>
+
+                {/* Water */}
+                <button
+                  onClick={() => handleFlareClick("Water")}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-lg border transition-all duration-200 active:scale-95 ${
+                    activeFlare === "Water"
+                      ? "bg-sky-600 text-white border-sky-600 shadow-sm"
+                      : "bg-sky-50/50 text-sky-700 border-sky-100/80 hover:bg-sky-100/50"
+                  }`}
+                >
+                  <Droplet className="w-3.5 h-3.5" />
+                  <span>Water</span>
+                </button>
+
+                {/* Plastic */}
+                <button
+                  onClick={() => handleFlareClick("Plastic")}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-lg border transition-all duration-200 active:scale-95 ${
+                    activeFlare === "Plastic"
+                      ? "bg-rose-600 text-white border-rose-600 shadow-sm"
+                      : "bg-rose-50/50 text-rose-700 border-rose-100/80 hover:bg-rose-100/50"
+                  }`}
+                >
+                  <Trash2 className="w-3.5 h-3.5" />
+                  <span>Plastic</span>
+                </button>
+
+                {/* Campaign */}
+                <button
+                  onClick={() => handleFlareClick("Campaign")}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-lg border transition-all duration-200 active:scale-95 ${
+                    activeFlare === "Campaign"
+                      ? "bg-amber-600 text-white border-amber-600 shadow-sm"
+                      : "bg-amber-50/50 text-amber-700 border-amber-100/80 hover:bg-amber-100/50"
+                  }`}
+                >
+                  <Volume2 className="w-3.5 h-3.5" />
+                  <span>Campaign</span>
+                </button>
+
+                {/* Event */}
+                <button
+                  onClick={() => handleFlareClick("Event")}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-lg border transition-all duration-200 active:scale-95 ${
+                    activeFlare === "Event"
+                      ? "bg-yellow-500 text-white border-yellow-500 shadow-sm"
+                      : "bg-yellow-50/50 text-yellow-700 border-yellow-100/80 hover:bg-yellow-100/50"
+                  }`}
+                >
+                  <Zap className="w-3.5 h-3.5" />
+                  <span>Event</span>
+                </button>
               </div>
             </div>
 

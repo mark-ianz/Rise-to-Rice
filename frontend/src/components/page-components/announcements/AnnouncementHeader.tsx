@@ -47,8 +47,19 @@ export default function AnnouncementHeader({ announcement }: Props) {
               {author ? displayFullName(author) : "Deleted User"}
             </h3>
             {(author?.role === "admin" || author?.role === "super_admin") && (
-              <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-100">
+              <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-50/50 text-emerald-700 border border-emerald-100">
                 Admin
+              </span>
+            )}
+            {announcement.flare && (
+              <span className={`inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-extrabold border ${
+                announcement.flare === "Rice Impact" ? "bg-emerald-50 text-emerald-700 border-emerald-100/80" :
+                announcement.flare === "Water" ? "bg-sky-50 text-sky-700 border-sky-100/80" :
+                announcement.flare === "Plastic" ? "bg-rose-50 text-rose-700 border-rose-100/80" :
+                announcement.flare === "Campaign" ? "bg-amber-50 text-amber-700 border-amber-100/80" :
+                "bg-yellow-50 text-yellow-700 border-yellow-100/80"
+              }`}>
+                {announcement.flare}
               </span>
             )}
           </span>

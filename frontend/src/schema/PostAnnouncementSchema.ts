@@ -19,6 +19,9 @@ export const AnnouncementCreateSchema = z.object({
     )
 
     .optional(),
+  flare: z.enum(["Rice Impact", "Water", "Plastic", "Campaign", "Event"], {
+    errorMap: () => ({ message: "A valid flare selection is required" }),
+  }),
 });
 
 export const UpdateAnnouncementSchema = AnnouncementCreateSchema.omit({

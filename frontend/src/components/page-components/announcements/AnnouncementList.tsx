@@ -17,7 +17,7 @@ export default function AnnouncementList() {
 
   const sort = searchParams.get("sort");
 
-  const { data, isLoading, fetchNextPage, isFetchingNextPage } =
+  const { data, isLoading, fetchNextPage, isFetchingNextPage, isFetching } =
     useGetAnnouncements(sort || "latest");
 
   // this is for infinite scroll
@@ -33,9 +33,11 @@ export default function AnnouncementList() {
   if (!data) return <GenericError />;
 
   const search = searchParams.get("search")?.toLowerCase() || "";
+  const flareFilter = searchParams.get("flare") || "";
   const announcements = data?.pages.map((page) => page.result).flat() || [];
 
   const filteredAnnouncements = announcements.filter((announcement) => {
+    if (flareFilter && announcement.flare !== flareFilter) return false;
     if (!search) return true;
     return (
       announcement.title.toLowerCase().includes(search) ||
@@ -59,24 +61,44 @@ export default function AnnouncementList() {
   }
 
   return (
-    <ul className="flex flex-col justify-center w-full gap-4">
-      {filteredAnnouncements.map((announcement) => (
-        <AnnouncementCard
-          announcement={announcement}
-          key={announcement.announcement_id}
-        />
-      ))}
-      {isFetchingNextPage &&
-        Array.from({ length: 5 }).map((_, index) => (
-          <AnnouncementCardSkeleton key={`load-more-announcement-${index}`} />
+    <div className="flex flex-col gap-4 w-full">
+      {/* Dynamic Results Header */}
+      <div className="flex items-center justify-between px-1">
+        <h2 className="text-xs font-bold text-slate-800 dark:text-zinc-300 uppercase tracking-widest flex items-center gap-2">
+          <span>{t("title")} Feed</span>
+          <span className="inline-flex items-center justify-center px-2 py-0.5 text-[10px] font-extrabold bg-[#2D5A27]/10 dark:bg-emerald-950/30 text-[#2D5A27] dark:text-emerald-400 rounded-full border border-[#2D5A27]/20">
+            {filteredAnnouncements.length} {filteredAnnouncements.length === 1 ? "update" : "updates"}
+          </span>
+        </h2>
+        {search && (
+          <span className="text-xs text-muted-foreground/60 italic max-sm:hidden">
+            Showing results matching "{search}"
+          </span>
+        )}
+      </div>
+
+      <ul className={cn(
+        "flex flex-col justify-center w-full gap-4 transition-all duration-300",
+        isFetching && !isFetchingNextPage ? "opacity-50 pointer-events-none scale-[0.995]" : "opacity-100"
+      )}>
+        {filteredAnnouncements.map((announcement) => (
+          <AnnouncementCard
+            announcement={announcement}
+            key={announcement.announcement_id}
+          />
         ))}
-      {data.pages[data.pages.length - 1].hasNext && (
-        <Button
-          ref={ref}
-          variant={"ghost"}
-          className={cn(isFetchingNextPage && "hidden")}
-        ></Button>
-      )}
-    </ul>
+        {isFetchingNextPage &&
+          Array.from({ length: 5 }).map((_, index) => (
+            <AnnouncementCardSkeleton key={`load-more-announcement-${index}`} />
+          ))}
+        {data.pages[data.pages.length - 1].hasNext && (
+          <Button
+            ref={ref}
+            variant={"ghost"}
+            className={cn(isFetchingNextPage && "hidden")}
+          ></Button>
+        )}
+      </ul>
+    </div>
   );
 }

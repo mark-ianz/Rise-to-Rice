@@ -20,7 +20,7 @@ import ViewImage from "@/components/general/ViewImage";
 import { usePostAnnouncement } from "@/hooks/query/useAnnouncement";
 import { toast } from "sonner";
 import { Link } from "react-router-dom";
-import { Image, Megaphone, Plus, FileUp } from "lucide-react";
+import { Image, Megaphone, Plus, FileUp, Leaf, Droplet, Trash2, Volume2, Zap } from "lucide-react";
 import { getAnnouncementUrl } from "@/utils/url";
 
 export default function PostAnnouncementButton() {
@@ -32,6 +32,7 @@ export default function PostAnnouncementButton() {
   const imageInputRef = useRef<HTMLInputElement>(null); // ref for the input file
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [selectedFlare, setSelectedFlare] = useState<string>("Rice Impact");
 
   // errors
   const [errors, setErrors] = useState<string[]>([]);
@@ -48,6 +49,7 @@ export default function PostAnnouncementButton() {
       if (imageInputRef.current) imageInputRef.current.value = "";
 
       setImageSrc(null);
+      setSelectedFlare("Rice Impact");
       setErrors([]);
       setIsOpen(false);
 
@@ -74,12 +76,14 @@ export default function PostAnnouncementButton() {
         title: titleRef.current!.value,
         description: descriptionRef.current?.value,
         image: imageInputRef.current?.files?.[0],
+        flare: selectedFlare,
       });
       const formData = new FormData();
 
       formData.append("title", parsedData.title);
       if (parsedData.description)
         formData.append("description", parsedData.description);
+      formData.append("flare", parsedData.flare);
 
       if (parsedData.image) {
         formData.append("image", parsedData.image);
@@ -199,6 +203,84 @@ export default function PostAnnouncementButton() {
                 ref={titleRef}
                 inputClassName="rounded-xl border-slate-200/80 focus-visible:ring-emerald-500 focus-visible:border-emerald-500"
               />
+
+              {/* Flare selection */}
+              <div className="flex flex-col gap-2">
+                <label className="text-xs font-bold text-slate-500 uppercase tracking-wide">
+                  Announcement Flare / Tag <span className="text-red-500">*</span>
+                </label>
+                <div className="flex items-center gap-1.5 flex-wrap">
+                  {/* Rice Impact */}
+                  <button
+                    type="button"
+                    onClick={() => setSelectedFlare("Rice Impact")}
+                    className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-lg border transition-all duration-200 active:scale-95 ${
+                      selectedFlare === "Rice Impact"
+                        ? "bg-emerald-600 text-white border-emerald-600 shadow-sm"
+                        : "bg-emerald-50/50 text-emerald-700 border-emerald-100 hover:bg-emerald-100/50"
+                    }`}
+                  >
+                    <Leaf className="w-3.5 h-3.5" />
+                    <span>Rice Impact</span>
+                  </button>
+
+                  {/* Water */}
+                  <button
+                    type="button"
+                    onClick={() => setSelectedFlare("Water")}
+                    className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-lg border transition-all duration-200 active:scale-95 ${
+                      selectedFlare === "Water"
+                        ? "bg-sky-600 text-white border-sky-600 shadow-sm"
+                        : "bg-sky-50/50 text-sky-700 border-sky-100 hover:bg-sky-100/50"
+                    }`}
+                  >
+                    <Droplet className="w-3.5 h-3.5" />
+                    <span>Water</span>
+                  </button>
+
+                  {/* Plastic */}
+                  <button
+                    type="button"
+                    onClick={() => setSelectedFlare("Plastic")}
+                    className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-lg border transition-all duration-200 active:scale-95 ${
+                      selectedFlare === "Plastic"
+                        ? "bg-rose-600 text-white border-rose-600 shadow-sm"
+                        : "bg-rose-50/50 text-rose-700 border-rose-100 hover:bg-rose-100/50"
+                    }`}
+                  >
+                    <Trash2 className="w-3.5 h-3.5" />
+                    <span>Plastic</span>
+                  </button>
+
+                  {/* Campaign */}
+                  <button
+                    type="button"
+                    onClick={() => setSelectedFlare("Campaign")}
+                    className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-lg border transition-all duration-200 active:scale-95 ${
+                      selectedFlare === "Campaign"
+                        ? "bg-amber-600 text-white border-amber-600 shadow-sm"
+                        : "bg-amber-50/50 text-amber-700 border-amber-100 hover:bg-amber-100/50"
+                    }`}
+                  >
+                    <Volume2 className="w-3.5 h-3.5" />
+                    <span>Campaign</span>
+                  </button>
+
+                  {/* Event */}
+                  <button
+                    type="button"
+                    onClick={() => setSelectedFlare("Event")}
+                    className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-lg border transition-all duration-200 active:scale-95 ${
+                      selectedFlare === "Event"
+                        ? "bg-yellow-500 text-white border-yellow-500 shadow-sm"
+                        : "bg-yellow-50/50 text-yellow-700 border-yellow-100 hover:bg-yellow-100/50"
+                    }`}
+                  >
+                    <Zap className="w-3.5 h-3.5" />
+                    <span>Event</span>
+                  </button>
+                </div>
+              </div>
 
               {/* Description inputs */}
               <div className="flex flex-col gap-1.5">

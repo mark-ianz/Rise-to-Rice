@@ -1,7 +1,7 @@
 import { queryKeys } from "@/lib/queryKeys";
 import { Announcement, AnnouncementPagination, AnnouncementQueryResponse } from "@/types/announcements";
 import { UserProfile } from "@/types/user.type";
-import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { keepPreviousData, useInfiniteQuery, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
 export function usePostAnnouncement() {
@@ -56,6 +56,7 @@ export function useGetAnnouncements(sort: string) {
       if (lastPage.result.length === 0) return undefined;
       return pages.length + 1;
     },
+    placeholderData: keepPreviousData,
   });
 }
 

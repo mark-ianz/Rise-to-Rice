@@ -60,6 +60,14 @@ async function runMigrations() {
       await pool.query("UPDATE `exchange_log` SET `nano_id` = ? WHERE `exchange_log_id` = ?", [nanoid(), row.exchange_log_id]);
     }
 
+    // announcement columns
+    const [aColumns]: any = await pool.query("SHOW COLUMNS FROM `announcement`");
+    const aColNames = aColumns.map((c: any) => c.Field);
+    if (!aColNames.includes('flare')) {
+      await pool.query("ALTER TABLE `announcement` ADD COLUMN `flare` VARCHAR(50) NOT NULL DEFAULT 'Rice Impact'");
+      console.log("Database Migration: Added flare column to announcement table successfully.");
+    }
+
     console.log("Database Migration completed successfully.");
   } catch (error) {
     console.error("Database Migration failed:", error);

@@ -29,7 +29,7 @@ export async function postAnnouncement(
 
   try {
     // validate the request body
-    const { title, description } = AnnouncementCreateSchema.parse({
+    const { title, description, flare } = AnnouncementCreateSchema.parse({
       ...req.body,
     });
 
@@ -56,8 +56,8 @@ export async function postAnnouncement(
     const announcementId = generatePublicId();
 
     await connection.query<ResultSetHeader>(
-      "INSERT INTO announcement (announcement_id, title, description, image_url, author_id) VALUES (?, ?, ?, ?, ?)",
-      [announcementId, title, description, image_url, authorId]
+      "INSERT INTO announcement (announcement_id, title, description, image_url, author_id, flare) VALUES (?, ?, ?, ?, ?, ?)",
+      [announcementId, title, description, image_url, authorId, flare]
     );
 
     saveToActionLog(connection, "post_announcement", authorId, {
@@ -65,6 +65,7 @@ export async function postAnnouncement(
       title,
       description,
       image_url,
+      flare,
     });
 
     const new_announcement = await querySingleAnnouncement(
@@ -191,7 +192,7 @@ export async function updateAnnouncement(
   let old_image_url: string | null = null;
 
   try {
-    const { title, description } = UpdateAnnouncementSchema.parse({
+    const { title, description, flare } = UpdateAnnouncementSchema.parse({
       ...req.body,
     });
 
@@ -225,12 +226,12 @@ export async function updateAnnouncement(
     await connection.beginTransaction();
 
     const query = new_image_url 
-      ? "UPDATE announcement SET title = ?, description = ?, image_url = ? WHERE announcement_id = ?"
-      : "UPDATE announcement SET title = ?, description = ? WHERE announcement_id = ?";
+      ? "UPDATE announcement SET title = ?, description = ?, image_url = ?, flare = ? WHERE announcement_id = ?"
+      : "UPDATE announcement SET title = ?, description = ?, flare = ? WHERE announcement_id = ?";
 
     const queryParams = new_image_url 
-      ? [title, description, new_image_url, id]
-      : [title, description, id];
+      ? [title, description, new_image_url, flare, id]
+      : [title, description, flare, id];
 
     const [result] = await connection.query<ResultSetHeader>(query, queryParams);
 
@@ -245,6 +246,7 @@ export async function updateAnnouncement(
       title,
       description,
       image_url: new_image_url || old_image_url,
+      flare,
     });
 
     await connection.commit();

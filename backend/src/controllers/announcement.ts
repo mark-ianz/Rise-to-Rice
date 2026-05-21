@@ -112,7 +112,31 @@ export async function getAnnouncements(
 ) {
   const { page, limit, author_id, sort, flare } = req.query;
 
-  const pagination = await checkForPagination(page, limit, "announcement", "announcement_id");
+  let countWhereClause = undefined;
+  if (author_id || flare) {
+    let statements = [];
+    let vals = [];
+    if (author_id) {
+      statements.push("author_id = ?");
+      vals.push(author_id);
+    }
+    if (flare) {
+      statements.push("flare = ?");
+      vals.push(flare);
+    }
+    countWhereClause = {
+      statement: "WHERE " + statements.join(" AND "),
+      values: vals,
+    };
+  }
+
+  const pagination = await checkForPagination(
+    page,
+    limit,
+    "announcement",
+    "announcement_id",
+    countWhereClause
+  );
 
   if (!pagination) {
     res.status(400).json({ error: "Invalid pagination query." });

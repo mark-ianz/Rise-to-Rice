@@ -47,6 +47,9 @@ export default function AnnouncementList() {
     );
   });
 
+  const totalItems = data.pages[0]?.total_items ?? 0;
+  const displayCount = search ? filteredAnnouncements.length : totalItems;
+
   if (announcements.length === 0)
     return <p className="text-tertiary">{t("no_announcements")}</p>;
 
@@ -70,11 +73,11 @@ export default function AnnouncementList() {
           <span>{t("title")} Feed</span>
           {flareFilter && FLARES[flareFilter as FlareType] ? (
             <span className="text-slate-500 font-semibold normal-case text-[11px] bg-slate-100 dark:bg-zinc-800 px-2 py-0.5 rounded-full">
-              — Showing {filteredAnnouncements.length} {FLARES[flareFilter as FlareType].label[currentLang === "tl" ? "tl" : "en"]} announcements
+              — Showing {displayCount} {FLARES[flareFilter as FlareType].label[currentLang === "tl" ? "tl" : "en"]} {displayCount === 1 ? "announcement" : "announcements"}
             </span>
           ) : (
             <span className="inline-flex items-center justify-center px-2 py-0.5 text-[10px] font-extrabold bg-[#2D5A27]/10 dark:bg-emerald-950/30 text-[#2D5A27] dark:text-emerald-400 rounded-full border border-[#2D5A27]/20">
-              {filteredAnnouncements.length} {filteredAnnouncements.length === 1 ? "update" : "updates"}
+              {displayCount} {displayCount === 1 ? "update" : "updates"}
             </span>
           )}
         </h2>

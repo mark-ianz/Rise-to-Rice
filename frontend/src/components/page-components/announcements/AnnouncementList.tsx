@@ -10,15 +10,18 @@ import { useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { useSearchParams } from "react-router-dom";
 import { Search } from "lucide-react";
+import { FLARES, type FlareType } from "@/lib/flares";
 
 export default function AnnouncementList() {
-  const { t } = useTranslation("announcements");
+  const { t, i18n } = useTranslation("announcements");
+  const currentLang = i18n.language || "en";
   const [searchParams] = useSearchParams();
 
   const sort = searchParams.get("sort");
+  const flareFilter = searchParams.get("flare") || "";
 
   const { data, isLoading, fetchNextPage, isFetchingNextPage, isFetching } =
-    useGetAnnouncements(sort || "latest");
+    useGetAnnouncements(sort || "latest", flareFilter || undefined);
 
   // this is for infinite scroll
   const { ref, inView } = useInView();
@@ -33,7 +36,6 @@ export default function AnnouncementList() {
   if (!data) return <GenericError />;
 
   const search = searchParams.get("search")?.toLowerCase() || "";
-  const flareFilter = searchParams.get("flare") || "";
   const announcements = data?.pages.map((page) => page.result).flat() || [];
 
   const filteredAnnouncements = announcements.filter((announcement) => {
@@ -64,11 +66,17 @@ export default function AnnouncementList() {
     <div className="flex flex-col gap-4 w-full">
       {/* Dynamic Results Header */}
       <div className="flex items-center justify-between px-1">
-        <h2 className="text-xs font-bold text-slate-800 dark:text-zinc-300 uppercase tracking-widest flex items-center gap-2">
+        <h2 className="text-xs font-bold text-slate-800 dark:text-zinc-300 uppercase tracking-widest flex flex-wrap items-center gap-2">
           <span>{t("title")} Feed</span>
-          <span className="inline-flex items-center justify-center px-2 py-0.5 text-[10px] font-extrabold bg-[#2D5A27]/10 dark:bg-emerald-950/30 text-[#2D5A27] dark:text-emerald-400 rounded-full border border-[#2D5A27]/20">
-            {filteredAnnouncements.length} {filteredAnnouncements.length === 1 ? "update" : "updates"}
-          </span>
+          {flareFilter && FLARES[flareFilter as FlareType] ? (
+            <span className="text-slate-500 font-semibold normal-case text-[11px] bg-slate-100 dark:bg-zinc-800 px-2 py-0.5 rounded-full">
+              — Showing {filteredAnnouncements.length} {FLARES[flareFilter as FlareType].label[currentLang === "tl" ? "tl" : "en"]} announcements
+            </span>
+          ) : (
+            <span className="inline-flex items-center justify-center px-2 py-0.5 text-[10px] font-extrabold bg-[#2D5A27]/10 dark:bg-emerald-950/30 text-[#2D5A27] dark:text-emerald-400 rounded-full border border-[#2D5A27]/20">
+              {filteredAnnouncements.length} {filteredAnnouncements.length === 1 ? "update" : "updates"}
+            </span>
+          )}
         </h2>
         {search && (
           <span className="text-xs text-muted-foreground/60 italic max-sm:hidden">

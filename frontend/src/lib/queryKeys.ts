@@ -31,7 +31,7 @@ export const queryKeys = {
   users: (params: SearchParamType) =>
     ["users", createSearchParamsKey(params)] as const,
   user: (userId: number) => ["user", userId] as const,
-  announcements: (sort: string) => ["announcements", { sort }] as const,
+  announcements: (sort: string, flare?: string) => ["announcements", { sort, flare: flare ?? "" }] as const,
   recentAnnouncements: () => ["recent_announcements"] as const,
   announcement: (id: string | number) => ["announcement", id] as const,
   author: (announcementId: string | number) => ["author", announcementId] as const,

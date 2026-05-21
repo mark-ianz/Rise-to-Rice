@@ -23,6 +23,7 @@ import { Link } from "react-router-dom";
 import { Image, Megaphone, Plus, FileUp } from "lucide-react";
 import { getAnnouncementUrl } from "@/utils/url";
 import { FLARE_OPTIONS, FLARES, type FlareType } from "@/lib/flares";
+import { useTranslation } from "react-i18next";
 
 export default function PostAnnouncementButton() {
   const { state: user } = useUserContext();
@@ -32,8 +33,11 @@ export default function PostAnnouncementButton() {
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
   const imageInputRef = useRef<HTMLInputElement>(null); // ref for the input file
 
+  const { i18n } = useTranslation();
+  const currentLang = i18n.language || "en";
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [selectedFlare, setSelectedFlare] = useState<string>("Rice Impact");
+  const [selectedFlare, setSelectedFlare] = useState<string>("General");
 
   // errors
   const [errors, setErrors] = useState<string[]>([]);
@@ -50,7 +54,7 @@ export default function PostAnnouncementButton() {
       if (imageInputRef.current) imageInputRef.current.value = "";
 
       setImageSrc(null);
-      setSelectedFlare("Rice Impact");
+      setSelectedFlare("General");
       setErrors([]);
       setIsOpen(false);
 
@@ -206,29 +210,93 @@ export default function PostAnnouncementButton() {
               />
 
               {/* Flare selection */}
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-3">
                 <label className="text-xs font-bold text-slate-500 uppercase tracking-wide">
                   Announcement Flare / Tag <span className="text-red-500">*</span>
                 </label>
-                <div className="flex items-center gap-1.5 flex-wrap">
-                  {FLARE_OPTIONS.map((flare) => {
-                    const config = FLARES[flare];
-                    const Icon = config.icon;
-                    const isActive = selectedFlare === flare;
-                    return (
-                      <button
-                        key={flare}
-                        type="button"
-                        onClick={() => setSelectedFlare(flare)}
-                        className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-lg border transition-all duration-200 active:scale-95 ${
-                          isActive ? config.active + " border-transparent" : config.formInactive
-                        }`}
-                      >
-                        <Icon className="w-3.5 h-3.5" />
-                        <span>{flare}</span>
-                      </button>
-                    );
-                  })}
+                
+                {/* Grouped selector container */}
+                <div className="flex flex-col gap-3.5 bg-slate-50/50 p-4 rounded-2xl border border-slate-100">
+                  {/* Operational Group */}
+                  <div className="flex flex-col gap-1.5">
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Operational</span>
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      {FLARE_OPTIONS.filter(f => FLARES[f].group === "operational").map((flare) => {
+                        const config = FLARES[flare];
+                        const Icon = config.icon;
+                        const isActive = selectedFlare === flare;
+                        return (
+                          <button
+                            key={flare}
+                            type="button"
+                            onClick={() => setSelectedFlare(flare)}
+                            className={`flex items-center gap-1.5 px-2.5 py-1 text-xs font-bold rounded-lg border transition-all duration-200 active:scale-95 ${
+                              isActive ? config.active + " border-transparent" : config.formInactive + " bg-white"
+                            }`}
+                          >
+                            <Icon className="w-3.5 h-3.5" />
+                            <span>{config.label[currentLang === "tl" ? "tl" : "en"]}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Divider */}
+                  <div className="border-t border-slate-200/60" />
+
+                  {/* Program-Specific Group */}
+                  <div className="flex flex-col gap-1.5">
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Program-Specific</span>
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      {FLARE_OPTIONS.filter(f => FLARES[f].group === "program").map((flare) => {
+                        const config = FLARES[flare];
+                        const Icon = config.icon;
+                        const isActive = selectedFlare === flare;
+                        return (
+                          <button
+                            key={flare}
+                            type="button"
+                            onClick={() => setSelectedFlare(flare)}
+                            className={`flex items-center gap-1.5 px-2.5 py-1 text-xs font-bold rounded-lg border transition-all duration-200 active:scale-95 ${
+                              isActive ? config.active + " border-transparent" : config.formInactive + " bg-white"
+                            }`}
+                          >
+                            <Icon className="w-3.5 h-3.5" />
+                            <span>{config.label[currentLang === "tl" ? "tl" : "en"]}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Divider */}
+                  <div className="border-t border-slate-200/60" />
+
+                  {/* Community & Engagement Group */}
+                  <div className="flex flex-col gap-1.5">
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Community & Engagement</span>
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      {FLARE_OPTIONS.filter(f => FLARES[f].group === "community").map((flare) => {
+                        const config = FLARES[flare];
+                        const Icon = config.icon;
+                        const isActive = selectedFlare === flare;
+                        return (
+                          <button
+                            key={flare}
+                            type="button"
+                            onClick={() => setSelectedFlare(flare)}
+                            className={`flex items-center gap-1.5 px-2.5 py-1 text-xs font-bold rounded-lg border transition-all duration-200 active:scale-95 ${
+                              isActive ? config.active + " border-transparent" : config.formInactive + " bg-white"
+                            }`}
+                          >
+                            <Icon className="w-3.5 h-3.5" />
+                            <span>{config.label[currentLang === "tl" ? "tl" : "en"]}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
                 </div>
               </div>
 

@@ -21,6 +21,7 @@ import { allowedUploadTypes } from "@/lib/const";
 import ViewImage from "@/components/general/ViewImage";
 import { FileUp } from "lucide-react";
 import { FLARE_OPTIONS, FLARES } from "@/lib/flares";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   announcement: Announcement;
@@ -33,8 +34,11 @@ export default function EditAnnouncementButton({ announcement, children }: Props
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
   const imageInputRef = useRef<HTMLInputElement>(null);
 
+  const { i18n } = useTranslation();
+  const currentLang = i18n.language || "en";
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [selectedFlare, setSelectedFlare] = useState<string>(announcement.flare || "Rice Impact");
+  const [selectedFlare, setSelectedFlare] = useState<string>(announcement.flare || "General");
   const [imageSrc, setImageSrc] = useState<string | null>(announcement.image_url || null);
   const [errors, setErrors] = useState<string[]>([]);
 
@@ -109,7 +113,7 @@ export default function EditAnnouncementButton({ announcement, children }: Props
       setIsOpen(open);
       if (!open) {
         setImageSrc(announcement.image_url || null);
-        setSelectedFlare(announcement.flare || "Rice Impact");
+        setSelectedFlare(announcement.flare || "General");
         setErrors([]);
       }
     }} open={isOpen}>
@@ -146,30 +150,94 @@ export default function EditAnnouncementButton({ announcement, children }: Props
             />
 
             {/* Flare selection */}
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-3">
               <label className="text-xs font-bold text-slate-500 uppercase tracking-wide">
                 Announcement Flare / Tag <span className="text-red-500">*</span>
               </label>
-              <div className="flex items-center gap-1.5 flex-wrap">
-                  {FLARE_OPTIONS.map((flare) => {
-                    const config = FLARES[flare];
-                    const Icon = config.icon;
-                    const isActive = selectedFlare === flare;
-                    return (
-                      <button
-                        key={flare}
-                        type="button"
-                        onClick={() => setSelectedFlare(flare)}
-                        className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-lg border transition-all duration-200 active:scale-95 ${
-                          isActive ? config.active + " border-transparent" : config.formInactive
-                        }`}
-                      >
-                        <Icon className="w-3.5 h-3.5" />
-                        <span>{flare}</span>
-                      </button>
-                    );
-                  })}
+              
+              {/* Grouped selector container */}
+              <div className="flex flex-col gap-3.5 bg-slate-50/50 p-4 rounded-2xl border border-slate-100">
+                {/* Operational Group */}
+                <div className="flex flex-col gap-1.5">
+                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Operational</span>
+                  <div className="flex items-center gap-1.5 flex-wrap">
+                    {FLARE_OPTIONS.filter(f => FLARES[f].group === "operational").map((flare) => {
+                      const config = FLARES[flare];
+                      const Icon = config.icon;
+                      const isActive = selectedFlare === flare;
+                      return (
+                        <button
+                          key={flare}
+                          type="button"
+                          onClick={() => setSelectedFlare(flare)}
+                          className={`flex items-center gap-1.5 px-2.5 py-1 text-xs font-bold rounded-lg border transition-all duration-200 active:scale-95 ${
+                            isActive ? config.active + " border-transparent" : config.formInactive + " bg-white"
+                          }`}
+                        >
+                          <Icon className="w-3.5 h-3.5" />
+                          <span>{config.label[currentLang === "tl" ? "tl" : "en"]}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
                 </div>
+
+                {/* Divider */}
+                <div className="border-t border-slate-200/60" />
+
+                {/* Program-Specific Group */}
+                <div className="flex flex-col gap-1.5">
+                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Program-Specific</span>
+                  <div className="flex items-center gap-1.5 flex-wrap">
+                    {FLARE_OPTIONS.filter(f => FLARES[f].group === "program").map((flare) => {
+                      const config = FLARES[flare];
+                      const Icon = config.icon;
+                      const isActive = selectedFlare === flare;
+                      return (
+                        <button
+                          key={flare}
+                          type="button"
+                          onClick={() => setSelectedFlare(flare)}
+                          className={`flex items-center gap-1.5 px-2.5 py-1 text-xs font-bold rounded-lg border transition-all duration-200 active:scale-95 ${
+                            isActive ? config.active + " border-transparent" : config.formInactive + " bg-white"
+                          }`}
+                        >
+                          <Icon className="w-3.5 h-3.5" />
+                          <span>{config.label[currentLang === "tl" ? "tl" : "en"]}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Divider */}
+                <div className="border-t border-slate-200/60" />
+
+                {/* Community & Engagement Group */}
+                <div className="flex flex-col gap-1.5">
+                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Community & Engagement</span>
+                  <div className="flex items-center gap-1.5 flex-wrap">
+                    {FLARE_OPTIONS.filter(f => FLARES[f].group === "community").map((flare) => {
+                      const config = FLARES[flare];
+                      const Icon = config.icon;
+                      const isActive = selectedFlare === flare;
+                      return (
+                        <button
+                          key={flare}
+                          type="button"
+                          onClick={() => setSelectedFlare(flare)}
+                          className={`flex items-center gap-1.5 px-2.5 py-1 text-xs font-bold rounded-lg border transition-all duration-200 active:scale-95 ${
+                            isActive ? config.active + " border-transparent" : config.formInactive + " bg-white"
+                          }`}
+                        >
+                          <Icon className="w-3.5 h-3.5" />
+                          <span>{config.label[currentLang === "tl" ? "tl" : "en"]}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
             </div>
 
             {/* Description input */}

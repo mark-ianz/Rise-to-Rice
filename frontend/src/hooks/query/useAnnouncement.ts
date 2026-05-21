@@ -42,13 +42,15 @@ export function usePostAnnouncement() {
   });
 }
   
-export function useGetAnnouncements(sort: string) {
+export function useGetAnnouncements(sort: string, flare?: string) {
   return useInfiniteQuery({
-    queryKey: queryKeys.announcements(sort),
+    queryKey: queryKeys.announcements(sort, flare),
     queryFn: async ({pageParam}) => {
-      const response = await axios.get<AnnouncementQueryResponse>(
-        `/api/announcements?limit=5&page=${pageParam}&sort=${sort}`
-      );
+      let url = `/api/announcements?limit=5&page=${pageParam}&sort=${sort}`;
+      if (flare) {
+        url += `&flare=${encodeURIComponent(flare)}`;
+      }
+      const response = await axios.get<AnnouncementQueryResponse>(url);
       return response.data;
     },
     initialPageParam: 1,

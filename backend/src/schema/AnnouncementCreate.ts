@@ -3,9 +3,23 @@ import { z } from "zod";
 export const AnnouncementCreateSchema = z.object({
   title: z.string().trim().min(1, "Title is required"),
   description: z.string().trim().optional(),
-  flare: z.enum(["Rice Impact", "Water", "Plastic", "Campaign", "Event", "Milestone", "Tips", "Rewards", "Urgent", "Community", "Schedule", "Update", "Partnership"], {
-    errorMap: () => ({ message: "A valid flare selection is required" }),
-  }),
+  flare: z.enum(
+    [
+      "Scheduling",
+      "Maintenance",
+      "Policy",
+      "Materials",
+      "Rewards",
+      "Redemption",
+      "Partners",
+      "Sustainability",
+      "General",
+      "Urgent",
+    ],
+    {
+      errorMap: () => ({ message: "A valid flare selection is required" }),
+    }
+  ),
 });
 
 export const UpdateAnnouncementSchema = AnnouncementCreateSchema.extend({

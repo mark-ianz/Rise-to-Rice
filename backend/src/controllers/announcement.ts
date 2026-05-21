@@ -110,7 +110,7 @@ export async function getAnnouncements(
   req: Request<{}, {}, {}, GetAnnouncement>,
   res: Response
 ) {
-  const { page, limit, author_id, sort } = req.query;
+  const { page, limit, author_id, sort, flare } = req.query;
 
   const pagination = await checkForPagination(page, limit, "announcement", "announcement_id");
 
@@ -126,9 +126,20 @@ export async function getAnnouncements(
     LEFT JOIN reactions AS r
     ON a.announcement_id = r.announcement_id`;
 
+    let whereClauses = [];
+
     if (author_id) {
       values.push(author_id);
-      query += " WHERE a.author_id = ?";
+      whereClauses.push("a.author_id = ?");
+    }
+
+    if (flare) {
+      values.push(flare);
+      whereClauses.push("a.flare = ?");
+    }
+
+    if (whereClauses.length > 0) {
+      query += " WHERE " + whereClauses.join(" AND ");
     }
 
     query += ` GROUP BY a.announcement_id`;

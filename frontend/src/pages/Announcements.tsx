@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import { Helmet } from "react-helmet-async";
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import {
   Leaf,
   Lightbulb,
@@ -203,36 +204,39 @@ export default function Announcements() {
               <SortAnnouncement />
             </div>
 
-            {/* Flares Row */}
-            <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar w-full animate-[fadeSlideUp_0.35s_ease-out]">
-              <button
-                onClick={() => handleFlareClick("")}
-                className={`shrink-0 px-3.5 py-1.5 text-xs font-bold rounded-full transition-all duration-200 active:scale-95 ${!activeFlare
-                  ? "bg-[#2D5A27] text-white shadow-sm"
-                  : "text-slate-500 hover:text-slate-700 hover:bg-slate-100"
-                  }`}
-              >
-                All
-              </button>
-              {FLARE_OPTIONS.map((flare) => {
-                const config = FLARES[flare];
-                const Icon = config.icon;
-                const isActive = activeFlare === flare;
-                return (
-                  <button
-                    key={flare}
-                    onClick={() => handleFlareClick(flare)}
-                    className={`shrink-0 flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-bold rounded-full transition-all duration-200 active:scale-95 ${isActive
-                      ? config.active
-                      : config.filterInactive
-                      }`}
-                  >
-                    <Icon className="w-3 h-3" />
-                    {flare}
-                  </button>
-                );
-              })}
-            </div>
+            {/* Flares Row - Horizontal Scrollable via Shadcn ScrollArea */}
+            <ScrollArea className="w-full max-w-3xl whitespace-nowrap pb-2 animate-[fadeSlideUp_0.35s_ease-out]">
+              <div className="flex flex-row flex-nowrap items-center gap-1.5 w-full">
+                <button
+                  onClick={() => handleFlareClick("")}
+                  className={`shrink-0 px-3.5 py-1.5 text-xs font-bold rounded-full transition-all duration-200 active:scale-95 ${!activeFlare
+                    ? "bg-[#2D5A27] text-white shadow-sm"
+                    : "text-slate-500 hover:text-slate-700 hover:bg-slate-100 bg-slate-50/50 border border-slate-100"
+                    }`}
+                >
+                  All
+                </button>
+                {FLARE_OPTIONS.map((flare) => {
+                  const config = FLARES[flare];
+                  const Icon = config.icon;
+                  const isActive = activeFlare === flare;
+                  return (
+                    <button
+                      key={flare}
+                      onClick={() => handleFlareClick(flare)}
+                      className={`shrink-0 flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-bold rounded-full transition-all duration-200 active:scale-95 border ${isActive
+                        ? config.active + " border-transparent"
+                        : config.filterInactive + " border-slate-100 bg-slate-50/50"
+                        }`}
+                    >
+                      <Icon className="w-3.5 h-3.5" />
+                      {config.label[currentLang === "tl" ? "tl" : "en"]}
+                    </button>
+                  );
+                })}
+              </div>
+              <ScrollBar orientation="horizontal" />
+            </ScrollArea>
 
             {/* Main Announcements Feed */}
             <AnnouncementList />

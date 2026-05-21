@@ -18,6 +18,7 @@ import EditAnnouncementButton from "./EditAnnouncementButton";
 import companyLogo from "@/assets/COMPONY LOGO NO BG.png";
 import useUserContext from "@/hooks/useUserContext";
 import { FLARES, type FlareType } from "@/lib/flares";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   announcement: Announcement;
@@ -27,6 +28,8 @@ export default function AnnouncementHeader({ announcement }: Props) {
   const { data: author } = useGetAuthor(announcement.announcement_id);
   const { state: user } = useUserContext();
   const isAdmin = user?.isAdmin;
+  const { i18n } = useTranslation();
+  const currentLang = i18n.language || "en";
 
   return (
     <div className="flex gap-3 justify-between items-center w-full">
@@ -58,7 +61,7 @@ export default function AnnouncementHeader({ announcement }: Props) {
               return (
                 <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-extrabold border ${config.badge}`}>
                   <Icon className="w-3 h-3" />
-                  {announcement.flare}
+                  {config.label[currentLang === "tl" ? "tl" : "en"]}
                 </span>
               );
             })()}

@@ -64,9 +64,24 @@ async function runMigrations() {
     const [aColumns]: any = await pool.query("SHOW COLUMNS FROM `announcement`");
     const aColNames = aColumns.map((c: any) => c.Field);
     if (!aColNames.includes('flare')) {
-      await pool.query("ALTER TABLE `announcement` ADD COLUMN `flare` VARCHAR(50) NOT NULL DEFAULT 'Rice Impact'");
+      await pool.query("ALTER TABLE `announcement` ADD COLUMN `flare` VARCHAR(50) NOT NULL DEFAULT 'General'");
       console.log("Database Migration: Added flare column to announcement table successfully.");
     }
+
+    // Run data migrations for old flares to new flares
+    console.log("Database Migration: Mapping old announcement flares to new ones...");
+    await pool.query("UPDATE `announcement` SET `flare` = 'General' WHERE `flare` IN ('Rice Impact', 'Water', 'Plastic', 'Milestone', 'Community')");
+    await pool.query("UPDATE `announcement` SET `flare` = 'Sustainability' WHERE `flare` IN ('Campaign', 'Tips')");
+    await pool.query("UPDATE `announcement` SET `flare` = 'Scheduling' WHERE `flare` = 'Schedule'");
+    await pool.query("UPDATE `announcement` SET `flare` = 'Maintenance' WHERE `flare` = 'Update'");
+    await pool.query("UPDATE `announcement` SET `flare` = 'Partners' WHERE `flare` = 'Partnership'");
+    await pool.query("UPDATE `announcement` SET `flare` = 'General' WHERE `flare` NOT IN ('Scheduling', 'Maintenance', 'Policy', 'Materials', 'Rewards', 'Redemption', 'Partners', 'Sustainability', 'General', 'Urgent') OR `flare` IS NULL");
+
+    // Modify the column to be a strict ENUM with a default of 'General'
+    await pool.query(
+      "ALTER TABLE `announcement` MODIFY `flare` ENUM('Scheduling', 'Maintenance', 'Policy', 'Materials', 'Rewards', 'Redemption', 'Partners', 'Sustainability', 'General', 'Urgent') NOT NULL DEFAULT 'General'"
+    );
+    console.log("Database Migration: Altered flare column to strict ENUM successfully.");
 
     console.log("Database Migration completed successfully.");
   } catch (error) {

@@ -4,7 +4,7 @@ import TextLogo from "@/components/logo/TextLogo";
 
 export default function SidebarHeader() {
   return (
-    <div className="flex items-center gap-4 p-6">
+    <div className="flex items-center gap-4 px-6 pt-9 pb-6">
       <CompanyLogo />
       <div>
         <TextLogo />

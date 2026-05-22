@@ -10,10 +10,10 @@ export default function CloseSidebarButton({ setIsSidebarOpen }: Props) {
     <Button
       size={"icon"}
       variant={"ghost"}
-      className="rounded-full absolute top-4 right-4"
+      className="rounded-full absolute top-8 right-6 w-9 h-9 flex items-center justify-center bg-secondary-light-2/40 hover:bg-secondary-light-2 active:scale-95 transition-all text-secondary-dark/60 hover:text-secondary-dark border border-warm-tan/10"
       onClick={() => setIsSidebarOpen(false)}
     >
-      <X />
+      <X size={18} />
     </Button>
   );
 }

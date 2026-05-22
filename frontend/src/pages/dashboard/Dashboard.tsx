@@ -75,7 +75,7 @@ export default function Dashboard() {
             </div>
           }
         >
-          <div className="grid grid-cols-2 gap-6 max-lg:grid-cols-1">
+          <div className="flex flex-col gap-10">
             <MaterialsChart time={time} />
             <DetailedMaterialAnalytics time={time} />
           </div>

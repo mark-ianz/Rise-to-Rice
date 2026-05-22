@@ -52,9 +52,9 @@ export default function MaterialsChart({ time, className, user_id }: Props) {
   const isPie = chartType.value === "pie_chart";
 
   return (
-    <div className={cn("grid grid-cols-5 gap-6 max-2xl:grid-cols-1", className)}>
+    <div className={cn("grid grid-cols-5 gap-6 max-xl:grid-cols-1", className)}>
       {/* Chart Section - Takes 3 columns */}
-      <div className="col-span-3 max-2xl:col-span-1 bg-white rounded-2xl p-6 max-md:p-4 border border-warm-tan/15 shadow-sm">
+      <div className="col-span-3 max-xl:col-span-1 bg-white rounded-2xl p-6 max-md:p-4 border border-warm-tan/15 shadow-sm">
         <div className="flex items-start justify-between mb-8 flex-wrap gap-4">
           <div className="flex-1 min-w-[200px]">
             <h2 className="text-xl max-md:text-lg font-bold text-secondary-dark tracking-tight">
@@ -108,7 +108,7 @@ export default function MaterialsChart({ time, className, user_id }: Props) {
       </div>
 
       {/* Environmental Impact Section - Takes 2 columns */}
-      <div className="col-span-2 max-2xl:col-span-1">
+      <div className="col-span-2 max-xl:col-span-1">
         <EnvironmentalImpact data={top_material} />
       </div>
     </div>

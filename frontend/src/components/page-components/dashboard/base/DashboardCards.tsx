@@ -25,7 +25,7 @@ export default function DashboardCards({ time }: Props) {
     return (
       <ListContainer>
         {Array.from({ length: 6 }).map((_, index) => (
-          <Skeleton key={index} className="w-full h-60" />
+          <Skeleton key={index} className="w-full h-44 rounded-2xl" />
         ))}
       </ListContainer>
     );
@@ -82,7 +82,7 @@ export default function DashboardCards({ time }: Props) {
 
 function ListContainer({ children }: { children: ReactNode }) {
   return (
-    <ol className="grid grid-cols-6 gap-4 w-full max-2xl:grid-cols-5 max-xl:grid-cols-4 max-lg:grid-cols-3 max-sm:grid-cols-2 max-xsm:grid-cols-1">
+    <ol className="grid grid-cols-3 gap-6 w-full max-xl:grid-cols-2 max-sm:grid-cols-1">
       {children}
     </ol>
   );

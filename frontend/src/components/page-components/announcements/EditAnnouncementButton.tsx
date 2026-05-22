@@ -124,7 +124,7 @@ export default function EditAnnouncementButton({ announcement, children }: Props
           </Button>
         )}
       </DialogTrigger>
-      <DialogContent onInteractOutside={(e) => e.preventDefault()} className="rounded-3xl border border-slate-100 shadow-2xl p-6 sm:p-8 max-w-[500px]">
+      <DialogContent onInteractOutside={(e) => e.preventDefault()} className="rounded-3xl border border-slate-100 shadow-2xl p-6 sm:p-8 max-w-[500px] [@media(max-height:850px)]:max-h-[90vh] [@media(max-height:850px)]:overflow-y-auto">
         <form onSubmit={handleUpdateSubmit} className="flex flex-col gap-5">
           <div className="flex flex-col gap-1">
             <DialogHeader>

@@ -21,19 +21,14 @@ export default function HeroSection() {
         <div className="grid grid-cols-2 gap-16 max-lg:gap-10 max-md:grid-cols-1 items-center">
           {/* Left: Content */}
           <div className="flex flex-col">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-primary-main/10 text-primary-main text-xs font-semibold uppercase tracking-wider rounded-full w-fit mb-6">
-              <Leaf className="w-3.5 h-3.5" />
-              Barangay Bagong Silangan
-            </div>
-            
             <h1 className="text-5xl max-lg:text-4xl max-md:text-3xl max-sm:text-2xl font-bold text-secondary-dark leading-[1.15] tracking-tight">
               {t("hero.title")}
             </h1>
-            
+
             <p className="mt-6 text-secondary-dark/60 text-lg max-lg:text-base leading-relaxed">
               {t("hero.subtext")}
             </p>
-            
+
             <div className="flex gap-3 mt-8 max-sm:flex-col">
               <GetStartedButton className="px-6 py-5 text-sm font-semibold" />
               <Button
@@ -73,26 +68,26 @@ export default function HeroSection() {
           <div className="grid grid-cols-2 gap-6 max-md:hidden items-center">
             <div className="space-y-6">
               <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden bg-warm-beige shadow-2xl shadow-primary-main/10 animate-float border-4 border-white/50">
-                <img 
-                  src={heroImage1} 
-                  alt="Community participating in recycling" 
-                  className="w-full h-full object-cover hover:scale-110 transition-transform duration-700" 
+                <img
+                  src={heroImage1}
+                  alt="Community participating in recycling"
+                  className="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
                 />
               </div>
             </div>
             <div className="space-y-6 pt-12">
               <div className="aspect-square rounded-[2rem] overflow-hidden bg-warm-beige shadow-xl shadow-primary-main/10 animate-float-delayed border-4 border-white/50">
-                <img 
-                  src={heroImage2} 
-                  alt="Weighing recyclables" 
-                  className="w-full h-full object-cover hover:scale-110 transition-transform duration-700" 
+                <img
+                  src={heroImage2}
+                  alt="Weighing recyclables"
+                  className="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
                 />
               </div>
               <div className="aspect-[4/3] rounded-[2rem] overflow-hidden bg-warm-beige shadow-lg shadow-primary-main/10 animate-float-more-delayed border-4 border-white/50">
-                <img 
-                  src={heroImage3} 
-                  alt="Receiving rewards" 
-                  className="w-full h-full object-cover hover:scale-110 transition-transform duration-700" 
+                <img
+                  src={heroImage3}
+                  alt="Receiving rewards"
+                  className="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
                 />
               </div>
             </div>

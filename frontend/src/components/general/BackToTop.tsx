@@ -11,7 +11,7 @@ import {
 import { useTranslation } from "react-i18next";
 
 export default function BackToTop() {
-  const { i18n } = useTranslation();
+  const { t } = useTranslation("global");
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -40,7 +40,7 @@ export default function BackToTop() {
   return (
     <TooltipProvider>
       <Tooltip delayDuration={200}>
-        <TooltipContent>{i18n.language === "en" ? "Back to Top" : "Bumalik sa Taas"}</TooltipContent>
+        <TooltipContent>{t("back_to_top")}</TooltipContent>
         <TooltipTrigger asChild>
           <Button
             className={cn(

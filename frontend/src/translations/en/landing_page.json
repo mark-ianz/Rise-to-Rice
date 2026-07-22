@@ -1,12 +1,21 @@
 {
   "hero": {
+    "badge": "Process",
     "title": "Recyclables to rice and support a greener community",
     "subtext": "Welcome to Rise to Rice, a community-driven initiative that transforms recyclable waste into a valuable resource to support sustainability and local communities. By repurposing waste, we reduce environmental impact and create opportunities for a greener future.",
     "button": {
       "profile": "Profile",
       "get_started": "Get Started",
       "how_does_it_work": "How Does It Work?"
-    }
+    },
+    "how_title": "How does it <1>work?</1>",
+    "how_description": "From your recyclables to rice on your table - it only takes four simple steps.",
+    "stat_households": "Households",
+    "stat_collected": "Collected",
+    "stat_co2": "CO2 Saved",
+    "image_alt_1": "Community member participating",
+    "image_alt_2": "Weighing recyclables",
+    "image_alt_3": "Redeeming rewards"
   },
   "how_does_it_work": {
     "title": "How does it work?",
@@ -31,6 +40,7 @@
   },
   "latest_announcements": {
     "title": "Latest Announcements",
+    "subtitle": "News and updates from our community",
     "view_more": "View More",
     "no_recent_announcements": "No recent announcements",
     "read_more": "Read More"

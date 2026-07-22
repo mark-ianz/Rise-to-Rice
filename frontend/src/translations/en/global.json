@@ -12,5 +12,7 @@
     "previous": "Previous",
     "next": "Next",
     "found": "Found: {{total_items}}"
-  }
+  },
+  "back_to_top": "Back to Top",
+  "go_home": "Go Home"
 }

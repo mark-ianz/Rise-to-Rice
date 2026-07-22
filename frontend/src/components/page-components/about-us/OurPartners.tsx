@@ -14,7 +14,7 @@ const cardVariants = {
 };
 
 export default function OurPartners() {
-  const { i18n } = useTranslation();
+  const { t } = useTranslation("about_us");
 
   return (
     <SectionWrapper
@@ -36,21 +36,19 @@ export default function OurPartners() {
             variants={fadeUpVariants}
             className="text-primary-main-light text-sm font-semibold uppercase tracking-wider"
           >
-            Working Together
+            {t("partners.badge")}
           </motion.span>
           <motion.h2
             variants={fadeUpVariants}
             className="mt-3 text-4xl max-lg:text-3xl max-md:text-2xl font-bold text-white"
           >
-            {i18n.language === "en" ? "Our Partners" : "Mga Kasosyo Namin"}
+            {t("partners.title")}
           </motion.h2>
           <motion.p
             variants={fadeUpVariants}
             className="mt-4 text-white/60 max-w-2xl mx-auto leading-relaxed"
           >
-            {i18n.language === "en"
-              ? "Our Solid Waste Management Program thrives through the support of our valued partners working together to create a sustainable community."
-              : "Ang aming Solid Waste Management Program ay umuunlad sa pamamagitan ng suporta ng aming mga pinahahalagahang kasosyo na nagtutulungan upang lumikha ng isang napapanatiling komunidad."}
+            {t("partners.description")}
           </motion.p>
         </motion.div>
 

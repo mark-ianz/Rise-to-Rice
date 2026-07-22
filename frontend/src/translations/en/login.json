@@ -1,18 +1,40 @@
 {
   "eyebrow": "Member access",
-  "title": "Welcome back",
-  "subtitle": "Sign in to continue.",
+  "title": "Welcome back!",
+  "subtitle": "Enter your credentials to securely access your account.",
   "button": {
-    "login": "Login",
-    "forgot_password": "Forgot Password?",
+    "login": "Login Now",
+    "forgot_password": "Forgot password?",
     "register": "Create an account"
   },
   "links": {
-    "register_prompt": "New to Rise to Rice?"
+    "register_prompt": "Don't have an account?",
+    "forgot_password": "Forgot password?"
+  },
+  "placeholder": {
+    "email": "Enter your email",
+    "password": "Password"
+  },
+  "meta": {
+    "title": "Login | Rise to Rice",
+    "description": "Log in to your Rise to Rice account and access your rewards and profile."
   },
   "hero": {
-    "badge": "Rise to Rice",
-    "title": "Simple access to your account.",
-    "description": "View your points, rewards, and profile in one place."
+    "title": "Connecting You to a<br />Greener Future",
+    "description": "Discover a platform designed to help you contribute, collaborate, and grow your sustainable impact.",
+    "features": [
+      {
+        "title": "Track Your Impact",
+        "description": "Monitor your recycling progress and see the real-world difference you're making."
+      },
+      {
+        "title": "Earn Exclusive Rewards",
+        "description": "Accumulate points for every contribution and redeem them for exciting perks."
+      },
+      {
+        "title": "Join the Community",
+        "description": "Connect with like-minded individuals dedicated to sustainability and a cleaner future."
+      }
+    ]
   }
 }

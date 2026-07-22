@@ -24,7 +24,7 @@ export default function ItemsWeDontAccept() {
             <span className="pl-5">
               <p>{material.description}</p>
               <p className="italic text-tertiary text-sm">
-                {" e.g "}(
+                {t("items_we_dont_accept.eg_label")}(
                 {material.examples.map((example, index) =>
                   index + 1 !== material.examples.length
                     ? `${example}, `

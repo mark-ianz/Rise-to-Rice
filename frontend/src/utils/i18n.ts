@@ -30,6 +30,8 @@ import footer_en from "@/translations/en/footer.json";
 import footer_tl from "@/translations/tl/footer.json";
 import change_password_en from "@/translations/en/change_password.json";
 import change_password_tl from "@/translations/tl/change_password.json";
+import user_home_en from "@/translations/en/user_home.json";
+import user_home_tl from "@/translations/tl/user_home.json";
 
 import i18next from "i18next";
 import { initReactI18next } from "react-i18next";
@@ -56,6 +58,7 @@ i18next.use(initReactI18next).init({
       forgot_password: forgot_password_en,
       footer: footer_en,
       change_password: change_password_en,
+      user_home: user_home_en,
     },
     tl: {
       global: global_tl,
@@ -74,6 +77,7 @@ i18next.use(initReactI18next).init({
       forgot_password: forgot_password_tl,
       footer: footer_tl,
       change_password: change_password_tl,
+      user_home: user_home_tl,
     },
   },
   fallbackLng: "en",

@@ -40,7 +40,7 @@ export default function AcceptedWastes() {
               className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-main/10 border border-primary-main/20 text-primary-main text-[10px] font-black uppercase tracking-widest mb-4"
             >
               <Recycle size={12} />
-              <span>Material Guide</span>
+              <span>{t("accepted_wastes.badge")}</span>
             </motion.div>
             <motion.h2
               variants={{
@@ -58,7 +58,7 @@ export default function AcceptedWastes() {
               }}
               className="text-sm text-secondary-dark/40 font-medium"
             >
-              Everything we accept at our facility, sorted by category and recycling value.
+              {t("accepted_wastes.subtitle")}
             </motion.p>
           </div>
           
@@ -71,7 +71,7 @@ export default function AcceptedWastes() {
           >
             <div className="flex flex-col items-end max-lg:items-start gap-2">
               <span className="text-[10px] font-black text-secondary-dark/30 uppercase tracking-widest flex items-center gap-1.5">
-                <Scale size={10} /> Measurement Unit
+                <Scale size={10} /> {t("accepted_wastes.measurement_unit")}
               </span>
               <Tabs 
                 defaultValue="kg" 
@@ -88,7 +88,7 @@ export default function AcceptedWastes() {
             <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-2xl border border-warm-tan/30 shadow-md">
               <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
               <span className="text-[11px] font-bold text-secondary-dark/60 uppercase tracking-wider">
-                Live Pricing: {format(new Date(), "MMM d, yyyy")}
+                {t("accepted_wastes.live_pricing", { date: format(new Date(), "MMM d, yyyy") })}
               </span>
             </div>
           </motion.div>
@@ -127,10 +127,10 @@ export default function AcceptedWastes() {
 
               <div className="flex items-center justify-between mb-8 relative z-10">
                 <h3 className="text-lg font-black text-secondary-dark tracking-tight uppercase">
-                  Price List
+                  {t("accepted_wastes.price_list")}
                 </h3>
                 <span className="text-[10px] font-bold text-primary-main bg-primary-main/10 border border-primary-main/10 px-3 py-1 rounded-full uppercase tracking-widest">
-                  Points / {unit.toUpperCase()}
+                  {t("accepted_wastes.points_per", { unit: unit.toUpperCase() })}
                 </span>
               </div>
               
@@ -143,11 +143,11 @@ export default function AcceptedWastes() {
                   </div>
                   <div className="flex-1">
                     <p className="text-xs text-secondary-dark/60 leading-relaxed font-medium">
-                      Missing a material? Reach out for custom pricing or bulk programs.
+                      {t("accepted_wastes.inquire_text")}
                     </p>
                   </div>
                   <button className="text-xs font-black text-primary-main uppercase tracking-widest hover:underline px-4 py-2 bg-primary-main/5 rounded-lg border border-primary-main/10">
-                    Inquire
+                    {t("accepted_wastes.inquire_button")}
                   </button>
                 </div>
               </div>

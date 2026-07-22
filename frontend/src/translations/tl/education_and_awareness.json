@@ -1,11 +1,25 @@
 {
   "accepted_wastes": {
+    "badge": "Gabay sa Materyales",
     "title": "Tinatanggap Na Mga Basura",
-    "date": "sa petsang {{date}}"
+    "subtitle": "Lahat ng tinatanggap namin sa aming pasilidad, na nakaayos ayon sa kategorya at halaga ng recycling.",
+    "date": "sa petsang {{date}}",
+    "measurement_unit": "Yunit ng Pagsukat",
+    "live_pricing": "Live na Presyo: {{date}}",
+    "price_list": "Listahan ng Presyo",
+    "points_per": "Puntos / {{unit}}",
+    "inquire_text": "May nawawalang materyal? Makipag-ugnayan para sa custom na presyo o bulk programs.",
+    "inquire_button": "Magtanong"
+  },
+  "categories": ["Plastik", "Metal", "Salamin", "Papel"],
+  "tips": {
+    "clean_dry": "Malinis at Tuyo",
+    "sorting_matters": "Mahalaga ang Paghihiwalay",
+    "quote": "\u201cAng paghihiwalay ng iyong mga materyales nang maaga ay makabuluhang nagpapabilis ng iyong pagbisita at tinitiyak ang tumpak na pagtimbang!\u201d"
   },
   "left": {
     "content_1": "Sa Rise to Rice, pokus kami sa paggawa ng pagkakaiba sa parehong kapaligiran at ating pamayanan. Upang matiyak na ang aming mga pagsisikap sa pag-recycle ay epektibo, tumatanggap lamang kami ng mga materyales na maaaring maproseso nang maayos at ma-ipalit sa mga mapagkukunan.",
-    "content_2": "Sa pamamagitan ng pag-recycle ng mga tinatanggap na materyales, hindi mo lang nililinis ang iyong kapaligiran—nag-aambag ka rin sa mas napapanatiling hinaharap habang sinusuportahan ang mga lokal na komunidad na nangangailangan."
+    "content_2": "Sa pamamagitan ng pag-recycle ng mga tinatanggap na materyales, hindi mo lang nililinis ang iyong kapaligiran\u2014nag-aambag ka rin sa mas napapanatiling hinaharap habang sinusuportahan ang mga lokal na komunidad na nangangailangan."
   },
   "right": {
     "items_we_accept": "Listahan ng mga tinatanggap na basura",
@@ -41,6 +55,7 @@
     }
   },
   "matters": {
+    "badge": "Bakit Ito Mahalaga",
     "title": "Bakit Mahalaga ang Paghihiwalay ng Basura?",
     "description": "Ang hindi tamang pagtatapon ng basura ay maaaring magkaroon ng malubhang kahihinatnan para sa kapaligiran. Kapag nauubos ang mga recyclable tulad ng mga plastik, metal, at papel sa mga landfill, nag-aambag sila sa polusyon, akumulasyon ng basura, at tumaas na greenhouse gas emissions. Ang mga hindi nare-recycle na materyales ay maaaring malagyan ng mapanganib na kemikal sa lupa at tubig, na nakakaapekto sa mga ecosystem.",
     "list": {
@@ -62,8 +77,9 @@
     }
   },
   "benefits": {
+    "badge": "Iyong Mga Gantimpala",
     "title": "Mga Benepisyo ng Pag-recycle",
-    "description": "Ang pag-recycle ay hindi lamang mabuti para sa kapaligiran—ito ay mabuti para sa buong komunidad! Kapag nagre-recycle tayo, gumagawa tayo ng positibong epekto na nakikinabang ang lahat.",
+    "description": "Ang pag-recycle ay hindi lamang mabuti para sa kapaligiran\u2014ito ay mabuti para sa buong komunidad! Kapag nagre-recycle tayo, gumagawa tayo ng positibong epekto na nakikinabang ang lahat.",
     "list": [
       {
         "title": "Mas Malilinis na mga Kalsada at Komunidad",
@@ -86,5 +102,8 @@
         "description": "Ang mga inisyatibo sa pagrerecycle tulad ng Rise to Rice ay nagtataguyod ng kamalayan at edukasyon, tinutulungan ang mga tao na maunawaan ang kahalagahan ng tamang pamamahala ng basura at kung paano maaaring magdulot ng pangmatagalang pagbabago sa kapaligiran ang kanilang mga aksyon."
       }
     ]
+  },
+  "items_we_dont_accept": {
+    "eg_label": "hal"
   }
 }

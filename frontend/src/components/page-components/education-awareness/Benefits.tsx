@@ -111,7 +111,7 @@ export default function Benefits() {
           className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-main/10 border border-primary-main/20 text-primary-main text-[10px] font-black uppercase tracking-widest mb-6"
         >
           <Gift size={12} />
-          <span>Your Rewards</span>
+          <span>{t("benefits.badge")}</span>
         </motion.div>
         
         <motion.h3

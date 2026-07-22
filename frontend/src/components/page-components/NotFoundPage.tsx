@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 export default function NotFoundPage() {
-  const { t, i18n } = useTranslation("global");
+  const { t } = useTranslation("global");
 
   return (
     <div className="flex flex-col items-center justify-center w-full h-full grow text-center p-4">
@@ -10,7 +10,7 @@ export default function NotFoundPage() {
       <p className="text-xl text-muted-foreground mb-8">
         {t("error.page_not_found")}
       </p>
-      <Link to="/" className="underline">{i18n.language === "en" ? "Go Home" : "Bumalik"}</Link>
+      <Link to="/" className="underline">{t("go_home")}</Link>
     </div>
   );
 }

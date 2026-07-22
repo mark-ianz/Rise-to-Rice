@@ -1,6 +1,6 @@
 {
   "more_information": "More Information",
-  "subtext": "Rise to Rice is a community-driven initiative empowering barangay citizens to exchange recyclable materials for essential goods like rice. Together, we promote sustainability, reduce waste, and support local families — one small action at a time.",
+  "subtext": "Rise to Rice is a community-driven initiative empowering barangay citizens to exchange recyclable materials for essential goods like rice. Together, we promote sustainability, reduce waste, and support local families \u2014 one small action at a time.",
   "contact_information": "Contact Information",
   "keep_connected": "Keep Connected",
   "quick_links": "Quick Links",
@@ -12,5 +12,17 @@
   "announcements": "Announcements",
   "home": "Home",
   "login": "Login",
-  "register": "Register"
+  "register": "Register",
+  "profile": "Profile",
+  "admin_dashboard": "Admin Dashboard",
+  "address": "A. Bonifacio St. Bagong Silangan, QC",
+  "phone": "(02) 856-456-47",
+  "email": "barangaybagongsilangan123@gmail.com",
+  "copyright": "\u00a9 {{year}} Rise to Rice. All rights reserved.",
+  "developed_by": "Developed by",
+  "developer": "SMAQ Solutions",
+  "partner_badge": "Rise to Rice Partner",
+  "barangay_name": "BRGY. BAGONG SILANGAN, QC",
+  "official_title": "Punong Barangay",
+  "official_name": "WILFREDO L. CARA"
 }

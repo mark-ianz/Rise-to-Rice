@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import {
   useGetTopMatetial,
   useGetUserAnalytics,
@@ -39,6 +40,7 @@ function StatCard({
   subtext: string;
   description: string;
 }) {
+  const { t } = useTranslation("user_home");
   return (
     <div className="bg-warm-cream rounded-xl p-5 border border-warm-tan/15 hover:shadow-md transition-all duration-200 flex flex-col gap-3 group relative">
       <div className="flex items-start justify-between">
@@ -50,7 +52,7 @@ function StatCard({
             <TooltipTrigger asChild>
               <button 
                 className="text-secondary-dark/40 hover:text-primary-main transition-colors p-1 rounded-full hover:bg-primary-main/5"
-                aria-label="More information"
+                aria-label={t("more_info")}
               >
                 <Info size={18} />
               </button>
@@ -96,6 +98,7 @@ export default function ImpactStats({
   time: TimeDisplay;
   onTimeChange: (value: string | number) => void;
 }) {
+  const { t } = useTranslation("user_home");
   const { state } = useUserContext();
 
   const { data: topMaterial, isLoading: topMaterialLoading } =
@@ -129,10 +132,10 @@ export default function ImpactStats({
       <div className="flex items-center justify-between mb-5 gap-4">
         <div>
           <h2 className="text-xl font-bold text-secondary-dark tracking-tight">
-            Recycling Impact Overview
+            {t("impact_overview")}
           </h2>
           <p className="text-xs text-secondary-dark/50 mt-1">
-            Track your environmental contribution for <span className="text-primary-main font-semibold">{time.label.toLowerCase()}</span>.
+            {t("impact_description")}<span className="text-primary-main font-semibold">{time.label.toLowerCase()}</span>.
           </p>
         </div>
         <SelectDropDown
@@ -157,26 +160,26 @@ export default function ImpactStats({
           <StatCard
             icon={<Recycle size={20} className="text-primary-main" />}
             value={`${totalWeight} kg`}
-            subtext="Weight Recycled"
-            description="The total mass of waste you've successfully diverted from landfills through our program."
+            subtext={t("weight_recycled")}
+            description={t("weight_recycled_desc")}
           />
           <StatCard
             icon={<ArrowLeftRight size={20} className="text-primary-main" />}
             value={`${totalExchanges} times`}
-            subtext="Total Exchanges"
-            description="Number of times you've visited a collection point to exchange waste for rewards."
+            subtext={t("total_exchanges")}
+            description={t("total_exchanges_desc")}
           />
           <StatCard
             icon={<TrendingUp size={20} className="text-primary-main" />}
             value={`${totalPoints} points`}
-            subtext="Points Earned"
-            description="Total reward points accumulated based on the type and weight of materials recycled."
+            subtext={t("points_earned")}
+            description={t("points_earned_desc")}
           />
           <StatCard
             icon={<Leaf size={20} className="text-primary-main" />}
             value={topMaterialName}
-            subtext="Top Material"
-            description="The waste category you recycle most frequently, showing your biggest impact area."
+            subtext={t("top_material")}
+            description={t("top_material_desc")}
           />
         </div>
       )}

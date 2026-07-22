@@ -13,5 +13,7 @@
     "previous": "Bumalik",
     "next": "Sunod",
     "found": "Nahanap: {{total_items}}"
-  }
+  },
+  "back_to_top": "Bumalik sa Taas",
+  "go_home": "Bumalik"
 }

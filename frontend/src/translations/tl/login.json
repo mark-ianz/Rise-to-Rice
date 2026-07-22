@@ -1,18 +1,40 @@
 {
   "eyebrow": "Access ng miyembro",
-  "title": "Maligayang pagbabalik",
-  "subtitle": "Mag-sign in upang magpatuloy.",
+  "title": "Maligayang pagbabalik!",
+  "subtitle": "Ilagay ang iyong mga kredensyal upang ma-access nang ligtas ang iyong account.",
   "button": {
-    "login": "Mag-login",
+    "login": "Mag-login Ngayon",
     "forgot_password": "Nakalimutan ang password?",
     "register": "Gumawa ng account"
   },
   "links": {
-    "register_prompt": "Bago sa Rise to Rice?"
+    "register_prompt": "Wala pang account?",
+    "forgot_password": "Nakalimutan ang password?"
+  },
+  "placeholder": {
+    "email": "Ilagay ang iyong email",
+    "password": "Password"
+  },
+  "meta": {
+    "title": "Login | Rise to Rice",
+    "description": "Mag-login sa iyong Rise to Rice account at ma-access ang iyong mga reward at profile."
   },
   "hero": {
-    "badge": "Rise to Rice",
-    "title": "Simpleng access sa iyong account.",
-    "description": "Makita ang iyong puntos, rewards, at profile sa iisang lugar."
+    "title": "Ikinokonekta Ka sa<br />Mas Luntiang Kinabukasan",
+    "description": "Tuklasin ang isang platform na idinisenyo upang matulungan kang mag-ambag, makipagtulungan, at palaguin ang iyong sustainable na epekto.",
+    "features": [
+      {
+        "title": "Subaybayan ang Iyong Epekto",
+        "description": "I-monitor ang iyong progreso sa pag-recycle at makita ang tunay na pagkakaiba na iyong ginagawa."
+      },
+      {
+        "title": "Kumita ng Eksklusibong Mga Gantimpala",
+        "description": "Mag-ipon ng mga puntos para sa bawat kontribusyon at i-redeem ang mga ito para sa mga kapana-panabik na perks."
+      },
+      {
+        "title": "Sumali sa Komunidad",
+        "description": "Kumonekta sa mga taong katulad ng pag-iisip na nakatuon sa sustainability at mas malinis na kinabukasan."
+      }
+    ]
   }
 }

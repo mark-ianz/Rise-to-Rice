@@ -13,10 +13,10 @@ import heroImage3 from "@/assets/reward.webp";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const stats = [
-  { value: 500, suffix: "+", label: "Households", icon: Users },
-  { value: 2000, suffix: "kg", label: "Collected", icon: Recycle },
-  { value: 1.2, suffix: "t", label: "CO\u2082 Saved", icon: Sprout, isDecimal: true },
+const statsMeta = [
+  { value: 500, suffix: "+", labelKey: "hero.stat_households", icon: Users },
+  { value: 2000, suffix: "kg", labelKey: "hero.stat_collected", icon: Recycle },
+  { value: 1.2, suffix: "t", labelKey: "hero.stat_co2", icon: Sprout, isDecimal: true },
 ];
 
 const containerVariants = {
@@ -237,11 +237,11 @@ export default function HeroSection() {
               className="flex gap-8 mt-14 pt-8 border-t border-warm-tan/50 max-sm:gap-4 max-sm:flex-wrap"
               variants={fadeUpVariants}
             >
-              {stats.map((stat, i) => {
+              {statsMeta.map((stat, i) => {
                 const Icon = stat.icon;
                 return (
                   <motion.div
-                    key={stat.label}
+                    key={stat.labelKey}
                     className="flex items-center gap-3 cursor-default"
                     variants={statCardVariants}
                     custom={i}
@@ -262,7 +262,7 @@ export default function HeroSection() {
                         0{stat.suffix}
                       </p>
                       <p className="text-xs text-secondary-dark/50 uppercase tracking-wide">
-                        {stat.label}
+                        {t(stat.labelKey)}
                       </p>
                     </div>
                   </motion.div>
@@ -286,7 +286,7 @@ export default function HeroSection() {
                 >
                   <img
                     src={heroImage1}
-                    alt="Community member participating"
+                    alt={t("hero.image_alt_1")}
                     className="w-full h-full object-cover"
                   />
                 </motion.div>
@@ -304,7 +304,7 @@ export default function HeroSection() {
                 >
                   <img
                     src={heroImage2}
-                    alt="Weighing recyclables"
+                    alt={t("hero.image_alt_2")}
                     className="w-full h-full object-cover"
                   />
                 </motion.div>
@@ -320,7 +320,7 @@ export default function HeroSection() {
                 >
                   <img
                     src={heroImage3}
-                    alt="Redeeming rewards"
+                    alt={t("hero.image_alt_3")}
                     className="w-full h-full object-cover"
                   />
                 </motion.div>

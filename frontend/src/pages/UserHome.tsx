@@ -6,15 +6,17 @@ import DetailedMaterialAnalytics from "@/components/page-components/dashboard/ba
 import MaterialsChart from "@/components/page-components/dashboard/base/MaterialsChart";
 import { Helmet } from "react-helmet-async";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Time, TimeDisplay } from "@/types/time";
 import { getDisplayTime } from "@/utils/analytics";
 import useUserContext from "@/hooks/useUserContext";
 
 export default function UserHome() {
+  const { t } = useTranslation("user_home");
   const { state } = useUserContext();
   const [time, setTime] = useState<TimeDisplay>({
     value: "all_time",
-    label: "All-Time",
+    label: t("all_time"),
   });
 
   const onValueChange = (value: string | number) =>
@@ -30,10 +32,10 @@ export default function UserHome() {
       className="justify-center py-10 px-20 max-md:px-10 max-sm:px-6"
     >
       <Helmet>
-        <title>Home | Rise to Rice</title>
+        <title>{t("meta_title")}</title>
         <meta
           name="description"
-          content="Your personal Rise to Rice dashboard. Track your recycling impact, manage rewards, and stay updated."
+          content={t("meta_description")}
         />
         <meta name="robots" content="noindex, nofollow" />
         <link rel="canonical" href="https://risetorice.com/home" />

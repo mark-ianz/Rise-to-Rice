@@ -13,7 +13,7 @@ const containerVariants = {
 
 const fadeUpVariants = {
   hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] as const } },
 };
 
 export default function LatestPosts() {
@@ -94,7 +94,7 @@ export default function LatestPosts() {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+            transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] as const }}
           >
             <Bell className="w-10 h-10 text-secondary-dark/20 mx-auto mb-3" />
             <p className="text-secondary-dark/50">

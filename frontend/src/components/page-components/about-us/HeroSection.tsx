@@ -9,12 +9,12 @@ import { useTranslation } from "react-i18next";
 
 const fadeUpVariants = {
   hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] as const } },
 };
 
 const cardVariants = {
   hidden: { opacity: 0, y: 40, scale: 0.97 },
-  visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] } },
+  visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] as const } },
 };
 
 export default function HeroSection() {
@@ -93,7 +93,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.2 }}
+          transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] as const, delay: 0.2 }}
         >
           <div className="flex flex-col gap-4">
             <h2 className="text-2xl max-lg:text-xl font-bold text-secondary-dark">

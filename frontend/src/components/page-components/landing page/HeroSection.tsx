@@ -31,7 +31,7 @@ const fadeUpVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
+    transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] as const },
   },
 };
 
@@ -44,7 +44,7 @@ const wordVariants = {
     transition: {
       delay: i * 0.06,
       duration: 0.5,
-      ease: [0.25, 0.46, 0.45, 0.94],
+      ease: [0.25, 0.46, 0.45, 0.94] as const,
     },
   }),
 };
@@ -58,7 +58,7 @@ const statCardVariants = {
     transition: {
       delay: 0.6 + i * 0.15,
       duration: 0.5,
-      ease: [0.25, 0.46, 0.45, 0.94],
+      ease: [0.25, 0.46, 0.45, 0.94] as const,
     },
   }),
 };
@@ -280,7 +280,7 @@ export default function HeroSection() {
                   initial={{ opacity: 0, scale: 0.8, y: 40 }}
                   animate={{ opacity: 1, scale: 1, y: [0, -15, 0] }}
                   transition={{
-                    delay: 1.5, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94],
+                    delay: 1.5, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] as const,
                     y: { delay: 1.5, duration: 4, repeat: Infinity, ease: "easeInOut" },
                   }}
                 >
@@ -298,7 +298,7 @@ export default function HeroSection() {
                   initial={{ opacity: 0, scale: 0.8, y: 40 }}
                   animate={{ opacity: 1, scale: 1, y: [0, -15, 0] }}
                   transition={{
-                    delay: 1.7, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94],
+                    delay: 1.7, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] as const,
                     y: { delay: 1.7, duration: 4.5, repeat: Infinity, ease: "easeInOut" },
                   }}
                 >
@@ -314,7 +314,7 @@ export default function HeroSection() {
                   initial={{ opacity: 0, scale: 0.8, y: 40 }}
                   animate={{ opacity: 1, scale: 1, y: [0, -15, 0] }}
                   transition={{
-                    delay: 1.9, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94],
+                    delay: 1.9, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] as const,
                     y: { delay: 1.9, duration: 5, repeat: Infinity, ease: "easeInOut" },
                   }}
                 >

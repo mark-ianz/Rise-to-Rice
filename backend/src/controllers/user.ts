@@ -1,4 +1,4 @@
-/// <reference path="../types/express/index.d.ts" />
+/// <reference path="../types/express-augment/index.d.ts" />
 
 import { randomBytes } from "crypto";
 import { Request, Response } from "express";

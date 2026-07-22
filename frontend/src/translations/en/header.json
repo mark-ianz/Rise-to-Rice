@@ -1,4 +1,6 @@
 {
+  "login": "Login",
+  "register": "Register",
   "guest_links": [
     { "name": "Home", "url": "/" },
     { "name": "Announcements", "url": "/announcements" },

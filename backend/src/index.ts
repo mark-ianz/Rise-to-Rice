@@ -22,7 +22,6 @@ import path from "path";
 
 const app = express();
 const PORT = Number(process.env.PORT) || 3000;
-const HOST = process.env.HOST || "0.0.0.0";
 
 const corsOptions = {
   origin: process.env.FRONTEND_URL,
@@ -36,8 +35,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 
-app.listen(PORT, HOST, () => {
-  console.log(`Hosting on ${HOST} and listening to PORT ${PORT}`);
+app.listen(PORT, () => {
+  console.log(`Server listening on PORT ${PORT}`);
 });
 
 

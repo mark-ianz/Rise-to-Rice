@@ -260,7 +260,7 @@ export default function ViewAnnouncement() {
             </div>
 
             {/* Right Column: Sidebar Widgets */}
-            <div className="lg:col-span-1 flex flex-col gap-8">
+            <div className="lg:col-span-1 flex flex-col gap-8 lg:sticky lg:top-24 self-start">
               
               {/* Recent Announcements Card */}
               <div className="bg-white rounded-3xl border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.02)] p-6 flex flex-col gap-5">

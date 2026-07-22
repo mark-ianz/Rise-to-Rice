@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import SectionWrapper from "@/components/general/SectionWrapper";
 import segregate_icon from "@/assets/segregate-icon.png";
 import exchange_icon from "@/assets/exchange-icon.png";
@@ -13,6 +14,21 @@ type Steps = {
   description: string;
 }[];
 
+const containerVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.12, delayChildren: 0.15 } },
+};
+
+const fadeUpVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] } },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 50, scale: 0.95 },
+  visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] } },
+};
+
 export default function HowDoesItWork() {
   const { t } = useTranslation("landing_page");
 
@@ -26,24 +42,49 @@ export default function HowDoesItWork() {
       className="flex-col bg-secondary-dark py-16 justify-center overflow-hidden"
     >
       <div className="flex flex-col w-full max-w-screen-xl mx-auto px-20 max-lg:px-10 max-sm:px-6">
-        <div className="flex flex-col mb-10 animate-in fade-in slide-in-from-bottom duration-1000">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary-main/30 text-primary-main-light text-[10px] font-bold uppercase tracking-[0.3em] rounded-full mb-4 border border-primary-main/20 w-fit">
+        <motion.div
+          className="flex flex-col mb-10"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.15, delayChildren: 0.1 } },
+          }}
+        >
+          <motion.div
+            variants={fadeUpVariants}
+            className="inline-flex items-center gap-2 px-3 py-1 bg-primary-main/30 text-primary-main-light text-[10px] font-bold uppercase tracking-[0.3em] rounded-full mb-4 border border-primary-main/20 w-fit"
+          >
             Process
-          </div>
+          </motion.div>
           <div className="flex justify-between items-end max-lg:flex-col max-lg:items-start max-lg:gap-4">
-            <h2 className="text-5xl max-lg:text-4xl max-md:text-3xl font-bold text-white tracking-tight leading-none">
+            <motion.h2
+              variants={fadeUpVariants}
+              className="text-5xl max-lg:text-4xl max-md:text-3xl font-bold text-white tracking-tight leading-none"
+            >
               How does it <span className="text-primary-main-light">work?</span>
-            </h2>
-            <p className="text-white/40 max-w-[340px] text-base leading-relaxed max-lg:max-w-none border-l-2 border-primary-main/20 pl-6">
+            </motion.h2>
+            <motion.p
+              variants={fadeUpVariants}
+              className="text-white/40 max-w-[340px] text-base leading-relaxed max-lg:max-w-none border-l-2 border-primary-main/20 pl-6"
+            >
               From your recyclables to rice on your table - it only takes four simple steps.
-            </p>
+            </motion.p>
           </div>
-        </div>
+        </motion.div>
 
-        <div className="grid grid-cols-2 gap-6 max-md:grid-cols-1">
+        <motion.div
+          className="grid grid-cols-2 gap-6 max-md:grid-cols-1"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          variants={containerVariants}
+        >
           {steps.map((step, index) => (
-            <div
+            <motion.div
               key={index}
+              variants={cardVariants}
               className="group relative glass-dark rounded-[2.5rem] p-8 flex gap-8 items-start hover:-translate-y-1.5 transition-all duration-500 hover:bg-white/[0.04]"
             >
               {/* Step Number Badge */}
@@ -74,9 +115,9 @@ export default function HowDoesItWork() {
               <div className="absolute bottom-0 right-0 p-6 opacity-[0.02] group-hover:opacity-[0.05] transition-opacity">
                 <ArrowRight className="w-24 h-24 -rotate-45" />
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </SectionWrapper>
   );

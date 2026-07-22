@@ -7,3 +7,6 @@
 
 /frontend/dist
 tsconfig.tsbuildinfo
+
+.opencode
+.agents

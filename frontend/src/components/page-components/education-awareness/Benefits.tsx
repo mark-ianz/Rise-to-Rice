@@ -1,6 +1,6 @@
+import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { Gift, Coins, Users, HeartHandshake, BookOpen } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 type List = {
   title: string;
@@ -8,6 +8,21 @@ type List = {
 }[];
 
 const icons = [LeafIcon, Coins, Users, HeartHandshake, BookOpen];
+
+const containerVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.12, delayChildren: 0.15 } },
+};
+
+const fadeUpVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] } },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 50, scale: 0.95 },
+  visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] } },
+};
 
 function LeafIcon(props: any) {
   return (
@@ -40,8 +55,9 @@ export default function Benefits() {
     
     if (isHero) {
       return (
-        <div 
-          key={index} 
+        <motion.div
+          key={index}
+          variants={cardVariants}
           className="col-span-2 max-lg:col-span-1 group flex max-md:flex-col items-center max-md:items-start gap-8 max-md:gap-5 bg-primary-main/5 p-10 max-md:p-8 rounded-[32px] border border-primary-main/20 shadow-sm hover:shadow-lg hover:border-primary-main/40 transition-all duration-500"
         >
           <div className="w-20 h-20 max-md:w-16 max-md:h-16 rounded-3xl bg-white border border-primary-main/20 flex items-center justify-center shrink-0 group-hover:bg-primary-main group-hover:scale-110 group-hover:shadow-[0_8px_20px_rgba(45,90,39,0.3)] transition-all duration-500">
@@ -55,13 +71,14 @@ export default function Benefits() {
               {benefit.description}
             </p>
           </div>
-        </div>
+        </motion.div>
       );
     }
 
     return (
-      <div 
-        key={index} 
+      <motion.div
+        key={index}
+        variants={cardVariants}
         className="col-span-1 group flex flex-col bg-white p-8 max-md:p-6 rounded-[32px] border border-warm-tan/20 shadow-sm hover:shadow-[0_15px_40px_rgba(45,90,39,0.08)] hover:-translate-y-1 hover:border-primary-main/30 transition-all duration-500"
       >
         <div className="w-14 h-14 rounded-2xl bg-warm-cream border border-warm-tan/10 flex items-center justify-center shrink-0 mb-6 group-hover:bg-primary-main group-hover:scale-110 group-hover:shadow-[0_8px_20px_rgba(45,90,39,0.25)] transition-all duration-500">
@@ -73,36 +90,57 @@ export default function Benefits() {
         <p className="text-secondary-dark/60 text-sm leading-relaxed font-medium">
           {benefit.description}
         </p>
-      </div>
+      </motion.div>
     );
   };
 
   return (
     <div className="flex flex-col w-full">
-      {/* Header Section */}
-      <div className="flex flex-col items-center text-center max-w-3xl mx-auto mb-16 max-md:mb-10">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-main/10 border border-primary-main/20 text-primary-main text-[10px] font-black uppercase tracking-widest mb-6">
+      <motion.div
+        className="flex flex-col items-center text-center max-w-3xl mx-auto mb-16 max-md:mb-10"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-50px" }}
+        variants={{
+          hidden: {},
+          visible: { transition: { staggerChildren: 0.15, delayChildren: 0.1 } },
+        }}
+      >
+        <motion.div
+          variants={fadeUpVariants}
+          className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-main/10 border border-primary-main/20 text-primary-main text-[10px] font-black uppercase tracking-widest mb-6"
+        >
           <Gift size={12} />
           <span>Your Rewards</span>
-        </div>
+        </motion.div>
         
-        <h3 className="text-5xl max-lg:text-4xl max-md:text-3xl font-black text-secondary-dark tracking-tight leading-tight mb-6">
+        <motion.h3
+          variants={fadeUpVariants}
+          className="text-5xl max-lg:text-4xl max-md:text-3xl font-black text-secondary-dark tracking-tight leading-tight mb-6"
+        >
           {t("benefits.title")}
-        </h3>
+        </motion.h3>
         
-        <p className="leading-relaxed text-secondary-dark/60 font-medium text-base max-md:text-sm">
+        <motion.p
+          variants={fadeUpVariants}
+          className="leading-relaxed text-secondary-dark/60 font-medium text-base max-md:text-sm"
+        >
           {t("benefits.description")}
-        </p>
-      </div>
+        </motion.p>
+      </motion.div>
       
-      {/* Symmetrical Hero Feature Grid */}
-      <div className="grid grid-cols-2 max-lg:grid-cols-1 gap-6 w-full">
+      <motion.div
+        className="grid grid-cols-2 max-lg:grid-cols-1 gap-6 w-full"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-50px" }}
+        variants={containerVariants}
+      >
         {benefits.map((benefit, index) => {
-          // Make the first item a full-width hero feature
           const isHero = index === 0;
           return renderCard(benefit, index, isHero);
         })}
-      </div>
+      </motion.div>
     </div>
   );
 }

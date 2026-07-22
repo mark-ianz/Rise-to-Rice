@@ -1,4 +1,6 @@
 {
+  "login": "Mag-login",
+  "register": "Mag-rehistro",
   "guest_links": [
     {
       "name": "I-home",

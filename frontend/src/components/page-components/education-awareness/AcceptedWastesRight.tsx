@@ -4,7 +4,6 @@ import { useGetCategories } from "@/hooks/query/useMaterial";
 import { useTranslation } from "react-i18next";
 import { Coins, PackageCheck } from "lucide-react";
 import { WeightUnit } from "./AcceptedWastes";
-import { cn } from "@/lib/utils";
 import {
   Accordion,
   AccordionContent,
@@ -36,8 +35,15 @@ function List({ unit }: Props) {
     return (
       <div className="space-y-4">
         {dummyArray.map((_, index) => (
-          <div key={index} className="p-4 bg-white rounded-2xl border border-warm-tan/20">
-            <Skeleton className="w-1/3 h-5" />
+          <div key={index} className="flex items-center justify-between border border-warm-tan/30 rounded-3xl bg-white px-7 py-7">
+            <div className="flex items-center gap-5">
+              <Skeleton className="w-12 h-12 rounded-2xl" />
+              <div className="flex flex-col gap-2.5">
+                <Skeleton className="w-16 h-3" />
+                <Skeleton className="w-40 h-5" />
+              </div>
+            </div>
+            <Skeleton className="w-9 h-9 rounded-full" />
           </div>
         ))}
       </div>

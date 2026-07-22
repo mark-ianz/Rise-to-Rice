@@ -1,6 +1,17 @@
+import { motion } from "framer-motion";
 import SectionWrapper from "@/components/general/SectionWrapper";
 import { partners } from "@/lib/const/partners";
 import { useTranslation } from "react-i18next";
+
+const fadeUpVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] } },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 30, scale: 0.95 },
+  visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] } },
+};
 
 export default function OurPartners() {
   const { i18n } = useTranslation();
@@ -11,24 +22,52 @@ export default function OurPartners() {
       className="py-24 max-lg:py-20 max-md:py-16 bg-secondary-dark"
     >
       <div className="max-w-screen-xl mx-auto px-20 max-lg:px-10 max-sm:px-6 w-full">
-        <div className="text-center mb-16 max-md:mb-12">
-          <span className="text-primary-main-light text-sm font-semibold uppercase tracking-wider">
+        <motion.div
+          className="text-center mb-16 max-md:mb-12"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.15, delayChildren: 0.1 } },
+          }}
+        >
+          <motion.span
+            variants={fadeUpVariants}
+            className="text-primary-main-light text-sm font-semibold uppercase tracking-wider"
+          >
             Working Together
-          </span>
-          <h2 className="mt-3 text-4xl max-lg:text-3xl max-md:text-2xl font-bold text-white">
+          </motion.span>
+          <motion.h2
+            variants={fadeUpVariants}
+            className="mt-3 text-4xl max-lg:text-3xl max-md:text-2xl font-bold text-white"
+          >
             {i18n.language === "en" ? "Our Partners" : "Mga Kasosyo Namin"}
-          </h2>
-          <p className="mt-4 text-white/60 max-w-2xl mx-auto leading-relaxed">
+          </motion.h2>
+          <motion.p
+            variants={fadeUpVariants}
+            className="mt-4 text-white/60 max-w-2xl mx-auto leading-relaxed"
+          >
             {i18n.language === "en"
               ? "Our Solid Waste Management Program thrives through the support of our valued partners working together to create a sustainable community."
               : "Ang aming Solid Waste Management Program ay umuunlad sa pamamagitan ng suporta ng aming mga pinahahalagahang kasosyo na nagtutulungan upang lumikha ng isang napapanatiling komunidad."}
-          </p>
-        </div>
-        
-        <ul className="grid grid-cols-3 gap-6 max-lg:grid-cols-2 max-sm:grid-cols-1">
+          </motion.p>
+        </motion.div>
+
+        <motion.ul
+          className="grid grid-cols-3 gap-6 max-lg:grid-cols-2 max-sm:grid-cols-1"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.08, delayChildren: 0.15 } },
+          }}
+        >
           {partners.map((partner, index) => (
-            <li
+            <motion.li
               key={index + partner.name}
+              variants={cardVariants}
               className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden transition-all duration-300 hover:bg-white/10 hover:border-white/20"
             >
               <a
@@ -54,9 +93,9 @@ export default function OurPartners() {
                   )}
                 </div>
               </a>
-            </li>
+            </motion.li>
           ))}
-        </ul>
+        </motion.ul>
       </div>
     </SectionWrapper>
   );

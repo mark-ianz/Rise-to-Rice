@@ -7,7 +7,7 @@ import { LoginSchema } from "../schema/Login";
 import { LoginError, login } from "../helpers/login";
 import { authenticateRequest } from "../helpers/authentication";
 import { deleteExpiredRefreshTokens } from "../helpers/token";
-import { setAuthCookies } from "../helpers/cookie";
+import { clearAuthCookies, setAuthCookies } from "../helpers/cookie";
 
 export async function loginUser(req: Request, res: Response) {
   const connection = await pool.getConnection();
@@ -80,8 +80,7 @@ export async function logoutUser(req: Request, res: Response) {
   }
 
   // clear the cookies
-  res.clearCookie("authToken");
-  res.clearCookie("refreshToken");
+  clearAuthCookies(res);
   req.user = undefined;
 
   res.json({ message: "Logged out successfully" });

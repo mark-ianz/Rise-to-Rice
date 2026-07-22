@@ -4,7 +4,7 @@ import { RowDataPacket } from "mysql2";
 import { PoolConnection } from "mysql2/promise";
 import { ReqUser, Role } from "../types/account_info.types";
 import { generateAuthToken, generateRefreshToken } from "./jwt";
-import { setCookie } from "./cookie";
+import { clearAuthCookies, setCookie } from "./cookie";
 
 const REFRESH_TOKEN_MAX_AGE = Number(process.env.REFRESH_TOKEN_COOKIE_MAX_AGE) || 1000 * 60 * 60 * 24 * 7;
 const REFRESH_TOKEN_INTERVAL = process.env.REFRESH_TOKEN_SQL_INTERVAL || "7 DAY";
@@ -47,7 +47,7 @@ export async function getUserWithRefreshToken(req: Request, res: Response) {
     // if no user found with the refresh token, throw error
     if (result.length <= 0) {
       await connection.rollback();
-      res.clearCookie("refreshToken");
+      clearAuthCookies(res);
       return null;
     }
 
@@ -77,7 +77,7 @@ export async function getUserWithRefreshToken(req: Request, res: Response) {
         refreshToken,
       ]);
       await connection.commit();
-      res.clearCookie("refreshToken");
+      clearAuthCookies(res);
       return null;
     } else {
       // Just update the expiration time in the database for the current refresh token

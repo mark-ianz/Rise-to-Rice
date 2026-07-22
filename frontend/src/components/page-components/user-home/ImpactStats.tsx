@@ -40,6 +40,7 @@ function StatCard({
   subtext: string;
   description: string;
 }) {
+  const { t } = useTranslation("user_home");
   return (
     <div className="bg-warm-cream rounded-xl p-5 border border-warm-tan/15 hover:shadow-md transition-all duration-200 flex flex-col gap-3 group relative">
       <div className="flex items-start justify-between">

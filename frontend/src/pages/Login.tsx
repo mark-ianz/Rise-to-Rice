@@ -13,7 +13,7 @@ import { formatZodErrors } from "@/lib/format";
 import axios from "axios";
 import { FormEvent, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
 import { ZodError } from "zod";
 
@@ -24,6 +24,7 @@ export default function Login() {
   const [error, setError] = useState<string[] | null>(null);
   const navigate = useNavigate();
   const { t: form } = useTranslation("form");
+  const { t } = useTranslation("login");
 
   const { mutate, isPending } = useLogin();
 
@@ -63,28 +64,15 @@ export default function Login() {
     );
   };
 
-  const loginFeatures = [
-    {
-      title: "Track Your Impact",
-      description: "Monitor your recycling progress and see the real-world difference you're making.",
-    },
-    {
-      title: "Earn Exclusive Rewards",
-      description: "Accumulate points for every contribution and redeem them for exciting perks.",
-    },
-    {
-      title: "Join the Community",
-      description: "Connect with like-minded individuals dedicated to sustainability and a cleaner future.",
-    },
-  ];
+  const loginFeatures = t("hero.features", { returnObjects: true }) as { title: string; description: string }[];
 
   return (
     <AuthPageLayout id="login">
       <Helmet>
-        <title>Login | Rise to Rice</title>
+        <title>{t("meta.title")}</title>
         <meta
           name="description"
-          content="Log in to your Rise to Rice account and access your rewards and profile."
+          content={t("meta.description")}
         />
         <meta name="robots" content="noindex, nofollow" />
         <link rel="canonical" href="https://risetorice.com/login" />
@@ -95,11 +83,13 @@ export default function Login() {
           <AuthHeroPanel
             title={
               <>
-                Connecting You to a<br />
-                Greener Future
+                <Trans t={t} i18nKey="hero.title">
+                  Connecting You to a<br />
+                  Greener Future
+                </Trans>
               </>
             }
-            description="Discover a platform designed to help you contribute, collaborate, and grow your sustainable impact."
+            description={t("hero.description")}
             features={loginFeatures}
           />
         }
@@ -116,10 +106,10 @@ export default function Login() {
           >
             <div className="space-y-2">
               <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-                Welcome back!
+                {t("title")}
               </h1>
               <p className="text-base text-gray-500 font-medium">
-                Enter your credentials to securely access your account.
+                {t("subtitle")}
               </p>
             </div>
 
@@ -133,7 +123,7 @@ export default function Login() {
                   autoComplete="email"
                   labelClassname={authLabelClassName}
                   inputClassName={authFieldClassName}
-                  placeholder="Enter your email"
+                  placeholder={t("placeholder.email")}
                 />
                 <div className="space-y-2">
                   <PasswordInput
@@ -144,14 +134,14 @@ export default function Login() {
                     labelClassName={authLabelClassName}
                     inputClassName={authFieldClassName}
                     toggleButtonClassName="right-2 h-9 w-9 text-gray-400 hover:text-gray-600 transition-colors"
-                    placeholder="Password"
+                    placeholder={t("placeholder.password")}
                   />
                   <div className="flex justify-end">
                     <Link
                       to={"/forgot-password"}
                       className="text-sm font-semibold text-primary-main hover:text-primary-dark transition-colors"
                     >
-                      Forgot password?
+                      {t("links.forgot_password")}
                     </Link>
                   </div>
                 </div>
@@ -169,14 +159,14 @@ export default function Login() {
                   variant={"default"}
                   type="submit"
                 >
-                  {isPending ? <LoadingComponent /> : "Login Now"}
+                  {isPending ? <LoadingComponent /> : t("button.login")}
                 </Button>
 
                 <Link
                   to={"/register"}
                   className="text-sm text-primary-main hover:text-primary-dark transition-colors"
                 >
-                  Don't have an account?
+                  {t("links.register_prompt")}
                 </Link>
               </div>
             </div>

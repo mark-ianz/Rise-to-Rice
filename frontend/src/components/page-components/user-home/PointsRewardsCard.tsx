@@ -10,8 +10,10 @@ import useUserContext from "@/hooks/useUserContext";
 import { useGetUserActivity } from "@/hooks/query/useUserActivity";
 import { Badge } from "@/components/ui/badge";
 import { capitalizeWordStart } from "@/lib/format";
+import { useTranslation } from "react-i18next";
 
 export default function PointsRewardsCard() {
+  const { t } = useTranslation("user_home");
   const { state } = useUserContext();
 
   const { data: points, isLoading: pointsLoading } = useQuery({
@@ -43,7 +45,7 @@ export default function PointsRewardsCard() {
             <Coins size={20} />
           </div>
           <span className="text-xs font-bold text-[#2D5A27]/70 uppercase tracking-widest leading-none">
-            Points Balance
+            {t("points_balance")}
           </span>
         </div>
         {pointsLoading ? (
@@ -55,14 +57,14 @@ export default function PointsRewardsCard() {
               0
             )}
             <span className="text-base font-semibold text-secondary-dark/60 ml-1.5">
-              pts
+              {t("pts")}
             </span>
           </p>
         )}
         <Link to="/redeem-rewards" className="mt-4 block">
           <Button className="bg-[#2D5A27] hover:bg-[#1E3B1A] text-white rounded-xl h-10 px-5 text-sm font-medium transition-all w-full cursor-pointer shadow-sm">
             <Gift size={16} className="mr-2" />
-            Redeem Rewards
+            {t("redeem_rewards")}
           </Button>
         </Link>
       </div>
@@ -70,7 +72,7 @@ export default function PointsRewardsCard() {
       {/* Recent Activity */}
       <div className="p-6 flex-1 flex flex-col">
         <h3 className="text-lg font-bold text-secondary-dark tracking-tight mb-4">
-          Recent Activity
+          {t("recent_activity")}
         </h3>
         {historyLoading ? (
           <div className="flex flex-col gap-3">
@@ -103,7 +105,7 @@ export default function PointsRewardsCard() {
                       {isExchange ? activity.material_name : activity.reward_name}
                     </span>
                     <span className="text-[10px] text-secondary-dark/40 uppercase tracking-tight">
-                      {isExchange ? "Exchange" : "Redeem"}
+                      {t(isExchange ? "exchange" : "redeem")}
                     </span>
                   </div>
                   <div className="flex flex-col items-end gap-1">
@@ -130,10 +132,10 @@ export default function PointsRewardsCard() {
               className="text-secondary-dark/15 mb-2"
             />
             <p className="text-sm text-secondary-dark/40">
-              No activity yet
+              {t("no_activity_yet")}
             </p>
             <p className="text-xs text-secondary-dark/30">
-              Exchange recyclables to earn points!
+              {t("no_activity_sub")}
             </p>
           </div>
         )}
@@ -141,7 +143,7 @@ export default function PointsRewardsCard() {
           to="/activity-history"
           className="inline-flex items-center gap-1.5 text-primary-main text-sm font-medium hover:underline mt-4 group"
         >
-          View full history
+          {t("view_full_history")}
           <ArrowRight
             size={14}
             className="transition-transform group-hover:translate-x-0.5"

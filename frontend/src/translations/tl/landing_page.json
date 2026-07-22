@@ -1,12 +1,21 @@
 {
   "hero": {
+    "badge": "Proseso",
     "title": "Basura para sa bigas at suportahan ang mas maunlad na komunidad",
     "subtext": "Maligayang pagdating sa Rise to Rice, isang inisyatiba na hinimok ng komunidad na ginagawang isang mahalagang mapagkukunan upang suportahan ang pagpapanatili at mga lokal na komunidad. Sa pamamagitan ng muling paggamit ng basura, binabawasan natin ang epekto sa kapaligiran at lumilikha tayo ng mga pagkakataon para sa mas luntiang kinabukasan.",
     "button": {
       "profile": "Sariling Impormasyon",
       "get_started": "Mag Simula",
       "how_does_it_work": "Paano Ito Gumagana?"
-    }
+    },
+    "how_title": "Paano ito <1>gumagana?</1>",
+    "how_description": "Mula sa iyong mga recyclable hanggang sa bigas sa iyong mesa - apat na simpleng hakbang lamang ang kailangan.",
+    "stat_households": "Mga Kabahayan",
+    "stat_collected": "Nakolekta",
+    "stat_co2": "CO2 Nai-save",
+    "image_alt_1": "Mga miyembro ng komunidad na nakikilahok",
+    "image_alt_2": "Pagtitimbang ng mga recyclable",
+    "image_alt_3": "Pag-redeem ng mga gantimpala"
   },
   "how_does_it_work": {
     "title": "Paano ito gumagana?",
@@ -31,6 +40,7 @@
   },
   "latest_announcements": {
     "title": "Mga Pinakabagong Anunsyo",
+    "subtitle": "Mga balita at update mula sa aming komunidad",
     "view_more": "Tingnan Pa",
     "no_recent_announcements": "Walang panibagong anunsyo",
     "read_more": "Magbasa Pa"

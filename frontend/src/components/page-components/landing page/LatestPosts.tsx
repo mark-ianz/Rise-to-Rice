@@ -58,7 +58,7 @@ export default function LatestPosts() {
                 variants={fadeUpVariants}
                 className="text-secondary-dark/50 text-sm mt-1"
               >
-                News and updates from our community
+                {t("latest_announcements.subtitle")}
               </motion.p>
             </div>
           </div>

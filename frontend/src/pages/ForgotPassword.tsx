@@ -38,15 +38,16 @@ export default function ForgotPassword() {
   const [section, setSection] = useState<Sections>("first");
   const [email, setEmail] = useState<string>("");
   const [resetToken, setResetToken] = useState<string>("");
+  const { t } = useTranslation("forgot_password");
 
   if (section === "first") {
     return (
       <>
         <Helmet>
-          <title>Forgot Password - Rise to Rice</title>
+          <title>{t("meta.title")}</title>
           <meta
             name="description"
-            content="Reset your Rise to Rice account password. Enter your email to receive a confirmation code."
+            content={t("meta.description")}
           />
           <link rel="canonical" href="https://risetorice.com/forgot-password" />
         </Helmet>
@@ -64,17 +65,17 @@ export default function ForgotPassword() {
     return (
       <>
         <Helmet>
-          <title>Forgot Password - Rise to Rice</title>
+          <title>{t("meta.title")}</title>
           <meta
             name="description"
-            content="Reset your Rise to Rice account password. Enter your email to receive a confirmation code."
+            content={t("meta.description")}
           />
           <link rel="canonical" href="https://risetorice.com/forgot-password" />
 
-          <meta property="og:title" content="Forgot Password — Rise to Rice" />
+          <meta property="og:title" content={t("meta.og_title")} />
           <meta
             property="og:description"
-            content="Having trouble signing in? Reset your password easily."
+            content={t("meta.og_description")}
           />
           <meta
             property="og:url"
@@ -99,10 +100,10 @@ export default function ForgotPassword() {
     return (
       <>
         <Helmet>
-          <title>Forgot Password - Rise to Rice</title>
+          <title>{t("meta.title")}</title>
           <meta
             name="description"
-            content="Reset your Rise to Rice account password. Enter your email to receive a confirmation code."
+            content={t("meta.description")}
           />
           <link rel="canonical" href="https://risetorice.com/forgot-password" />
         </Helmet>
@@ -132,7 +133,7 @@ function FirstSection({
     if (isPending) return;
 
     if (!email) {
-      setError(["Email is required"]);
+      setError([t("error_email_required")]);
       return;
     }
 
@@ -172,7 +173,7 @@ function FirstSection({
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             name="email"
-            placeholder="Email address"
+            placeholder={t("placeholder_email")}
           />
           <ZodErrorDisplay error={error} />
         </span>
@@ -346,6 +347,7 @@ function ResetPassword({
   const navigate = useNavigate();
 
   const { t: form } = useTranslation("form");
+  const { t } = useTranslation("forgot_password");
 
   const newPasswordRef = useRef<HTMLInputElement>(null);
   const confirmPasswordRef = useRef<HTMLInputElement>(null);
@@ -385,8 +387,8 @@ function ResetPassword({
                   navigate("/");
                   toast.success(
                     <span className="flex flex-col gap-1">
-                      <span>Password reset successfully.</span>
-                      <span>You are now logged in.</span>
+                      <span>{t("toast_reset_success")}</span>
+                      <span>{t("toast_now_logged_in")}</span>
                     </span>
                   );
                 },
@@ -416,12 +418,12 @@ function ResetPassword({
         className="relative bg-secondary-light p-10 w-full max-w-[500px] flex flex-col items-center gap-4 rounded-lg shadow-md"
       >
         <div className="flex flex-col items-center gap-2">
-          <HeaderText>Reset Password</HeaderText>
-          <p className="text-muted-foreground">Enter your new password below</p>
+          <HeaderText>{t("title_html")}</HeaderText>
+          <p className="text-muted-foreground">{t("subtitle_reset")}</p>
         </div>
         <div className="w-full gap-2 flex flex-col">
           <PasswordInput
-            label="Password"
+            label={t("label_password")}
             name="password"
             ref={newPasswordRef}
           />
@@ -433,7 +435,7 @@ function ResetPassword({
           <ZodErrorDisplay error={error} />
         </div>
         <Button className="w-full" type="submit">
-          Reset
+          {t("button_reset")}
         </Button>
         <GoBackButton />
       </form>

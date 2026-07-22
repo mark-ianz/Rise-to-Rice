@@ -1,6 +1,6 @@
 {
   "more_information": "Karagdagang Impormasyon",
-  "subtext": "Ang Rise to Rice ay isang community-driven na initiative na nagbibigay ng kapangyarihan sa mga barangay citizen na makipagpalitan ng mga recyclable na materyales para sa mga mahahalagang produkto tulad ng bigas. Sama-sama, itinataguyod namin ang pagpapanatili, binabawasan ang basura, at sinusuportahan ang mga lokal na pamilya — isang maliit na aksyon sa bawat pagkakataon.",
+  "subtext": "Ang Rise to Rice ay isang community-driven na initiative na nagbibigay ng kapangyarihan sa mga barangay citizen na makipagpalitan ng mga recyclable na materyales para sa mga mahahalagang produkto tulad ng bigas. Sama-sama, itinataguyod namin ang pagpapanatili, binabawasan ang basura, at sinusuportahan ang mga lokal na pamilya \u2014 isang maliit na aksyon sa bawat pagkakataon.",
   "contact_information": "Impormasyon sa Pakikipag-ugnayan",
   "keep_connected": "Panatilihing Konektado",
   "quick_links": "Mga Mabilisang Link",
@@ -12,5 +12,17 @@
   "announcements": "Mga Anunsyo",
   "home": "Home",
   "login": "Mag-login",
-  "register": "Mag-register"
+  "register": "Mag-rehistro",
+  "profile": "Sariling Impormasyon",
+  "admin_dashboard": "Dashboard ng Admin",
+  "address": "A. Bonifacio St. Bagong Silangan, QC",
+  "phone": "(02) 856-456-47",
+  "email": "barangaybagongsilangan123@gmail.com",
+  "copyright": "\u00a9 {{year}} Rise to Rice. Lahat ng karapatan ay nakalaan.",
+  "developed_by": "Binuo ng",
+  "developer": "SMAQ Solutions",
+  "partner_badge": "Rise to Rice Partner",
+  "barangay_name": "BRGY. BAGONG SILANGAN, QC",
+  "official_title": "Punong Barangay",
+  "official_name": "WILFREDO L. CARA"
 }

@@ -6,8 +6,6 @@ import paper from "@/assets/paper.webp";
 import { useTranslation } from "react-i18next";
 import { Info, CheckCircle2, Lightbulb } from "lucide-react";
 
-const wasteLabels = ["Plastics", "Metal", "Glass", "Paper"];
-
 const containerVariants = {
   hidden: {},
   visible: { transition: { staggerChildren: 0.1, delayChildren: 0.1 } },
@@ -26,6 +24,7 @@ const cardVariants = {
 export default function AcceptedWastesLeft() {
   const wasteImages = [plastics, metal, glass, paper];
   const { t } = useTranslation("education_and_awareness");
+  const wasteLabels = t("categories", { returnObjects: true }) as string[];
 
   return (
     <div className="flex flex-col gap-8">
@@ -73,7 +72,7 @@ export default function AcceptedWastesLeft() {
             <CheckCircle2 size={20} className="text-emerald-600" />
           </div>
           <div>
-            <h4 className="text-sm font-black text-secondary-dark mb-1 tracking-tight">Clean & Dry</h4>
+            <h4 className="text-sm font-black text-secondary-dark mb-1 tracking-tight">{t("tips.clean_dry")}</h4>
             <p className="text-[11px] text-secondary-dark/50 leading-relaxed font-medium">
               {t("left.content_1")}
             </p>
@@ -88,7 +87,7 @@ export default function AcceptedWastesLeft() {
             <Info size={20} className="text-blue-600" />
           </div>
           <div>
-            <h4 className="text-sm font-black text-secondary-dark mb-1 tracking-tight">Sorting Matters</h4>
+            <h4 className="text-sm font-black text-secondary-dark mb-1 tracking-tight">{t("tips.sorting_matters")}</h4>
             <p className="text-[11px] text-secondary-dark/50 leading-relaxed font-medium">
               {t("left.content_2")}
             </p>
@@ -101,7 +100,7 @@ export default function AcceptedWastesLeft() {
         >
           <Lightbulb size={16} className="text-primary-main shrink-0 mt-0.5 animate-pulse" />
           <p className="text-[11px] text-secondary-dark/70 leading-relaxed italic font-bold">
-            "Sorting your materials beforehand significantly speeds up your visit and ensures accurate weighing!"
+            {t("tips.quote")}
           </p>
         </motion.div>
       </motion.div>

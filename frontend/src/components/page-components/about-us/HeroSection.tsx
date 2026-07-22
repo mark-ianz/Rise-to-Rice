@@ -41,7 +41,7 @@ export default function HeroSection() {
             variants={fadeUpVariants}
             className="text-primary-main text-sm font-semibold uppercase tracking-wider"
           >
-            About Us
+            {t("hero.badge")}
           </motion.span>
           <motion.h1
             variants={fadeUpVariants}
@@ -80,9 +80,7 @@ export default function HeroSection() {
                 <img
                   loading="lazy"
                   src={image}
-                  alt={`Image #${
-                    index + 1
-                  } of barangay workers doing their duty on rise to rice program`}
+                  alt={t("hero.image_alt", { index: index + 1 })}
                   className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
                 />
               </ViewImage>

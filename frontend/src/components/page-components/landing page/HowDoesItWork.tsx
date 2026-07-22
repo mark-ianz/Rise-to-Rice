@@ -1,10 +1,10 @@
 import { motion } from "framer-motion";
+import { Trans, useTranslation } from "react-i18next";
 import SectionWrapper from "@/components/general/SectionWrapper";
 import segregate_icon from "@/assets/segregate-icon.png";
 import exchange_icon from "@/assets/exchange-icon.png";
 import redeem_points_icon from "@/assets/redeem-points-icon.png";
 import recycle_icon from "@/assets/recycle-icon.png";
-import { useTranslation } from "react-i18next";
 import { ArrowRight } from "lucide-react";
 
 const icons = [segregate_icon, exchange_icon, redeem_points_icon, recycle_icon];
@@ -56,20 +56,22 @@ export default function HowDoesItWork() {
             variants={fadeUpVariants}
             className="inline-flex items-center gap-2 px-3 py-1 bg-primary-main/30 text-primary-main-light text-[10px] font-bold uppercase tracking-[0.3em] rounded-full mb-4 border border-primary-main/20 w-fit"
           >
-            Process
+            {t("hero.badge")}
           </motion.div>
           <div className="flex justify-between items-end max-lg:flex-col max-lg:items-start max-lg:gap-4">
             <motion.h2
               variants={fadeUpVariants}
               className="text-5xl max-lg:text-4xl max-md:text-3xl font-bold text-white tracking-tight leading-none"
             >
-              How does it <span className="text-primary-main-light">work?</span>
+              <Trans t={t} i18nKey="hero.how_title">
+                How does it <span className="text-primary-main-light">work?</span>
+              </Trans>
             </motion.h2>
             <motion.p
               variants={fadeUpVariants}
               className="text-white/40 max-w-[340px] text-base leading-relaxed max-lg:max-w-none border-l-2 border-primary-main/20 pl-6"
             >
-              From your recyclables to rice on your table - it only takes four simple steps.
+              {t("hero.how_description")}
             </motion.p>
           </div>
         </motion.div>

@@ -46,13 +46,13 @@ export default function MissionVision() {
             variants={fadeUpVariants}
             className="text-primary-main text-sm font-semibold uppercase tracking-wider"
           >
-            Our Purpose
+            {t("purpose.badge")}
           </motion.span>
           <motion.h2
             variants={fadeUpVariants}
             className="mt-3 text-4xl max-lg:text-3xl max-md:text-2xl font-bold text-secondary-dark"
           >
-            Mission & Vision
+            {t("purpose.title")}
           </motion.h2>
         </motion.div>
 

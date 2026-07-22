@@ -1,11 +1,25 @@
 {
   "accepted_wastes": {
+    "badge": "Material Guide",
     "title": "Accepted Wastes",
-    "date": "as of {{date}}"
+    "subtitle": "Everything we accept at our facility, sorted by category and recycling value.",
+    "date": "as of {{date}}",
+    "measurement_unit": "Measurement Unit",
+    "live_pricing": "Live Pricing: {{date}}",
+    "price_list": "Price List",
+    "points_per": "Points / {{unit}}",
+    "inquire_text": "Missing a material? Reach out for custom pricing or bulk programs.",
+    "inquire_button": "Inquire"
+  },
+  "categories": ["Plastics", "Metal", "Glass", "Paper"],
+  "tips": {
+    "clean_dry": "Clean & Dry",
+    "sorting_matters": "Sorting Matters",
+    "quote": "\u201cSorting your materials beforehand significantly speeds up your visit and ensures accurate weighing!\u201d"
   },
   "left": {
     "content_1": "At Rise to Rice, we focus on making a real difference in both the environment and our community. To ensure that our recycling efforts are effective, we only accept materials that can be properly processed and converted into resources.",
-    "content_2": "By recycling the accepted materials, you’re not just cleaning up your environment—you’re also contributing to a more sustainable future while supporting local communities in need."
+    "content_2": "By recycling the accepted materials, you\u2019re not just cleaning up your environment\u2014you\u2019re also contributing to a more sustainable future while supporting local communities in need."
   },
   "right": {
     "items_we_accept": "Accepted Wastes",
@@ -37,6 +51,7 @@
     }
   },
   "matters": {
+    "badge": "Why It Matters",
     "title": "Why Waste Segregation Matters?",
     "description": " Improper waste disposal can have serious consequences for the environment. When recyclables like plastics, metals, and paper end up in landfills, they contribute to pollution, waste accumulation, and increased greenhouse gas emissions. Non-recyclable materials can also leach harmful chemicals into the soil and water, affecting ecosystems.",
     "list": {
@@ -58,8 +73,9 @@
     }
   },
   "benefits": {
+    "badge": "Your Rewards",
     "title": "Benefits of Recycling",
-    "description": "Recycling isn't just good for the environment—it's good for the entire community! When we recycle, we create a positive ripple effect that benefits everyone.",
+    "description": "Recycling isn't just good for the environment\u2014it's good for the entire community! When we recycle, we create a positive ripple effect that benefits everyone.",
     "list": [
       {
         "title": "Cleaner Streets and Neighborhoods",
@@ -82,5 +98,8 @@
         "description": "Recycling initiatives, like Rise to Rice, promote awareness and education, helping people understand the importance of waste management and how their actions can lead to lasting environmental changes."
       }
     ]
+  },
+  "items_we_dont_accept": {
+    "eg_label": "e.g"
   }
 }

@@ -48,7 +48,7 @@ export default function Matters() {
           className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-main/10 border border-primary-main/20 text-primary-main text-[10px] font-black uppercase tracking-widest mb-6"
         >
           <ShieldAlert size={12} />
-          <span>Why It Matters</span>
+          <span>{t("matters.badge")}</span>
         </motion.div>
         
         <motion.h3

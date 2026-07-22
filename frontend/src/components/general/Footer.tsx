@@ -35,10 +35,10 @@ export default function Footer() {
                 <BarangaySilanganLogo />
                 <div className="text-xs text-left">
                   <p className="text-white/40 uppercase tracking-widest font-bold text-[9px]">
-                    Rise to Rice Partner
+                    {t("partner_badge")}
                   </p>
                   <p className="text-white font-extrabold tracking-tight">
-                    BRGY. BAGONG SILANGAN, QC
+                    {t("barangay_name")}
                   </p>
                 </div>
               </div>
@@ -46,10 +46,10 @@ export default function Footer() {
                 <BazerowLogo />
                 <div className="text-xs text-left">
                   <p className="text-white/40 uppercase tracking-widest font-bold text-[9px]">
-                    Punong Barangay
+                    {t("official_title")}
                   </p>
                   <p className="text-white font-extrabold tracking-tight">
-                    WILFREDO L. CARA
+                    {t("official_name")}
                   </p>
                 </div>
               </div>
@@ -135,7 +135,7 @@ export default function Footer() {
                       className="text-sm hover:text-white hover:translate-x-1 transition-all duration-200 inline-flex items-center gap-2 group"
                     >
                       <span className="w-1.5 h-1.5 rounded-full bg-white/15 group-hover:bg-primary-main-light transition-colors" />
-                      <span>Profile</span>
+                      <span>{t("profile")}</span>
                     </Link>
                   </li>
                   {isAdmin && (
@@ -145,7 +145,7 @@ export default function Footer() {
                         className="text-sm hover:text-white hover:translate-x-1 transition-all duration-200 inline-flex items-center gap-2 group"
                       >
                         <span className="w-1.5 h-1.5 rounded-full bg-white/15 group-hover:bg-primary-main-light transition-colors" />
-                        <span className="text-primary-main-light font-semibold">Admin Dashboard</span>
+                        <span className="text-primary-main-light font-semibold">{t("admin_dashboard")}</span>
                       </Link>
                     </li>
                   )}
@@ -190,7 +190,7 @@ export default function Footer() {
                 >
                   <MapPin size={16} className="mt-0.5 text-primary-main-light shrink-0 transition-transform group-hover:scale-110" />
                   <span className="text-sm leading-tight text-white/60 group-hover:text-white">
-                    A. Bonifacio St. Bagong Silangan, QC
+                    {t("address")}
                   </span>
                 </a>
               </li>
@@ -201,7 +201,7 @@ export default function Footer() {
                 >
                   <Phone size={16} className="text-primary-main-light shrink-0 transition-transform group-hover:scale-110" />
                   <span className="text-sm text-white/60 group-hover:text-white">
-                    (02) 856-456-47
+                    {t("phone")}
                   </span>
                 </a>
               </li>
@@ -212,7 +212,7 @@ export default function Footer() {
                 >
                   <Mail size={16} className="mt-0.5 text-primary-main-light shrink-0 transition-transform group-hover:scale-110" />
                   <span className="text-sm break-all text-white/60 group-hover:text-white leading-none">
-                    barangaybagongsilangan123@gmail.com
+                    {t("email")}
                   </span>
                 </a>
               </li>
@@ -239,12 +239,12 @@ export default function Footer() {
         <div className="max-w-screen-xl mx-auto px-20 max-lg:px-10 max-sm:px-6 py-6">
           <div className="flex items-center justify-between gap-4 text-xs text-white/40 max-sm:flex-col max-sm:text-center">
             <span>
-              © {new Date().getFullYear()} Rise to Rice. All rights reserved.
+              {t("copyright", { year: new Date().getFullYear() })}
             </span>
             <span className="tracking-wide">
-              Developed by{" "}
+              {t("developed_by")}{" "}
               <span className="text-white/60 font-semibold hover:text-primary-main-light transition-colors cursor-default">
-                SMAQ Solutions
+                {t("developer")}
               </span>
             </span>
           </div>

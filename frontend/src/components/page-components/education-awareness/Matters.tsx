@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { Leaf, Droplets, TreePine, ShieldAlert } from "lucide-react";
 
@@ -8,6 +9,21 @@ type SegregatingHelps = {
 
 const icons = [Leaf, Droplets, TreePine];
 
+const containerVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.12, delayChildren: 0.15 } },
+};
+
+const fadeUpVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] } },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 50, scale: 0.9 },
+  visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] } },
+};
+
 export default function Matters() {
   const { t } = useTranslation("education_and_awareness");
 
@@ -17,29 +33,52 @@ export default function Matters() {
 
   return (
     <div className="flex flex-col w-full">
-      {/* Header Section */}
-      <div className="flex flex-col items-center text-center max-w-3xl mx-auto mb-16 max-md:mb-10">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-main/10 border border-primary-main/20 text-primary-main text-[10px] font-black uppercase tracking-widest mb-6">
+      <motion.div
+        className="flex flex-col items-center text-center max-w-3xl mx-auto mb-16 max-md:mb-10"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-50px" }}
+        variants={{
+          hidden: {},
+          visible: { transition: { staggerChildren: 0.15, delayChildren: 0.1 } },
+        }}
+      >
+        <motion.div
+          variants={fadeUpVariants}
+          className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-main/10 border border-primary-main/20 text-primary-main text-[10px] font-black uppercase tracking-widest mb-6"
+        >
           <ShieldAlert size={12} />
           <span>Why It Matters</span>
-        </div>
+        </motion.div>
         
-        <h3 className="text-5xl max-lg:text-4xl max-md:text-3xl font-black text-secondary-dark tracking-tight leading-tight mb-6">
+        <motion.h3
+          variants={fadeUpVariants}
+          className="text-5xl max-lg:text-4xl max-md:text-3xl font-black text-secondary-dark tracking-tight leading-tight mb-6"
+        >
           {t("matters.title")}
-        </h3>
+        </motion.h3>
         
-        <p className="leading-relaxed text-secondary-dark/60 font-medium text-base max-md:text-sm">
+        <motion.p
+          variants={fadeUpVariants}
+          className="leading-relaxed text-secondary-dark/60 font-medium text-base max-md:text-sm"
+        >
           {t("matters.description")}
-        </p>
-      </div>
+        </motion.p>
+      </motion.div>
       
-      {/* 3-Column Grid for Items */}
-      <ul className="grid grid-cols-3 max-lg:grid-cols-3 max-md:grid-cols-1 gap-6">
+      <motion.ul
+        className="grid grid-cols-3 max-lg:grid-cols-3 max-md:grid-cols-1 gap-6"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-50px" }}
+        variants={containerVariants}
+      >
         {segregating_helps.map((help, index) => {
           const Icon = icons[index % icons.length];
           return (
-            <li 
-              key={index} 
+            <motion.li
+              key={index}
+              variants={cardVariants}
               className="group flex flex-col items-center text-center bg-white p-8 rounded-[32px] border border-warm-tan/20 shadow-sm hover:shadow-xl hover:-translate-y-2 hover:border-primary-main/30 transition-all duration-500"
             >
               <div className="w-16 h-16 rounded-2xl bg-warm-cream border border-warm-tan/10 flex items-center justify-center shrink-0 mb-6 group-hover:bg-primary-main group-hover:scale-110 group-hover:shadow-[0_8px_20px_rgba(45,90,39,0.3)] transition-all duration-500">
@@ -53,10 +92,10 @@ export default function Matters() {
                   {help.description}
                 </p>
               </div>
-            </li>
+            </motion.li>
           );
         })}
-      </ul>
+      </motion.ul>
     </div>
   );
 }

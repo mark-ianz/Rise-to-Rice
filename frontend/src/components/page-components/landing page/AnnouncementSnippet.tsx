@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { Announcement } from "@/types/announcements";
 import { ArrowUpRight, Calendar } from "lucide-react";
 import { useTranslation } from "react-i18next";
@@ -9,11 +10,16 @@ type Props = {
   announcement: Announcement;
 };
 
+const cardVariants = {
+  hidden: { opacity: 0, y: 40, scale: 0.95 },
+  visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] } },
+};
+
 export default function AnnouncementSnippet({ announcement }: Props) {
   const { t } = useTranslation("landing_page");
 
   return (
-    <li className="group">
+    <motion.li className="group" variants={cardVariants}>
       <Link
         to={getAnnouncementUrl(announcement)}
         className="flex flex-col bg-warm-beige/50 rounded-2xl overflow-hidden transition-all duration-300 hover:bg-warm-beige h-full border border-transparent hover:border-warm-tan/30"
@@ -49,6 +55,6 @@ export default function AnnouncementSnippet({ announcement }: Props) {
           </span>
         </div>
       </Link>
-    </li>
+    </motion.li>
   );
 }

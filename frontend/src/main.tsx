@@ -19,6 +19,7 @@ import { HelmetProvider } from "react-helmet-async";
 import axios from "axios";
 import i18next from "i18next";
 
+axios.defaults.baseURL = import.meta.env.VITE_API_URL;
 axios.defaults.withCredentials = true;
 
 axios.interceptors.request.use((config) => {

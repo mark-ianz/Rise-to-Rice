@@ -181,7 +181,7 @@ export default function Announcements() {
             <PostAnnouncementButton />
 
             {/* Search + Sort Row */}
-            <div className="flex items-center gap-3 w-full animate-[fadeSlideUp_0.3s_ease-out]">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full animate-[fadeSlideUp_0.3s_ease-out]">
               <div className="relative flex-1">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                 <input

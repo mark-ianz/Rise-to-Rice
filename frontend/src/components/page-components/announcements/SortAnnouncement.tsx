@@ -24,11 +24,11 @@ export default function SortAnnouncement() {
   ];
 
   return (
-    <div className="flex items-center gap-1 shrink-0">
+    <div className="flex items-center gap-1 sm:shrink-0 w-full sm:w-auto">
       <span className="text-[11px] font-semibold text-slate-400 mr-1 hidden sm:inline-block">
         Sort:
       </span>
-      <div className="flex items-center gap-0.5 bg-slate-100/70 p-0.5 rounded-lg">
+      <div className="flex items-center gap-0.5 bg-slate-100/70 p-0.5 rounded-lg sm:w-full w-fit justify-start">
         {options.map((option) => {
           const isActive = currentSort === option.value;
           return (

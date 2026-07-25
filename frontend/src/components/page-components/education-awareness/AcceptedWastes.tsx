@@ -137,8 +137,8 @@ export default function AcceptedWastes() {
               <AcceptedWastesRight unit={unit} />
 
               <div className="mt-10 p-6 rounded-2xl bg-white border border-warm-tan/30 shadow-md relative z-10 transition-transform hover:translate-y-[-2px]">
-                <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-secondary-dark/5 flex items-center justify-center shrink-0">
+                <div className="flex items-center gap-4 max-sm:flex-col max-sm:text-center">
+                  <div className="w-10 h-10 rounded-xl bg-secondary-dark/5 flex items-center justify-center shrink-0 max-sm:self-center">
                     <MessageCircle size={20} className="text-secondary-dark/40" />
                   </div>
                   <div className="flex-1">
@@ -146,7 +146,7 @@ export default function AcceptedWastes() {
                       {t("accepted_wastes.inquire_text")}
                     </p>
                   </div>
-                  <button className="text-xs font-black text-primary-main uppercase tracking-widest hover:underline px-4 py-2 bg-primary-main/5 rounded-lg border border-primary-main/10">
+                  <button className="text-xs font-black text-primary-main uppercase tracking-widest hover:underline px-4 py-2 bg-primary-main/5 rounded-lg border border-primary-main/10 w-full sm:w-auto">
                     {t("accepted_wastes.inquire_button")}
                   </button>
                 </div>
